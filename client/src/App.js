@@ -1,12 +1,11 @@
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import ProductList from "./ProductList";
-import SideBar from "./SideBar";
-import {Col, Container, Row} from "react-bootstrap";
-import ClientList from './ClientList';
+import ProductList from "./Components/ProductList";
+import {Container} from "react-bootstrap";
+import ClientList from './Components/ClientList';
 import { useState } from 'react';
-import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
 const fakeClients = [
@@ -15,8 +14,6 @@ const fakeClients = [
     { userId: '3',name: "Mario", surname: "Rossi", email: "m@gmail.com" },
     { userId: '4', name: "Mario", surname: "Rossi", email: "m@gmail.com" },
   ];
-
-
 
 function App() {
     const [clients, setClients] = useState([...fakeClients]);

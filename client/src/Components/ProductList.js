@@ -1,6 +1,6 @@
-import logo from './logo.svg';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Card, CardGroup, Col, Container, Row} from "react-bootstrap";
+import {CardGroup, Col, Container, Row} from "react-bootstrap";
 import Product from "./Product";
 import SideBar from "./SideBar";
 

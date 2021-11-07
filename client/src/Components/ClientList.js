@@ -1,7 +1,7 @@
-import logo from './logo.svg';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Card, CardGroup, Table } from "react-bootstrap";
-import Product from "./Product";
+import { Button, Table } from "react-bootstrap";
+
 
 function Client(props) {
     return (

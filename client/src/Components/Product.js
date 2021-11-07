@@ -1,12 +1,7 @@
-import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import ProductList from "./ProductList";
-import SideBar from "./SideBar";
-import {Button, Card, Col, Container, Row} from "react-bootstrap";
-import mainLogo from "./cipolle-dorate-bio.jpg";
-
-
+import '../App.css';
+import {Button, Card} from "react-bootstrap";
+import mainLogo from "../cipolle-dorate-bio.jpg";
 
 function Product() {
     return (

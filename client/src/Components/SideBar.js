@@ -1,11 +1,8 @@
-import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
-import {ListGroup, Nav} from "react-bootstrap";
+import '../App.css';
+import {Nav} from "react-bootstrap";
 
-function alertClicked() {
-    alert('You clicked the third ListGroupItem');
-}
+
 
 function SideBar() {
 
