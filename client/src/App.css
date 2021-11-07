@@ -33,6 +33,14 @@
   
 }
 
+.button{
+  border-radius: 60%;
+  z-index: 1030;
+ 
+  margin: 1 1.5rem 1.5rem 0;
+
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

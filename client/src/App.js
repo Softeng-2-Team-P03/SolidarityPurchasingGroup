@@ -5,6 +5,7 @@ import ProductList from "./Components/ProductList";
 import {Container} from "react-bootstrap";
 import ClientList from './Components/ClientList';
 import { useState } from 'react';
+import NavBar from './Components/NavBar';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 
@@ -18,6 +19,8 @@ const fakeClients = [
 function App() {
     const [clients, setClients] = useState([...fakeClients]);
   return (
+      <>
+      <NavBar/>
     <Router>
     <Container>
       <Switch>
@@ -32,7 +35,7 @@ function App() {
       </Switch>
     </Container>
   </Router>
-    
+    </>
 
   );
 }
