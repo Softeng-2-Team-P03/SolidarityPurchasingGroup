@@ -61,7 +61,9 @@ Provide a short description for API with the required parameters, follow the pro
 - Table `PRODUCTS` - contains 
 - Table `BOOKED_PRODUCTS` - contains 
 - Table `CANDIDATES` - contains 
+- Table `PRODUCT_TYPE` - contains 
+- Table `PRODUCT_IMAGES` - contains
 
 ### Database Structure
 
-<img src="/assets/DBDesign.png" alt="SPGDatabase" style="height: 100px; width:100px;"/>
+<img src="/assets/DBDesign_v4.png" alt="SPGDatabase" style="height: 100px; width:100px;"/>
