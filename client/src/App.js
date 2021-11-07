@@ -10,12 +10,19 @@ import {Col, Container, Row} from "react-bootstrap";
 function App() {
   return (
 
-      <Container>
-          <Row>
-              <Col><SideBar/></Col>
-              <Col><ProductList/></Col>
-          </Row>
-      </Container>
+      <>
+          <Container fluid>
+              <Row>
+                  <Col xs={2} id="sidebar-wrapper">
+                      <SideBar />
+                  </Col>
+                  <Col  xs={10} id="page-content-wrapper">
+                      <ProductList/>
+                  </Col>
+              </Row>
+
+          </Container>
+      </>
 
   );
 }
