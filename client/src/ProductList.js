@@ -1,25 +1,36 @@
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Button, Card, CardGroup} from "react-bootstrap";
+import {Button, Card, CardGroup, Col, Container, Row} from "react-bootstrap";
 import Product from "./Product";
+import SideBar from "./SideBar";
 
 function ProductList() {
     return (
         <>
-        <CardGroup>
-            <Product/>
-            <Product/>
-            <Product/>
-            <Product/>
-            <Product/>
-        </CardGroup>
-            <CardGroup>
-                <Product/>
-                <Product/>
-                <Product/>
-                <Product/>
-                <Product/>
-            </CardGroup>
+            <Container fluid>
+                <Row>
+                    <Col xs={2} id="sidebar-wrapper">
+                        <SideBar />
+                    </Col>
+                    <Col  xs={10} id="page-content-wrapper">
+                        <CardGroup>
+                            <Product/>
+                            <Product/>
+                            <Product/>
+                            <Product/>
+                            <Product/>
+                        </CardGroup>
+                        <CardGroup>
+                            <Product/>
+                            <Product/>
+                            <Product/>
+                            <Product/>
+                            <Product/>
+                        </CardGroup>
+                    </Col>
+                </Row>
+
+            </Container>
         </>
     );
 }

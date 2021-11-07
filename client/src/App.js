@@ -4,6 +4,7 @@ import './App.css';
 import ProductList from "./ProductList";
 import SideBar from "./SideBar";
 import {Col, Container, Row} from "react-bootstrap";
+import ClientList from './ClientList';
 
 
 
@@ -12,14 +13,7 @@ function App() {
 
       <>
           <Container fluid>
-              <Row>
-                  <Col xs={2} id="sidebar-wrapper">
-                      <SideBar />
-                  </Col>
-                  <Col  xs={10} id="page-content-wrapper">
-                      <ProductList/>
-                  </Col>
-              </Row>
+              <ClientList/>
 
           </Container>
       </>
