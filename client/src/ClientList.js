@@ -3,20 +3,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Card, CardGroup, Table } from "react-bootstrap";
 import Product from "./Product";
 
-function Client() {
+function Client(props) {
     return (
         <>
             <tr>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
+                <td>{props.client.name}</td>
+                <td>{props.client.surname}</td>
+                <td>{props.client.email}</td>
                 <td ><Button className="buttonNewOrder" variant ="primary"> new Order </Button></td>
             </tr>
         </>
     );
 }
 
-function ClientList() {
+function ClientList(props) {
     return (
         <>
             <Table responsive striped bordered hover>
@@ -28,8 +28,12 @@ function ClientList() {
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
-                    <Client />
+                <tbody> {
+                  props.clients.map((cl) =>
+                    <Client key={cl.userId}
+                    client = {cl}
+                    />) 
+                }
                 </tbody>
             </Table>
         </>
