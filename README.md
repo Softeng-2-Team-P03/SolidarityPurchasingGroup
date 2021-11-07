@@ -64,4 +64,4 @@ Provide a short description for API with the required parameters, follow the pro
 
 ### Database Structure
 
-<img src="/assets/DBDesign.png" alt="SPGDatabase" style="height: 100px; width:100px;"/>
+<img src="/assets/DBDesign.png" alt="SPGDatabase"/>
