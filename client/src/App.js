@@ -22,18 +22,16 @@ function App() {
       <>
       <NavBar/>
     <Router>
-    <Container>
       <Switch>
         <Route path='/clients' render={() =>
          <ClientList clients={clients} ></ClientList>
         }>
         </Route>
         <Route path="/products" render={() =>
-          <ProductList/> 
+          <ProductList/>
                }>
         </Route>
       </Switch>
-    </Container>
   </Router>
     </>
 

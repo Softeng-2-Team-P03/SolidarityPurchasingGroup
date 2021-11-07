@@ -8,20 +8,15 @@ function SideBar() {
 
 
     return (
-        <Nav className="col-md-12 d-none d-md-block bg-light sidebar"
-             activeKey="/home"
-             onSelect={selectedKey => alert(`selected ${selectedKey}`)}
-        >
-            <div className="sidebar-sticky"></div>
-            <Nav.Item>
-                <Nav.Link href="/home">Frutta</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="link-1">Verdura</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-                <Nav.Link eventKey="link-2">Carne</Nav.Link>
-            </Nav.Item>
+        <Nav  activeKey="home" className="flex-column"
+              onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}  >
+            <Nav.Link className="text-center" eventKey="home">Frutta</Nav.Link>
+            <Nav.Link className="text-center" eventKey="link-1">Verdura</Nav.Link>
+            <Nav.Link className="text-center" eventKey="link-2">Carne</Nav.Link>
+            <Nav.Link className="text-center" eventKey="home">Pesce</Nav.Link>
+            <Nav.Link className="text-center" eventKey="link-1">Pasta</Nav.Link>
+            <Nav.Link className="text-center" eventKey="link-2">Riso</Nav.Link>
+
         </Nav>
     );
 }
