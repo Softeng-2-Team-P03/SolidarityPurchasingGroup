@@ -8,7 +8,7 @@ function SideBar() {
 
 
     return (
-        <ListGroup className="side" defaultActiveKey="#link1">
+        <ListGroup className="side" defaultActiveKey="#link1" className="left">
             <ListGroup.Item action href="title" disabled>
                 <h4>
                     <small className="text-muted">Tipo Prodotti</small>

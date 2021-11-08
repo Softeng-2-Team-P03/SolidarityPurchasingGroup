@@ -1,10 +1,11 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-import {Button, Card} from "react-bootstrap";
+import {Button, Card, Col} from "react-bootstrap";
 import mainLogo from "../cipolle-dorate-bio.jpg";
 
 function Product() {
     return (
+        <Col>
         <Card className="text-center">
             <Card.Img variant="top" src={mainLogo} />
             <Card.Body>
@@ -28,6 +29,7 @@ function Product() {
             <Button  variant="success">Add to basket</Button>{' '}
             </Card.Footer>
         </Card>
+            </Col>
     );
 }
 

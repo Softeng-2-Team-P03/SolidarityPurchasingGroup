@@ -4,37 +4,25 @@ import {CardGroup, Col, Container, Row} from "react-bootstrap";
 import Product from "./Product";
 import SideBar from "./SideBar";
 import NavBar from "../NavBar";
+import {useState} from "react";
 
 function ProductList() {
+    const [products,setProducts]= useState([<Product/>,<Product/>,<Product/>,<Product/>,<Product/>,<Product/>,<Product/>,<Product/>,<Product/>,<Product/>]);
+
+
+
+
     return (
-        <>
-            <Row>
-                <Col xs={4} md={2} >
-                    <SideBar />
-                </Col>
-                <Col xs={8} md={10}>
-
-                    <CardGroup>
-                    <Product/>
-                    <Product/>
-                    <Product/>
-                    <Product/>
-                    <Product/>
-
-                </CardGroup>
-                    <CardGroup>
-                        <Product/>
-                        <Product/>
-                        <Product/>
-                        <Product/>
-                        <Product/>
-                    </CardGroup>
-
-                    </Col>
-
+        <Row >
+        <Col xs={2} md={2}>
+        <SideBar></SideBar>
+         </Col>
+           <Col xs={10} md={10} className="main">
+            <Row xs={2} md={5} className="g-4">
+                        {products}
             </Row>
-
-        </>
+           </Col>
+        </Row>
 
 
     );

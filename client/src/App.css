@@ -59,7 +59,7 @@
   /*height: 100%; /* Full-height: remove this if you want "auto" height */
   /*width: 100%; /* Set the width of the sidebar */
   position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-
+  min-width: 100%;
 
 }
 
@@ -70,6 +70,87 @@
   top: 0;
   z-index: 100;
 
+}
+
+.left {
+  float: left;
+  position: fixed;
+
+}
+
+.main {
+  float: left;
+  width: 80%; /* The width is 60%, by default */
+}
+
+
+.div1 {
+        /* Suppose you want minimum width of 1000px */
+
+}
+
+
+/* Use a media query to add a break point at 800px: */
+@media screen and (max-width: 1000px) {
+    .main {
+    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    padding-top: 35%;
+  }
+}
+
+
+/* Use a media query to add a break point at 800px: */
+@media screen and (max-width: 900px) {
+  .main {
+    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    padding-top: 40%;
+  }
+}
+
+/* Use a media query to add a break point at 800px: */
+@media screen and (max-width: 700px) {
+  .main {
+    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    padding-top: 50%;
+  }
+}
+
+
+/* Use a media query to add a break point at 800px: */
+@media screen and (max-width: 600px) {
+  .main {
+    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    padding-top: 55%;
+  }
+}
+
+/* Use a media query to add a break point at 800px: */
+@media screen and (max-width: 500px) {
+  .main {
+    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    padding-top: 60%;
+  }
+}
+
+
+
+
+
+
+
+
+@media screen and (max-width: 1000px) {
+  .left {
+    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    padding-right: 5%;
+    padding-top: 2%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .left {
+position: absolute;
+  }
 }
 
 

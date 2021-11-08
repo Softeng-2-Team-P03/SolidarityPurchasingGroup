@@ -19,7 +19,7 @@ const fakeClients = [
 function App() {
     const [clients, setClients] = useState([...fakeClients]);
   return (
-      <>
+      <div className="div1">
       <NavBar/>
     <Container fluid>
     <Router>
@@ -35,7 +35,7 @@ function App() {
       </Switch>
   </Router>
     </Container>
-      </>
+      </div>
 
   );
 }
