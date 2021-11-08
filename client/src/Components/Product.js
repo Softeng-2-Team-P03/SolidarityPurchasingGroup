@@ -5,7 +5,7 @@ import mainLogo from "../cipolle-dorate-bio.jpg";
 
 function Product() {
     return (
-        <Card>
+        <Card className="text-center">
             <Card.Img variant="top" src={mainLogo} />
             <Card.Body>
                 <h2>Cipolla</h2>
@@ -23,7 +23,9 @@ function Product() {
                 <Button className ="button" variant="primary">-</Button>{' '}
                 <small className="text"> 0 </small>
                 <Button className ="button" variant="primary">+</Button>{' '}
-                <Button  variant="success">Add</Button>{' '}
+            </Card.Footer>
+            <Card.Footer>
+            <Button  variant="success">Add to basket</Button>{' '}
             </Card.Footer>
         </Card>
     );

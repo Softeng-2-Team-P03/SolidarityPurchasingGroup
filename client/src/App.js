@@ -21,6 +21,7 @@ function App() {
   return (
       <>
       <NavBar/>
+    <Container fluid>
     <Router>
       <Switch>
         <Route path='/clients' render={() =>
@@ -33,7 +34,8 @@ function App() {
         </Route>
       </Switch>
   </Router>
-    </>
+    </Container>
+      </>
 
   );
 }
