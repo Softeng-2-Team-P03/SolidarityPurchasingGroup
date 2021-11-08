@@ -20,7 +20,7 @@ function Product() {
                 <small className="text-muted">0.30 €/kg</small>
             </Card.Footer>
             <Card.Footer>
-                <Button className ="button"variant="primary">-</Button>{' '}
+                <Button className ="button" variant="primary">-</Button>{' '}
                 <small className="text"> 0 </small>
                 <Button className ="button" variant="primary">+</Button>{' '}
                 <Button  variant="success">Add</Button>{' '}

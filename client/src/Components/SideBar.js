@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
-import {Nav} from "react-bootstrap";
+import {ListGroup, Nav} from "react-bootstrap";
 
 
 
@@ -8,16 +8,29 @@ function SideBar() {
 
 
     return (
-        <Nav  activeKey="home" className="flex-column"
-              onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}  >
-            <Nav.Link className="text-center" eventKey="home">Frutta</Nav.Link>
-            <Nav.Link className="text-center" eventKey="link-1">Verdura</Nav.Link>
-            <Nav.Link className="text-center" eventKey="link-2">Carne</Nav.Link>
-            <Nav.Link className="text-center" eventKey="home">Pesce</Nav.Link>
-            <Nav.Link className="text-center" eventKey="link-1">Pasta</Nav.Link>
-            <Nav.Link className="text-center" eventKey="link-2">Riso</Nav.Link>
+        <ListGroup className="side" defaultActiveKey="#link1">
+            <ListGroup.Item action href="title" disabled>
+                <h4>
+                    <small className="text-muted">Tipo Prodotti</small>
+                </h4>
+            </ListGroup.Item>
+            <ListGroup.Item action href="#link1">
+                Frutta
+            </ListGroup.Item>
+            <ListGroup.Item action href="#link2">
+                Verdura
+            </ListGroup.Item>
+            <ListGroup.Item action href="#link3">
+                Carne
+            </ListGroup.Item>
+            <ListGroup.Item action href="#link4">
+                Pesce
+            </ListGroup.Item>
+            <ListGroup.Item action href="#link5">
+                Latticini
+            </ListGroup.Item>
+        </ListGroup>
 
-        </Nav>
     );
 }
 

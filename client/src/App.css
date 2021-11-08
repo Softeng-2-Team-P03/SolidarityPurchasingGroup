@@ -55,4 +55,21 @@
   }
 }
 
+.side{
+  /*height: 100%; /* Full-height: remove this if you want "auto" height */
+  /*width: 100%; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+
+
+}
+
+.nav{
+  margin-bottom: 1%;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+}
+
 

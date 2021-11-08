@@ -7,8 +7,9 @@ import {Container, Navbar} from "react-bootstrap";
 
 function NavBar() {
     return (
-        <Navbar bg="primary" variant="dark">
-            <Container>
+
+        <Navbar className="nav" bg="primary" variant="dark" >
+
     <Navbar.Brand href="#home">
       <img
         src={spg}
@@ -18,8 +19,7 @@ function NavBar() {
         alt="SPG"
       /> SPG
     </Navbar.Brand>
-  </Container>
-          
+
         </Navbar>
     );
 }
