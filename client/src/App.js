@@ -11,9 +11,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 const fakeClients = [
     { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" },
-    { userId: '2',name: "Mario", surname: "Rossi", email: "m@gmail.com" },
-    { userId: '3',name: "Mario", surname: "Rossi", email: "m@gmail.com" },
-    { userId: '4', name: "Mario", surname: "Rossi", email: "m@gmail.com" },
+    { userId: '2',name: "Mario", surname: "Rossi", email: "ma@gmail.com" },
+    { userId: '3',name: "Mario", surname: "Rossi", email: "mb@gmail.com" },
+    { userId: '4', name: "Mario", surname: "Rossi", email: "mc@gmail.com" },
   ];
 
 function App() {

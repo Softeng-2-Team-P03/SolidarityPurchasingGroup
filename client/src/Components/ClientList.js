@@ -1,9 +1,14 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Table } from "react-bootstrap";
+import {Button, Form, Table} from "react-bootstrap";
+import React, { useState} from 'react';
 
 
 function Client(props) {
+
+
+
+
     return (
         <>
             <tr>
@@ -16,9 +21,27 @@ function Client(props) {
     );
 }
 
+
+
 function ClientList(props) {
+
+    const [resultC,setResultC]=useState(props.clients);
+
+    function changeSearchText(text){
+        let c=[]
+        props.clients.forEach(x=>{
+            if(x.email.includes(text)) c.push(x);
+        })
+
+        setResultC(c);
+
+
+    }
+
     return (
         <>
+
+            <Form.Control type="text" className="searchB" placeholder="Search client" onChange={x=>changeSearchText(x.target.value)}/>
             <Table responsive striped bordered hover>
                 <thead>
                     <tr>
@@ -29,7 +52,7 @@ function ClientList(props) {
                     </tr>
                 </thead>
                 <tbody> {
-                  props.clients.map((cl) =>
+                  resultC.map((cl) =>
                     <Client key={cl.userId}
                     client = {cl}
                     />)

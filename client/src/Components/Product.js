@@ -13,10 +13,17 @@ function Product() {
                 <Card.Text>
                     1 pezzo circa 300g
                 </Card.Text>
+
                 <h4>
                     0.10€
                 </h4>
             </Card.Body>
+            <Card.Footer>
+                <h6>5 pezzi rimanenti</h6>
+            </Card.Footer>
+            <Card.Footer>
+                <small className="text-muted">Venduto da Mario Rossi</small>
+            </Card.Footer>
             <Card.Footer>
                 <small className="text-muted">0.30 €/kg</small>
             </Card.Footer>
