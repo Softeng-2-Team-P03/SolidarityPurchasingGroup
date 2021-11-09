@@ -10,7 +10,7 @@ function Client(props) {
                 <td>{props.client.name}</td>
                 <td>{props.client.surname}</td>
                 <td>{props.client.email}</td>
-                <td ><Button className="buttonNewOrder" variant ="primary"> new Order </Button></td>
+                <td ><Button className="buttonNewOrder" variant ="primary"> New Order </Button></td>
             </tr>
         </>
     );
@@ -21,18 +21,18 @@ function ClientList(props) {
         <>
             <Table responsive striped bordered hover>
                 <thead>
-                    <tr>                      
+                    <tr>
                         <th>Name</th>
                         <th>Surname</th>
                         <th>Email</th>
-                        <th></th>
+                        <th width="13%"></th>
                     </tr>
                 </thead>
                 <tbody> {
                   props.clients.map((cl) =>
                     <Client key={cl.userId}
                     client = {cl}
-                    />) 
+                    />)
                 }
                 </tbody>
             </Table>

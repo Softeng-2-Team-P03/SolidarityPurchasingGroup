@@ -90,7 +90,7 @@
 }
 
 
-/* Use a media query to add a break point at 800px: */
+/* Use a media query to add a break point at 1000px: */
 @media screen and (max-width: 1000px) {
     .main {
     width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
@@ -135,10 +135,6 @@
 
 
 
-
-
-
-
 @media screen and (max-width: 1000px) {
   .left {
     width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
@@ -150,6 +146,12 @@
 @media screen and (max-width: 1000px) {
   .left {
 position: absolute;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .left {
+    width: 15%;
   }
 }
 
