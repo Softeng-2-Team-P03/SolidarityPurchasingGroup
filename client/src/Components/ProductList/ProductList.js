@@ -1,9 +1,9 @@
-import '../App.css'
+import './ProductList.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {CardGroup, Col, Container, Row} from "react-bootstrap";
-import Product from "./Product";
-import SideBar from "./SideBar";
-import NavBar from "../NavBar";
+import Product from "../Product/Product";
+import SideBar from "../SideBar";
+import NavBar from "../../NavBar";
 import {useState} from "react";
 
 function ProductList() {

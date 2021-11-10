@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../App.css';
+import './Product.css';
 import {Button, Card, Col} from "react-bootstrap";
-import mainLogo from "../cipolle-dorate-bio.jpg";
+import mainLogo from "../../cipolle-dorate-bio.jpg";
 
 function Product() {
     return (
