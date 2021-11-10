@@ -55,13 +55,13 @@ function CartProduct() {
                     <div style={{ textAlign: "center", fontWeight: "bold", fontSize: "25px" }}>€ 0.10 &nbsp; </div>
                     <br />
                     <Row>
-                        <Col>
+                        <Col style={{padding: "0px"}}>
                             <Button className="cartButtons" variant="primary">-</Button>
                         </Col>
                         <Col>
                             <div style={{ textAlign: "center", fontWeight: "bold", fontSize: "25px" }}>2</div>
                         </Col>
-                        <Col>
+                        <Col style={{padding: "0px"}}>
                             <Button className="cartButtons" variant="primary">+</Button>
                         </Col>
                     </Row>
