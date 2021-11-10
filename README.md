@@ -55,15 +55,82 @@ Provide a short description for API with the required parameters, follow the pro
 * [Error responses, if any]
 
 ## Database Tables
+  
+|Table `Users` - contains |  |
+| ------ | --- |
+| "Id"  INTEGER NOT NULL, | |
+| "Password"  TEXT NOT NULL, | |
+| "Name"  TEXT NOT NULL, | |
+| "Surname"  TEXT NOT NULL, | |
+| "Email"  TEXT NOT NULL, |
+| "PhoneNumber" TEXT NOT NULL, |
+| "AccessType"  INTEGER NOT NULL | 1-MANAGER, 2-EMPLOYEE, 3-CLIENT, 4-FARMER, 5-DELIVERER |
+| "Wallet"  REAL NOT NULL, | default = 0.0 |
+| "Address"  TEXT NOT NULL |
 
-- Table `USERS` - contains 
-- Table `BOOKINGS` - contains 
-- Table `PRODUCTS` - contains 
-- Table `BOOKED_PRODUCTS` - contains 
-- Table `CANDIDATES` - contains 
-- Table `PRODUCT_TYPE` - contains 
-- Table `PRODUCT_IMAGES` - contains
+
+| Table `Bookings` - contains | |
+| ------ | --- |
+| "Id"  INTEGER NOT NULL, | |
+| "BookingStartDate"  TEXT NOT NULL, | format ISO 8601 ("yyyy-mm-dd")  used to know when the booking was issued |
+| "UserId"  INTEGER NOT NULL, | |
+| "TotalPrice"  REAL, | |
+| "State"  INTEGER NOT NULL, | 0=issued, 1=pending for cancelation, 2=confirmed |
+| "PickupTime"  TEXT, | format ISO 8601 ("yyyy-mm-dd hh:mm") |
+| "DeliveryTime"  TEXT, | format ISO 8601 ("yyyy-mm-dd hh:mm") |
+| FOREIGN KEY("UserId") REFERENCES "Users"("Id"), | |
+| PRIMARY KEY("Id") | |
+
+
+| Table `Products` - contains | |
+| ------ | --- |
+| "Id"  INTEGER NOT NULL, | |
+| "FarmerId"  INTEGER NOT NULL , | |
+| "Name"  TEXT NOT NULL, | |
+| "Description"  TEXT NOT NULL, | |
+| "Quantity"  INTEGER NOT NULL, | |
+| "State"  INTEGER, | 0="declared", 1="confirmed by farmer", 2="confirmed in warehouse"|
+| "TypeId"  INTEGER NOT NULL, | |
+| PRIMARY KEY("Id"), | |
+| FOREIGN KEY("FarmerId") REFERENCES "Users"("Id") | |
+
+
+| Table `BookingAndProducts` - contains | |
+| ------ | --- |
+| "Id"  INTEGER NOT NULL, | |
+| "BookingId"  INTEGER NOT NULL, | |
+| "ProductId"  INTEGER NOT NULL, | |
+| "Quantity"  INTEGER NOT NULL, | |
+| "Price"  REAL NOT NULL, | |
+| FOREIGN KEY("ProductId") REFERENCES "Products"("Id"), | |
+| FOREIGN KEY("BookingId") REFERENCES "Bookings"("Id"), | |
+| PRIMARY KEY("Id") | |
+
+| Table `Candidates` - contains | |
+| ------ | --- |
+| "Id"  INTEGER NOT NULL, | |
+| "Name"  TEXT NOT NULL, | |
+| "Surname"  TEXT NOT NULL, | |
+| "Email"  TEXT NOT NULL, | |
+| "PhoneNumber"  TEXT, | |
+| "Type"  INTEGER NOT NULL, | 0-FARMER, 1-DELIVERER |
+| "Address"  TEXT NOT NULL, | |
+| PRIMARY KEY("Id") | |
+
+| Table `ProductType` - contains | |
+| ------ | --- |
+| "TypeId" INTEGER NOT NULL | |
+| "TypeName" TEXT NOT NULL | |
+
+| Table `ProductImages` - contains | |
+| ------ | --- |
+| "Id"  INTEGER NOT NULL, | |
+| "ProductId"  INTEGER NOT NULL, | |
+| "IsDefault"  INTEGER NOT NULL, | |
+| "Path"  TEXT NOT NULL, | |
+| FOREIGN KEY("ProductId") REFERENCES "Products"("Id"), | |
+| PRIMARY KEY("Id") | |
 
 ### Database Structure
 
-<img src="/assets/DBDesign_v4.png" alt="SPGDatabase"/>
+<img src="/assets/DBDesign_final.png" alt="SPGDatabase"/>
