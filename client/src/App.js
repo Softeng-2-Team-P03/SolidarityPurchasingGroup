@@ -32,7 +32,7 @@ function App() {
 
 
   return (
-    <div className="div1">
+    <>
       <NavBar />
       <Container fluid>
         <Router>
@@ -48,8 +48,7 @@ function App() {
           </Switch>
         </Router>
       </Container>
-    </div>
-
+    </>
   );
 }
 
