@@ -9,7 +9,7 @@ function NavBar() {
   return (
 
     <Navbar className="nav" bg="primary" variant="dark" >
-      <Navbar.Brand href="#home">
+      <Navbar.Brand href="/">
         <img
           src={spg}
           width="30"
