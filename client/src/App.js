@@ -5,7 +5,8 @@ import { Container } from "react-bootstrap";
 import ClientList from './Components/ClientList/ClientList';
 import { useState } from 'react';
 import NavBar from './Components/NavBar/NavBar';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import HomePage from './Components/HomePage/HomePage';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 
 
 const fakeClients = [
@@ -39,12 +40,16 @@ function App() {
           <Switch>
             <Route path='/clients' render={() =>
               <ClientList clients={clients} ></ClientList>
-            }>
-            </Route>
+            } />
             <Route path="/products" render={() =>
               <ProductList products={products} />
-            }>
-            </Route>
+            } />
+            <Route exact path="/" render={() =>
+              <HomePage />
+            } />
+            <Route render={() =>
+              <Redirect to='/' />
+            } />
           </Switch>
         </Router>
       </Container>

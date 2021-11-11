@@ -1,0 +1,89 @@
+.container{
+    min-width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    margin-top: -1%;
+}
+
+.partSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: 100vh;
+    color: #fff;
+    text-shadow: -4px 2px 0px #000;
+}
+
+.partSection h1 {
+    font-size: 5rem;
+}
+
+.partSection h2 {
+    font-size: 4rem;
+}
+
+.partSection p {
+    font-size: 3rem;
+}
+
+.selection {
+    position: fixed;
+    z-index: 1;
+    bottom: 75%;
+}
+
+.partSection#shop {
+    background: url('./shop.jpg') no-repeat center center/
+    cover;
+}
+
+.partSection#info {
+    background: url('./info.jpg') no-repeat center center/
+    cover;
+}
+
+.partSection#candidate {
+    background: url('./join_us.jpg') no-repeat center center/
+    cover;
+}
+
+@media screen and (max-width: 1000px) {
+    .partSection h1 {
+    font-size: 4rem;
+  }
+
+  .partSection h2{
+      font-size: 3rem;
+  }
+
+  .partSection p {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 800px) {
+    .partSection h1 {
+    font-size: 3rem;
+  }
+
+  .partSection h2 {
+      font-size: 2rem;
+  }
+
+  .partSection p {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (max-height: 500px){
+    .selection {
+        bottom: 65%;
+    }
+}
+
