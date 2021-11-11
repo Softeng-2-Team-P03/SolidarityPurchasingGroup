@@ -1,0 +1,19 @@
+.left {
+    float: left;
+    position: fixed;
+}
+
+@media screen and (max-width: 1000px) {
+    .left {
+      width: 100%; /* The width is 100%, when the viewport is 1000px or smaller */
+      padding-right: 5%;
+      padding-top: 2%;
+      position: absolute;
+    }
+}
+  
+@media screen and (min-width: 1000px) {
+    .left {
+      width: 15%;
+    }
+}

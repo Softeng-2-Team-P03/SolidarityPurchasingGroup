@@ -1,8 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../../App.css';
-import { ListGroup, Col, Row, Image, Button, Modal } from "react-bootstrap";
-import mainLogo from "../../cipolle-dorate-bio.jpg";
-import cartIcon from "../../cart-icon.png";
+import './Cart.css';
+import { Col, Row, Image, Button, Modal } from "react-bootstrap";
+import cartIcon from "../Icons/cart-icon.png";
+import mainLogo from "../Icons/cipolle-dorate-bio.jpg";
 import { useState } from "react";
 
 function Cart() {

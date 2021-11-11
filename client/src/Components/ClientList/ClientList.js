@@ -1,14 +1,11 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './ClientList.css';
 import {Button, Form, Table} from "react-bootstrap";
 import React, { useState} from 'react';
 
 
 function Client(props) {
-
-
-
-
     return (
         <>
             <tr>
@@ -39,7 +36,6 @@ function ClientList(props) {
 
     return (
         <>
-
             <Form.Control type="text" className="searchB" placeholder="Search client" onChange={x=>changeSearchText(x.target.value)}/>
             <Table responsive striped bordered hover>
                 <thead>

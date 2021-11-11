@@ -1,14 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../App.css';
-import {ListGroup, Nav} from "react-bootstrap";
+import './SideBar.css';
+import { ListGroup } from "react-bootstrap";
 
 
 
 function SideBar() {
 
-
     return (
-        <ListGroup className="side" defaultActiveKey="#link1" className="left">
+        <ListGroup className="left" defaultActiveKey="#link1">
             <ListGroup.Item action href="title" disabled>
                 <h4>
                     <small className="text-muted">Tipo Prodotti</small>
@@ -30,7 +29,6 @@ function SideBar() {
                 Latticini
             </ListGroup.Item>
         </ListGroup>
-
     );
 }
 
