@@ -120,7 +120,7 @@
 /* Use a media query to add a break point at 1000px: */
 @media screen and (max-width: 1000px) { /* width <= 1000 type products gets moved to the top and main takes full page*/
   .main {
-    width: 100%; 
+    width: 100%;
     padding-top: 35%;
   }
 
@@ -183,4 +183,15 @@
 
 .searchB{
   margin-bottom: 1%;
+}
+
+.searchProd{
+  margin-bottom: 1%;
+  margin-left: 0.1%;
+  margin-right: 3%;
+
+}
+
+.g-4{
+  margin-bottom: 2%;
 }

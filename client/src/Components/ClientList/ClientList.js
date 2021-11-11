@@ -30,11 +30,10 @@ function ClientList(props) {
     function changeSearchText(text){
         let c=[]
         props.clients.forEach(x=>{
-            if(x.email.includes(text)) c.push(x);
+            if(x.email.toLowerCase().includes(text.toLowerCase())) c.push(x);
         })
 
         setResultC(c);
-
 
     }
 

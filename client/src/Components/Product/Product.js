@@ -3,13 +3,13 @@ import './Product.css';
 import {Button, Card, Col} from "react-bootstrap";
 import mainLogo from "../../cipolle-dorate-bio.jpg";
 
-function Product() {
+function Product(props) {
     return (
         <Col>
         <Card className="text-center">
             <Card.Img variant="top" src={mainLogo} />
             <Card.Body>
-                <h2>Cipolla</h2>
+                <h2>{props.product.name}</h2>
                 <Card.Text>
                     1 pezzo circa 300g
                 </Card.Text>
