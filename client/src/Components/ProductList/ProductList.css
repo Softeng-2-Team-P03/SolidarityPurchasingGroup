@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  overflow-x: none;
 }
 
 .App-logo {
@@ -41,9 +42,19 @@
   text-align: center;
   font-size: 12px;
   line-height: 1.42857;
+}
 
+.cartButtons{
+  width: 40px;
+  height: 40px;
+  padding: 0px 0px;
+  border-radius: 20px;
+  text-align: center;
+  font-size: 23px;
+}
 
-
+.delete{
+  border-radius: 5px;
 }
 
 @keyframes App-logo-spin {
@@ -75,12 +86,22 @@
 .left {
   float: left;
   position: fixed;
-
 }
 
 .main {
   float: left;
   width: 80%; /* The width is 60%, by default */
+}
+
+.showCartButton{
+  position: fixed;
+  bottom: 50%;
+  right: 20px;
+  border-radius: 20px;
+  width: 60px;
+  height: 65px;
+  z-index: 2;
+  border: 2px solid black;
 }
 
 
@@ -89,12 +110,25 @@
 
 }
 
+@media screen and (min-width: 1001px) { /* width >= 1001px */
+  .left {
+    width: 15%;
+  }
+}
+
 
 /* Use a media query to add a break point at 1000px: */
-@media screen and (max-width: 1000px) {
-    .main {
-    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+@media screen and (max-width: 1000px) { /* width <= 1000 type products gets moved to the top and main takes full page*/
+  .main {
+    width: 100%;
     padding-top: 35%;
+  }
+
+  .left {
+    width: 98%;
+    padding-right: 2%;
+    padding-top: 2%;
+    position: absolute;
   }
 }
 
@@ -102,7 +136,6 @@
 /* Use a media query to add a break point at 800px: */
 @media screen and (max-width: 900px) {
   .main {
-    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
     padding-top: 40%;
   }
 }
@@ -110,7 +143,6 @@
 /* Use a media query to add a break point at 800px: */
 @media screen and (max-width: 700px) {
   .main {
-    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
     padding-top: 50%;
   }
 }
@@ -119,7 +151,6 @@
 /* Use a media query to add a break point at 800px: */
 @media screen and (max-width: 600px) {
   .main {
-    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
     padding-top: 55%;
   }
 }
@@ -127,36 +158,40 @@
 /* Use a media query to add a break point at 800px: */
 @media screen and (max-width: 500px) {
   .main {
-    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
     padding-top: 60%;
   }
-}
 
-
-
-
-@media screen and (max-width: 1000px) {
   .left {
-    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
-    padding-right: 5%;
+    width: 97%;
+    padding-right: 4%;
     padding-top: 2%;
+    position: absolute;
   }
 }
 
-@media screen and (max-width: 1000px) {
-  .left {
-position: absolute;
+@media screen and (max-width: 450px) {
+  .main {
+    padding-top: 70%;
   }
 }
 
-@media screen and (min-width: 1000px) {
-  .left {
-    width: 15%;
+@media screen and (max-width: 400px) {
+  .main {
+    padding-top: 80%;
   }
 }
-
 
 .searchB{
   margin-bottom: 1%;
 }
 
+.searchProd{
+  margin-bottom: 1%;
+  margin-left: 0.1%;
+  margin-right: 3%;
+
+}
+
+.g-4{
+  margin-bottom: 2%;
+}
