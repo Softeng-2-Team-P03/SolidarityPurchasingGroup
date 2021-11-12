@@ -4,6 +4,7 @@ import ProductList from "./Components/ProductList/ProductList";
 import { Container } from "react-bootstrap";
 import ClientList from './Components/ClientList/ClientList';
 import { useState } from 'react';
+import OrderList from './Components/OrderList/OrderList';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
@@ -26,10 +27,20 @@ const fakeProducts = [
   { name: "fdsfsd", description: "Rossi", price: "0.10" },
 ];
 
+const fakeOrders = [
+  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "2021-21-11 10:30" ,deliveryTime : ""},
+  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "" ,deliveryTime : "2021-21-11 10:30"},
+  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "2021-21-11 10:30" ,deliveryTime : ""},
+  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "" ,deliveryTime : "2021-21-11 10:30"},
+  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "2021-21-11 10:30" ,deliveryTime : ""},
+  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "" ,deliveryTime : "2021-21-11 10:30"},
+
+];
 
 function App() {
   const [clients, setClients] = useState([...fakeClients]);
   const [products, setProducts] = useState([...fakeProducts]);
+  const [orders, setOrders] = useState([...fakeOrders]);
 
 
   return (
@@ -43,6 +54,9 @@ function App() {
             } />
             <Route path="/products" render={() =>
               <ProductList products={products} />
+            } />
+            <Route path='/orders' render={() =>
+              <OrderList orders={fakeOrders} ></OrderList>
             } />
             <Route exact path="/" render={() =>
               <HomePage />
