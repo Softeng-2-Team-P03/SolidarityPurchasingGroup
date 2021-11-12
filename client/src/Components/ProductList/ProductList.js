@@ -3,11 +3,25 @@ import './ProductList.css';
 import { Col, Row, Button, Card, Form } from "react-bootstrap";
 import SideBar from "../SideBar/SideBar";
 import Cart from "../Cart/Cart"
+import productApi from '../../api/product-api';
 import mainLogo from "../Icons/cipolle-dorate-bio.jpg";
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 
 function ProductList(props) {
     const [products, setProducts] = useState(props.products);
+    useEffect(()=> {
+        const checkAuth = async() => {
+          try {
+            // here you have the user info, if already logged in
+            // TODO: store them somewhere and use them, if needed
+            var x= await productApi.getAllProduct();
+            console.log("list:"+x);
+          } catch(err) {
+            console.error(err.error);
+          }
+        };
+        checkAuth();
+      }, []);
 
     function changeSearchText(text) {
         let p = []

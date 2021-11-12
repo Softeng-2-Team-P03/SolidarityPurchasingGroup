@@ -1,7 +1,6 @@
 /**
  * All the API calls
  */
-
 import React from "react";
 
 const BASEURL = '/api';
