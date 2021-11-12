@@ -7,6 +7,8 @@ import { useState } from 'react';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import API from "./API";
+import {useEffect} from "react";
 
 
 const fakeClients = [
@@ -30,6 +32,25 @@ const fakeProducts = [
 function App() {
   const [clients, setClients] = useState([...fakeClients]);
   const [products, setProducts] = useState([...fakeProducts]);
+
+    useEffect(()=> {
+        let mounted = true;
+        let products = [];
+        const getAllProducts = async () => {
+            products = await API.getAllProducts();
+        };
+        getAllProducts().then(data => {
+            if (mounted){
+                console.log("prodotti")
+                console.log(products);
+
+            }
+        })
+            .catch(err => {
+                console.error(err);
+            });
+        return () => { mounted = false };
+    }, []);
 
 
   return (
