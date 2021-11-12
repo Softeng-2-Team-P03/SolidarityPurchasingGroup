@@ -8,7 +8,7 @@ import { Navbar } from "react-bootstrap";
 function NavBar() {
   return (
 
-    <Navbar className="nav" bg="primary" variant="dark" >
+    <Navbar className="nav" bg="primary" variant="dark">
       <Navbar.Brand href="/">
         <img
           src={spg}

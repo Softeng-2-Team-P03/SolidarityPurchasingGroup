@@ -17,13 +17,13 @@ const fakeClients = [
 ];
 
 const fakeProducts = [
-  { name: "Cipolla", description: "Rossi", price: "m@gmail.com" },
-  { name: "Cipollo", description: "Rossi", price: "ma@gmail.com" },
-  { name: "Cipollu", description: "Rossi", price: "mb@gmail.com" },
-  { name: "Mario", description: "Rossi", price: "mc@gmail.com" },
-  { name: "dsfsd", description: "Rossi", price: "ma@gmail.com" },
-  { name: "uytuty", description: "Rossi", price: "mb@gmail.com" },
-  { name: "fdsfsd", description: "Rossi", price: "mc@gmail.com" },
+  { name: "Cipolla", description: "Rossi", price: "0.10" },
+  { name: "Cipollo", description: "Rossi", price: "0.10" },
+  { name: "Cipollu", description: "Rossi", price: "0.10" },
+  { name: "Mario", description: "Rossi", price: "0.10" },
+  { name: "dsfsd", description: "Rossi", price: "0.10" },
+  { name: "uytuty", description: "Rossi", price: "0.10" },
+  { name: "fdsfsd", description: "Rossi", price: "0.10" },
 ];
 
 
@@ -35,7 +35,7 @@ function App() {
   return (
     <>
       <NavBar />
-      <Container fluid>
+    
         <Router>
           <Switch>
             <Route path='/clients' render={() =>
@@ -52,7 +52,7 @@ function App() {
             } />
           </Switch>
         </Router>
-      </Container>
+     
     </>
   );
 }

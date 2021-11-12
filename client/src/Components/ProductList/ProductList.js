@@ -54,7 +54,7 @@ function Product(props) {
                     </Card.Text>
 
                     <h4>
-                        0.10€
+                    {props.product.price}€
                     </h4>
                 </Card.Body>
                 <Card.Footer>
