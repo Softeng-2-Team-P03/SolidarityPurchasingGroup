@@ -37,7 +37,7 @@ function ClientList(props) {
     return (
         <>
             <Form.Control type="text" className="searchB" placeholder="Search client" onChange={x=>changeSearchText(x.target.value)}/>
-            <Table responsive striped bordered hover>
+            <Table responsive striped bordered hover className="clientsTable">
                 <thead>
                     <tr>
                         <th>Name</th>

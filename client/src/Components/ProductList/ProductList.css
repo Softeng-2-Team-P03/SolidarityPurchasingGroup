@@ -9,10 +9,9 @@
 }
 
 .searchProd{
+  margin-left: 3%;
   margin-bottom: 1%;
-  margin-left: 0.1%;
-  margin-right: 3%;
-
+  width: 94%;
 }
 
 .g-4{
@@ -65,4 +64,18 @@
   width: 100%; /* The width is 100%, when the viewport is 500px or smaller */
   padding-top: 60%;
 }
+}
+
+@media screen and (max-width: 450px) {
+  .main {
+    width: 100%; /* The width is 100%, when the viewport is 500px or smaller */
+    padding-top: 65%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .main {
+    width: 100%; /* The width is 100%, when the viewport is 500px or smaller */
+    padding-top: 70%;
+  }
 }

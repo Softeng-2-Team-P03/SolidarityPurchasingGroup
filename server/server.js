@@ -101,7 +101,7 @@ app.get('/api/products', async (req, res) => {
         if (result.error)
             res.status(404).json(result);
         else {
-            console.log(res.json(result))
+            console.log(res.json(result));
 
             res.json(result);
         }
@@ -140,7 +140,8 @@ app.post('/api/booking', [
         totalPrice: req.body.totalPrice,
         state: req.body.state,
         pickupTime: req.body.pickupTime,
-        userId: req.body.userId ? req.body.userId : 1
+        deliveryTime: req.body.deliveryTIme,
+        userId: req.body.userId ? req.body.userId : 1 // : req.user.id
     };
     console.log(booking)
     var productsJson = req.body.products;
@@ -155,7 +156,7 @@ app.post('/api/booking', [
            return res.json(productsJson);
         }
         else {
-            return res.status(503).json({ error: `The minimum number of  prodcut in booking is 1 .` });
+            return res.status(503).json({ error: `The minimum number of  product in booking is 1 .` });
         }
 
     } catch (err) {
