@@ -1,12 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect, MemoryRouter } from 'react-router-dom';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-
 import HomePage from '../HomePage';
-//import { Switch } from 'react-router';
 
 test("renders the HomePage ", () => {
     // Render a react component to the DOM.
@@ -60,14 +58,45 @@ test("The Section Dropdown shows sections when clicked", async () => {
     //click on the section dropdown button to open it
     userEvent.click(getByText("Sections"));
 
-    await waitFor( () => getByText("Home"));
-    await waitFor( () => getByText("Info"));
-    await waitFor( () => getByText("Join us"));
+    await waitFor(() => getByText("Home"));
+    await waitFor(() => getByText("Info"));
+    await waitFor(() => getByText("Join us"));
 
     //await expect(findByText("Home")).not.toBeNull();
     //await expect(findByText("Info")).not.toBeNull();
     //await expect(findByText("Join us")).not.toBeNull();
 
+});
 
+
+
+/* --------------- INTEGRATION TESTS ------------------*/
+
+//verify the dropdown shows when clicking the Sections button
+test("The Products button redirects you to the /products path", async () => {
+    
+    let testHistory, testLocation;
+
+    const { getByText, findByText } = render(
+        <MemoryRouter initialEntries={["/my/initial/route"]}>
+            <HomePage />
+            <Route
+                path="*"
+                render={({ history, location }) => {
+                    testHistory = history;
+                    testLocation = location;
+                    return null;
+                }}
+            />
+        </MemoryRouter>
+    );
+
+    //verify the Products button is rendered
+    expect(getByText("Products")).not.toBeNull();
+
+    //click on the Products button to got to the /products path
+    userEvent.click(getByText("Products"));
+
+    await waitFor(() => expect(testLocation.pathname).toBe("/products") );
 
 });
