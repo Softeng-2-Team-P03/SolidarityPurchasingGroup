@@ -35,3 +35,17 @@ exports.createBookingAndProduct = (bookingProduct, userId) => {
             });
     });
 };
+
+exports.getOrders = () => {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM Bookings';
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            const orders = rows.map((e) => ({ Id: e.Id, FarmerId: e.FarmerId, Name: e.Name, Description: e.Description,Quantity: e.Quantity,State:e.State,TypeId:e.TypeId,PricePerUnit:e.PricePerUnit}));
+            resolve(products);
+        });
+    });
+};
