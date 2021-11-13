@@ -101,14 +101,12 @@ app.get('/api/products', async (req, res) => {
         if (result.error)
             res.status(404).json(result);
         else {
-            console.log(res.json(result));
-
             res.json(result);
         }
     } catch (err) {
+        console.log(err)
         res.status(500).end();
     }
-    console.log(res);
 });
 //**** Api: Get Details Of A Products For All Users ****//
 app.get('/api/products/:id', async (req, res) => {

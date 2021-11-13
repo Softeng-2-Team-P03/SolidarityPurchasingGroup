@@ -6,7 +6,8 @@ import { propTypes } from "react-bootstrap/esm/Image";
  const BASEURL = '/api';
  async function getAllProducts(arg) {
      // call: GET /api/products
-     const response = await fetch(BASEURL + '/products?page='+arg.page);
+     //const response = await fetch(BASEURL + '/products?page='+arg.page); If we want pagination
+     const response = await fetch(BASEURL + '/products');
      const productsJson = await response.json();
      if (response.ok) {
          return productsJson;

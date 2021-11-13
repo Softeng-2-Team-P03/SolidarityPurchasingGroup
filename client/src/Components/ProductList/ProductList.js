@@ -8,15 +8,19 @@ import bookingApi from '../../api/booking-api';
 import mainLogo from "../Icons/cipolle-dorate-bio.jpg";
 import React, { useState, useEffect } from "react";
 import API from '../../API';
+import prova from '../ProductImages/p48-1.jpg'
 
 function ProductList(props) {
-    const [products, setProducts] = useState(props.products);
-    const [loadingProducts, setLoadingProducts] = useState(false); //to use with useeffect
+    const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [cartInfo, setCartInfo] = useState({ numItems: 0, totalPrice: 0 });
     const [dirtyInfo, setDirtyInfo] = useState(false);
+
+    const [loadingProducts, setLoadingProducts] = useState(true);
     const [loadingConfirm, setLoadingConfirm] = useState(false);
+
     const [errorConfirm, setErrorConfirm] = useState('');
+    const [errorLoading, setErrorLoading] = useState('');
 
     /*useEffect(() => {
         const checkAuth = async () => {
@@ -58,6 +62,18 @@ function ProductList(props) {
         setProducts(p);
     }
 
+    useEffect(() => {
+        setLoadingProducts(true);
+        productApi.getAllProducts().then((products) => {
+            setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+            setLoadingProducts(false);
+            setErrorLoading('');
+        }).catch(err => {
+            setErrorLoading('Error during the loading of the products')
+            console.error(err);
+        });
+    }, [])
+
     const confirmOrder = () => {
         const booking = {
             userId: 2,
@@ -79,7 +95,7 @@ function ProductList(props) {
                 setCartInfo({ numItems: 0, totalPrice: 0 });
                 setErrorConfirm('');
             }).catch(err => {
-                setErrorConfirm('Error during the confirmation of the order: ' + err.error)
+                setErrorConfirm('Error during the confirmation of the order')
                 console.error(err);
             });
     }
@@ -143,11 +159,12 @@ function ProductList(props) {
                             }
                         </Row>
                     }
+                    <h2 style={{textAlign: "center", color: "red"}}>{errorLoading}</h2>
                 </Col>
             </Row>
             <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart}
                 modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
-                errorConfirm={errorConfirm}/>
+                errorConfirm={errorConfirm} />
         </>
     );
 }
@@ -170,7 +187,7 @@ function Product(props) {
     return (
         <Col>
             <Card className="text-center">
-                <Card.Img variant="top" src={mainLogo} />
+                <Card.Img variant="top" src={require('../ProductImages/' + props.product.imagePath).default} />
                 <Card.Body>
                     <h2>{props.product.name}</h2>
                     <Card.Text>

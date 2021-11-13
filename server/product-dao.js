@@ -5,7 +5,8 @@ const bcrypt = require('bcrypt');
 // ----------->  <---------------
 exports.getProducts = (pageNumber) => {
     return new Promise(async (resolve, reject) => {
-        var sqlQuery = 'SELECT Products.* ,ProductImages.Path,Users.Name ,Users.Surname  From Products,ProductImages,Users WHERE ProductImages.ProductId==Products.Id AND Users.Id=Products.FarmerId AND   ProductImages.IsDefault==1 LIMIT 10  OFFSET "' + pageNumber + '"';
+        var sqlQuery = 'SELECT Products.* ,ProductImages.Path,Users.Name as FarmerName ,Users.Surname  From Products,ProductImages,Users WHERE ProductImages.ProductId==Products.Id AND Users.Id=Products.FarmerId AND   ProductImages.IsDefault==1';
+        //FOR PAGINATION: var sqlQuery = 'SELECT Products.* ,ProductImages.Path,Users.Name as FarmerName ,Users.Surname  From Products,ProductImages,Users WHERE ProductImages.ProductId==Products.Id AND Users.Id=Products.FarmerId AND   ProductImages.IsDefault==1 LIMIT 10  OFFSET "' + pageNumber + '"';
         db.all(sqlQuery, (err, rows) => {
 
             if (err) {
@@ -23,7 +24,7 @@ exports.getProducts = (pageNumber) => {
                 pricePerUnit: row.PricePerUnit,
                 imagePath: row.Path,
                 farmer:{
-                    name:row.Name,
+                    name:row.FarmerName,
                     surname:row.Surname,
                 }
             })
@@ -84,7 +85,6 @@ exports.getProduct  =  (id) => {
                 pricePerUnit: row.PricePerUnit,
                 images:images
                 };
-                console.log(product);
 
              resolve(product);
             }
