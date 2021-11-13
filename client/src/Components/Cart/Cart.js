@@ -13,12 +13,12 @@ function Cart() {
 
 
     return (<>
-        <Button className="showCartButton" onClick={open}>
+        <Button data-testid="cartButton" className="showCartButton" onClick={open}>
             <Image src={cartIcon} fluid />
             10
         </Button>
 
-        <Modal show={show} onHide={close} scrollable>
+        <Modal data-testid="cartModal" show={show} onHide={close} scrollable>
             <Modal.Header closeButton style={{backgroundColor: "#6da8fd"}}>
                 <Col style={{ textAlign: "center" }}>
                     <h3>
