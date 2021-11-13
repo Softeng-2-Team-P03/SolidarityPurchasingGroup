@@ -57,7 +57,7 @@ function OrderList(props) {
                         <th>User</th>
                         <th>email</th>
                         <th>State</th>
-                        <th>Date</th>
+                        <th>Scheduled Date</th>
                         <th>Total price</th>
                         <th>Handed out</th>
 
