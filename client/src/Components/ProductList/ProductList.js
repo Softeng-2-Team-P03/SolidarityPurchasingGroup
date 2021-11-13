@@ -12,6 +12,7 @@ import prova from '../ProductImages/p48-1.jpg'
 
 function ProductList(props) {
     const [products, setProducts] = useState([]);
+    const [searchProducts, setSearchProducts] = useState([]);
     const [cart, setCart] = useState([]);
     const [cartInfo, setCartInfo] = useState({ numItems: 0, totalPrice: 0 });
     const [dirtyInfo, setDirtyInfo] = useState(false);
@@ -55,17 +56,18 @@ function ProductList(props) {
 
     function changeSearchText(text) {
         let p = []
-        props.products.forEach(x => {
+        products.forEach(x => {
             if (x.name.toLowerCase().includes(text.toLowerCase())) p.push(x);
         })
 
-        setProducts(p);
+        setSearchProducts(p);
     }
 
     useEffect(() => {
         setLoadingProducts(true);
         productApi.getAllProducts().then((products) => {
             setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+            setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
             setLoadingProducts(false);
             setErrorLoading('');
         }).catch(err => {
@@ -150,7 +152,7 @@ function ProductList(props) {
                     {loadingProducts ?
                         <h1 style={{ textAlign: "center" }}>Loading products... <Spinner animation="border" /></h1> :
                         <Row xs={2} md={5} className="g-4">
-                            {products.map((x) =>
+                            {searchProducts.map((x) =>
                                 <Product key={x.id}
                                     product={x} addProductToCart={addProductToCart}
                                     productInCart={cart.filter(product => product.id === x.id)[0] === undefined ? 0
