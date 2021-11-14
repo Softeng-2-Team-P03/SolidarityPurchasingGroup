@@ -14,7 +14,7 @@ exports.getUsers = () => {
             const users = rows.map((row) => ({
                 id: row.Id,
                 name: row.Name,
-                surName: row.Surname,
+                surname: row.Surname,
                 email: row.Email,
                 phoneNumber: row.PhoneNumber,
                 accessType: row.AccessType,
@@ -41,7 +41,7 @@ exports.getUsersByAccessType = (accessType) => {
             const users = rows.map((row) => ({
                 id: row.Id,
                 name: row.Name,
-                surName: row.Surname,
+                surname: row.Surname,
                 email: row.Email,
                 phoneNumber: row.PhoneNumber,
                 accessType: row.AccessType,
@@ -70,7 +70,7 @@ exports.doLogin = (email, password) => {
                 const user = {
                     id: row.Id,
                     name: row.name,
-                    surName: row.Surname,
+                    surname: row.Surname,
                     email: row.Email,
                     phoneNumber: row.PhoneNumber,
                     accessType: row.AccessType,

@@ -15,14 +15,6 @@ import { LoginComponent } from './Components/LoginComponents/LoginComponent';
 import ClientList from './Components/ClientList/ClientList';
 import { ClientModal } from './Components/ClientList/AddClient';
 
-
-const fakeClients = [
-  { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" },
-  { userId: '2', name: "Mario", surname: "Rossi", email: "ma@gmail.com" },
-  { userId: '3', name: "Mario", surname: "Rossi", email: "mb@gmail.com" },
-  { userId: '4', name: "Mario", surname: "Rossi", email: "mc@gmail.com" },
-];
-
 const fakeOrders = [
   { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "2021-21-11 10:30", deliveryTime: "" },
   { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "", deliveryTime: "2021-21-11 10:30" },
@@ -34,7 +26,6 @@ const fakeOrders = [
 ];
 
 function App() {
-  const [clients, setClients] = useState([...fakeClients]);
   const [orders, setOrders] = useState([...fakeOrders]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [message, setMessage] = useState('');
@@ -94,77 +85,77 @@ function App() {
   //     return () => { mounted = false };
   // }, []);
 
-useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const userInfo = await API.getUserInfo();
-                setLoggedIn(true);
-                setUser(userInfo);
-            } catch (err) {
-                console.error(err.error);
-            }
-        };
-        checkAuth();
-    }, []);
-
-    const userLoginCallback = async (email, password) => {
-        // Make POST request to authentication server
-        try {
-            const userInfo = await API.logIn({ username: email, password: password });
-            setUser(userInfo);
-            setMessage({ msg: `Welcome!`, type: 'text-success' });
-            setLoggedIn(true);
-        } catch (err) {
-            setMessage({ msg: 'wrong email or password', type: 'text-danger' });
-        }
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const userInfo = await API.getUserInfo();
+        setLoggedIn(true);
+        setUser(userInfo);
+      } catch (err) {
+        console.error(err.error);
+      }
     };
+    checkAuth();
+  }, []);
 
-    const userLogoutCallback = () => {
-        API.logOut().then(() => {
-            setLoggedIn(false);
-            setMessage('');
-            setUser(undefined);
-        });
+  const userLoginCallback = async (email, password) => {
+    // Make POST request to authentication server
+    try {
+      const userInfo = await API.logIn({ username: email, password: password });
+      setUser(userInfo);
+      setMessage({ msg: `Welcome!`, type: 'text-success' });
+      setLoggedIn(true);
+    } catch (err) {
+      setMessage({ msg: 'wrong email or password', type: 'text-danger' });
     }
+  };
 
-    const addClient = (newClient) => {
-          API.addNewClient(newClient).then(() => {
-            setClients(...clients, newClient);
-          }).catch(/*err => handleErrors(err) */);
-      };
+  const userLogoutCallback = () => {
+    API.logOut().then(() => {
+      setLoggedIn(false);
+      setMessage('');
+      setUser(undefined);
+    });
+  }
 
-    
+  const addClient = (newClient) => {
+    API.addNewClient(newClient).then(() => {
+      //setClients(...clients, newClient);
+    }).catch(/*err => handleErrors(err) */);
+  };
+
+
 
 
   return (
     <>
-      <NavBar loggedIn={loggedIn} user={user} userLogoutCallback={userLogoutCallback}/>
-        <Router>
-          <Switch>
+      <NavBar loggedIn={loggedIn} user={user} userLogoutCallback={userLogoutCallback} />
+      <Router>
+        <Switch>
           <Route exact path="/login" render={() => (<>{loggedIn ? <Redirect to='/' /> :
-              <LoginComponent userLoginCallback={userLoginCallback} message={message} />}</>)} />
-            <Route path='/clients' render={() =>
-              <ClientList clients={clients} ></ClientList>
-            } />
-             <Route path="/addClient" render={() => (
-              <><HomePage />
-                <ClientModal addClient={addClient}></ClientModal></>
-               )} />
-            <Route path="/products" render={() =>
-              <ProductList loggedIn={loggedIn} user={user} />
-            } />
-            <Route path='/orders' render={() =>
-              <OrderList orders={fakeOrders} ></OrderList>
-            } />
-            <Route exact path="/" render={() =>
-              <HomePage loggedIn={loggedIn} userLogoutCallback={userLogoutCallback}/>
-            } />
-            <Route render={() =>
-              <Redirect to='/' />
-            } />
-          </Switch>
-        </Router>
-     
+            <LoginComponent userLoginCallback={userLoginCallback} message={message} />}</>)} />
+          <Route path='/clients' render={() =>
+            <ClientList ></ClientList>
+          } />
+          <Route path="/addClient" render={() => (
+            <><HomePage />
+              <ClientModal addClient={addClient}></ClientModal></>
+          )} />
+          <Route path="/products" render={() =>
+            <ProductList loggedIn={loggedIn} user={user} />
+          } />
+          <Route path='/orders' render={() =>
+            <OrderList orders={fakeOrders} ></OrderList>
+          } />
+          <Route exact path="/" render={() =>
+            <HomePage loggedIn={loggedIn} userLogoutCallback={userLogoutCallback} />
+          } />
+          <Route render={() =>
+            <Redirect to='/' />
+          } />
+        </Switch>
+      </Router>
+
     </>
   );
 }
