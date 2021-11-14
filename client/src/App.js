@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import ProductList from "./components/ProductList/ProductList";
+import ProductList from "./Components/ProductList/ProductList";
 import { Container } from "react-bootstrap";
-import OrderList from './components/OrderList/OrderList';
-import NavBar from './components/NavBar/NavBar';
-import HomePage from './components/HomePage/HomePage';
+import OrderList from './Components/OrderList/OrderList';
+import NavBar from './Components/NavBar/NavBar';
+import HomePage from './Components/HomePage/HomePage';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import bookingApi from "./api/booking-api";
 import productApi from "./api/product-api";
@@ -12,8 +12,8 @@ import { React, useState, useEffect } from "react";
 import booking from './models/booking';
 import API from './API';
 import { LoginComponent } from './LoginComponent';
-import ClientList from './components/ClientList/ClientList';
-import { ClientModal } from './components/ClientList/AddClient';
+import ClientList from './Components/ClientList/ClientList';
+import { ClientModal } from './Components/ClientList/AddClient';
 
 
 const fakeClients = [
