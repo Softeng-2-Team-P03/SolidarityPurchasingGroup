@@ -3,7 +3,7 @@ import './HomePage.css';
 import { Link } from 'react-router-dom';
 import { Col, Row, Button, Dropdown } from "react-bootstrap";
 
-function HomePage() {
+function HomePage(prop) {
     return (
         <>
             <SelectionBar />
@@ -14,9 +14,7 @@ function HomePage() {
                     <p>Go to your local shop or log in to add products to your basket</p>
                     <Row>
                         <Col>
-                            <Link to='/login'>
-                                <Button size="lg" style={{ whiteSpace: "nowrap" }}>Log In</Button>
-                            </Link>
+                        {prop.loggedIn ? <LogOut userLogoutCallback={prop.userLogoutCallback}/> : <LogIn/>}   
                         </Col>
                         <Col>
                             <Link to='/products' style={{ whiteSpace: "nowrap" }}>
@@ -25,7 +23,7 @@ function HomePage() {
                         </Col>
                     </Row>
                     <p>Not already registered?</p>
-                    <Link to='/register'>
+                    <Link to='/addClient'>
                         <Button size="lg" style={{ whiteSpace: "nowrap" }}>Register</Button>
                     </Link>
                 </section>
@@ -64,4 +62,19 @@ function SelectionBar() {
     );
 }
 
+function LogIn(){
+    return(<>
+        <Link to='/login'>
+            <Button size="lg" style={{ whiteSpace: "nowrap" }}>Log In</Button>
+        </Link>
+    </>);
+}
+
+function LogOut(prop){
+    return(<>
+    <Link to="/">
+        <Button size="lg" style={{ whiteSpace: "nowrap" }} onClick={prop.userLogoutCallback}>Log Out</Button>
+    </Link>
+    </>);
+}
 export default HomePage;

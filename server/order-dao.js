@@ -3,13 +3,14 @@ const db = require('./db');
 
 exports.createBooking = (booking, userId) => {
     return new Promise((resolve, reject) => {
-        const sql = 'INSERT INTO Bookings( BookingStartDate, UserId, TotalPrice, State,PickupTime) VALUES(?,?,?,?,?)';
+        const sql = 'INSERT INTO Bookings( BookingStartDate, UserId, TotalPrice, State, PickupTime, DeliveryTime) VALUES(?,?,?,?,?,?)';
         db.run(sql, [
             booking.bookingStartDate,
             booking.userId,
             booking.totalPrice,
             booking.state,
-            booking.pickupTime], function (err) {
+            booking.pickupTime,
+            booking.deliveryTime], function (err) {
                 if (err) {
                     reject(err);
                     return;

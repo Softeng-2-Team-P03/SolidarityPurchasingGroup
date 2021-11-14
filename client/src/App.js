@@ -1,18 +1,19 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import ProductList from "./Components/ProductList/ProductList";
+import ProductList from "./components/ProductList/ProductList";
 import { Container } from "react-bootstrap";
-import ClientList from './Components/ClientList/ClientList';
-import { useState } from 'react';
-import OrderList from './Components/OrderList/OrderList';
-import NavBar from './Components/NavBar/NavBar';
-import HomePage from './Components/HomePage/HomePage';
+import OrderList from './components/OrderList/OrderList';
+import NavBar from './components/NavBar/NavBar';
+import HomePage from './components/HomePage/HomePage';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import bookingApi from "./api/booking-api";
 import productApi from "./api/product-api";
-
+import { React, useState, useEffect } from "react";
 import booking from './models/booking';
-import {useEffect} from "react";
+import API from './API';
+import { LoginComponent } from './LoginComponent';
+import ClientList from './components/ClientList/ClientList';
+import { ClientModal } from './components/ClientList/AddClient';
 
 
 const fakeClients = [
@@ -23,22 +24,22 @@ const fakeClients = [
 ];
 
 const fakeProducts = [
-  { name: "Cipolla", description: "Rossi", price: "0.10" },
-  { name: "Cipollo", description: "Rossi", price: "0.10" },
-  { name: "Cipollu", description: "Rossi", price: "0.10" },
-  { name: "Mario", description: "Rossi", price: "0.10" },
-  { name: "dsfsd", description: "Rossi", price: "0.10" },
-  { name: "uytuty", description: "Rossi", price: "0.10" },
-  { name: "fdsfsd", description: "Rossi", price: "0.10" },
+  { id: 1, name: "Cipolla", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 10, farmer: { name: "Mario", surname: "Rossi" } },
+  { id: 2, name: "Cipollo", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 20, farmer: { name: "Mario", surname: "Rossi" } },
+  { id: 3, name: "Cipollu", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 5, farmer: { name: "Mario", surname: "Rossi" } },
+  { id: 4, name: "Mario", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 2, farmer: { name: "Mario", surname: "Rossi" } },
+  { id: 5, name: "dsfsd", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 8, farmer: { name: "Mario", surname: "Rossi" } },
+  { id: 6, name: "uytuty", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 6, farmer: { name: "Mario", surname: "Rossi" } },
+  { id: 7, name: "fdsfsd", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 3, farmer: { name: "Mario", surname: "Rossi" } },
 ];
 
 const fakeOrders = [
-  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "2021-21-11 10:30" ,deliveryTime : ""},
-  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "" ,deliveryTime : "2021-21-11 10:30"},
-  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "2021-21-11 10:30" ,deliveryTime : ""},
-  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "" ,deliveryTime : "2021-21-11 10:30"},
-  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "2021-21-11 10:30" ,deliveryTime : ""},
-  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "" ,deliveryTime : "2021-21-11 10:30"},
+  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "2021-21-11 10:30", deliveryTime: "" },
+  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "", deliveryTime: "2021-21-11 10:30" },
+  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "2021-21-11 10:30", deliveryTime: "" },
+  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "", deliveryTime: "2021-21-11 10:30" },
+  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "2021-21-11 10:30", deliveryTime: "" },
+  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "", deliveryTime: "2021-21-11 10:30" },
 
 ];
 
@@ -46,25 +47,29 @@ function App() {
   const [clients, setClients] = useState([...fakeClients]);
   const [products, setProducts] = useState([...fakeProducts]);
   const [orders, setOrders] = useState([...fakeOrders]);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [message, setMessage] = useState('');
+  const [user, setUser] = useState(undefined);
 
-    // useEffect(()=> {
-    //     let mounted = true;
-    //     let products = [];
-    //     const getAllProducts = async () => {
-    //         products = await productApi.getAllProducts({page:0});
-    //     };
-    //     getAllProducts().then(data => {
-    //         if (mounted){
-    //             console.log("prodotti")
-    //             console.log(products);
 
-    //         }
-    //     })
-    //         .catch(err => {
-    //             console.error(err);
-    //         });
-    //     return () => { mounted = false };
-    // }, []);
+  // useEffect(()=> {
+  //     let mounted = true;
+  //     let products = [];
+  //     const getAllProducts = async () => {
+  //         products = await productApi.getAllProducts({page:0});
+  //     };
+  //     getAllProducts().then(data => {
+  //         if (mounted){
+  //             console.log("prodotti")
+  //             console.log(products);
+
+  //         }
+  //     })
+  //         .catch(err => {
+  //             console.error(err);
+  //         });
+  //     return () => { mounted = false };
+  // }, []);
 
 
 
@@ -90,7 +95,7 @@ function App() {
   //     insertBooking().then(data => {
   //         if (mounted){
   //             console.log("prodotti")
-            
+
 
   //         }
   //     })
@@ -100,7 +105,46 @@ function App() {
   //     return () => { mounted = false };
   // }, []);
 
+useEffect(() => {
+        const checkAuth = async () => {
+            try {
+                const userInfo = await API.getUserInfo();
+                setLoggedIn(true);
+                setUser(userInfo);
+            } catch (err) {
+                console.error(err.error);
+            }
+        };
+        checkAuth();
+    }, []);
 
+    const userLoginCallback = async (email, password) => {
+        // Make POST request to authentication server
+        try {
+            const userInfo = await API.logIn({ username: email, password: password });
+            setMessage({ msg: `Welcome!`, type: 'text-success' });
+            setLoggedIn(true);
+            setUser(userInfo);
+        } catch (err) {
+            setMessage({ msg: 'wrong email or password', type: 'text-danger' });
+        }
+    };
+
+    const userLogoutCallback = () => {
+        API.logOut().then(() => {
+            setLoggedIn(false);
+            setMessage('');
+            setUser(undefined);
+        });
+    }
+
+    const addClient = (newClient) => {
+          API.addNewClient(newClient).then(() => {
+            setClients(...clients, newClient);
+          }).catch(/*err => handleErrors(err) */);
+      };
+
+    
 
 
   return (
@@ -109,9 +153,15 @@ function App() {
     
         <Router>
           <Switch>
+          <Route exact path="/login" render={() => (<>{loggedIn ? <Redirect to='/' /> :
+              <LoginComponent userLoginCallback={userLoginCallback} message={message} />}</>)} />
             <Route path='/clients' render={() =>
               <ClientList clients={clients} ></ClientList>
             } />
+             <Route path="/addClient" render={() => (
+              <><HomePage />
+                <ClientModal addClient={addClient}></ClientModal></>
+               )} />
             <Route path="/products" render={() =>
               <ProductList products={products} />
             } />
@@ -119,7 +169,7 @@ function App() {
               <OrderList orders={fakeOrders} ></OrderList>
             } />
             <Route exact path="/" render={() =>
-              <HomePage />
+              <HomePage loggedIn={loggedIn} userLogoutCallback={userLogoutCallback}/>
             } />
             <Route render={() =>
               <Redirect to='/' />

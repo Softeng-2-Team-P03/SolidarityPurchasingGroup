@@ -50,7 +50,7 @@ function OrderList(props) {
     return (
         <>
             <Form.Control type="text" className="searchB" placeholder="Search order" onChange={x => changeSearchText(x.target.value)} />
-            <Table responsive striped bordered hover>
+            <Table responsive striped bordered hover className="ordersTable">
                 <thead>
                     <tr>
                         <th>OrderID</th>
