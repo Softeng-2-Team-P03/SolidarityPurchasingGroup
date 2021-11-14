@@ -41,7 +41,7 @@ exports.getUsersByAccessType = (accessType) => {
             const users = rows.map((row) => ({
                 id: row.Id,
                 name: row.Name,
-                surname: row.Surname,
+                surname: row.surname,
                 email: row.Email,
                 phoneNumber: row.PhoneNumber,
                 accessType: row.AccessType,
