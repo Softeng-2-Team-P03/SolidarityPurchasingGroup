@@ -45,27 +45,27 @@ function NavBar(props) {
   const setHourMinus=()=> {
     if(localStorage.getItem("hourMultiplier")===null)
       hourMultiplier=0;
-    else
+    else{      
       hourMultiplier=parseInt(localStorage.getItem("hourMultiplier"));
-    hourMultiplier -= 1;
+      hourMultiplier -= 1;}
     localStorage.setItem("hourMultiplier", hourMultiplier.toString());
     showTime()
     }
     const setDayPlus=()=> {
       if(localStorage.getItem('dayMultiplier')===null)
         dayMultiplier=0;
-      else
+      else{
         dayMultiplier=parseInt(localStorage.getItem('dayMultiplier'));
-      dayMultiplier += 1;
+        dayMultiplier += 1;}
       localStorage.setItem('dayMultiplier', dayMultiplier.toString());
       showTime()
       }
       const setDayMinus=()=> {
         if(localStorage.getItem("dayMultiplier")===null)
           dayMultiplier=0;
-        else
+        else{
           dayMultiplier=parseInt(localStorage.getItem("dayMultiplier"));
-        dayMultiplier -= 1;
+          dayMultiplier -= 1;}
         localStorage.setItem("dayMultiplier", dayMultiplier.toString());
         showTime()
       }  

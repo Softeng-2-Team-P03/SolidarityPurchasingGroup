@@ -7,6 +7,7 @@ function showTime() {
 			let sec = time.getSeconds();;
 			let weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 			let day=time.getDay()+parseInt(localStorage.getItem('dayMultiplier'));
+			
 			if(day>7)
 				day=day-7;
 			if(day<0)
@@ -21,6 +22,7 @@ function showTime() {
 					today=weekDay[day+1];
 			}
 
+			hour = (hour < 0) ? 0 : hour;
 			hour = (hour < 10) ? "0" + hour : hour;
 			min = (min < 10) ? "0" + min : min;
 			sec = (sec < 10) ? "0" + sec : sec;
