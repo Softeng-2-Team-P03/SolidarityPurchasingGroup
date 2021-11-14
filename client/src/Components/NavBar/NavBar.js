@@ -1,12 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar,Button, Row } from "react-bootstrap";
 import { showTime } from './clock.js'
 import { useState } from "react";
 
 
-setInterval(showTime, 1000) // per mostrare il passare dei secondi nell'orologio
+var hourMultiplier = 0;
+var dayMultiplier = 0;
+//localStorage.setItem("hourMultiplier", hourMultiplier.toString());
+window.setInterval(showTime, 1000) // per mostrare il passare dei secondi nell'orologio
 
 function NavBar(props) {
 
@@ -29,6 +32,44 @@ function NavBar(props) {
     return <></>;
   }
 
+  /* FUNZIONI PER POTER MODIFICARE ORARIO */
+  const setHourPlus=()=> {
+    if(localStorage.getItem('hourMultiplier')===null)
+      hourMultiplier=0;
+    else
+      hourMultiplier=parseInt(localStorage.getItem('hourMultiplier'));
+    hourMultiplier += 1;
+    localStorage.setItem('hourMultiplier', hourMultiplier.toString());
+    showTime()
+    }
+  const setHourMinus=()=> {
+    if(localStorage.getItem("hourMultiplier")===null)
+      hourMultiplier=0;
+    else
+      hourMultiplier=parseInt(localStorage.getItem("hourMultiplier"));
+    hourMultiplier -= 1;
+    localStorage.setItem("hourMultiplier", hourMultiplier.toString());
+    showTime()
+    }
+    const setDayPlus=()=> {
+      if(localStorage.getItem('dayMultiplier')===null)
+        dayMultiplier=0;
+      else
+        dayMultiplier=parseInt(localStorage.getItem('dayMultiplier'));
+      dayMultiplier += 1;
+      localStorage.setItem('dayMultiplier', dayMultiplier.toString());
+      showTime()
+      }
+      const setDayMinus=()=> {
+        if(localStorage.getItem("dayMultiplier")===null)
+          dayMultiplier=0;
+        else
+          dayMultiplier=parseInt(localStorage.getItem("dayMultiplier"));
+        dayMultiplier -= 1;
+        localStorage.setItem("dayMultiplier", dayMultiplier.toString());
+        showTime()
+      }  
+
   return (
     <Navbar className="nav" bg="primary" variant="dark">
       <Navbar.Brand href="/">
@@ -48,7 +89,13 @@ function NavBar(props) {
           <Nav.Link href='/login'>Login</Nav.Link>
         }
       </Nav>
-      <div id="clock" class="glow">00:00:00</div>
+      <div class='clockWrapper'>
+        <Button id='incrementDay' onClick={setDayPlus}>▲</Button>
+        <Button id='incrementHour' onClick={setHourPlus}>▲</Button>
+        <div id="clock" class="glow">00:00:00</div>
+        <Button id='decreementDay'onClick={setDayMinus}>▼</Button>
+        <Button id='decreementHour'onClick={setHourMinus}>▼</Button>
+      </div>
     </Navbar>
   );
 }

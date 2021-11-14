@@ -4,6 +4,7 @@
     position: sticky;
     top: 0;
     z-index: 100;
+/*     height: px;  allungare navbar*/
   }
 
   #clock {
@@ -15,10 +16,25 @@
   }
 
   .glow {
-     font-size: 30px;
+     font-size: 20px;
      color: #fff;
      font-weight: bold;
      animation: glow 1s ease-in-out infinite alternate;
      -moz-animation: glow 1s ease-in-out infinite alternate;
      -webkit-animation: glow 1s ease-in-out infinite alternate;
 }
+
+/* .clockWrapper{
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.clockWrapper button{
+  font-size: 10px;
+  float: none;
+  position: absolute;
+  width: fit-content;
+} */
