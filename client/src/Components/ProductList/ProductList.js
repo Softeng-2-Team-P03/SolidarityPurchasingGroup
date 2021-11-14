@@ -5,12 +5,12 @@ import SideBar from "../SideBar/SideBar";
 import Cart from "../Cart/Cart"
 import productApi from '../../api/product-api';
 import bookingApi from '../../api/booking-api';
-import mainLogo from "../Icons/cipolle-dorate-bio.jpg";
+import { useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
-import API from '../../API';
-import prova from '../ProductImages/p48-1.jpg'
 
 function ProductList(props) {
+    const location = useLocation(); //If employee makes order for client: {userId, userName}
+
     const [products, setProducts] = useState([]); //All products retrieved from server
     const [searchProducts, setSearchProducts] = useState([]); //Products shown through filters
     const [types, setTypes] = useState([]); //Types of products retrieved from server
@@ -18,8 +18,10 @@ function ProductList(props) {
     const [cartInfo, setCartInfo] = useState({ numItems: 0, totalPrice: 0 }); //Cart info
     const [dirtyInfo, setDirtyInfo] = useState(false); //If cart info needs to be recalculated
     const [category, setCategory] = useState(0); //Current typeId filter
+    const [canSeeCart, setCanSeeCart] = useState(false);
 
     const [loadingProducts, setLoadingProducts] = useState(true);
+    const [loadingTypes, setLoadingTypes] = useState(true);
     const [loadingConfirm, setLoadingConfirm] = useState(false);
 
     const [errorConfirm, setErrorConfirm] = useState(''); //Error in submitting order
@@ -42,20 +44,31 @@ function ProductList(props) {
     function changeSearchText(text) {
         let p = []
         products.forEach(x => {
-            if (x.name.toLowerCase().includes(text.toLowerCase()) && x.typeId === category) p.push(x);
+            if (x.name.toLowerCase().includes(text.toLowerCase())) p.push(x);
         })
 
         setSearchProducts(p);
     }
 
     useEffect(() => {
-        setLoadingProducts(true);
+        if (props.loggedIn && props.user !== undefined) {
+            if (location.state && location.state.userId) {
+                setCanSeeCart([1, 2].includes(props.user.accessType)); //user is employee/manager with client id in location state
+            }
+            else {
+                setCanSeeCart(props.user.accessType === 3); //user is client
+            }
+        }
+    }, [props.loggedIn, props.user, location.state])
+
+    useEffect(() => {
         productApi.getAllProducts().then((products) => {
             setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
             setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+            setLoadingProducts(false);
             productApi.getProductTypes().then((types) => {
                 setTypes(types);
-                setLoadingProducts(false);
+                setLoadingTypes(false);
                 setErrorLoading('');
             }).catch(err => {
                 setErrorLoading('Error during the loading of the types')
@@ -69,10 +82,28 @@ function ProductList(props) {
 
     useEffect(() => {
         if (category !== 0) {
-            setSearchProducts(products.filter(product => product.typeId === category));
+            setLoadingProducts(true);
+            productApi.getProductsByType(category).then((products) => {
+                setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+                setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+                setLoadingProducts(false);
+                setErrorLoading('');
+            }).catch(err => {
+                setErrorLoading('Error during the loading of the products')
+                console.error(err);
+            })
         }
         else {
-            setSearchProducts(products);
+            setLoadingProducts(true);
+            productApi.getAllProducts(category).then((products) => {
+                setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+                setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+                setLoadingProducts(false);
+                setErrorLoading('');
+            }).catch(err => {
+                setErrorLoading('Error during the loading of the products')
+                console.error(err);
+            })
         }
     }, [category])
 
@@ -95,7 +126,7 @@ function ProductList(props) {
 
     const confirmOrder = () => {
         const booking = {
-            userId: 2,
+            userId: (location.state && location.state.userId) ? location.state.userId : undefined,
             bookingStartDate: "2021-11-15", //waiting for virtual clock to implement
             totalPrice: cartInfo.totalPrice,
             pickupTime: "2021-11-17",
@@ -106,6 +137,7 @@ function ProductList(props) {
                 price: (product.selectedQuantity * product.pricePerUnit).toFixed(2)
             }))
         }
+        
         setLoadingConfirm(true);
         bookingApi.addBooking(booking)
             .then(() => {
@@ -165,14 +197,14 @@ function ProductList(props) {
             </Row>
             <Row>
                 <Col xs={2} md={2}>
-                    <SideBar loadingProducts={loadingProducts} changeCategory={changeCategory} types={types} category={category} />
+                    <SideBar loadingTypes={loadingTypes} changeCategory={changeCategory} types={types} category={category} />
                 </Col>
                 <Col xs={10} md={10} className="main">
                     {loadingProducts ?
                         <h1 style={{ textAlign: "center" }}>Loading products... <Spinner animation="border" /></h1> :
                         <Row xs={2} md={5} className="g-4">
                             {searchProducts.map((x) =>
-                                <Product key={x.id}
+                                <Product key={x.id} canSeeCart={canSeeCart}
                                     product={x} addProductToCart={addProductToCart}
                                     productInCart={cart.filter(product => product.id === x.id)[0] === undefined ? 0
                                         : cart.filter(product => product.id === x.id)[0].selectedQuantity}
@@ -183,9 +215,11 @@ function ProductList(props) {
                     <h2 style={{ textAlign: "center", color: "red" }}>{errorLoading}</h2>
                 </Col>
             </Row>
-            <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart}
-                modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
-                errorConfirm={errorConfirm} />
+            {canSeeCart ?
+                <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart}
+                    modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
+                    errorConfirm={errorConfirm} userName={location.state && location.state.userName} />
+                : <></>}
         </>
     );
 }
@@ -225,19 +259,23 @@ function Product(props) {
                 <Card.Footer>
                     <small className="text-muted">Farmer: {props.product.farmer.name} {props.product.farmer.surname}</small>
                 </Card.Footer>
-                <Card.Footer>
-                    <Button className="button" variant="primary" disabled={quantity === 0}
-                        onClick={() => modifyQuantity(-1)}>-</Button>{' '}
-                    <small className="text"> {quantity} </small>
-                    <Button className="button" variant="primary" disabled={quantity === props.product.quantity}
-                        onClick={() => modifyQuantity(+1)}>+</Button>{' '}
-                    <br />
-                    {quantity === props.product.quantity ?
-                        <small style={{ color: "red" }}>Max quantity reached</small> : <></>}
-                </Card.Footer>
-                <Card.Footer>
-                    <Button variant="success" onClick={() => addToBasket()} disabled={quantity === 0}>Add to basket</Button>{' '}
-                </Card.Footer>
+                {props.canSeeCart ? <>
+                    <Card.Footer>
+                        <Button className="button" variant="primary" disabled={quantity === 0}
+                            onClick={() => modifyQuantity(-1)}>-</Button>{' '}
+                        <small className="text"> {quantity} </small>
+                        <Button className="button" variant="primary" disabled={quantity === props.product.quantity}
+                            onClick={() => modifyQuantity(+1)}>+</Button>{' '}
+                        <br />
+                        {quantity === props.product.quantity ?
+                            <small style={{ color: "red" }}>Max quantity reached</small> : <></>}
+                    </Card.Footer>
+                    <Card.Footer>
+                        <Button variant="success" onClick={() => addToBasket()} disabled={quantity === 0}>Add to basket</Button>{' '}
+                    </Card.Footer>
+                </>
+                    : <> </>
+                }
             </Card>
         </Col>
     );

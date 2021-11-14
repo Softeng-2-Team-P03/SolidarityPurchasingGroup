@@ -109,3 +109,33 @@ exports.getTypes = () => {
         });
     });
 }
+
+exports.getProductsByType = (typeId) => {
+    return new Promise((resolve, reject) => {
+        const sql = `SELECT Products.* ,ProductImages.Path,Users.Name as FarmerName ,Users.Surname  From Products,ProductImages,Users 
+                    WHERE ProductImages.ProductId==Products.Id AND Users.Id=Products.FarmerId AND ProductImages.IsDefault==1 AND Products.TypeId = ?`;
+        db.all(sql, [typeId], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            const products = rows.map((row) => ({
+                id: row.Id,
+                farmerId: row.FarmerId,
+                name: row.Name,
+                description: row.Description,
+                quantity: row.Quantity,
+                state: row.State,
+                typeId: row.TypeId,
+                pricePerUnit: row.PricePerUnit,
+                imagePath: row.Path,
+                farmer: {
+                    name: row.FarmerName,
+                    surname: row.Surname,
+                }
+            })
+            );
+            resolve(products);
+        });
+    });
+}

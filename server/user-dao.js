@@ -13,12 +13,12 @@ exports.getUsers = (pageNumber) => {
             }
             const users = rows.map((row) => ({
                 id: row.Id,
-                name: row.name,
-                surName: row.surName,
+                name: row.Name,
+                surName: row.Surname,
                 email: row.Email,
                 phoneNumber: row.PhoneNumber,
                 accessType: row.AccessType,
-                wallet: row.wallet,
+                wallet: row.Wallet,
                 address: row.Address,
             })
             );
@@ -40,12 +40,12 @@ exports.getUsersByAccessType = (accessType) => {
             }
             const users = rows.map((row) => ({
                 id: row.Id,
-                name: row.name,
-                surName: row.surName,
+                name: row.Name,
+                surName: row.Surname,
                 email: row.Email,
                 phoneNumber: row.PhoneNumber,
                 accessType: row.AccessType,
-                wallet: row.wallet,
+                wallet: row.Wallet,
                 address: row.Address,
             })
             );
@@ -70,11 +70,11 @@ exports.doLogin = (email, password) => {
                 const user = {
                     id: row.Id,
                     name: row.name,
-                    surName: row.surName,
+                    surName: row.Surname,
                     email: row.Email,
                     phoneNumber: row.PhoneNumber,
                     accessType: row.AccessType,
-                    wallet: row.wallet,
+                    wallet: row.Wallet,
                     address: row.Address,
                 };
                 // check the hashes with an async call, given that the operation may be CPU-intensive (and we don't want to block the server)
@@ -100,7 +100,7 @@ exports.getUserById = (id) => {
           resolve({error: 'User not found.'});
         else {
           // by default, the local strategy looks for "username": not to create confusion in server.js, we can create an object with that property
-          const user = {id: row.Id, username: row.Email}
+          const user = {id: row.Id, username: row.Email, name: row.Name, accessType: row.AccessType}
           resolve(user);
         }
     });
@@ -117,7 +117,7 @@ exports.getUser = (email, password) => {
           resolve(false);
         }
         else {
-          const user = {id: row.Id, username: row.email};
+          const user = {id: row.Id, username: row.Email, name: row.Name, accessType: row.AccessType};
             
           // check the hashes with an async call, given that the operation may be CPU-intensive (and we don't want to block the server)
           bcrypt.compare(password, row.Password).then(result => {

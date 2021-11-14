@@ -19,12 +19,12 @@ function Cart(props) {
         </Button>
 
         <Modal data-testid="cartModal" show={show} onHide={close} scrollable>
-            <Modal.Header closeButton style={{backgroundColor: "#6da8fd"}}>
+            <Modal.Header closeButton style={{ backgroundColor: "#6da8fd" }}>
                 <Col style={{ textAlign: "center" }}>
                     <Row>
                         <Col xs={15} md={11}>
                             <h3>
-                                <small>Cart ({props.cartInfo.numItems} items) </small> <br />
+                                <small>Cart ({props.cartInfo.numItems} items) {props.userName ? `for ${props.userName}` : ""}</small> <br />
                                 <b>Subtotal: € {props.cartInfo.totalPrice}</b>
                             </h3>
                         </Col>
@@ -41,10 +41,10 @@ function Cart(props) {
                     <br />
                     <Button variant="success" disabled={props.cart.length === 0 || props.loadingConfirm}
                         onClick={() => props.confirmOrder()}>
-                            {props.loadingConfirm ? <>Submitting order <Spinner animation="border" /></> : "Confirm Order"}
-                        </Button>
+                        {props.loadingConfirm ? <>Submitting order <Spinner animation="border" /></> : "Confirm Order"}
+                    </Button>
                     <br />
-                    <h4 style={{color: "#8B0000", fontWeight: "bold"}}>{props.errorConfirm}</h4>
+                    <h4 style={{ color: "#8B0000", fontWeight: "bold" }}>{props.errorConfirm}</h4>
                 </Col>
             </Modal.Header>
             <Modal.Body>
@@ -63,7 +63,7 @@ function CartProduct(props) {
         <Row style={{ borderBottom: "2px solid black", paddingTop: "5%", paddingBottom: "5%" }}>
             <Button className="cartButtons delete" variant="danger" onClick={() => props.deleteProductFromCart(props.product.id)}>X</Button>
             <Col>
-                <Image src={require('../ProductImages/'+props.product.imagePath).default} fluid thumbnail />
+                <Image src={require('../ProductImages/' + props.product.imagePath).default} fluid thumbnail />
                 <div style={{ textAlign: "center", fontWeight: "bold", fontSize: "25px" }}>{props.product.name} </div>
                 <div style={{ textAlign: "center", fontSize: "15px" }}>Farmer: {props.product.farmer.name} {props.product.farmer.surname}</div>
             </Col>

@@ -139,7 +139,7 @@ function AddClientForm(props) {
                     <Form.Control required type='text' value={address} onChange={ev => setAddress(ev.target.value)} />
                 </Form.Group>
 
-                <Button onClick={handleAdd}>Add</Button> 
+                <Button onClick={handleAdd}>Register</Button> 
                 <Form.Text className="text-danger">{errorMessage}</Form.Text>
             </Form >
         </>

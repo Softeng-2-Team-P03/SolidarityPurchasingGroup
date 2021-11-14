@@ -1,9 +1,9 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ClientList.css';
-import {Button, Form, Table} from "react-bootstrap";
-import React, { useState} from 'react';
-import { Link} from 'react-router-dom';
+import { Button, Form, Table } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { AddClientBtn, } from './AddClient';
 
 
@@ -14,7 +14,11 @@ function Client(props) {
                 <td>{props.client.name}</td>
                 <td>{props.client.surname}</td>
                 <td>{props.client.email}</td>
-                <td ><Button className="buttonNewOrder" variant ="primary"> New Order </Button></td>
+                <td >
+                    <Link to={{ pathname: '/products', state: { userId: props.client.userId, userName: props.client.name } }}>
+                        <Button className="buttonNewOrder" variant="primary"> New Order </Button>
+                    </Link>
+                </td>
             </tr>
         </>
     );
@@ -24,12 +28,12 @@ function Client(props) {
 
 function ClientList(props) {
 
-    const [resultC,setResultC]=useState(props.clients);
+    const [resultC, setResultC] = useState(props.clients);
 
-    function changeSearchText(text){
-        let c=[]
-        props.clients.forEach(x=>{
-            if(x.email.toLowerCase().includes(text.toLowerCase())) c.push(x);
+    function changeSearchText(text) {
+        let c = []
+        props.clients.forEach(x => {
+            if (x.email.toLowerCase().includes(text.toLowerCase())) c.push(x);
         })
 
         setResultC(c);
@@ -39,7 +43,7 @@ function ClientList(props) {
     return (
         <>
 
-            <Form.Control type="text" className="searchB" placeholder="Search client" onChange={x=>changeSearchText(x.target.value)}/>
+            <Form.Control type="text" className="searchB" placeholder="Search client" onChange={x => changeSearchText(x.target.value)} />
             <Table responsive striped bordered hover className="clientsTable">
                 <thead>
                     <tr>
@@ -50,10 +54,10 @@ function ClientList(props) {
                     </tr>
                 </thead>
                 <tbody> {
-                  resultC.map((cl) =>
-                    <Client key={cl.userId}
-                    client = {cl}
-                    />)
+                    resultC.map((cl) =>
+                        <Client key={cl.userId}
+                            client={cl}
+                        />)
                 }
                 </tbody>
             </Table>

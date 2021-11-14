@@ -23,16 +23,6 @@ const fakeClients = [
   { userId: '4', name: "Mario", surname: "Rossi", email: "mc@gmail.com" },
 ];
 
-const fakeProducts = [
-  { id: 1, name: "Cipolla", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 10, farmer: { name: "Mario", surname: "Rossi" } },
-  { id: 2, name: "Cipollo", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 20, farmer: { name: "Mario", surname: "Rossi" } },
-  { id: 3, name: "Cipollu", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 5, farmer: { name: "Mario", surname: "Rossi" } },
-  { id: 4, name: "Mario", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 2, farmer: { name: "Mario", surname: "Rossi" } },
-  { id: 5, name: "dsfsd", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 8, farmer: { name: "Mario", surname: "Rossi" } },
-  { id: 6, name: "uytuty", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 6, farmer: { name: "Mario", surname: "Rossi" } },
-  { id: 7, name: "fdsfsd", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 3, farmer: { name: "Mario", surname: "Rossi" } },
-];
-
 const fakeOrders = [
   { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "2021-21-11 10:30", deliveryTime: "" },
   { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "", deliveryTime: "2021-21-11 10:30" },
@@ -45,7 +35,6 @@ const fakeOrders = [
 
 function App() {
   const [clients, setClients] = useState([...fakeClients]);
-  const [products, setProducts] = useState([...fakeProducts]);
   const [orders, setOrders] = useState([...fakeOrders]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [message, setMessage] = useState('');
@@ -122,9 +111,9 @@ useEffect(() => {
         // Make POST request to authentication server
         try {
             const userInfo = await API.logIn({ username: email, password: password });
+            setUser(userInfo);
             setMessage({ msg: `Welcome!`, type: 'text-success' });
             setLoggedIn(true);
-            setUser(userInfo);
         } catch (err) {
             setMessage({ msg: 'wrong email or password', type: 'text-danger' });
         }
@@ -149,8 +138,7 @@ useEffect(() => {
 
   return (
     <>
-      <NavBar />
-    
+      <NavBar loggedIn={loggedIn} user={user} userLogoutCallback={userLogoutCallback}/>
         <Router>
           <Switch>
           <Route exact path="/login" render={() => (<>{loggedIn ? <Redirect to='/' /> :
@@ -163,7 +151,7 @@ useEffect(() => {
                 <ClientModal addClient={addClient}></ClientModal></>
                )} />
             <Route path="/products" render={() =>
-              <ProductList products={products} />
+              <ProductList loggedIn={loggedIn} user={user} />
             } />
             <Route path='/orders' render={() =>
               <OrderList orders={fakeOrders} ></OrderList>

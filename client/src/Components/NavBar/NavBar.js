@@ -2,12 +2,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
 import { Nav, Navbar } from "react-bootstrap";
-import {showTime} from './clock.js'
+import { showTime } from './clock.js'
+import { useState } from "react";
 
 
 setInterval(showTime, 1000) // per mostrare il passare dei secondi nell'orologio
 
-function NavBar() {
+function NavBar(props) {
 
   const chooseNavbar = (accessType) => {
     if (accessType === 1) {
@@ -40,11 +41,14 @@ function NavBar() {
         /> SPG
       </Navbar.Brand>
       <Nav className="me-auto" />
-      {chooseNavbar(2)}
+      {props.loggedIn && props.user !== undefined && chooseNavbar(props.user.accessType)}
       <Nav>
-        <Nav.Link href='/login'>Login</Nav.Link>
+        {props.loggedIn ?
+          <Nav.Link onClick={() => props.userLogoutCallback()}>Logout</Nav.Link> :
+          <Nav.Link href='/login'>Login</Nav.Link>
+        }
       </Nav>
-      <div id="clock" className="glow">00:00:00</div>
+      <div id="clock" class="glow">00:00:00</div>
     </Navbar>
   );
 }
@@ -75,8 +79,9 @@ function EmployeeNavbar() {
 function ManagerNavbar() {
   return (
     <Nav>
-      <Nav.Link>Clients</Nav.Link>
-      <Nav.Link>Orders</Nav.Link>
+      <Nav.Link href='/products'>Browse Shop</Nav.Link>
+      <Nav.Link href='/clients'>Clients</Nav.Link>
+      <Nav.Link href='/orders'>Orders</Nav.Link>
       <Nav.Link>Join Requests</Nav.Link>
     </Nav>
   );

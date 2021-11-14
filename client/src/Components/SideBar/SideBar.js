@@ -11,7 +11,7 @@ function SideBar(props) {
                     <small className="text-muted">Type of Products</small>
                 </h4>
             </ListGroup.Item>
-            {props.loadingProducts ?
+            {props.loadingTypes ?
                 <ListGroup.Item>Loading categories <Spinner animation="border" size="sm" /></ListGroup.Item>
                 :
                 <>

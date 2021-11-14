@@ -85,18 +85,18 @@ app.post('/api/new_client', async (req, res) => {
         password: req.body.password,
         name: req.body.name,
         surname: req.body.surname,
-        email: req.body.email,        
+        email: req.body.email,
         phoneNumber: req.body.phoneNumber,
-        accessType:req.body.accessType,
-        wallet:req.body.wallet,
-        address:req.body.address
+        accessType: req.body.accessType,
+        wallet: req.body.wallet,
+        address: req.body.address
     };
 
     try {
         await Dao.createClient(client);
         res.status(201).end();
-    } catch(err) {
-        res.status(503).json({error: `Database error during the creation of client.`});
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the creation of client.` });
     }
 });
 
@@ -155,6 +155,19 @@ app.get('/api/types', async (req, res) => {
     }
 });
 
+app.get('/api/products/type/:typeId', async (req, res) => {
+    try {
+        const result = await productDao.getProductsByType(req.params.typeId);
+        if (result.error) {
+            res.status(404).json(result);
+        }
+        else {
+            res.json(result);
+        }
+    } catch (err) {
+        res.status(500).end();
+    }
+})
 
 // Order
 
@@ -175,7 +188,7 @@ app.post('/api/booking', [
         state: req.body.state,
         pickupTime: req.body.pickupTime,
         deliveryTime: req.body.deliveryTIme,
-        userId: req.body.userId ? req.body.userId : 1 // : req.user.id
+        userId: req.body.userId ? req.body.userId : req.user.id
     };
     console.log(booking)
     var productsJson = req.body.products;
@@ -215,7 +228,7 @@ async function PostOrderProduct(element, bookingId) {
 
 // POST /sessions
 // login
-app.post('/api/sessions', function(req, res, next) {
+app.post('/api/sessions', function (req, res, next) {
     passport.authenticate('local', (err, user, info) => {
         if (err)
             return next(err);
@@ -254,10 +267,11 @@ app.delete('/api/sessions/current', (req, res) => {
 // GET /sessions/current
 // check whether the user is logged in or not
 app.get('/api/sessions/current', (req, res) => {
-    if(req.isAuthenticated()) {
-        res.status(200).json(req.user);}
+    if (req.isAuthenticated()) {
+        res.status(200).json(req.user);
+    }
     else
-        res.status(401).json({error: 'Unauthenticated user!'});
+        res.status(401).json({ error: 'Unauthenticated user!' });
 });
 
 

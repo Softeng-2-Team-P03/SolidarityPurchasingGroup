@@ -39,5 +39,15 @@ async function getProductTypes() {
     }
 }
 
-const API = { getAllProducts, getProducts, getProductTypes };
+async function getProductsByType(typeId) {
+    const response = await fetch(BASEURL + '/products/type/' + typeId);
+    const productsJson = await response.json();
+    if (response.ok) {
+        return productsJson;
+    } else {
+        throw productsJson;
+    }
+}
+
+const API = { getAllProducts, getProducts, getProductTypes, getProductsByType };
 export default API;
