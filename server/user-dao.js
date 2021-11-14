@@ -3,9 +3,9 @@ const db = require('./db');
 const bcrypt = require('bcrypt');
 // const db =;
 // ----------->  <---------------
-exports.getUsers = () => {
+exports.getUsers = (pageNumber) => {
     return new Promise(async (resolve, reject) => {
-        var sqlQuery = 'SELECT * From Users';
+        var sqlQuery = 'SELECT * From Users LIMIT 10 OFFSET "' + pageNumber + '"';
         db.all(sqlQuery, (err, rows) => {
             if (err) {
                 reject(err);
@@ -32,8 +32,8 @@ exports.getUsers = () => {
 
 exports.getUsersByAccessType = (accessType) => {
     return new Promise(async (resolve, reject) => {
-        var sqlQuery = "SELECT * From Users WHERE AccessType=" + accessType + " LIMIT 10 OFFSET " + pageNumber + '"';
-        db.all(sqlQuery, (err, rows) => {
+        var sqlQuery = "SELECT * From Users WHERE AccessType= ? ";
+        db.all(sqlQuery, [accessType], (err, rows) => {
             if (err) {
                 reject(err);
                 return;
