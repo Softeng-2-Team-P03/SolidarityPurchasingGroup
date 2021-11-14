@@ -121,14 +121,12 @@ app.get('/api/products', async (req, res) => {
         if (result.error)
             res.status(404).json(result);
         else {
-            console.log(res.json(result))
-
             res.json(result);
         }
     } catch (err) {
+        console.log(err)
         res.status(500).end();
     }
-    console.log(res);
 });
 //**** Api: Get Details Of A Products For All Users ****//
 app.get('/api/products/:id', async (req, res) => {
@@ -142,6 +140,22 @@ app.get('/api/products/:id', async (req, res) => {
         res.status(500).end();
     }
 });
+
+app.get('/api/types', async (req, res) => {
+    try {
+        const result = await productDao.getTypes();
+        if (result.error) {
+            res.status(404).json(result);
+        }
+        else {
+            res.json(result);
+        }
+    } catch (err) {
+        res.status(500).end();
+    }
+});
+
+
 // Order
 
 // ,isLoggedIn
@@ -160,7 +174,8 @@ app.post('/api/booking', [
         totalPrice: req.body.totalPrice,
         state: req.body.state,
         pickupTime: req.body.pickupTime,
-        userId: req.body.userId ? req.body.userId : 1
+        deliveryTime: req.body.deliveryTIme,
+        userId: req.body.userId ? req.body.userId : 1 // : req.user.id
     };
     console.log(booking)
     var productsJson = req.body.products;
@@ -172,10 +187,10 @@ app.post('/api/booking', [
                 PostOrderProduct(element, bookingId);
             });
 
-           return res.json(productsJson);
+            return res.json(productsJson);
         }
         else {
-            return res.status(503).json({ error: `The minimum number of  prodcut in booking is 1 .` });
+            return res.status(503).json({ error: `The minimum number of  product in booking is 1 .` });
         }
 
     } catch (err) {

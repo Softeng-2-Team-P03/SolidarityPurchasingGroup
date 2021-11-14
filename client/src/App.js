@@ -24,22 +24,22 @@ const fakeClients = [
 ];
 
 const fakeProducts = [
-  { name: "Cipolla", description: "Rossi", price: "0.10" },
-  { name: "Cipollo", description: "Rossi", price: "0.10" },
-  { name: "Cipollu", description: "Rossi", price: "0.10" },
-  { name: "Mario", description: "Rossi", price: "0.10" },
-  { name: "dsfsd", description: "Rossi", price: "0.10" },
-  { name: "uytuty", description: "Rossi", price: "0.10" },
-  { name: "fdsfsd", description: "Rossi", price: "0.10" },
+  { id: 1, name: "Cipolla", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 10, farmer: { name: "Mario", surname: "Rossi" } },
+  { id: 2, name: "Cipollo", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 20, farmer: { name: "Mario", surname: "Rossi" } },
+  { id: 3, name: "Cipollu", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 5, farmer: { name: "Mario", surname: "Rossi" } },
+  { id: 4, name: "Mario", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 2, farmer: { name: "Mario", surname: "Rossi" } },
+  { id: 5, name: "dsfsd", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 8, farmer: { name: "Mario", surname: "Rossi" } },
+  { id: 6, name: "uytuty", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 6, farmer: { name: "Mario", surname: "Rossi" } },
+  { id: 7, name: "fdsfsd", description: "300gr", pricePerUnit: 0.10.toFixed(2), quantity: 3, farmer: { name: "Mario", surname: "Rossi" } },
 ];
 
 const fakeOrders = [
-  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "2021-21-11 10:30" ,deliveryTime : ""},
-  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "" ,deliveryTime : "2021-21-11 10:30"},
-  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "2021-21-11 10:30" ,deliveryTime : ""},
-  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "" ,deliveryTime : "2021-21-11 10:30"},
-  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "2021-21-11 10:30" ,deliveryTime : ""},
-  {orderID : 1, user : { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate : "2021-20-11"  , totalPrice : 30 , state : "issued", pickupTime : "" ,deliveryTime : "2021-21-11 10:30"},
+  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "2021-21-11 10:30", deliveryTime: "" },
+  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "", deliveryTime: "2021-21-11 10:30" },
+  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "2021-21-11 10:30", deliveryTime: "" },
+  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "", deliveryTime: "2021-21-11 10:30" },
+  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "2021-21-11 10:30", deliveryTime: "" },
+  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "", deliveryTime: "2021-21-11 10:30" },
 
 ];
 
@@ -52,24 +52,24 @@ function App() {
   const [user, setUser] = useState(undefined);
 
 
-    // useEffect(()=> {
-    //     let mounted = true;
-    //     let products = [];
-    //     const getAllProducts = async () => {
-    //         products = await productApi.getAllProducts({page:0});
-    //     };
-    //     getAllProducts().then(data => {
-    //         if (mounted){
-    //             console.log("prodotti")
-    //             console.log(products);
+  // useEffect(()=> {
+  //     let mounted = true;
+  //     let products = [];
+  //     const getAllProducts = async () => {
+  //         products = await productApi.getAllProducts({page:0});
+  //     };
+  //     getAllProducts().then(data => {
+  //         if (mounted){
+  //             console.log("prodotti")
+  //             console.log(products);
 
-    //         }
-    //     })
-    //         .catch(err => {
-    //             console.error(err);
-    //         });
-    //     return () => { mounted = false };
-    // }, []);
+  //         }
+  //     })
+  //         .catch(err => {
+  //             console.error(err);
+  //         });
+  //     return () => { mounted = false };
+  // }, []);
 
 
 
@@ -95,7 +95,7 @@ function App() {
   //     insertBooking().then(data => {
   //         if (mounted){
   //             console.log("prodotti")
-            
+
 
   //         }
   //     })

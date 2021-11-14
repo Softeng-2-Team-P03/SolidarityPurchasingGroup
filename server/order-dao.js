@@ -3,13 +3,14 @@ const db = require('./db');
 
 exports.createBooking = (booking, userId) => {
     return new Promise((resolve, reject) => {
-        const sql = 'INSERT INTO Bookings( BookingStartDate, UserId, TotalPrice, State,PickupTime) VALUES(?,?,?,?,?)';
+        const sql = 'INSERT INTO Bookings( BookingStartDate, UserId, TotalPrice, State, PickupTime, DeliveryTime) VALUES(?,?,?,?,?,?)';
         db.run(sql, [
             booking.bookingStartDate,
             booking.userId,
             booking.totalPrice,
             booking.state,
-            booking.pickupTime], function (err) {
+            booking.pickupTime,
+            booking.deliveryTime], function (err) {
                 if (err) {
                     reject(err);
                     return;
@@ -33,5 +34,19 @@ exports.createBookingAndProduct = (bookingProduct, userId) => {
                 }
                 resolve(this.lastID);
             });
+    });
+};
+
+exports.getOrders = () => {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM Bookings';
+        db.all(sql, [], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            const orders = rows.map((e) => ({ Id: e.Id, FarmerId: e.FarmerId, Name: e.Name, Description: e.Description,Quantity: e.Quantity,State:e.State,TypeId:e.TypeId,PricePerUnit:e.PricePerUnit}));
+            resolve(products);
+        });
     });
 };
