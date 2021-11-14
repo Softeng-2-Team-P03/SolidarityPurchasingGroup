@@ -44,7 +44,7 @@ function NavBar() {
       <Nav>
         <Nav.Link href='/login'>Login</Nav.Link>
       </Nav>
-      <div id="clock" class="glow">00:00:00</div>
+      <div id="clock" className="glow">00:00:00</div>
     </Navbar>
   );
 }
