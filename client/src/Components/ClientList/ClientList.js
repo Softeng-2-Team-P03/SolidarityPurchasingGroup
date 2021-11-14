@@ -1,14 +1,13 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './ClientList.css';
 import {Button, Form, Table} from "react-bootstrap";
 import React, { useState} from 'react';
 import { Link} from 'react-router-dom';
 import { AddClientBtn, } from './AddClient';
+
+
 function Client(props) {
-
-
-
-
     return (
         <>
             <tr>
