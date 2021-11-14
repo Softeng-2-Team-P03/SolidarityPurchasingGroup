@@ -63,5 +63,16 @@ async function getUserInfo() {
     }
 }
 
-const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts};
+async function getAllClients() {
+    // call: GET /api/users
+    const response = await fetch(BASEURL + '/users');
+    const clientsJson = await response.json();
+    if (response.ok) {
+        return clientsJson;
+    } else {
+        throw clientsJson;  // an object with the error coming from the server
+    }
+}
+
+const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getAllClients};
 export default API;

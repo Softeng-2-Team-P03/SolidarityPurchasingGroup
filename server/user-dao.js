@@ -1,11 +1,11 @@
 'use strict';
 const db = require('./db');
 const bcrypt = require('bcrypt');
-// const db =; 
+// const db =;
 // ----------->  <---------------
-exports.getUsers = (pageNumber) => {
+exports.getUsers = () => {
     return new Promise(async (resolve, reject) => {
-        var sqlQuery = 'SELECT * From Users LIMIT 10 OFFSET "' + pageNumber + '"';
+        var sqlQuery = 'SELECT * From Users';
         db.all(sqlQuery, (err, rows) => {
             if (err) {
                 reject(err);
@@ -94,7 +94,7 @@ exports.getUserById = (id) => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT * FROM Users WHERE id = ?';
       db.get(sql, [id], (err, row) => {
-        if (err) 
+        if (err)
           reject(err);
         else if (row === undefined)
           resolve({error: 'User not found.'});
@@ -111,14 +111,14 @@ exports.getUser = (email, password) => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT * FROM Users WHERE email = ?';
       db.get(sql, [email], (err, row) => {
-        if (err) 
+        if (err)
           reject(err);
         else if (row === undefined) {
           resolve(false);
         }
         else {
           const user = {id: row.Id, username: row.Email, name: row.Name, accessType: row.AccessType};
-            
+
           // check the hashes with an async call, given that the operation may be CPU-intensive (and we don't want to block the server)
           bcrypt.compare(password, row.Password).then(result => {
             if(result)

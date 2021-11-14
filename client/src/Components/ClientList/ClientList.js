@@ -2,9 +2,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ClientList.css';
 import { Button, Form, Table } from "react-bootstrap";
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import { AddClientBtn, } from './AddClient';
+import API from '../../API';
 
 
 function Client(props) {
@@ -12,7 +13,7 @@ function Client(props) {
         <>
             <tr>
                 <td>{props.client.name}</td>
-                <td>{props.client.surname}</td>
+                <td>{props.client.surName}</td>
                 <td>{props.client.email}</td>
                 <td >
                     <Link to={{ pathname: '/products', state: { userId: props.client.userId, userName: props.client.name } }}>
@@ -27,12 +28,34 @@ function Client(props) {
 
 
 function ClientList(props) {
+    let clients = [];
+    const [resultC, setResultC] = useState([]);
 
-    const [resultC, setResultC] = useState(props.clients);
+
+     useEffect(()=> {
+         let mounted = true;
+
+         const getAllClients = async () => {
+             clients = await API.getAllClients();
+         };
+         getAllClients().then(data => {
+             if (mounted){
+                setResultC(clients);
+                console.log(clients);
+
+             }
+         })
+             .catch(err => {
+                 console.error(err);
+             });
+         return () => { mounted = false };
+     }, []);
+
+
 
     function changeSearchText(text) {
         let c = []
-        props.clients.forEach(x => {
+        resultC.forEach(x => {
             if (x.email.toLowerCase().includes(text.toLowerCase())) c.push(x);
         })
 
