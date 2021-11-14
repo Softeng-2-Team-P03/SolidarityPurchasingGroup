@@ -59,6 +59,9 @@ function ProductList(props) {
                 setCanSeeCart(props.user.accessType === 3); //user is client
             }
         }
+        else{
+            setCanSeeCart(false);
+        }
     }, [props.loggedIn, props.user, location.state])
 
     useEffect(() => {
