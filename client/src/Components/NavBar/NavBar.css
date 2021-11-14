@@ -5,3 +5,20 @@
     top: 0;
     z-index: 100;
   }
+
+  #clock {
+    float: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .glow {
+     font-size: 30px;
+     color: #fff;
+     font-weight: bold;
+     animation: glow 1s ease-in-out infinite alternate;
+     -moz-animation: glow 1s ease-in-out infinite alternate;
+     -webkit-animation: glow 1s ease-in-out infinite alternate;
+}

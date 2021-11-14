@@ -6,7 +6,8 @@ const { check, validationResult } = require('express-validator'); // validation 
 // const PDao = require('./product-dao'); // module for accessing the exams in the DB
 const productDao = require('./product-dao');
 const orderDao = require('./order-dao');
-
+const Dao = require('./dao.js');
+const userDao = require('./user-dao.js'); // module for accessing the users in the DB
 const passport = require('passport'); // auth middleware
 const LocalStrategy = require('passport-local').Strategy; // username and password for login
 const session = require('express-session'); // enable sessions
@@ -79,6 +80,25 @@ app.use(passport.session());
 //         .catch(() => res.status(500).end());
 // });
 
+app.post('/api/new_client', async (req, res) => {
+    const client = {
+        password: req.body.password,
+        name: req.body.name,
+        surname: req.body.surname,
+        email: req.body.email,        
+        phoneNumber: req.body.phoneNumber,
+        accessType:req.body.accessType,
+        wallet:req.body.wallet,
+        address:req.body.address
+    };
+
+    try {
+        await Dao.createClient(client);
+        res.status(201).end();
+    } catch(err) {
+        res.status(503).json({error: `Database error during the creation of client.`});
+    }
+});
 
 //**** Api: Get All User For Admin ****//
 app.get('/api/users', isLoggedIn, async (req, res) => {
@@ -176,6 +196,55 @@ async function PostOrderProduct(element, bookingId) {
 
     // expected output: "resolved"
 }
+/*** Users APIs ***/
+
+// POST /sessions
+// login
+app.post('/api/sessions', function(req, res, next) {
+    passport.authenticate('local', (err, user, info) => {
+        if (err)
+            return next(err);
+        if (!user) {
+            // display wrong login messages
+            return res.status(401).json(info);
+        }
+        // success, perform the login
+        req.login(user, (err) => {
+            if (err)
+                return next(err);
+
+            // req.user contains the authenticated user, we send all the user info back
+            // this is coming from userDao.getUser()
+            return res.json(req.user);
+        });
+    })(req, res, next);
+});
+
+// ALTERNATIVE: if we are not interested in sending error messages...
+/*
+app.post('/api/sessions', passport.authenticate('local'), (req,res) => {
+  // If this function gets called, authentication was successful.
+  // `req.user` contains the authenticated user.
+  res.json(req.user);
+});
+*/
+
+// DELETE /sessions/current
+// logout
+app.delete('/api/sessions/current', (req, res) => {
+    req.logout();
+    res.end();
+});
+
+// GET /sessions/current
+// check whether the user is logged in or not
+app.get('/api/sessions/current', (req, res) => {
+    if(req.isAuthenticated()) {
+        res.status(200).json(req.user);}
+    else
+        res.status(401).json({error: 'Unauthenticated user!'});
+});
+
 
 // Activate the server
 app.listen(port, () => {

@@ -1,0 +1,13 @@
+#add-client-btn {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1030;
+  margin: 0 1.5rem 1.5rem 0;
+  border-radius: 50%;
+  height: 50px; /*fixed size to increase font size*/
+  width: 50px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -2,8 +2,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
 import { Navbar } from "react-bootstrap";
+import {showTime} from './clock.js'
 
 
+setInterval(showTime, 1000) // per mostrare il passare dei secondi nell'orologio
 
 function NavBar() {
   return (
@@ -18,7 +20,7 @@ function NavBar() {
           alt="SPG"
         /> SPG
       </Navbar.Brand>
-
+      <div id="clock" class="glow">00:00:00</div>
     </Navbar>
   );
 }
