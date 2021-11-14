@@ -120,6 +120,22 @@ app.get('/api/products/:id', async (req, res) => {
         res.status(500).end();
     }
 });
+
+app.get('/api/types', async (req, res) => {
+    try {
+        const result = await productDao.getTypes();
+        if (result.error) {
+            res.status(404).json(result);
+        }
+        else {
+            res.json(result);
+        }
+    } catch (err) {
+        res.status(500).end();
+    }
+});
+
+
 // Order
 
 // ,isLoggedIn
@@ -151,7 +167,7 @@ app.post('/api/booking', [
                 PostOrderProduct(element, bookingId);
             });
 
-           return res.json(productsJson);
+            return res.json(productsJson);
         }
         else {
             return res.status(503).json({ error: `The minimum number of  product in booking is 1 .` });

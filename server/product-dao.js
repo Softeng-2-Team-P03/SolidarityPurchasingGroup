@@ -23,9 +23,9 @@ exports.getProducts = (pageNumber) => {
                 typeId: row.TypeId,
                 pricePerUnit: row.PricePerUnit,
                 imagePath: row.Path,
-                farmer:{
-                    name:row.FarmerName,
-                    surname:row.Surname,
+                farmer: {
+                    name: row.FarmerName,
+                    surname: row.Surname,
                 }
             })
             );
@@ -42,23 +42,23 @@ exports.getProducts1 = () => {
                 reject(err);
                 return;
             }
-            const products = rows.map((e) => ({ Id: e.Id, FarmerId: e.FarmerId, Name: e.Name, Description: e.Description,Quantity: e.Quantity,State:e.State,TypeId:e.TypeId,PricePerUnit:e.PricePerUnit}));
+            const products = rows.map((e) => ({ Id: e.Id, FarmerId: e.FarmerId, Name: e.Name, Description: e.Description, Quantity: e.Quantity, State: e.State, TypeId: e.TypeId, PricePerUnit: e.PricePerUnit }));
             resolve(products);
         });
     });
 };
 
-exports.getProduct  =  (id) => {
-    console.log("id"+id);
-    var images=[];
+exports.getProduct = (id) => {
+    console.log("id" + id);
+    var images = [];
     return new Promise((resolve, reject) => {
         const sqlImage = 'SELECT * FROM ProductImages WHERE ProductId = ?';
-        db.all(sqlImage,[id], (err, rows) => {
+        db.all(sqlImage, [id], (err, rows) => {
             if (err) {
                 reject(err);
                 return;
             }
-             images = rows.map((row) => ({
+            images = rows.map((row) => ({
                 id: row.Id,
                 productId: row.ProductId,
                 isDefault: row.IsDefault,
@@ -75,19 +75,37 @@ exports.getProduct  =  (id) => {
             }
             else {
                 const product = {
-                id: row.Id,
-                farmerId: row.FarmerId,
-                name: row.Name,
-                description: row.Description,
-                quantity: row.Quantity,
-                state: row.State,
-                typeId: row.TypeId,
-                pricePerUnit: row.PricePerUnit,
-                images:images
+                    id: row.Id,
+                    farmerId: row.FarmerId,
+                    name: row.Name,
+                    description: row.Description,
+                    quantity: row.Quantity,
+                    state: row.State,
+                    typeId: row.TypeId,
+                    pricePerUnit: row.PricePerUnit,
+                    images: images
                 };
 
-             resolve(product);
+                resolve(product);
             }
         });
     });
 };
+
+exports.getTypes = () => {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT Id, TypeName FROM ProductTypes'
+        db.all(sql, (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            const types = rows.map((row) => ({
+                id: row.Id,
+                typeName: row.TypeName
+            })
+            );
+            resolve(types);
+        });
+    });
+}

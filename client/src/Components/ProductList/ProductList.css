@@ -28,7 +28,7 @@
 @media screen and (max-width: 1000px) {
   .main {
   width: 100%; /* The width is 100%, when the viewport is 1000px or smaller */
-  padding-top: 35%;
+  padding-top: 40%;
 }
 }
 
@@ -37,45 +37,89 @@
 @media screen and (max-width: 900px) {
 .main {
   width: 100%; /* The width is 100%, when the viewport is 900px or smaller */
-  padding-top: 40%;
+  padding-top: 45%;
 }
 }
+
+/* Use a media query to add a break point at 700px: */
+@media screen and (max-width: 800px) {
+  .main {
+    width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
+    padding-top: 50%;
+  }
+  }
 
 /* Use a media query to add a break point at 700px: */
 @media screen and (max-width: 700px) {
 .main {
   width: 100%; /* The width is 100%, when the viewport is 800px or smaller */
-  padding-top: 50%;
+  padding-top: 55%;
 }
 }
 
 
 /* Use a media query to add a break point at 600px: */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 630px) {
 .main {
   width: 100%; /* The width is 100%, when the viewport is 600px or smaller */
-  padding-top: 55%;
-}
-}
-
-/* Use a media query to add a break point at 500px: */
-@media screen and (max-width: 500px) {
-.main {
-  width: 100%; /* The width is 100%, when the viewport is 500px or smaller */
   padding-top: 60%;
 }
 }
 
-@media screen and (max-width: 450px) {
+/* Use a media query to add a break point at 500px: */
+@media screen and (max-width: 570px) {
   .main {
     width: 100%; /* The width is 100%, when the viewport is 500px or smaller */
     padding-top: 65%;
+  }
+  }
+
+/* Use a media query to add a break point at 500px: */
+@media screen and (max-width: 520px) {
+.main {
+  width: 100%; /* The width is 100%, when the viewport is 500px or smaller */
+  padding-top: 70%;
+}
+}
+
+@media screen and (max-width: 480px) {
+  .main {
+    width: 100%; /* The width is 100%, when the viewport is 500px or smaller */
+    padding-top: 75%;
   }
 }
 
 @media screen and (max-width: 450px) {
   .main {
     width: 100%; /* The width is 100%, when the viewport is 500px or smaller */
-    padding-top: 70%;
+    padding-top: 80%;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .main {
+    width: 100%; /* The width is 100%, when the viewport is 500px or smaller */
+    padding-top: 85%;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .main {
+    width: 100%; /* The width is 100%, when the viewport is 500px or smaller */
+    padding-top: 95%;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .main {
+    width: 100%; /* The width is 100%, when the viewport is 500px or smaller */
+    padding-top: 105%;
+  }
+}
+
+@media screen and (max-width: 310px) {
+  .main {
+    width: 100%; /* The width is 100%, when the viewport is 500px or smaller */
+    padding-top: 120%;
   }
 }

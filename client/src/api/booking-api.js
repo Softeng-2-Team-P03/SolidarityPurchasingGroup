@@ -3,6 +3,7 @@
  */
 import React from "react";
 const BASEURL = '/api';
+
 async function addBooking(booking) {
   let order = {
     bookingStartDate: booking.bookingStartDate,
@@ -32,5 +33,6 @@ async function addBooking(booking) {
     }
   }).catch((err) => { return ({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
 }
+
 const bookingApi = { addBooking };
 export default bookingApi;

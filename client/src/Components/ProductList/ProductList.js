@@ -11,17 +11,19 @@ import API from '../../API';
 import prova from '../ProductImages/p48-1.jpg'
 
 function ProductList(props) {
-    const [products, setProducts] = useState([]);
-    const [searchProducts, setSearchProducts] = useState([]);
-    const [cart, setCart] = useState([]);
-    const [cartInfo, setCartInfo] = useState({ numItems: 0, totalPrice: 0 });
-    const [dirtyInfo, setDirtyInfo] = useState(false);
+    const [products, setProducts] = useState([]); //All products retrieved from server
+    const [searchProducts, setSearchProducts] = useState([]); //Products shown through filters
+    const [types, setTypes] = useState([]); //Types of products retrieved from server
+    const [cart, setCart] = useState([]); //Products in cart
+    const [cartInfo, setCartInfo] = useState({ numItems: 0, totalPrice: 0 }); //Cart info
+    const [dirtyInfo, setDirtyInfo] = useState(false); //If cart info needs to be recalculated
+    const [category, setCategory] = useState(0); //Current typeId filter
 
     const [loadingProducts, setLoadingProducts] = useState(true);
     const [loadingConfirm, setLoadingConfirm] = useState(false);
 
-    const [errorConfirm, setErrorConfirm] = useState('');
-    const [errorLoading, setErrorLoading] = useState('');
+    const [errorConfirm, setErrorConfirm] = useState(''); //Error in submitting order
+    const [errorLoading, setErrorLoading] = useState(''); //Error in loading products/types
 
     /*useEffect(() => {
         const checkAuth = async () => {
@@ -36,6 +38,43 @@ function ProductList(props) {
         };
         checkAuth();
     }, []);*/
+
+    function changeSearchText(text) {
+        let p = []
+        products.forEach(x => {
+            if (x.name.toLowerCase().includes(text.toLowerCase()) && x.typeId === category) p.push(x);
+        })
+
+        setSearchProducts(p);
+    }
+
+    useEffect(() => {
+        setLoadingProducts(true);
+        productApi.getAllProducts().then((products) => {
+            setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+            setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+            productApi.getProductTypes().then((types) => {
+                setTypes(types);
+                setLoadingProducts(false);
+                setErrorLoading('');
+            }).catch(err => {
+                setErrorLoading('Error during the loading of the types')
+                console.error(err);
+            })
+        }).catch(err => {
+            setErrorLoading('Error during the loading of the products')
+            console.error(err);
+        });
+    }, [])
+
+    useEffect(() => {
+        if (category !== 0) {
+            setSearchProducts(products.filter(product => product.typeId === category));
+        }
+        else {
+            setSearchProducts(products);
+        }
+    }, [category])
 
     useEffect(() => {
         if (dirtyInfo === true) {
@@ -53,28 +92,6 @@ function ProductList(props) {
             setDirtyInfo(false);
         }
     }, [dirtyInfo])
-
-    function changeSearchText(text) {
-        let p = []
-        products.forEach(x => {
-            if (x.name.toLowerCase().includes(text.toLowerCase())) p.push(x);
-        })
-
-        setSearchProducts(p);
-    }
-
-    useEffect(() => {
-        setLoadingProducts(true);
-        productApi.getAllProducts().then((products) => {
-            setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-            setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-            setLoadingProducts(false);
-            setErrorLoading('');
-        }).catch(err => {
-            setErrorLoading('Error during the loading of the products')
-            console.error(err);
-        });
-    }, [])
 
     const confirmOrder = () => {
         const booking = {
@@ -137,7 +154,9 @@ function ProductList(props) {
         setDirtyInfo(true);
     }
 
-
+    const changeCategory = (value) => {
+        setCategory(value);
+    }
 
     return (
         <>
@@ -146,7 +165,7 @@ function ProductList(props) {
             </Row>
             <Row>
                 <Col xs={2} md={2}>
-                    <SideBar loadingProducts={loadingProducts} />
+                    <SideBar loadingProducts={loadingProducts} changeCategory={changeCategory} types={types} category={category} />
                 </Col>
                 <Col xs={10} md={10} className="main">
                     {loadingProducts ?
@@ -161,7 +180,7 @@ function ProductList(props) {
                             }
                         </Row>
                     }
-                    <h2 style={{textAlign: "center", color: "red"}}>{errorLoading}</h2>
+                    <h2 style={{ textAlign: "center", color: "red" }}>{errorLoading}</h2>
                 </Col>
             </Row>
             <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart}
