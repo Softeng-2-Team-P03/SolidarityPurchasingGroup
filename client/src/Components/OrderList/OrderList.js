@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderList.css';
 import { Button, Form, Table } from "react-bootstrap";
 import React, { useState } from 'react';
-import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
+//import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 
 
 function Order(props) {
@@ -57,7 +57,7 @@ function OrderList(props) {
                         <th>User</th>
                         <th>email</th>
                         <th>State</th>
-                        <th>Date</th>
+                        <th>Scheduled Date</th>
                         <th>Total price</th>
                         <th>Handed out</th>
 

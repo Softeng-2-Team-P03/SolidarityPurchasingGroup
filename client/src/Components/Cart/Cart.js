@@ -13,13 +13,13 @@ function Cart(props) {
 
 
     return (<>
-        <Button className="showCartButton" onClick={open}>
+        <Button data-testid="cartButton" className="showCartButton" onClick={open}>
             <Image src={cartIcon} fluid />
             {props.cartInfo.numItems}
         </Button>
 
-        <Modal show={show} onHide={close} scrollable>
-            <Modal.Header style={{ backgroundColor: "#6da8fd" }}>
+        <Modal data-testid="cartModal" show={show} onHide={close} scrollable>
+            <Modal.Header closeButton style={{backgroundColor: "#6da8fd"}}>
                 <Col style={{ textAlign: "center" }}>
                     <Row>
                         <Col xs={15} md={11}>
