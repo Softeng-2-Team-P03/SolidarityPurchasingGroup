@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\__test__\Cart.test.js">
+        <testCase name="renders the cart button" duration="62"/>
+        <testCase name="clicking on cart button renders the cart modal as expected" duration="122"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\App.test.js">
+        <testCase name="renders learn react link" duration="168"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\NavBar\__test__\NavBar.test.js">
+        <testCase name="renders the NavBar " duration="86"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\HomePage\__test__\HomePage.test.js">
+        <testCase name="renders the HomePage " duration="81"/>
+        <testCase name="The Section Dropdown shows sections when clicked" duration="132"/>
+        <testCase name="The Products button redirects you to the /products path" duration="41"/>
+    </file>
+</testExecutions>

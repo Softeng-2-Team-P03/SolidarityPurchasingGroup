@@ -80,7 +80,19 @@ app.use(passport.session());
 //         .catch(() => res.status(500).end());
 // });
 
-app.post('/api/new_client', async (req, res) => {
+app.post('/api/new_client', [
+    check(['name']).notEmpty(),
+    check('surname').notEmpty(),      
+    check('email').notEmpty(),
+    check('password').isLength({min:8, max:30}),
+    check('phoneNumber').isLength({ min: 10, max:10 }),
+    check('address').notEmpty(), 
+  ], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({errors: errors.array()});
+    }
+  
     const client = {
         password: req.body.password,
         name: req.body.name,
@@ -101,9 +113,9 @@ app.post('/api/new_client', async (req, res) => {
 });
 
 //**** Api: Get All User For Admin ****//
-app.get('/api/users', isLoggedIn, async (req, res) => {
+app.get('/api/clients', isLoggedIn, async (req, res) => {
     try {
-        const result = await userDao.getUsers(req.query.page);
+        const result = await userDao.getUsersByAccessType(3);
         if (result.error)
             res.status(404).json(result);
         else
@@ -113,6 +125,7 @@ app.get('/api/users', isLoggedIn, async (req, res) => {
     }
     console.log(res);
 });
+
 
 //**** Api: Get All Products For All Users By paging ****//
 app.get('/api/products', async (req, res) => {
@@ -200,7 +213,7 @@ app.post('/api/booking', [
                 PostOrderProduct(element, bookingId);
             });
 
-            return res.json(productsJson);
+            return res.json(bookingId);
         }
         else {
             return res.status(503).json({ error: `The minimum number of  product in booking is 1 .` });
@@ -247,6 +260,30 @@ app.post('/api/sessions', function (req, res, next) {
         });
     })(req, res, next);
 });
+
+
+
+app.put('/api/bookings/:id', [
+    check('state').isInt({min:0, max:2}),    
+  ], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({errors: errors.array()});
+    }
+  
+    const state = req.body.state;
+    
+  
+    // you can also check here if the code passed in the URL matches with the code in req.body
+    try {
+      await orderDao.updateBookingState(state, req.params.id);
+      //res.status(200).end();
+      setTimeout(()=> res.status(200).end(), 2000);
+    } catch(err) {
+      res.status(503).json({error: `Database error during the update of booking state ${req.params.id}.`});
+    }
+  
+  });
 
 // ALTERNATIVE: if we are not interested in sending error messages...
 /*

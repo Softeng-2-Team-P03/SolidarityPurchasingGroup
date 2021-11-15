@@ -16,7 +16,7 @@ async function getAllProducts() {
 }
 
 async function addNewClient(client) {
-    const response = await fetch('/api/new_client', {
+    const response = await fetch('/api/new_client',  {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...client})
@@ -63,5 +63,16 @@ async function getUserInfo() {
     }
 }
 
-const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts};
+async function getAllClients() {
+    // call: GET /api/clients
+    const response = await fetch(BASEURL + '/clients');
+    const clientsJson = await response.json();
+    if (response.ok) {
+        return clientsJson;
+    } else {
+        throw clientsJson;  // an object with the error coming from the server
+    }
+}
+
+const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getAllClients};
 export default API;

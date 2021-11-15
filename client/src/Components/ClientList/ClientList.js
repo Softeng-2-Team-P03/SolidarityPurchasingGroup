@@ -2,9 +2,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ClientList.css';
 import { Button, Form, Table } from "react-bootstrap";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AddClientBtn, } from './AddClient';
+import API from '../../API';
 
 
 function Client(props) {
@@ -15,7 +16,7 @@ function Client(props) {
                 <td>{props.client.surname}</td>
                 <td>{props.client.email}</td>
                 <td >
-                    <Link to={{ pathname: '/products', state: { userId: props.client.userId, userName: props.client.name } }}>
+                    <Link to={{ pathname: '/products', state: { userId: props.client.id, userName: props.client.name } }}>
                         <Button className="buttonNewOrder" variant="primary"> New Order </Button>
                     </Link>
                 </td>
@@ -27,16 +28,40 @@ function Client(props) {
 
 
 function ClientList(props) {
+    let clients = [];
+    const [resultC, setResultC] = useState([]);
+    const [searchClients, setSearchClients] = useState([]);
 
-    const [resultC, setResultC] = useState(props.clients);
+
+    useEffect(() => {
+        let mounted = true;
+
+        const getAllClients = async () => {
+            clients = await API.getAllClients();
+        };
+        getAllClients().then(data => {
+            if (mounted) {
+                setResultC(clients);
+                setSearchClients(clients);
+                console.log(clients);
+
+            }
+        })
+            .catch(err => {
+                console.error(err);
+            });
+        return () => { mounted = false };
+    }, []);
+
+
 
     function changeSearchText(text) {
         let c = []
-        props.clients.forEach(x => {
+        resultC.forEach(x => {
             if (x.email.toLowerCase().includes(text.toLowerCase())) c.push(x);
         })
 
-        setResultC(c);
+        setSearchClients(c);
 
     }
 
@@ -54,7 +79,7 @@ function ClientList(props) {
                     </tr>
                 </thead>
                 <tbody> {
-                    resultC.map((cl) =>
+                    searchClients.map((cl) =>
                         <Client key={cl.userId}
                             client={cl}
                         />)

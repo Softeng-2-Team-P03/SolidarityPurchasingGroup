@@ -22,10 +22,11 @@ function HomePage(prop) {
                             </Link>
                         </Col>
                     </Row>
+                    {prop.loggedIn ? <> </> : <>
                     <p>Not already registered?</p>
                     <Link to='/addClient'>
                         <Button size="lg" style={{ whiteSpace: "nowrap" }}>Register</Button>
-                    </Link>
+                    </Link> </> }
                 </section>
                 <section className="partSection" id="info">
                     <h1>How does it work?</h1>

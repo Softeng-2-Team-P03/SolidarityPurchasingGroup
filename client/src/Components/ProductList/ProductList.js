@@ -5,7 +5,7 @@ import SideBar from "../SideBar/SideBar";
 import Cart from "../Cart/Cart"
 import productApi from '../../api/product-api';
 import bookingApi from '../../api/booking-api';
-import { useLocation } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 
 function ProductList(props) {
@@ -19,6 +19,7 @@ function ProductList(props) {
     const [dirtyInfo, setDirtyInfo] = useState(false); //If cart info needs to be recalculated
     const [category, setCategory] = useState(0); //Current typeId filter
     const [canSeeCart, setCanSeeCart] = useState(false);
+    const [orderConfirmed, setOrderConfirmed] = useState(undefined);
 
     const [loadingProducts, setLoadingProducts] = useState(true);
     const [loadingTypes, setLoadingTypes] = useState(true);
@@ -58,6 +59,9 @@ function ProductList(props) {
             else {
                 setCanSeeCart(props.user.accessType === 3); //user is client
             }
+        }
+        else {
+            setCanSeeCart(false);
         }
     }, [props.loggedIn, props.user, location.state])
 
@@ -133,18 +137,20 @@ function ProductList(props) {
             deliveryTime: undefined,
             state: 0,
             products: cart.map(product => ({
+                imagePath: product.imagePath, name: product.name,
                 productId: product.id, quantity: product.selectedQuantity,
                 price: (product.selectedQuantity * product.pricePerUnit).toFixed(2)
             }))
         }
-        
+
         setLoadingConfirm(true);
         bookingApi.addBooking(booking)
-            .then(() => {
+            .then((orderId) => {
                 setLoadingConfirm(false);
                 setCart([]);
                 setCartInfo({ numItems: 0, totalPrice: 0 });
                 setErrorConfirm('');
+                setOrderConfirmed({ orderId: orderId, booking: booking });
             }).catch(err => {
                 setErrorConfirm('Error during the confirmation of the order')
                 console.error(err);
@@ -192,6 +198,7 @@ function ProductList(props) {
 
     return (
         <>
+            {orderConfirmed !== undefined && <Redirect to={{ pathname: '/success', state: orderConfirmed }} />}
             <Row className="searchProd">
                 <Form.Control type="text" placeholder="Search product" onChange={x => changeSearchText(x.target.value)} />
             </Row>
