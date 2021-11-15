@@ -23,23 +23,23 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">41.66% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/12</span>
+                <span class='fraction'>5/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>4/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">11.11% </span>
+                <span class="strong">22.22% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/9</span>
+                <span class='fraction'>2/9</span>
             </div>
         
             
@@ -160,13 +160,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -258,7 +258,7 @@ function Cart(props) {
     const [show, setShow] = useState(false);
 &nbsp;
     const close = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShow(false);</span>
-    const open = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShow(true);</span>
+    const open = () =&gt; setShow(true);
 &nbsp;
 &nbsp;
     return (&lt;&gt;
@@ -273,7 +273,7 @@ function Cart(props) {
                     &lt;Row&gt;
                         &lt;Col xs={15} md={11}&gt;
                             &lt;h3&gt;
-                                &lt;small&gt;Cart ({props.cartInfo.numItems} items) {props.userName ? `for ${props.userName}` : ""}&lt;/small&gt; &lt;br /&gt;
+                                &lt;small&gt;Cart ({props.cartInfo.numItems} items) {props.userName ? <span class="branch-0 cbranch-no" title="branch not covered" >`for ${props.userName}` </span>: ""}&lt;/small&gt; &lt;br /&gt;
                                 &lt;b&gt;Subtotal: € {props.cartInfo.totalPrice}&lt;/b&gt;
                             &lt;/h3&gt;
                         &lt;/Col&gt;
@@ -288,9 +288,9 @@ function Cart(props) {
                         &lt;option value="3"&gt;Delivery at home&lt;/option&gt;
                     &lt;/Form.Select&gt;
                     &lt;br /&gt;
-                    &lt;Button variant="success" disabled={props.cart.length === 0 || props.loadingConfirm}
+                    &lt;Button variant="success" disabled={props.cart.length === 0 || <span class="branch-1 cbranch-no" title="branch not covered" >props.loadingConfirm}</span>
                         onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.confirmOrder()}</span>&gt;
-                        {props.loadingConfirm ? &lt;&gt;Submitting order &lt;Spinner animation="border" /&gt;&lt;/&gt; : "Confirm Order"}
+                        {props.loadingConfirm ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;&gt;Submitting order &lt;Spinner animation="border" /&gt;&lt;/&gt; </span>: "Confirm Order"}
                     &lt;/Button&gt;
                     &lt;br /&gt;
                     &lt;h4 style={{ color: "#8B0000", fontWeight: "bold" }}&gt;{props.errorConfirm}&lt;/h4&gt;
@@ -298,7 +298,7 @@ function Cart(props) {
             &lt;/Modal.Header&gt;
             &lt;Modal.Body&gt;
                 {props.cart.length === 0 ? &lt;h2 style={{ textAlign: 'center' }}&gt;Cart is empty&lt;/h2&gt;
-                    : props.cart.map(<span class="fstat-no" title="function not covered" >pr</span>oduct =&gt;
+                    : <span class="branch-1 cbranch-no" title="branch not covered" >props.cart.map(<span class="fstat-no" title="function not covered" >pr</span>oduct =&gt;</span>
 <span class="cstat-no" title="statement not covered" >                        &lt;CartProduct key={product.id} product={product}</span>
                             modifyProductInCart={props.modifyProductInCart} deleteProductFromCart={props.deleteProductFromCart} /&gt;)}
             &lt;/Modal.Body&gt;
@@ -349,7 +349,7 @@ export default Cart;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 15 2021 09:39:35 GMT+0100 (Ora standard dell’Europa centrale)
+                at Mon Nov 15 2021 13:33:54 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
