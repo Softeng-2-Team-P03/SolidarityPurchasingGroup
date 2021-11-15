@@ -12,7 +12,7 @@ import { React, useState, useEffect } from "react";
 import booking from './models/booking';
 import API from './API';
 import { LoginComponent } from './Components/LoginComponents/LoginComponent';
-import ClientList from './Components/ClientList/ClientList';
+import { ClientList} from './Components/ClientList/ClientList';
 import { ClientModal } from './Components/ClientList/AddClient';
 
 const fakeOrders = [
