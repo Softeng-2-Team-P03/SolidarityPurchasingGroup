@@ -1,8 +1,9 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderList.css';
+import bookingApi from '../../api/booking-api';
 import { Button, Form, Table } from "react-bootstrap";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 //import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 
 
@@ -34,6 +35,25 @@ function Order(props) {
 
 
 function OrderList(props) {
+
+/*     useEffect(() => {
+        productApi.getAllProducts().then((products) => {
+            setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+            setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+            setLoadingProducts(false);
+            productApi.getProductTypes().then((types) => {
+                setTypes(types);
+                setLoadingTypes(false);
+                setErrorLoading('');
+            }).catch(err => {
+                setErrorLoading('Error during the loading of the types')
+                console.error(err);
+            })
+        }).catch(err => {
+            setErrorLoading('Error during the loading of the products')
+            console.error(err);
+        });
+    }, []) */
 
     const [resultC, setResultC] = useState(props.orders);
 
