@@ -37,10 +37,10 @@ exports.createBookingAndProduct = (bookingProduct, userId) => {
     });
 };
 
-exports.updateBookingState = (booking) => {
+exports.updateBookingState = (state,id) => {
     return new Promise((resolve, reject) => {
-      const sql = 'UPDATE Bookings SET state= ? WHERE id = ?';
-      db.run(sql, [booking.State, booking.Id], function (err) {
+      const sql = 'UPDATE Bookings SET State= ? WHERE Id = ?';
+      db.run(sql, [state, id], function (err) {
         if (err) {
           reject(err);
           return;
@@ -49,6 +49,7 @@ exports.updateBookingState = (booking) => {
       });
     });
   };
+
 
 exports.getOrders = () => {
     return new Promise((resolve, reject) => {

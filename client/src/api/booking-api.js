@@ -36,12 +36,12 @@ async function addBooking(booking) {
 
 function updateBookingState(booking) {
   return new Promise((resolve, reject) => {
-    fetch(BASEURL + '/bookings/' + booking.Id, {
+    fetch(BASEURL + '/bookings/' + booking.id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-        body: JSON.stringify({...booking}),
+        body: JSON.stringify({state:booking.state}),
     }).then((response) => {
       if (response.ok) {
         resolve(null);
