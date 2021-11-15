@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>0/10</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -75,7 +75,12 @@
 <a name='L16'></a><a href='#L16'>16</a>
 <a name='L17'></a><a href='#L17'>17</a>
 <a name='L18'></a><a href='#L18'>18</a>
-<a name='L19'></a><a href='#L19'>19</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L19'></a><a href='#L19'>19</a>
+<a name='L20'></a><a href='#L20'>20</a>
+<a name='L21'></a><a href='#L21'>21</a>
+<a name='L22'></a><a href='#L22'>22</a>
+<a name='L23'></a><a href='#L23'>23</a>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -83,12 +88,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -97,18 +107,23 @@
 function <span class="fstat-no" title="function not covered" >showTime(</span>) {
 			let time = <span class="cstat-no" title="statement not covered" >new Date();</span>
 			let hour = <span class="cstat-no" title="statement not covered" >time.getHours();</span>
+<span class="cstat-no" title="statement not covered" >			hour=(hour+parseInt(localStorage.getItem('hourMultiplier')))%24;</span>
 			let min = <span class="cstat-no" title="statement not covered" >time.getMinutes();</span>
+<span class="cstat-no" title="statement not covered" >			min=min+parseInt(localStorage.getItem('minutesMultiplier'));</span>
 			let sec = <span class="cstat-no" title="statement not covered" >time.getSeconds();</span>;
 			let weekDay = <span class="cstat-no" title="statement not covered" >["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]</span>
-    		let today = <span class="cstat-no" title="statement not covered" >weekDay[time.getDay()];</span>
+			let day=<span class="cstat-no" title="statement not covered" >time.getDay()+parseInt(localStorage.getItem('dayMultiplier'));</span>
 &nbsp;
+<span class="cstat-no" title="statement not covered" >			hour = (hour &lt; 0) ? (hour%24+24)%24 : hour;</span>
 <span class="cstat-no" title="statement not covered" >			hour = (hour &lt; 10) ? "0" + hour : hour;</span>
+<span class="cstat-no" title="statement not covered" >			min = (min &lt; 0) ? (min%60+60)%60 : min;</span>
 <span class="cstat-no" title="statement not covered" >			min = (min &lt; 10) ? "0" + min : min;</span>
 <span class="cstat-no" title="statement not covered" >			sec = (sec &lt; 10) ? "0" + sec : sec;</span>
-&nbsp;
-&nbsp;
+			
+			let today=<span class="cstat-no" title="statement not covered" >weekDay[(day % 7 + 7) % 7];</span>
 			let currentTime = <span class="cstat-no" title="statement not covered" >hour + ":"+ min + ":" + sec </span>;
-<span class="cstat-no" title="statement not covered" >			document.getElementById("clock").innerHTML = today + " " + currentTime;</span>
+<span class="cstat-no" title="statement not covered" >			document.getElementById("clock").innerHTML = currentTime;</span>
+<span class="cstat-no" title="statement not covered" >			document.getElementById("day").innerHTML = today ;</span>
 		}
 &nbsp;
 export {showTime};</pre></td></tr></table></pre>
@@ -118,7 +133,7 @@ export {showTime};</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 15 2021 13:33:54 GMT+0100 (Ora standard dell’Europa centrale)
+                at Mon Nov 15 2021 18:40:09 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

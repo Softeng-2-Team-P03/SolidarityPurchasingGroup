@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\__test__\Cart.test.js">
-        <testCase name="renders the cart button" duration="62"/>
-        <testCase name="clicking on cart button renders the cart modal as expected" duration="122"/>
+        <testCase name="renders the cart button" duration="42"/>
+        <testCase name="clicking on cart button renders the cart modal as expected" duration="98"/>
     </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\App.test.js">
-        <testCase name="renders learn react link" duration="168"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\NavBar\__test__\NavBar.test.js">
-        <testCase name="renders the NavBar " duration="86"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\LoginComponents\__test__\LoginComponent.test.js">
+        <testCase name="renders the Login form as intended " duration="59"/>
     </file>
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\HomePage\__test__\HomePage.test.js">
-        <testCase name="renders the HomePage " duration="81"/>
-        <testCase name="The Section Dropdown shows sections when clicked" duration="132"/>
-        <testCase name="The Products button redirects you to the /products path" duration="41"/>
+        <testCase name="renders the HomePage " duration="75"/>
+        <testCase name="The Section Dropdown shows sections when clicked" duration="143"/>
+        <testCase name="The Products button redirects you to the /products path" duration="39"/>
+        <testCase name="The Log In button redirects you to the /login path" duration="36"/>
+        <testCase name="The Register button redirects you to the /addClient path" duration="20"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\NavBar\__test__\NavBar.test.js">
+        <testCase name="renders the NavBar " duration="43"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\App.test.js">
+        <testCase name="renders learn react link" duration="102"/>
     </file>
 </testExecutions>

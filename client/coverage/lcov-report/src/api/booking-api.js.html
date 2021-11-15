@@ -39,7 +39,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/11</span>
+                <span class='fraction'>0/12</span>
             </div>
         
             
@@ -116,7 +116,8 @@
 <a name='L57'></a><a href='#L57'>57</a>
 <a name='L58'></a><a href='#L58'>58</a>
 <a name='L59'></a><a href='#L59'>59</a>
-<a name='L60'></a><a href='#L60'>60</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -124,6 +125,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -142,7 +144,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -150,6 +151,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -181,34 +183,35 @@
 import React from "react";
 const BASEURL = '/api';
 &nbsp;
-async function <span class="fstat-no" title="function not covered" >addBooking(</span>booking) {
-  let order = <span class="cstat-no" title="statement not covered" >{</span>
-    bookingStartDate: booking.bookingStartDate,
-    totalPrice: booking.totalPrice,
-    pickupTime: booking.pickupTime,
-    deliveryTime: booking.deliveryTime,
-    state: booking.state,
-    products: booking.products,
-    userId: booking.userId //could be undefined
-  };
-<span class="cstat-no" title="statement not covered" >  console.log(JSON.stringify(order));</span>
-<span class="cstat-no" title="statement not covered" >  await fetch(BASEURL + '/booking', {</span>
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(order),
-  }).then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
-<span class="cstat-no" title="statement not covered" >    if (response.ok) {</span>
-<span class="cstat-no" title="statement not covered" >      console.log(JSON.stringify(response.body));</span>
-<span class="cstat-no" title="statement not covered" >      return (response);</span>
-    } else {
-      // analyze the cause of error
-<span class="cstat-no" title="statement not covered" >      response.json()</span>
-        .then(<span class="fstat-no" title="function not covered" >(o</span>bj) =&gt; { <span class="cstat-no" title="statement not covered" >return obj; </span>}) // error msg in the response body
-        .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; { <span class="cstat-no" title="statement not covered" >return ({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) </span>}); // something else
-    }
-  }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; { <span class="cstat-no" title="statement not covered" >return ({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) </span>}); // connection errors
+function <span class="fstat-no" title="function not covered" >addBooking(</span>booking) {
+<span class="cstat-no" title="statement not covered" >  return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
+    let order = <span class="cstat-no" title="statement not covered" >{</span>
+      bookingStartDate: booking.bookingStartDate,
+      totalPrice: booking.totalPrice,
+      pickupTime: booking.pickupTime,
+      deliveryTime: booking.deliveryTime,
+      state: booking.state,
+      products: booking.products,
+      userId: booking.userId //could be undefined
+    };
+<span class="cstat-no" title="statement not covered" >    console.log(JSON.stringify(order));</span>
+<span class="cstat-no" title="statement not covered" >    fetch(BASEURL + '/booking', {</span>
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(order),
+    }).then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
+<span class="cstat-no" title="statement not covered" >      if (response.ok) {</span>
+<span class="cstat-no" title="statement not covered" >        resolve (response.json());</span>
+      } else {
+        // analyze the cause of error
+<span class="cstat-no" title="statement not covered" >        response.json()</span>
+          .then(<span class="fstat-no" title="function not covered" >(o</span>bj) =&gt; { <span class="cstat-no" title="statement not covered" >reject (obj) </span>}) // error msg in the response body
+          .catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; { <span class="cstat-no" title="statement not covered" >reject ({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) </span>}); // something else
+      }
+    }).catch(<span class="fstat-no" title="function not covered" >(e</span>rr) =&gt; { <span class="cstat-no" title="statement not covered" >reject ({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) </span>}); // connection errors
+  })
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >updateBookingState(</span>booking) {
@@ -218,7 +221,7 @@ function <span class="fstat-no" title="function not covered" >updateBookingState
       headers: {
         'Content-Type': 'application/json',
       },
-        body: JSON.stringify({state:booking.state}),
+      body: JSON.stringify({ state: booking.state }),
     }).then(<span class="fstat-no" title="function not covered" >(r</span>esponse) =&gt; {
 <span class="cstat-no" title="statement not covered" >      if (response.ok) {</span>
 <span class="cstat-no" title="statement not covered" >        resolve(null);</span>
@@ -241,7 +244,7 @@ export default bookingApi;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 15 2021 13:33:54 GMT+0100 (Ora standard dell’Europa centrale)
+                at Mon Nov 15 2021 18:40:09 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../prettify.js"></script>

@@ -15,34 +15,37 @@ Team members:
 ## React Client Application Routes
 
 - Route `/`: list of published surveys to wich unauthenticated users can reply
-- Route `/route1`: route 1 description
-- Route `/route2`: route 2 description
-- Route `/route3`: route 3 description
+- Route `/login`: For Login Users.
+- Route `/clients`: list of registered clients that only employee can see it.
+- Route `/addClient`: the registration form to register new user.
+- Route `/products`: list of product for show to all useres (authenticated and unauthenticated).
+- Route `/orders`: the list of booked orders to show only for employee and manager.
+- Route `/success`: show success after booking if booking finish with success status
 ## Login samples to test the App
 A small list of usernames and plain text passwords for testing purposes.
 ### Employee
 
-Username: `put here username`
+Username: `clodia@spg.com`
 
-Password: `put here password`
+Password: `Mnbvcxz1234`
 
 ### Client
 
-Username: `put here username`
+Username: `federico@spg.com`
 
-Password: `put here password`
+Password: `26gKpQK9`
 
 ### Manager
 
-Username: `put here username`
+Username: `luca@spg.com`
 
-Password: `put here password`
+Password: `FgKECe4w`
 
 ### Farmer
 
-Username: `put here username`
+Username: `paolo@spg.com`
 
-Password: `put here password`
+Password: `eGB2VrUe`
 
 ## List of APIs offered by the server
 
@@ -53,6 +56,27 @@ Provide a short description for API with the required parameters, follow the pro
 * [Sample request, with body (if any)]
 * [Sample response, with body (if any)]
 * [Error responses, if any]
+
+
+### Log in
+- HTTP Method: `POST` URL: `/api/sessions`
+- Description: authenticate the user who is trying to log in
+- Request body: credentials of the user who is trying to log in
+```
+{ 
+    "username": "email",
+    "password": "password"
+}
+``` 
+- Reponse: `200 OK` (success)
+- Response body: authenticated user
+```
+{ 
+    "id": id,
+    "username": "email",
+}
+``` 
+- Error responses: `500 Internal Server Error` (generic error), `401 Unauthorized User` (login failed)
 
 ## Database Tables
   
@@ -117,7 +141,7 @@ Provide a short description for API with the required parameters, follow the pro
 | "Address"  TEXT NOT NULL, | |
 | PRIMARY KEY("Id") | |
 
-| Table `ProductType` - contains | |
+| Table `ProductTypes` - contains | |
 | ------ | --- |
 | "TypeId" INTEGER NOT NULL | |
 | "TypeName" TEXT NOT NULL | |
