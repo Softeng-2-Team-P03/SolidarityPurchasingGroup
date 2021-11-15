@@ -20,6 +20,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:ci": "react-scripts test --testResultsProcessor ./node_modules/jest-sonar-reporter",
+    "coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
+    "coverage:ci": "react-scripts test --env=jsdom --watchAll=false --coverage --testResultsProcessor ./node_modules/jest-sonar-reporter",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

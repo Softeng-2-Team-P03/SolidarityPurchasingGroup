@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\__test__\Cart.test.js">
-        <testCase name="renders the cart button" duration="113">
+        <testCase name="renders the cart button" duration="83">
             <failure message="TypeError: Cannot read properties of undefined (reading &apos;numItems&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'numItems')
     at Cart (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\Cart.js:18:29)
     at renderWithHooks (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:14985:18)
@@ -46,7 +46,7 @@
     at runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:472:34)
     at Object.worker (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
         </testCase>
-        <testCase name="clicking on cart button renders the cart modal as expected" duration="9">
+        <testCase name="clicking on cart button renders the cart modal as expected" duration="7">
             <failure message="TypeError: Cannot read properties of undefined (reading &apos;numItems&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'numItems')
     at Cart (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\Cart.js:18:29)
     at renderWithHooks (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:14985:18)
@@ -93,14 +93,14 @@
         </testCase>
     </file>
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\App.test.js">
-        <testCase name="renders learn react link" duration="242"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\NavBar\__test__\NavBar.test.js">
-        <testCase name="renders the NavBar " duration="108"/>
+        <testCase name="renders learn react link" duration="154"/>
     </file>
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\HomePage\__test__\HomePage.test.js">
-        <testCase name="renders the HomePage " duration="106"/>
-        <testCase name="The Section Dropdown shows sections when clicked" duration="187"/>
-        <testCase name="The Products button redirects you to the /products path" duration="48"/>
+        <testCase name="renders the HomePage " duration="82"/>
+        <testCase name="The Section Dropdown shows sections when clicked" duration="133"/>
+        <testCase name="The Products button redirects you to the /products path" duration="34"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\NavBar\__test__\NavBar.test.js">
+        <testCase name="renders the NavBar " duration="89"/>
     </file>
 </testExecutions>
