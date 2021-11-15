@@ -261,6 +261,29 @@ app.post('/api/sessions', function (req, res, next) {
     })(req, res, next);
 });
 
+
+app.put('/api/bookings/:id', [
+    check('State').isInt([0,1,2]),
+    
+  ], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({errors: errors.array()});
+    }
+  
+    const booking = req.body;
+  
+    // you can also check here if the code passed in the URL matches with the code in req.body
+    try {
+      await orderDao.updateBookingState(booking);
+      //res.status(200).end();
+      setTimeout(()=> res.status(200).end(), 2000);
+    } catch(err) {
+      res.status(503).json({error: `Database error during the update of booking state ${req.params.code}.`});
+    }
+  
+  });
+
 // ALTERNATIVE: if we are not interested in sending error messages...
 /*
 app.post('/api/sessions', passport.authenticate('local'), (req,res) => {

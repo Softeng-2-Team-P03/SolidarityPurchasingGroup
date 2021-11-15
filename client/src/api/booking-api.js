@@ -34,5 +34,27 @@ async function addBooking(booking) {
   }).catch((err) => { return ({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
 }
 
-const bookingApi = { addBooking };
+function updateBookingState(booking) {
+  return new Promise((resolve, reject) => {
+    fetch(BASEURL + '/bookings/' + booking.Id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+        body: JSON.stringify({...booking}),
+    }).then((response) => {
+      if (response.ok) {
+        resolve(null);
+      } else {
+        // analyze the cause of error
+        response.json()
+          .then((obj) => { reject(obj); }) // error msg in the response body
+          .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
+      }
+    }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
+  });
+}
+
+
+const bookingApi = { addBooking, updateBookingState };
 export default bookingApi;
