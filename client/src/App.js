@@ -5,6 +5,7 @@ import { Container } from "react-bootstrap";
 import OrderList from './Components/OrderList/OrderList';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
+import OrderSuccess from './Components/SuccessPage/OrderSuccess';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import bookingApi from "./api/booking-api";
 import productApi from "./api/product-api";
@@ -12,7 +13,7 @@ import { React, useState, useEffect } from "react";
 import booking from './models/booking';
 import API from './API';
 import { LoginComponent } from './Components/LoginComponents/LoginComponent';
-import ClientList from './Components/ClientList/ClientList';
+import { ClientList} from './Components/ClientList/ClientList';
 import { ClientModal } from './Components/ClientList/AddClient';
 
 const fakeOrders = [
@@ -146,6 +147,9 @@ function App() {
           } />
           <Route path='/orders' render={() =>
             <OrderList orders={fakeOrders} ></OrderList>
+          } />
+          <Route path='/success' render={() =>
+            <OrderSuccess />
           } />
           <Route exact path="/" render={() =>
             <HomePage loggedIn={loggedIn} userLogoutCallback={userLogoutCallback} />

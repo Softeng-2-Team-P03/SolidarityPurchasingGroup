@@ -213,7 +213,7 @@ app.post('/api/booking', [
                 PostOrderProduct(element, bookingId);
             });
 
-            return res.json(productsJson);
+            return res.json(bookingId);
         }
         else {
             return res.status(503).json({ error: `The minimum number of  product in booking is 1 .` });
