@@ -78,6 +78,22 @@ Provide a short description for API with the required parameters, follow the pro
 ``` 
 - Error responses: `500 Internal Server Error` (generic error), `401 Unauthorized User` (login failed)
 
+|POST &emsp; &emsp; api/sessions
+|:-|
+|login of the user
+|{"username":"mr.banouie@gmail.com","password":"Mnbvcxz12345"}
+|
+```
+{ 
+    "id": id,
+    "username": "email",
+}
+``` 
+|status: 401, (Content-Type: application/json): ({message: "Incorrect username and/or password."})
+
+|DELETE &emsp; &emsp; /api/sessions/current
+|:-|
+|logout and delete session
 
 
 ## Database Tables
