@@ -283,12 +283,6 @@ Provide a short description for API with the required parameters, follow the pro
 ``` 
 - Reponse: `200 OK` (success)
 - Response body: authenticated user
-```
-```
-{ 
-    "id": id,
-}
- 
 - Error responses: `503 Internal Server Error` (generic error), `Database error during the update Booking state.`
 
 ## Database Tables
