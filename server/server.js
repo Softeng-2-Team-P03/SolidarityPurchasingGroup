@@ -154,7 +154,7 @@ app.get('/api/clients', isLoggedIn, async (req, res) => {
     } catch (err) {
         res.status(500).end();
     }
-    console.log(res);
+    //console.log(res);
 });
 
 //****************************************************** */
@@ -242,7 +242,7 @@ app.post('/api/booking', isLoggedIn, [
             productsJson.forEach(function (element, index) {
                 PostOrderProduct(element, bookingId);
             });
-            return res.json({id:bookingId});
+            return res.json(bookingId);
         }
         else {
             return res.status(500).json({ error: `The minimum number of  product in booking is 1 .` });
@@ -265,8 +265,8 @@ async function PostOrderProduct(element, bookingId) {
     updateProductQUantity(element.quantity, element.productId);
 }
 /*** Update Product Quantity After Booking ***/
-async function updateProductQUantity(productId) {
-    await orderDao.updateProductQuantity(bookingProduct);
+async function updateProductQUantity(quantity, productId) {
+    await orderDao.updateProductQuantity(quantity, productId);
 }
 
 /*** Get Booking With ID ***/

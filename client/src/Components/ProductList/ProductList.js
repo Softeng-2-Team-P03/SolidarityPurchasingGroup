@@ -19,6 +19,7 @@ function ProductList(props) {
     const [dirtyInfo, setDirtyInfo] = useState(false); //If cart info needs to be recalculated
     const [category, setCategory] = useState(0); //Current typeId filter
     const [canSeeCart, setCanSeeCart] = useState(false);
+    const [timeEnabled, setTimeEnabled] = useState(false);
     const [orderConfirmed, setOrderConfirmed] = useState(undefined);
 
     const [loadingProducts, setLoadingProducts] = useState(true);
@@ -28,20 +29,6 @@ function ProductList(props) {
     const [errorConfirm, setErrorConfirm] = useState(''); //Error in submitting order
     const [errorLoading, setErrorLoading] = useState(''); //Error in loading products/types
 
-    /*useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                // here you have the user info, if already logged in
-                // TODO: store them somewhere and use them, if needed
-                var x = await productApi.getAllProduct();
-                console.log("list:" + x);
-            } catch (err) {
-                console.error(err.error);
-            }
-        };
-        checkAuth();
-    }, []);*/
-
     function changeSearchText(text) {
         let p = []
         products.forEach(x => {
@@ -49,6 +36,23 @@ function ProductList(props) {
         })
 
         setSearchProducts(p);
+    }
+
+    const checkDate = () => {
+        let time = new Date(localStorage.getItem('virtualDate'));
+        const day = time.getDay();
+        const hour = time.getHours();
+        const minutes = time.getMinutes();
+        if (day === 0 && hour >= 23 && minutes <= 59) {
+            setTimeEnabled(false);
+            if (cart !== []) {
+                setCart([]);
+                setCartInfo({ numItems: 0, totalPrice: 0 });
+            }
+        }
+        else {
+            setTimeEnabled(true);
+        }
     }
 
     useEffect(() => {
@@ -64,6 +68,12 @@ function ProductList(props) {
             setCanSeeCart(false);
         }
     }, [props.loggedIn, props.user, location.state])
+
+    useEffect(() => {
+        const id = setInterval(checkDate, 1000);
+        checkDate();
+        return () => clearInterval(id);
+    }, [])
 
     useEffect(() => {
         productApi.getAllProducts().then((products) => {
@@ -131,9 +141,9 @@ function ProductList(props) {
     const confirmOrder = () => {
         const booking = {
             userId: (location.state && location.state.userId) ? location.state.userId : undefined,
-            bookingStartDate: "2021-11-15", //waiting for virtual clock to implement
+            bookingStartDate: localStorage.getItem("virtualDateToString"),
             totalPrice: cartInfo.totalPrice,
-            pickupTime: "2021-11-17",
+            pickupTime: undefined,
             deliveryTime: undefined,
             state: 0,
             products: cart.map(product => ({
@@ -211,7 +221,7 @@ function ProductList(props) {
                         <h1 style={{ textAlign: "center" }}>Loading products... <Spinner animation="border" /></h1> :
                         <Row xs={2} md={5} className="g-4">
                             {searchProducts.map((x) =>
-                                <Product key={x.id} canSeeCart={canSeeCart}
+                                <Product key={x.id} canShop={timeEnabled && canSeeCart}
                                     product={x} addProductToCart={addProductToCart}
                                     productInCart={cart.filter(product => product.id === x.id)[0] === undefined ? 0
                                         : cart.filter(product => product.id === x.id)[0].selectedQuantity}
@@ -222,7 +232,7 @@ function ProductList(props) {
                     <h2 style={{ textAlign: "center", color: "red" }}>{errorLoading}</h2>
                 </Col>
             </Row>
-            {canSeeCart ?
+            {(timeEnabled && canSeeCart) ?
                 <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart}
                     modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
                     errorConfirm={errorConfirm} userName={location.state && location.state.userName} />
@@ -266,7 +276,7 @@ function Product(props) {
                 <Card.Footer>
                     <small className="text-muted">Farmer: {props.product.farmer.name} {props.product.farmer.surname}</small>
                 </Card.Footer>
-                {props.canSeeCart ? <>
+                {props.canShop ? <>
                     <Card.Footer>
                         <Button className="button" variant="primary" disabled={quantity === 0}
                             onClick={() => modifyQuantity(-1)}>-</Button>{' '}

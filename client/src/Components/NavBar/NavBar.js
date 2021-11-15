@@ -1,10 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
-import { Nav, Navbar, Button, Row } from "react-bootstrap";
+import { Nav, Navbar, Button, Row, Col, Table } from "react-bootstrap";
 import { showTime } from './clock.js'
-import { useState } from "react";
-
 
 var hourMultiplier = 0;
 var dayMultiplier = 0;
@@ -32,75 +30,8 @@ function NavBar(props) {
     return <></>;
   }
 
-  /* FUNZIONI PER POTER MODIFICARE ORARIO */
-  const setHourPlus = () => {
-    if (localStorage.getItem('hourMultiplier') === null)
-      hourMultiplier = 0;
-    else
-      hourMultiplier = parseInt(localStorage.getItem('hourMultiplier'));
-    hourMultiplier += 1;
-    localStorage.setItem('hourMultiplier', hourMultiplier.toString());
-    showTime()
-  }
-  const setHourMinus = () => {
-    if (localStorage.getItem("hourMultiplier") === null)
-      hourMultiplier = 0;
-    else {
-      hourMultiplier = parseInt(localStorage.getItem("hourMultiplier"));
-      hourMultiplier -= 1;
-    }
-    localStorage.setItem("hourMultiplier", hourMultiplier.toString());
-    showTime()
-  }
-  const setDayPlus = () => {
-    if (localStorage.getItem('dayMultiplier') === null)
-      dayMultiplier = 0;
-    else {
-      dayMultiplier = parseInt(localStorage.getItem('dayMultiplier'));
-      dayMultiplier += 1;
-    }
-    localStorage.setItem('dayMultiplier', dayMultiplier.toString());
-    showTime()
-  }
-  const setDayMinus = () => {
-    if (localStorage.getItem("dayMultiplier") === null)
-      dayMultiplier = 0;
-    else {
-      dayMultiplier = parseInt(localStorage.getItem("dayMultiplier"));
-      dayMultiplier -= 1;
-    }
-    localStorage.setItem("dayMultiplier", dayMultiplier.toString());
-    showTime()
-  }
-  const setMinutesPlus = () => {
-    if (localStorage.getItem('minutesMultiplier') === null)
-      minutesMultiplier = 0;
-    else {
-      minutesMultiplier = parseInt(localStorage.getItem('minutesMultiplier'));
-      minutesMultiplier += 1;
-    }
-    localStorage.setItem('minutesMultiplier', minutesMultiplier.toString());
-    showTime()
-  }
-  const setMinutesMinus = () => {
-    if (localStorage.getItem("minutesMultiplier") === null)
-    minutesMultiplier = 0;
-    else {
-      minutesMultiplier = parseInt(localStorage.getItem("minutesMultiplier"));
-      minutesMultiplier -= 1;
-    }
-    localStorage.setItem("minutesMultiplier", minutesMultiplier.toString());
-    showTime()
-  }
-
-  const resetTime = () =>{
-    localStorage.setItem('hourMultiplier', '0');
-    localStorage.setItem('dayMultiplier', '0');
-    localStorage.setItem('minutesMultiplier', '0');
-
-  }
   return (
-    
+
     <Navbar className="nav" bg="primary" variant="dark">
       <Navbar.Brand href="/">
         <img
@@ -111,6 +42,8 @@ function NavBar(props) {
           alt="SPG"
         /> SPG
       </Navbar.Brand>
+      <Nav className='m-auto' />
+      <ShowClock />
       <Nav className="me-auto" />
       {props.loggedIn && props.user !== undefined && chooseNavbar(props.user.accessType)}
       <Nav>
@@ -119,20 +52,7 @@ function NavBar(props) {
           <Nav.Link href='/login'>Login</Nav.Link>
         }
       </Nav>
-      <div className='clockWrapper'>
-        <Button id='incrementDay' onClick={setDayPlus}>▲</Button>
-        <Button id='incrementHour' onClick={setHourPlus}>▲</Button>
-        <Button id='incrementMinutes' onClick={setMinutesPlus}>▲</Button>
-        <div>
-        <div id="day" className="glow" ></div>
-        <div id="clock" className="glow" ></div>
-        <Button id='resetTime' onClick={resetTime}>resetTime</Button>
-        </div>
-        <Button id='decrementDay' onClick={setDayMinus}>▼</Button>
-        <Button id='decrementHour' onClick={setHourMinus}>▼</Button>
-        <Button id='decrementMinutes' onClick={setMinutesMinus}>▼</Button>
-      </div>
-      
+
     </Navbar>
   );
 }
@@ -188,6 +108,148 @@ function DelivererNavbar() {
       <Nav.Link>Clients</Nav.Link>
       <Nav.Link>Orders</Nav.Link>
     </Nav>
+  );
+}
+
+function ShowClock() {
+  /* FUNZIONI PER POTER MODIFICARE ORARIO */
+  const setHourPlus = () => {
+    if (localStorage.getItem('hourMultiplier') === null)
+      hourMultiplier = 0;
+    else
+      hourMultiplier = parseInt(localStorage.getItem('hourMultiplier'));
+    hourMultiplier += 1;
+    localStorage.setItem('hourMultiplier', hourMultiplier.toString());
+    showTime()
+  }
+  const setHourMinus = () => {
+    if (localStorage.getItem("hourMultiplier") === null)
+      hourMultiplier = 0;
+    else {
+      hourMultiplier = parseInt(localStorage.getItem("hourMultiplier"));
+      hourMultiplier -= 1;
+    }
+    localStorage.setItem("hourMultiplier", hourMultiplier.toString());
+    showTime()
+  }
+  const setDayPlus = () => {
+    if (localStorage.getItem('dayMultiplier') === null)
+      dayMultiplier = 0;
+    else {
+      dayMultiplier = parseInt(localStorage.getItem('dayMultiplier'));
+      dayMultiplier += 1;
+    }
+    localStorage.setItem('dayMultiplier', dayMultiplier.toString());
+    showTime()
+  }
+  const setDayMinus = () => {
+    if (localStorage.getItem("dayMultiplier") === null)
+      dayMultiplier = 0;
+    else {
+      dayMultiplier = parseInt(localStorage.getItem("dayMultiplier"));
+      dayMultiplier -= 1;
+    }
+    localStorage.setItem("dayMultiplier", dayMultiplier.toString());
+    showTime()
+  }
+  const setMinutesPlus = () => {
+    if (localStorage.getItem('minutesMultiplier') === null)
+      minutesMultiplier = 0;
+    else {
+      minutesMultiplier = parseInt(localStorage.getItem('minutesMultiplier'));
+      minutesMultiplier += 1;
+    }
+    localStorage.setItem('minutesMultiplier', minutesMultiplier.toString());
+    showTime()
+  }
+  const setMinutesMinus = () => {
+    if (localStorage.getItem("minutesMultiplier") === null)
+      minutesMultiplier = 0;
+    else {
+      minutesMultiplier = parseInt(localStorage.getItem("minutesMultiplier"));
+      minutesMultiplier -= 1;
+    }
+    localStorage.setItem("minutesMultiplier", minutesMultiplier.toString());
+    showTime()
+  }
+
+  const resetTime = () => {
+    localStorage.setItem('hourMultiplier', '0');
+    localStorage.setItem('dayMultiplier', '0');
+    localStorage.setItem('minutesMultiplier', '0');
+  }
+
+  return (
+    <div className="clockWrapper glow">
+      <Table responsive borderless size="sm">
+        <thead>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span id='incrementDay' className="buttonArrow" onClick={setDayPlus}>▲</span>
+            </td>
+            <td>
+              <span id='incrementHour' className="buttonArrow" onClick={setHourPlus}>▲</span>
+            </td>
+            <td></td>
+            <td>
+              <span id='incrementMinutes' className="buttonArrow" onClick={setMinutesPlus}>▲</span>
+            </td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <div className="glow">
+                <span id="dayName" /> <span id="day" />/<span id="month" />/<span id="year" />
+              </div>
+            </td>
+            <td>
+              <span id="hours" />
+            </td>
+            <td>
+              <span>:</span>
+            </td>
+            <td>
+              <span id="minutes" />
+            </td>
+            <td>
+              <span>:</span>
+            </td>
+            <td>
+              <span id="seconds" />
+            </td>
+            <td>
+              <button id='resetTime' className="modifyButton" onClick={resetTime}>resetTime</button>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span id='decrementDay' className="buttonArrow" onClick={setDayMinus}>▼</span>
+            </td>
+            <td>
+              <span id='decrementHour' className="buttonArrow" onClick={setHourMinus}>▼</span>
+            </td>
+            <td></td>
+            <td>
+              <span id='decrementMinutes' className="buttonArrow" onClick={setMinutesMinus}>▼</span>
+            </td>
+            <td></td>
+            <td> </td>
+            <td></td>
+          </tr>
+        </tbody>
+      </Table>
+    </div>
   );
 }
 
