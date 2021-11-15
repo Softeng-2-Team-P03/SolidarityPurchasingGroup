@@ -193,6 +193,42 @@ Provide a short description for API with the required parameters, follow the pro
 ``` 
 - Error responses: `500 Internal Server Error`
 
+### Booking order
+- HTTP Method: `POST` URL: `/api/booking`
+- Description: Book one order by authnticated user
+- Request body: the information of booking + the list of products dentro booking
+```
+{ 
+
+    "bookingStartDate": "YYYY-MM-DD",
+    "totalPrice": 100.0
+    "state": 1,
+    "products": [
+        {
+            "productId":1,
+            "quantity":60,
+            "price":100
+        },
+        {
+            "productId":2,
+            "quantity":50,
+            "price":100
+        }
+    ]
+ 
+}
+``` 
+- Reponse: `200 OK` (success)
+- Response body: authenticated user
+```
+```
+{ 
+    "id": id,
+}
+``` 
+- Error responses: `500 Internal Server Error` (generic error), `Database error during the creation of client.`
+- Error responses: `503 Internal Server Error``The minimum number of  product in booking is 1 .`
+
 
 ## Database Tables
   
