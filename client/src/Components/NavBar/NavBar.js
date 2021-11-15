@@ -9,7 +9,6 @@ import { useState } from "react";
 var hourMultiplier = 0;
 var dayMultiplier = 0;
 var minutesMultiplier = 0;
-//localStorage.setItem("hourMultiplier", hourMultiplier.toString());
 window.setInterval(showTime, 1000) // per mostrare il passare dei secondi nell'orologio
 
 function NavBar(props) {
@@ -100,8 +99,8 @@ function NavBar(props) {
     localStorage.setItem('minutesMultiplier', '0');
 
   }
-
   return (
+    
     <Navbar className="nav" bg="primary" variant="dark">
       <Navbar.Brand href="/">
         <img
@@ -125,7 +124,8 @@ function NavBar(props) {
         <Button id='incrementHour' onClick={setHourPlus}>▲</Button>
         <Button id='incrementMinutes' onClick={setMinutesPlus}>▲</Button>
         <div>
-        <div id="clock" class="glow" >00:00:00</div>
+        <div id="day" class="glow" ></div>
+        <div id="clock" class="glow" ></div>
         <Button id='resetTime' onClick={resetTime}>resetTime</Button>
         </div>
         <Button id='decrementDay' onClick={setDayMinus}>▼</Button>

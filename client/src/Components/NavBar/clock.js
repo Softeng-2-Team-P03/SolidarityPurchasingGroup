@@ -6,7 +6,7 @@ function showTime() {
 			let min = time.getMinutes();
 			min=min+parseInt(localStorage.getItem('minutesMultiplier'));
 			let sec = time.getSeconds();;
-			let weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+			let weekDay = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 			let day=time.getDay()+parseInt(localStorage.getItem('dayMultiplier'));
 
 			hour = (hour < 0) ? (hour%24+24)%24 : hour;
@@ -17,7 +17,8 @@ function showTime() {
 			
 			let today=weekDay[(day % 7 + 7) % 7];
 			let currentTime = hour + ":"+ min + ":" + sec ;
-			document.getElementById("clock").innerHTML = today + " " + currentTime;
+			document.getElementById("clock").innerHTML = currentTime;
+			document.getElementById("day").innerHTML = today ;
 		}
 
 export {showTime};
