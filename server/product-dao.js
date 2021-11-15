@@ -1,8 +1,8 @@
 'use strict';
 const db = require('./db');
 const bcrypt = require('bcrypt');
-// const db =; 
-// ----------->  <---------------
+
+// Get Products
 exports.getProducts = (pageNumber) => {
     return new Promise(async (resolve, reject) => {
         var sqlQuery = 'SELECT Products.* ,ProductImages.Path,Users.Name as FarmerName ,Users.Surname  From Products,ProductImages,Users WHERE ProductImages.ProductId==Products.Id AND Users.Id=Products.FarmerId AND   ProductImages.IsDefault==1';
@@ -34,6 +34,7 @@ exports.getProducts = (pageNumber) => {
 
     });
 };
+// Get Products Test
 exports.getProducts1 = () => {
     return new Promise((resolve, reject) => {
         const sql = 'SELECT * FROM Products';
@@ -47,7 +48,7 @@ exports.getProducts1 = () => {
         });
     });
 };
-
+// Get Products By id
 exports.getProduct = (id) => {
     console.log("id" + id);
     var images = [];
@@ -91,7 +92,7 @@ exports.getProduct = (id) => {
         });
     });
 };
-
+// Get Types
 exports.getTypes = () => {
     return new Promise((resolve, reject) => {
         const sql = 'SELECT Id, TypeName FROM ProductTypes'
@@ -109,7 +110,7 @@ exports.getTypes = () => {
         });
     });
 }
-
+// Get ProductByType
 exports.getProductsByType = (typeId) => {
     return new Promise((resolve, reject) => {
         const sql = `SELECT Products.* ,ProductImages.Path,Users.Name as FarmerName ,Users.Surname  From Products,ProductImages,Users 

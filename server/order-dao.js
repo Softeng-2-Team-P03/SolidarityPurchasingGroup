@@ -37,6 +37,19 @@ exports.createBookingAndProduct = (bookingProduct, userId) => {
     });
 };
 
+exports.updateProductQuantity = (quantity,id) => {
+    return new Promise((resolve, reject) => {
+      const sql = 'UPDATE Products SET Quantity=Quantity - ?   WHERE  Id=?';
+      db.run(sql, [quantity, id], function (err) {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(this.lastID);
+      });
+    });
+  };
+
 exports.updateBookingState = (state,id) => {
     return new Promise((resolve, reject) => {
       const sql = 'UPDATE Bookings SET State= ? WHERE Id = ?';
