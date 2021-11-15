@@ -127,7 +127,7 @@ function WalletTopUpModal(props) {
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Amount of money to Top up in the user wallet :</Form.Label>
-                            <Form.Control placeholder="Enter amount" />
+                            <Form.Control type="number" placeholder="Enter amount" />
                             
                         </Form.Group>
 
