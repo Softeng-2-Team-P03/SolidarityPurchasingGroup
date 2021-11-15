@@ -30,8 +30,8 @@ describe('New customer registration made by the shopper Employee', () => {
         cy.visit('http://localhost:3000') // change URL to match your dev URL
         cy.contains('Login').click()
         cy.get('#formBasicEmail')
-            .type('mr.banouie@gmail.com')
-            .should('have.value', 'mr.banouie@gmail.com')
+            .type('emp@test.com')
+            .should('have.value', 'emp@test.com')
         cy.get('#formBasicPassword')
             .type('mnbvcxz12345')
             .should('have.value', 'mnbvcxz12345')
