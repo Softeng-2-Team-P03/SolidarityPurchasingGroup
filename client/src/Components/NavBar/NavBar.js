@@ -119,13 +119,13 @@ function NavBar(props) {
           <Nav.Link href='/login'>Login</Nav.Link>
         }
       </Nav>
-      <div class='clockWrapper'>
+      <div className='clockWrapper'>
         <Button id='incrementDay' onClick={setDayPlus}>▲</Button>
         <Button id='incrementHour' onClick={setHourPlus}>▲</Button>
         <Button id='incrementMinutes' onClick={setMinutesPlus}>▲</Button>
         <div>
-        <div id="day" class="glow" ></div>
-        <div id="clock" class="glow" ></div>
+        <div id="day" className="glow" ></div>
+        <div id="clock" className="glow" ></div>
         <Button id='resetTime' onClick={resetTime}>resetTime</Button>
         </div>
         <Button id='decrementDay' onClick={setDayMinus}>▼</Button>
