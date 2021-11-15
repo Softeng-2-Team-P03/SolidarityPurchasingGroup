@@ -97,6 +97,40 @@ Provide a short description for API with the required parameters, follow the pro
 
 - Error responses: `500 Internal Server Error` (generic error), `Database error during the creation of client.`
 
+### Get All Users
+- HTTP Method: `GET` URL: `/api/clients`
+- Description: Get the list of useres for employee and manager
+- Reponse: `200 OK` (success)
+- Response body: authenticated user
+```
+[
+    { 
+        "id": 1,
+        "name": "Name",
+        "surname": "Surname"
+        "email": "xyz@xyz.com",
+        "accessType": 3,
+        "wallet": 0.0,
+        "password": "password",
+        "phoneNumber": "phoneNumber",
+        "address": "Address"
+    },
+    { 
+        "id": 2,
+        "name": "Name",
+        "surname": "Surname"
+        "email": "xyz@xyz.com",
+        "accessType": 3,
+        "wallet": 0.0,
+        "password": "password",
+        "phoneNumber": "phoneNumber",
+        "address": "Address"
+    },
+]
+``` 
+- Error responses: `500 Internal Server Error`
+
+
 ## Database Tables
   
 |Table `Users` - contains |  |
