@@ -100,3 +100,61 @@ test("The Products button redirects you to the /products path", async () => {
     await waitFor(() => expect(testLocation.pathname).toBe("/products") );
 
 });
+
+
+test("The Log In button redirects you to the /login path", async () => {
+    
+    let testHistory, testLocation;
+
+    const { getByText, findByText } = render(
+        <MemoryRouter initialEntries={["/my/initial/route"]}>
+            <HomePage />
+            <Route
+                path="*"
+                render={({ history, location }) => {
+                    testHistory = history;
+                    testLocation = location;
+                    return null;
+                }}
+            />
+        </MemoryRouter>
+    );
+
+    //verify the Products button is rendered
+    expect(getByText("Log In")).not.toBeNull();
+
+    //click on the Log In button to got to the /login path
+    userEvent.click(getByText("Log In"));
+
+    await waitFor(() => expect(testLocation.pathname).toBe("/login") );
+
+});
+
+test("The Register button redirects you to the /addClient path", async () => {
+    
+    let testHistory, testLocation;
+
+    const { getByText, findByText } = render(
+        <MemoryRouter initialEntries={["/my/initial/route"]}>
+            <HomePage />
+            <Route
+                path="*"
+                render={({ history, location }) => {
+                    testHistory = history;
+                    testLocation = location;
+                    return null;
+                }}
+            />
+        </MemoryRouter>
+    );
+
+    //verify the Register button is rendered
+    expect(getByText("Register")).not.toBeNull();
+
+    //click on the Products button to got to the /products path
+    userEvent.click(getByText("Register"));
+
+    await waitFor(() => expect(testLocation.pathname).toBe("/addClient") );
+
+});
+
