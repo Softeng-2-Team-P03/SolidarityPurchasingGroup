@@ -262,24 +262,25 @@ app.post('/api/sessions', function (req, res, next) {
 });
 
 
+
 app.put('/api/bookings/:id', [
-    check('State').isInt([0,1,2]),
-    
+    check('state').isInt({min:0, max:2}),    
   ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({errors: errors.array()});
     }
   
-    const booking = req.body;
+    const state = req.body.state;
+    
   
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
-      await orderDao.updateBookingState(booking);
+      await orderDao.updateBookingState(state, req.params.id);
       //res.status(200).end();
       setTimeout(()=> res.status(200).end(), 2000);
     } catch(err) {
-      res.status(503).json({error: `Database error during the update of booking state ${req.params.code}.`});
+      res.status(503).json({error: `Database error during the update of booking state ${req.params.id}.`});
     }
   
   });
