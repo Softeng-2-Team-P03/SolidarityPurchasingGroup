@@ -78,6 +78,25 @@ Provide a short description for API with the required parameters, follow the pro
 ``` 
 - Error responses: `500 Internal Server Error` (generic error), `401 Unauthorized User` (login failed)
 
+### Register new Client
+- HTTP Method: `POST` URL: `/api/new_client`
+- Description: Sending user information to completing the registration of user
+- Request body: all useres information for register in database
+```
+{ 
+
+    "name": "Name",
+    "surname": "Surname"
+    "email": "xyz@xyz.com",
+    "password": "password",
+    "phoneNumber": "phoneNumber",
+    "address": "Address"
+}
+``` 
+- Reponse: `200 OK` (success)
+
+- Error responses: `500 Internal Server Error` (generic error), `Database error during the creation of client.`
+
 ## Database Tables
   
 |Table `Users` - contains |  |
