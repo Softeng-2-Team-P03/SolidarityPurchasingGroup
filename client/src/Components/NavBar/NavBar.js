@@ -1,12 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
-import { Nav, Navbar } from "react-bootstrap";
+import { Nav, Navbar, Button, Row } from "react-bootstrap";
 import { showTime } from './clock.js'
 import { useState } from "react";
 
 
-setInterval(showTime, 1000) // per mostrare il passare dei secondi nell'orologio
+var hourMultiplier = 0;
+var dayMultiplier = 0;
+var minutesMultiplier = 0;
+window.setInterval(showTime, 1000) // per mostrare il passare dei secondi nell'orologio
 
 function NavBar(props) {
 
@@ -29,7 +32,75 @@ function NavBar(props) {
     return <></>;
   }
 
+  /* FUNZIONI PER POTER MODIFICARE ORARIO */
+  const setHourPlus = () => {
+    if (localStorage.getItem('hourMultiplier') === null)
+      hourMultiplier = 0;
+    else
+      hourMultiplier = parseInt(localStorage.getItem('hourMultiplier'));
+    hourMultiplier += 1;
+    localStorage.setItem('hourMultiplier', hourMultiplier.toString());
+    showTime()
+  }
+  const setHourMinus = () => {
+    if (localStorage.getItem("hourMultiplier") === null)
+      hourMultiplier = 0;
+    else {
+      hourMultiplier = parseInt(localStorage.getItem("hourMultiplier"));
+      hourMultiplier -= 1;
+    }
+    localStorage.setItem("hourMultiplier", hourMultiplier.toString());
+    showTime()
+  }
+  const setDayPlus = () => {
+    if (localStorage.getItem('dayMultiplier') === null)
+      dayMultiplier = 0;
+    else {
+      dayMultiplier = parseInt(localStorage.getItem('dayMultiplier'));
+      dayMultiplier += 1;
+    }
+    localStorage.setItem('dayMultiplier', dayMultiplier.toString());
+    showTime()
+  }
+  const setDayMinus = () => {
+    if (localStorage.getItem("dayMultiplier") === null)
+      dayMultiplier = 0;
+    else {
+      dayMultiplier = parseInt(localStorage.getItem("dayMultiplier"));
+      dayMultiplier -= 1;
+    }
+    localStorage.setItem("dayMultiplier", dayMultiplier.toString());
+    showTime()
+  }
+  const setMinutesPlus = () => {
+    if (localStorage.getItem('minutesMultiplier') === null)
+      minutesMultiplier = 0;
+    else {
+      minutesMultiplier = parseInt(localStorage.getItem('minutesMultiplier'));
+      minutesMultiplier += 1;
+    }
+    localStorage.setItem('minutesMultiplier', minutesMultiplier.toString());
+    showTime()
+  }
+  const setMinutesMinus = () => {
+    if (localStorage.getItem("minutesMultiplier") === null)
+    minutesMultiplier = 0;
+    else {
+      minutesMultiplier = parseInt(localStorage.getItem("minutesMultiplier"));
+      minutesMultiplier -= 1;
+    }
+    localStorage.setItem("minutesMultiplier", minutesMultiplier.toString());
+    showTime()
+  }
+
+  const resetTime = () =>{
+    localStorage.setItem('hourMultiplier', '0');
+    localStorage.setItem('dayMultiplier', '0');
+    localStorage.setItem('minutesMultiplier', '0');
+
+  }
   return (
+    
     <Navbar className="nav" bg="primary" variant="dark">
       <Navbar.Brand href="/">
         <img
@@ -48,7 +119,20 @@ function NavBar(props) {
           <Nav.Link href='/login'>Login</Nav.Link>
         }
       </Nav>
-      <div id="clock" class="glow">00:00:00</div>
+      <div class='clockWrapper'>
+        <Button id='incrementDay' onClick={setDayPlus}>▲</Button>
+        <Button id='incrementHour' onClick={setHourPlus}>▲</Button>
+        <Button id='incrementMinutes' onClick={setMinutesPlus}>▲</Button>
+        <div>
+        <div id="day" class="glow" ></div>
+        <div id="clock" class="glow" ></div>
+        <Button id='resetTime' onClick={resetTime}>resetTime</Button>
+        </div>
+        <Button id='decrementDay' onClick={setDayMinus}>▼</Button>
+        <Button id='decrementHour' onClick={setHourMinus}>▼</Button>
+        <Button id='decrementMinutes' onClick={setMinutesMinus}>▼</Button>
+      </div>
+      
     </Navbar>
   );
 }

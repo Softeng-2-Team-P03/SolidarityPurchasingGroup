@@ -4,21 +4,80 @@
     position: sticky;
     top: 0;
     z-index: 100;
+    height: 90px; 
   }
 
   #clock {
-    float: none;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+    display: inline;
 
-  .glow {
-     font-size: 30px;
-     color: #fff;
-     font-weight: bold;
-     animation: glow 1s ease-in-out infinite alternate;
-     -moz-animation: glow 1s ease-in-out infinite alternate;
-     -webkit-animation: glow 1s ease-in-out infinite alternate;
+  } 
+
+
+.glow {
+  font-size: 23px;
+  color: #fff;
+  font-weight: bold;
 }
+
+#resetTime{
+  display: inline;
+  font-size: 10px;
+  color: #fff;
+  font-weight: bold;
+}
+
+#day{
+  position: absolute;
+  margin-left: -80%;
+  display: inline;
+  font-size: 23px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.clockWrapper{
+  float: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+ .clockWrapper Button{
+  font-size: 6px;
+}
+
+#incrementDay{
+  position: absolute;
+  margin-left: -50%;
+  margin-top: -20px;
+}
+#decrementDay{
+  position: absolute;
+  margin-left: -50%;
+  margin-top: -5px;
+}
+
+#incrementHour{
+  position: absolute;
+  left: 0%;
+  margin-top: -20px;
+}
+#decrementHour{
+  position: absolute;
+  left: 0%;
+  margin-top: -5px;
+}
+
+ #incrementMinutes{
+  position: absolute;
+  left: 20%;
+  margin-top: -20px;
+}
+#decrementMinutes{
+  position: absolute;
+  left: 20%;
+  margin-top: -5px;
+} 
+
