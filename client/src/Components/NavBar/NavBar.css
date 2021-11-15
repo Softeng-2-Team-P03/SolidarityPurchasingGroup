@@ -4,16 +4,16 @@
     position: sticky;
     top: 0;
     z-index: 100;
-/*     height: px;  allungare navbar*/
+    height: 90px; 
   }
 
-  #clock {
+/*   #clock {
     float: none;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-  }
+  } */
 
   .glow {
      font-size: 20px;
@@ -24,7 +24,8 @@
      -webkit-animation: glow 1s ease-in-out infinite alternate;
 }
 
-/* .clockWrapper{
+
+.clockWrapper{
   float: none;
   position: absolute;
   top: 50%;
@@ -32,9 +33,24 @@
   transform: translate(-50%, -50%);
 }
 
-.clockWrapper button{
-  font-size: 10px;
-  float: none;
-  position: absolute;
-  width: fit-content;
-} */
+ .clockWrapper Button{
+  font-size: 8px;
+}
+
+#incrementDay{
+  position: relative;
+  left: 13%;
+}
+#decrementDay{
+  position: relative;
+  left: 13%;
+}
+
+#incrementHour{
+  position: relative;
+  left: 24%;
+}
+#decrementHour{
+  position: relative;
+  left: 24%;
+}

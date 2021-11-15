@@ -93,8 +93,8 @@ function NavBar(props) {
         <Button id='incrementDay' onClick={setDayPlus}>▲</Button>
         <Button id='incrementHour' onClick={setHourPlus}>▲</Button>
         <div id="clock" class="glow">00:00:00</div>
-        <Button id='decreementDay'onClick={setDayMinus}>▼</Button>
-        <Button id='decreementHour'onClick={setHourMinus}>▼</Button>
+        <Button id='decrementDay'onClick={setDayMinus}>▼</Button>
+        <Button id='decrementHour'onClick={setHourMinus}>▼</Button>
       </div>
     </Navbar>
   );
