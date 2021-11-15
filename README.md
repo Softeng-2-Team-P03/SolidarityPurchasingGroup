@@ -25,27 +25,27 @@ Team members:
 A small list of usernames and plain text passwords for testing purposes.
 ### Employee
 
-Username: `put here username`
+Username: `clodia@spg.com`
 
-Password: `put here password`
+Password: `Mnbvcxz1234`
 
 ### Client
 
-Username: `put here username`
+Username: `federico@spg.com`
 
-Password: `put here password`
+Password: `26gKpQK9`
 
 ### Manager
 
-Username: `put here username`
+Username: `luca@spg.com`
 
-Password: `put here password`
+Password: `FgKECe4w`
 
 ### Farmer
 
-Username: `put here username`
+Username: `paolo@spg.com`
 
-Password: `put here password`
+Password: `eGB2VrUe`
 
 ## List of APIs offered by the server
 
