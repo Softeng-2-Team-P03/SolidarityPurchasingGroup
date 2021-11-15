@@ -27,12 +27,12 @@
 }
 
 #day{
+  position: absolute;
+  margin-left: -80%;
   display: inline;
   font-size: 23px;
   color: #fff;
   font-weight: bold;
-  padding-right: 10px;
-
 }
 
 .clockWrapper{
@@ -50,34 +50,34 @@
 
 #incrementDay{
   position: absolute;
-  left: 0%;
+  margin-left: -50%;
   margin-top: -20px;
 }
 #decrementDay{
   position: absolute;
-  left: 0%;
+  margin-left: -50%;
   margin-top: -5px;
 }
 
 #incrementHour{
   position: absolute;
-  left: 24%;
+  left: 0%;
   margin-top: -20px;
 }
 #decrementHour{
   position: absolute;
-  left: 24%;
+  left: 0%;
   margin-top: -5px;
 }
 
  #incrementMinutes{
   position: absolute;
-  left: 39%;
+  left: 20%;
   margin-top: -20px;
 }
 #decrementMinutes{
   position: absolute;
-  left: 39%;
+  left: 20%;
   margin-top: -5px;
 } 
 

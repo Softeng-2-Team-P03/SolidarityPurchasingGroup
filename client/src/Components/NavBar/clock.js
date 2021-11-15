@@ -6,7 +6,7 @@ function showTime() {
 			let min = time.getMinutes();
 			min=min+parseInt(localStorage.getItem('minutesMultiplier'));
 			let sec = time.getSeconds();;
-			let weekDay = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+			let weekDay = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 			let day=time.getDay()+parseInt(localStorage.getItem('dayMultiplier'));
 
 			hour = (hour < 0) ? (hour%24+24)%24 : hour;
