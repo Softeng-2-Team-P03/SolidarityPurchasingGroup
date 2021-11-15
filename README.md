@@ -78,7 +78,218 @@ Provide a short description for API with the required parameters, follow the pro
 ``` 
 - Error responses: `500 Internal Server Error` (generic error), `401 Unauthorized User` (login failed)
 
+### Register new Client
+- HTTP Method: `POST` URL: `/api/new_client`
+- Description: Sending user information to completing the registration of user
+- Request body: all useres information for register in database
+```
+{ 
 
+    "name": "Name",
+    "surname": "Surname"
+    "email": "xyz@xyz.com",
+    "password": "password",
+    "phoneNumber": "phoneNumber",
+    "address": "Address"
+}
+``` 
+- Reponse: `200 OK` (success)
+
+- Error responses: `500 Internal Server Error` (generic error), `Database error during the creation of client.`
+
+### Get All Users
+- HTTP Method: `GET` URL: `/api/clients`
+- Description: Get the list of useres for employee and manager
+- Reponse: `200 OK` (success)
+- Response body: authenticated user
+```
+[
+    { 
+        "id": 1,
+        "name": "Name",
+        "surname": "Surname"
+        "email": "xyz@xyz.com",
+        "accessType": 3,
+        "wallet": 0.0,
+        "password": "password",
+        "phoneNumber": "phoneNumber",
+        "address": "Address"
+    },
+    { 
+        "id": 2,
+        "name": "Name",
+        "surname": "Surname"
+        "email": "xyz@xyz.com",
+        "accessType": 3,
+        "wallet": 0.0,
+        "password": "password",
+        "phoneNumber": "phoneNumber",
+        "address": "Address"
+    },
+]
+``` 
+- Error responses: `500 Internal Server Error`
+
+### Get List Of Products
+- HTTP Method: `GET` URL: `/api/products`
+- Description: Get the list of products for all authenticated and unuthebticated useres
+- Reponse: `200 OK` (success)
+- Response body: list of products
+```
+[
+    { 
+        "id": 1,
+        "farmerId": 1,
+        "name": "Product 1"
+        "description": "description",
+        "quantity": 100,
+        "state": 1 ,
+        "typeId":1,
+        "pricePerUnit": 0.0,
+        "imagePath": "imagePath",
+        "farmer":{
+            "name":"Farmer's name",
+            "surname":"Farmer's surname"
+        }
+    },
+    { 
+        "id": 2,
+        "farmerId": 1,
+        "name": "Product 1"
+        "description": "description",
+        "quantity": 100,
+        "state": 1 ,
+        "typeId":1,
+        "pricePerUnit": 0.0,
+        "imagePath": "imagePath",
+        "farmer":{
+            "name":"Farmer's name",
+            "surname":"Farmer's surname"
+        }
+    },
+]
+``` 
+- Error responses: `500 Internal Server Error`
+
+
+### Filter Products By TypeId
+- HTTP Method: `GET` URL: `/api/products/type/{typeId}`
+- Description: Get the list of Products flitered by TypeId
+- Reponse: `200 OK` (success)
+- Response body: list of filtered products
+```
+[
+    { 
+        "id": 1,
+        "farmerId": 1,
+        "name": "Product 1"
+        "description": "description",
+        "quantity": 100,
+        "state": 1 ,
+        "typeId":1,
+        "pricePerUnit": 0.0,
+        "imagePath": "imagePath",
+        "farmer":{
+            "name":"Farmer's name",
+            "surname":"Farmer's surname"
+        }
+    },
+    { 
+        "id": 2,
+        "farmerId": 1,
+        "name": "Product 1"
+        "description": "description",
+        "quantity": 100,
+        "state": 1 ,
+        "typeId":1,
+        "pricePerUnit": 0.0,
+        "imagePath": "imagePath",
+        "farmer":{
+            "name":"Farmer's name",
+            "surname":"Farmer's surname"
+        }
+    },
+]
+``` 
+- Error responses: `500 Internal Server Error`
+
+
+
+### Get List Of Types
+- HTTP Method: `GET` URL: `/api/types`
+- Description: Get the list of Types
+- Reponse: `200 OK` (success)
+- Response body: list of Types
+```
+[
+    { 
+        "id": 1,
+        "typeName": "typeName",
+        
+    },
+    { 
+        "id": 2,
+        "typeName": "typeName",
+        
+    },
+]
+``` 
+- Error responses: `500 Internal Server Error`
+
+### Booking order
+- HTTP Method: `POST` URL: `/api/booking`
+- Description: Book one order by authnticated user
+- Request body: the information of booking + the list of products dentro booking
+```
+{ 
+
+    "bookingStartDate": "YYYY-MM-DD",
+    "totalPrice": 100.0,
+    "state": 1,
+    "products": [
+        {
+            "productId":1,
+            "quantity":60,
+            "price":100
+        },
+        {
+            "productId":2,
+            "quantity":50,
+            "price":100
+        }
+    ]
+ 
+}
+``` 
+- Reponse: `200 OK` (success)
+- Response body: Id of inserted Booking
+```
+{ 
+    "id": id,
+}
+``` 
+
+- Error responses: `503 Internal Server Error` (generic error), `Database error during the insert booking.`
+- Error responses: `500 Internal Server Error`(generic error),`The minimum number of  product in booking is 1 .`
+
+### Update Booking State
+- HTTP Method: `PUT` URL: `/api/bookings/{id}`
+- Description: Update the status of a booking 
+- Request body: 
+```
+{ 
+    "state": 2,
+}
+``` 
+- Reponse: `200 OK` (success)
+- Response body: authenticated user
+```
+```
+{ 
+    "id": id,
+}
+ 
+- Error responses: `503 Internal Server Error` (generic error), `Database error during the update Booking state.`
 
 ## Database Tables
   
