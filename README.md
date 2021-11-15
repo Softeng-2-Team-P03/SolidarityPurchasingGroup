@@ -172,6 +172,49 @@ Provide a short description for API with the required parameters, follow the pro
 - Error responses: `500 Internal Server Error`
 
 
+### Filter Products By TypeId
+- HTTP Method: `GET` URL: `/api/products/type/{typeId}`
+- Description: Get the list of Products flitered by TypeId
+- Reponse: `200 OK` (success)
+- Response body: list of filtered products
+```
+[
+    { 
+        "id": 1,
+        "farmerId": 1,
+        "name": "Product 1"
+        "description": "description",
+        "quantity": 100,
+        "state": 1 ,
+        "typeId":1,
+        "pricePerUnit": 0.0,
+        "imagePath": "imagePath",
+        "farmer":{
+            "name":"Farmer's name",
+            "surname":"Farmer's surname"
+        }
+    },
+    { 
+        "id": 2,
+        "farmerId": 1,
+        "name": "Product 1"
+        "description": "description",
+        "quantity": 100,
+        "state": 1 ,
+        "typeId":1,
+        "pricePerUnit": 0.0,
+        "imagePath": "imagePath",
+        "farmer":{
+            "name":"Farmer's name",
+            "surname":"Farmer's surname"
+        }
+    },
+]
+``` 
+- Error responses: `500 Internal Server Error`
+
+
+
 ### Get List Of Types
 - HTTP Method: `GET` URL: `/api/types`
 - Description: Get the list of Types
@@ -201,7 +244,7 @@ Provide a short description for API with the required parameters, follow the pro
 { 
 
     "bookingStartDate": "YYYY-MM-DD",
-    "totalPrice": 100.0
+    "totalPrice": 100.0,
     "state": 1,
     "products": [
         {
