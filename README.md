@@ -117,7 +117,7 @@ Provide a short description for API with the required parameters, follow the pro
 | "Address"  TEXT NOT NULL, | |
 | PRIMARY KEY("Id") | |
 
-| Table `ProductType` - contains | |
+| Table `ProductTypes` - contains | |
 | ------ | --- |
 | "TypeId" INTEGER NOT NULL | |
 | "TypeName" TEXT NOT NULL | |
