@@ -57,6 +57,29 @@ Provide a short description for API with the required parameters, follow the pro
 * [Sample response, with body (if any)]
 * [Error responses, if any]
 
+
+### Log in
+- HTTP Method: `POST` URL: `/api/sessions`
+- Description: authenticate the user who is trying to log in
+- Request body: credentials of the user who is trying to log in
+```
+{ 
+    "username": "email",
+    "password": "password"
+}
+``` 
+- Reponse: `200 OK` (success)
+- Response body: authenticated user
+```
+{ 
+    "id": id,
+    "username": "email",
+}
+``` 
+- Error responses: `500 Internal Server Error` (generic error), `401 Unauthorized User` (login failed)
+
+
+
 ## Database Tables
   
 |Table `Users` - contains |  |
