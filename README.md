@@ -269,9 +269,27 @@ Provide a short description for API with the required parameters, follow the pro
 }
 ``` 
 
-- Error responses: `500 Internal Server Error` (generic error), `Database error during the creation of client.`
-- Error responses: `503 Internal Server Error`(generic error),`The minimum number of  product in booking is 1 .`
+- Error responses: `503 Internal Server Error` (generic error), `Database error during the insert booking.`
+- Error responses: `500 Internal Server Error`(generic error),`The minimum number of  product in booking is 1 .`
 
+### Update Booking State
+- HTTP Method: `PUT` URL: `/api/bookings/{id}`
+- Description: Update the status of a booking 
+- Request body: 
+```
+{ 
+    "state": 2,
+}
+``` 
+- Reponse: `200 OK` (success)
+- Response body: authenticated user
+```
+```
+{ 
+    "id": id,
+}
+ 
+- Error responses: `503 Internal Server Error` (generic error), `Database error during the update Booking state.`
 
 ## Database Tables
   
