@@ -15,9 +15,12 @@ Team members:
 ## React Client Application Routes
 
 - Route `/`: list of published surveys to wich unauthenticated users can reply
-- Route `/route1`: route 1 description
-- Route `/route2`: route 2 description
-- Route `/route3`: route 3 description
+- Route `/login`: For Login Users.
+- Route `/clients`: Show all clients for employee.
+- Route `/addClient`: Show registration form for register new user.
+- Route `/products`: Show all products.
+- Route `/orders`: show the list of orders, only employee and manager can see it.
+- Route `/success`: show success after booking if booking finish with success status
 ## Login samples to test the App
 A small list of usernames and plain text passwords for testing purposes.
 ### Employee
