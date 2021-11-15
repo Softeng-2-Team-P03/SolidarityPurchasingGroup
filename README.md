@@ -270,7 +270,7 @@ Provide a short description for API with the required parameters, follow the pro
 ``` 
 
 - Error responses: `500 Internal Server Error` (generic error), `Database error during the creation of client.`
-- Error responses: `503 Internal Server Error``The minimum number of  product in booking is 1 .`
+- Error responses: `503 Internal Server Error`(generic error),`The minimum number of  product in booking is 1 .`
 
 
 ## Database Tables
