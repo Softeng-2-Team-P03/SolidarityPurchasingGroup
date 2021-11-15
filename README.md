@@ -16,10 +16,10 @@ Team members:
 
 - Route `/`: list of published surveys to wich unauthenticated users can reply
 - Route `/login`: For Login Users.
-- Route `/clients`: Show all clients for employee.
-- Route `/addClient`: Show registration form for register new user.
-- Route `/products`: Show all products.
-- Route `/orders`: show the list of orders, only employee and manager can see it.
+- Route `/clients`: list of registered clients that only employee can see it.
+- Route `/addClient`: the registration form to register new user.
+- Route `/products`: list of product for show to all useres (authenticated and unauthenticated).
+- Route `/orders`: the list of booked orders to show only for employee and manager.
 - Route `/success`: show success after booking if booking finish with success status
 ## Login samples to test the App
 A small list of usernames and plain text passwords for testing purposes.
