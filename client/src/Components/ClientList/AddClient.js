@@ -126,9 +126,9 @@ function AddClientForm(props) {
                     <Form.Label>Email</Form.Label>
                     <Form.Control required type='text' value={email} onChange={ev => setEmail(ev.target.value)} />
                 </Form.Group>
-                <Form.Group controlId="formPhoneNumber">
+                <Form.Group controlId="formPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control required type='text' value={password} onChange={ev => setPassword(ev.target.value)} />
+                    <Form.Control required type='password' value={password} onChange={ev => setPassword(ev.target.value)} />
                 </Form.Group>
                 <Form.Group controlId="formPhoneNumber">
                     <Form.Label>PhoneNumber</Form.Label>
