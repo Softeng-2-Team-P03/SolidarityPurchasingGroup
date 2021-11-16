@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1636998009778" clover="3.2.0">
-  <project timestamp="1636998009778" name="All files">
-    <metrics statements="486" coveredstatements="47" conditionals="170" coveredconditionals="8" methods="173" coveredmethods="12" elements="829" coveredelements="67" complexity="0" loc="486" ncloc="486" packages="13" files="21" classes="21"/>
+<coverage generated="1637004433494" clover="3.2.0">
+  <project timestamp="1637004433494" name="All files">
+    <metrics statements="486" coveredstatements="49" conditionals="170" coveredconditionals="10" methods="173" coveredmethods="14" elements="829" coveredelements="73" complexity="0" loc="486" ncloc="486" packages="13" files="21" classes="21"/>
     <package name="src">
       <metrics statements="76" coveredstatements="18" conditionals="16" coveredconditionals="0" methods="24" coveredmethods="5"/>
       <file name="API.js" path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\API.js">
@@ -111,16 +111,16 @@
       </file>
     </package>
     <package name="src.Components.Cart">
-      <metrics statements="10" coveredstatements="4" conditionals="8" coveredconditionals="4" methods="9" coveredmethods="2"/>
+      <metrics statements="10" coveredstatements="6" conditionals="8" coveredconditionals="6" methods="9" coveredmethods="4"/>
       <file name="Cart.js" path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\Cart.js">
-        <metrics statements="10" coveredstatements="4" conditionals="8" coveredconditionals="4" methods="9" coveredmethods="2"/>
-        <line num="9" count="3" type="stmt"/>
-        <line num="11" count="3" type="stmt"/>
-        <line num="12" count="3" type="stmt"/>
-        <line num="15" count="3" type="stmt"/>
+        <metrics statements="10" coveredstatements="6" conditionals="8" coveredconditionals="6" methods="9" coveredmethods="4"/>
+        <line num="9" count="5" type="stmt"/>
+        <line num="11" count="5" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="15" count="5" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
-        <line num="53" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
         <line num="64" count="0" type="stmt"/>
         <line num="78" count="0" type="stmt"/>
         <line num="86" count="0" type="stmt"/>

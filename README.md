@@ -172,6 +172,49 @@ Provide a short description for API with the required parameters, follow the pro
 - Error responses: `500 Internal Server Error`
 
 
+### Filter Products By TypeId
+- HTTP Method: `GET` URL: `/api/products/type/{typeId}`
+- Description: Get the list of Products flitered by TypeId
+- Reponse: `200 OK` (success)
+- Response body: list of filtered products
+```
+[
+    { 
+        "id": 1,
+        "farmerId": 1,
+        "name": "Product 1"
+        "description": "description",
+        "quantity": 100,
+        "state": 1 ,
+        "typeId":1,
+        "pricePerUnit": 0.0,
+        "imagePath": "imagePath",
+        "farmer":{
+            "name":"Farmer's name",
+            "surname":"Farmer's surname"
+        }
+    },
+    { 
+        "id": 2,
+        "farmerId": 1,
+        "name": "Product 1"
+        "description": "description",
+        "quantity": 100,
+        "state": 1 ,
+        "typeId":1,
+        "pricePerUnit": 0.0,
+        "imagePath": "imagePath",
+        "farmer":{
+            "name":"Farmer's name",
+            "surname":"Farmer's surname"
+        }
+    },
+]
+``` 
+- Error responses: `500 Internal Server Error`
+
+
+
 ### Get List Of Types
 - HTTP Method: `GET` URL: `/api/types`
 - Description: Get the list of Types
@@ -193,6 +236,54 @@ Provide a short description for API with the required parameters, follow the pro
 ``` 
 - Error responses: `500 Internal Server Error`
 
+### Booking order
+- HTTP Method: `POST` URL: `/api/booking`
+- Description: Book one order by authnticated user
+- Request body: the information of booking + the list of products dentro booking
+```
+{ 
+
+    "bookingStartDate": "YYYY-MM-DD",
+    "totalPrice": 100.0,
+    "state": 1,
+    "products": [
+        {
+            "productId":1,
+            "quantity":60,
+            "price":100
+        },
+        {
+            "productId":2,
+            "quantity":50,
+            "price":100
+        }
+    ]
+ 
+}
+``` 
+- Reponse: `200 OK` (success)
+- Response body: Id of inserted Booking
+```
+{ 
+    "id": id,
+}
+``` 
+
+- Error responses: `503 Internal Server Error` (generic error), `Database error during the insert booking.`
+- Error responses: `500 Internal Server Error`(generic error),`The minimum number of  product in booking is 1 .`
+
+### Update Booking State
+- HTTP Method: `PUT` URL: `/api/bookings/{id}`
+- Description: Update the status of a booking 
+- Request body: 
+```
+{ 
+    "state": 2,
+}
+``` 
+- Reponse: `200 OK` (success)
+- Response body: authenticated user
+- Error responses: `503 Internal Server Error` (generic error), `Database error during the update Booking state.`
 
 ## Database Tables
   

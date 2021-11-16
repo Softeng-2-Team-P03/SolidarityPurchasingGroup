@@ -6,6 +6,7 @@ import Cart from '../Cart';
 
 const loadingConfirm = false;
 const errorConfirm = '';
+const testProdOne = {id:1, imagePath:`testImage.jpg`, name:`testProduct`, farmer:{name:`testFarmerName`, surname:`testFarmerSurname`}, pricePerUnit:10, selectedQuantity:1}
 
 const deleteProductFromCart = (removeId) => {
   setCart(oldCart => oldCart.filter(product => product.id !== removeId));
@@ -55,8 +56,8 @@ it("renders the cart button", ()=>{
 
     // Render a react component to the DOM.
     const { getByText, getByTestId } = render(<Cart cart={[]} cartInfo={{numItems: 0, totalPrice: 0 }} deleteProductFromCart={deleteProductFromCart}
-      modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
-      errorConfirm={errorConfirm} userName={location.state && location.state.userName} />);
+      modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={false}
+      errorConfirm={""} userName={location.state && location.state.userName} />);
     
     //verify the cart button it's rendering and shows 0 products added to the cart by default
     expect(getByTestId("cartButton")).not.toBeNull();
@@ -87,5 +88,34 @@ it("renders the cart button", ()=>{
 
     //the Confirm button appears
     expect(getByText("Confirm Order")).not.toBeNull();
+
+  });
+
+  it("the cart modal renders products as expected", ()=>{
+    // Render a react component to the DOM.
+    const { getByText, getByTestId } = render(<Cart cart={[testProdOne]} cartInfo={{numItems: 1, totalPrice: 10 }} deleteProductFromCart={deleteProductFromCart}
+      modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
+      errorConfirm={errorConfirm} userName={location.state && location.state.userName} />);
+
+    //clicks on the cart button
+    fireEvent.click(getByTestId("cartButton"));
+
+    //make sure now the modal is rendered
+    expect(getByTestId("cartModal")).not.toBeNull();
+
+    //And has it's components rendering correctly
+
+    //The label "Your Cart" appears and shows (1) since one product has been added
+    expect(getByText("Cart (1 items)")).not.toBeNull();  
+    
+    //The label "Subtotal: € 0.00" appears and it's 0.00 since no product has been added
+    expect(getByText("Subtotal: € 10")).not.toBeNull();   
+
+    //the Confirm button appears
+    expect(getByText("Confirm Order")).not.toBeNull();
+
+    //the infos about the added product appears
+    expect(getByText("testProduct")).not.toBeNull();
+    expect(getByText("Farmer: testFarmerName testFarmerSurname")).not.toBeNull();
 
   });

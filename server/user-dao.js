@@ -22,7 +22,7 @@ exports.getUsers = (pageNumber) => {
                 address: row.Address,
             })
             );
-            console.log(users);
+            //console.log(users);
             resolve(users);
         });
 
@@ -49,7 +49,7 @@ exports.getUsersByAccessType = (accessType) => {
                 address: row.Address,
             })
             );
-            console.log(users);
+            //console.log(users);
             resolve(users);
         });
 

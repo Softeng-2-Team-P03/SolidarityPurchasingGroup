@@ -19,7 +19,7 @@ function Cart(props) {
         </Button>
 
         <Modal data-testid="cartModal" show={show} onHide={close} scrollable>
-            <Modal.Header closeButton style={{ backgroundColor: "#6da8fd" }}>
+            <Modal.Header style={{ backgroundColor: "#6da8fd" }}>
                 <Col style={{ textAlign: "center" }}>
                     <Row>
                         <Col xs={15} md={11}>
@@ -41,7 +41,7 @@ function Cart(props) {
                     <br />
                     <Button variant="success" disabled={props.cart.length === 0 || props.loadingConfirm}
                         onClick={() => props.confirmOrder()}>
-                        {props.loadingConfirm ? <>Submitting order <Spinner animation="border" /></> : "Confirm Order"}
+                        {props.loadingConfirm ? <>Submitting order <Spinner animation="border" size="sm" /></> : "Confirm Order"}
                     </Button>
                     <br />
                     <h4 style={{ color: "#8B0000", fontWeight: "bold" }}>{props.errorConfirm}</h4>
