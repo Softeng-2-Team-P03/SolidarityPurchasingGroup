@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import bookingApi from "./api/booking-api";
 import productApi from "./api/product-api";
 import { React, useState, useEffect } from "react";
-import booking from './models/booking';
+import booking from './Models/booking';
 import API from './API';
 import { LoginComponent } from './Components/LoginComponents/LoginComponent';
 import { ClientList} from './Components/ClientList/ClientList';

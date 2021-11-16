@@ -72,8 +72,8 @@ exports.getOrders = () => {
                 reject(err);
                 return;
             }
-            const orders = rows.map((e) => ({BookingStartDate : e.BookingStartDate, UserId : e.UserId, TotalPrice : e.TotalPrice, State:e.State, PickupTime : e.PickupTime, DeliveryTime : e.DeliveryTime}));
-            resolve(products);
+            const orders = rows.map((e) => ({BookingId : e.Id, BookingStartDate : e.BookingStartDate, UserId : e.UserId, TotalPrice : e.TotalPrice, State:e.State, PickupTime : e.PickupTime, DeliveryTime : e.DeliveryTime}));
+            resolve(orders);
         });
     });
 };

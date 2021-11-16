@@ -14,18 +14,19 @@ function Order(props) {
     return (
         <>
             <tr>
-                <td>{props.order.orderID}</td>
-                <td>{props.order.user.name} {props.order.user.surname}</td>
-                <td>{props.order.user.email}</td>
-                <td>{props.order.state}</td>
-                {props.order.pickupTime ? <td> {props.order.pickupTime} </td> : <td> {props.order.deliveryTime} </td>}
-                <td>{props.order.totalPrice}</td>
+                <td>{props.order.BookingId}</td>
+                <td>{props.order.UserId}</td>
+                <td>{props.order.BookingStartDate}</td>
+                <td>{props.order.State}</td>
+                {props.order.PickupTime ? <td> {props.order.PickupTime} </td> : <td> {props.order.DeliveryTime} </td>}
+                <td>{props.order.TotalPrice}</td>
+                
 
                 <td ><Form.Check
                     type="switch"
                     id="custom-switch"
                     label={isHandedOut}
-                    onClick={() => {  isHandedOut === "click to hand it out" ?  setIsHandedOut("Handed out") : setIsHandedOut("click to hand it out") } }
+                    onClick={() => { isHandedOut === "click to hand it out" ? setIsHandedOut("Handed out") : setIsHandedOut("click to hand it out") }}
                 /></td>
             </tr>
         </>
@@ -36,35 +37,35 @@ function Order(props) {
 
 function OrderList(props) {
 
-/*     useEffect(() => {
-        productApi.getAllProducts().then((products) => {
-            setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-            setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+    const [orders, setOrders] = useState([]);
+    const [searchOrders, setSearchOrders] = useState([]);
+
+    const [loadingProducts, setLoadingProducts] = useState(true);
+    const [errorLoading, setErrorLoading] = useState(''); //Error in loading orders
+
+
+
+    useEffect(() => {
+        bookingApi.getOrders().then((orders) => {
+            setOrders(orders.map(order => ({ ...order})));
+            setSearchOrders(orders.map(order => ({ ...order})));
             setLoadingProducts(false);
-            productApi.getProductTypes().then((types) => {
-                setTypes(types);
-                setLoadingTypes(false);
-                setErrorLoading('');
-            }).catch(err => {
-                setErrorLoading('Error during the loading of the types')
-                console.error(err);
-            })
         }).catch(err => {
-            setErrorLoading('Error during the loading of the products')
+            setErrorLoading('Error during the loading of the orders')
             console.error(err);
         });
-    }, []) */
+    }, [])
 
-    const [resultC, setResultC] = useState(props.orders);
+    
 
     function changeSearchText(text) {
         let c = []
-        props.orders.forEach(x => {
-            if (x.user.email.toLowerCase().includes(text.toLowerCase())) c.push(x);
+        orders.forEach(order => {
+            console.log(order.UserId);
+            if (order.UserId == text.toLowerCase() || text === "") c.push(order);
         })
 
-        setResultC(c);
-
+        setSearchOrders(c);
     }
 
     return (
@@ -74,8 +75,8 @@ function OrderList(props) {
                 <thead>
                     <tr>
                         <th>OrderID</th>
-                        <th>User</th>
-                        <th>email</th>
+                        <th>UserId</th>
+                        <th>Booking Issue Date </th>
                         <th>State</th>
                         <th>Scheduled Date</th>
                         <th>Total price</th>
@@ -85,8 +86,8 @@ function OrderList(props) {
                     </tr>
                 </thead>
                 <tbody> {
-                    resultC.map((or) =>
-                        <Order key={or.orderID}
+                    searchOrders.map((or) =>
+                        <Order key={or.BookingID}
                             order={or}
                         />)
                 }

@@ -4,6 +4,17 @@
 import React from "react";
 const BASEURL = '/api';
 
+async function getOrders() {
+  // call: GET /api/orders
+  const response = await fetch(BASEURL + '/bookings');
+  const ordersJson = await response.json();
+  if (response.ok) {
+    return ordersJson;
+  } else {
+    throw ordersJson;  // an object with the error coming from the server
+  }
+}
+
 function addBooking(booking) {
   return new Promise((resolve, reject) => {
     let order = {
@@ -57,5 +68,5 @@ function updateBookingState(booking) {
 }
 
 
-const bookingApi = { addBooking, updateBookingState };
+const bookingApi = { addBooking, updateBookingState, getOrders };
 export default bookingApi;

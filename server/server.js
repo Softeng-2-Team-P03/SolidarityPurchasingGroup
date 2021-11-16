@@ -218,6 +218,21 @@ app.get('/api/products/type/:typeId', async (req, res) => {
 //****************************************************** */
 //                Booking API
 //****************************************************** */
+
+//****   Get all bookings ****//
+app.get('/api/bookings', async (req, res) => {
+    try {
+        const result = await orderDao.getOrders();
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+
+});
+
 /*** Post Booking  ***/
 app.post('/api/booking', isLoggedIn, [
     check('bookingStartDate').isDate({ format: 'YYYY-MM-DD', strictMode: true }),
