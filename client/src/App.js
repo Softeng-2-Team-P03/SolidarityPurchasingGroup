@@ -6,6 +6,7 @@ import OrderList from './Components/OrderList/OrderList';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
 import OrderSuccess from './Components/SuccessPage/OrderSuccess';
+import FarmerHome from './Components/FarmerHome/FarmerHome';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import bookingApi from "./api/booking-api";
 import productApi from "./api/product-api";
@@ -153,6 +154,9 @@ function App() {
           } />
           <Route exact path="/" render={() =>
             <HomePage loggedIn={loggedIn} userLogoutCallback={userLogoutCallback} />
+          } />
+          <Route path='/farmerHome' render={() =>
+              <FarmerHome></FarmerHome>
           } />
           <Route render={() =>
             <Redirect to='/' />
