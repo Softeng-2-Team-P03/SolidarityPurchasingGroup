@@ -140,3 +140,21 @@ exports.getProductsByType = (typeId) => {
         });
     });
 }
+
+// get product by State and FarmerId
+exports.listFarmerProd = (farmerId, state) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT * FROM Products WHERE FarmerId = ? AND State = ?';
+        db.all(sql, [farmerId, state], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            const products = rows.map((e) => ({Id:e.Id, FarmerId: e.FarmerId, Name: e.Name, Description: e.Description,Quantity: e.Quantity,State:e.State,TypeId:e.TypeId,PricePerUnit:e.PricePerUnit}));
+
+            console.log(products);
+
+            resolve(products);
+        });
+    });
+};

@@ -15,6 +15,17 @@ async function getAllProducts() {
     }
 }
 
+async function getProdFarmer(farmerId) {
+    // call: GET /api/products/farmerId/state/
+    const response = await fetch(BASEURL + '/products/' + farmerId +'/' + 0);
+    const prodJson = await response.json();
+    if (response.ok) {
+        return prodJson;
+    } else {
+        throw prodJson;  // an object with the error coming from the server
+    }
+}
+
 async function addNewClient(client) {
     const response = await fetch('/api/new_client',  {
         method: 'POST',
@@ -74,5 +85,5 @@ async function getAllClients() {
     }
 }
 
-const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getAllClients};
+const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getAllClients,getProdFarmer};
 export default API;

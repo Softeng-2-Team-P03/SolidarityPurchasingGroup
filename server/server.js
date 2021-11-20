@@ -200,7 +200,7 @@ app.get('/api/types', async (req, res) => {
         res.status(500).end();
     }
 });
-/*** Get Oroducts By TypeId ***/
+/*** Get products By TypeId ***/
 app.get('/api/products/type/:typeId', async (req, res) => {
     try {
         const result = await productDao.getProductsByType(req.params.typeId);
@@ -214,6 +214,15 @@ app.get('/api/products/type/:typeId', async (req, res) => {
         res.status(500).end();
     }
 })
+
+/*** Get products By State and FarmerId ***/
+app.get('/api/products/:farmerId/:state', async (req, res) => {
+
+
+    productDao.listFarmerProd( req.params.farmerId,req.params.state)
+        .then(products => res.json(products))
+        .catch(() => res.status(500).end());
+});
 
 //****************************************************** */
 //                Booking API
