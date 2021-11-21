@@ -15,9 +15,9 @@ async function getAllProducts() {
     }
 }
 
-async function getProdFarmer(farmerId) {
+async function getProdFarmer(farmerId,state) {
     // call: GET /api/products/farmerId/state/
-    const response = await fetch(BASEURL + '/products/' + farmerId +'/' + 0);
+    const response = await fetch(BASEURL + '/products/' + farmerId +'/' + state);
     const prodJson = await response.json();
     if (response.ok) {
         return prodJson;

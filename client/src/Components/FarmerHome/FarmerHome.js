@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {useEffect, useState} from 'react';
-import {ListGroup, Table, Button, Row, Col, Modal, Form, Dropdown, Image} from "react-bootstrap";
+import {ListGroup, Table, Button, Row, Col, Modal, Form, Dropdown, Image, Alert} from "react-bootstrap";
 import {Redirect} from "react-router-dom";
 import {AddClientForm} from "../ClientList/AddClient";
 import {Client} from "../Client";
@@ -11,29 +11,35 @@ import API from "../../API";
 function FarmerHome() {
 
     const [show, setShow] = useState(false);
+    const [showSell, setShowSell] = useState(false);
     const [edit, setEdit] = useState(false);
     const [productToEdit, setProductToEdit] = useState();
     let prod = [];
-    const [products,setProducts] = useState([]);
-
+    let prodSell = [];
+    const [products, setProducts] = useState([]);
+    const [productsSell, setProductsSell] = useState([]);
 
 
     useEffect(() => {
         let mounted = true;
 
         const getProdFarmer = async () => {
-            prod = await API.getProdFarmer(4);
+            prod = await API.getProdFarmer(4, 0);
+            prodSell = await API.getProdFarmer(4, 1);
         };
         getProdFarmer().then(data => {
             if (mounted) {
                 setProducts(prod);
+                setProductsSell(prodSell);
                 console.log(prod);
             }
         })
             .catch(err => {
                 console.error(err);
             });
-        return () => { mounted = false };
+        return () => {
+            mounted = false
+        };
     }, []);
 
 
@@ -46,66 +52,112 @@ function FarmerHome() {
     }
 
 
+        return (
 
-    return (
+            <>
+                <Modal show={show} onHide={handleClose} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>New product</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <AddProductForm handleClose={handleClose}/>
 
-        <>
-            <Modal show={show} onHide={handleClose} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>New product</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <AddProductForm handleClose={handleClose}/>
-
-                </Modal.Body>
-            </Modal>
-
-
-            <Modal show={edit} onHide={handleCloseEdit} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Edit product</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <EditProductForm productToEdit={productToEdit} handleCloseEdit={handleCloseEdit}/>
-
-                </Modal.Body>
-
-            </Modal>
+                    </Modal.Body>
+                </Modal>
 
 
-            <ListGroup className="prodL">
-                {products.map((x) => (
+                <Modal show={edit} onHide={handleCloseEdit} centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Edit product</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <EditProductForm productToEdit={productToEdit} handleCloseEdit={handleCloseEdit}/>
+
+                    </Modal.Body>
+
+                </Modal>
 
 
-                <ListGroup.Item>
-                    <Row>
-                        <Col md="2">
-                            <img className="ima" src={require('../ProductImages/' + "p"+x.Id.toString()+"-1.jpg").default} />
-                        </Col>
-                        <Col md="2" ><h4 className="textP">{x.Name}</h4></Col>
-                        <Col md="2" ><h4 className="textP">QTY:{x.Quantity}</h4></Col>
-                        <Col md="2" ><h6 className="toConf" color="red">to confirm</h6></Col>
-                        <Col md="2"><Button  className="buttonEdit" variant="secondary" onClick={() => {
-                            setEdit(true);
-                            setProductToEdit(x);
-                        }
-                        }>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 className="bi bi-pencil" viewBox="0 0 16 16">
-                                <path
-                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                            </svg> Edit Product</Button></Col>
-                        <Col md="2"><Button className="buttonConfirm" variant="success" onClick={()=>API.updateProductState(1, x.Id).catch(err => console.log(err) )}>Confirm</Button></Col>
+                <ListGroup className="prodL">
+                    {products.map((x) => (
 
-                    </Row>
-                    </ListGroup.Item>
-                )
-                )}
-            </ListGroup>
-    <Button className="addP" variant="primary" onClick={() => setShow(true)}>Add product</Button>
-        </>
 
-    )
+                            <ListGroup.Item>
+                                <Row>
+                                    <Col md="2">
+                                        <img className="ima"
+                                             src={require('../ProductImages/' + "p" + x.Id.toString() + "-1.jpg").default}/>
+                                    </Col>
+                                    <Col md="2"><h4 className="textP">{x.Name}</h4></Col>
+                                    <Col md="2"><h4 className="textP">QTY:{x.Quantity}</h4></Col>
+                                    <Col md="2"><h6 className="toConf" color="red">to confirm</h6></Col>
+                                    <Col md="2"><Button className="buttonEdit" variant="secondary" onClick={() => {
+                                        setEdit(true);
+                                        setProductToEdit(x);
+                                    }
+                                    }>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                             className="bi bi-pencil" viewBox="0 0 16 16">
+                                            <path
+                                                d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                        </svg>
+                                        Edit Product</Button></Col>
+                                    <Col md="2"><Button className="buttonConfirm" variant="success" onClick={() => {
+                                        API.updateProductState(1, x.Id).catch(err => console.log(err));
+                                    }}>Confirm</Button></Col>
+
+                                </Row>
+                            </ListGroup.Item>
+                        )
+                    )}
+                </ListGroup>
+
+
+                <Alert variant="success">
+
+                    {showSell ? (
+
+                        <ListGroup className="prodL">
+                            {productsSell.map((x) => (
+                                    <Row>
+                                        <Col md="2">
+                                            <img className="ima"
+                                                 src={require('../ProductImages/' + "p" + x.Id.toString() + "-1.jpg").default}/>
+                                        </Col>
+                                        <Col md="2"><h4 className="textP">{x.Name}</h4></Col>
+                                        <Col md="2"><h4 className="textP">QTY:{x.Quantity}</h4></Col>
+                                        <Col md="2"><h6 className="Conf">confirmed</h6></Col>
+
+                                        <hr className="rowDiv"/>
+                                    </Row>
+
+                                )
+                            )}
+
+                            <Button className="closeSell" onClick={() => setShowSell(false)} variant="outline-success">
+                                Close Selling products
+                            </Button>
+
+                        </ListGroup>
+
+
+                    ) : (
+
+
+                        <Button className="butSelling" onClick={() => setShowSell(true)} variant="outline-success">
+                            See Selling products
+                        </Button>
+                    )
+
+                    }
+
+                </Alert>
+                <Button className="addP" variant="primary" onClick={() => setShow(true)}>Add product</Button>
+            </>
+
+        )
+
+
 }
 
 
