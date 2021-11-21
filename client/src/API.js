@@ -85,5 +85,52 @@ async function getAllClients() {
     }
 }
 
-const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getAllClients,getProdFarmer};
+function addProduct(FarmerId, Name, Description,Quantity,State,TypeId,PricePerUnit) {
+    // call: POST /api/product
+    return new Promise((resolve, reject) => {
+        fetch(BASEURL + '/product', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({FarmerId: FarmerId, Name: Name,Description:Description,
+                Quantity:Quantity,State:State,TypeId:TypeId,PricePerUnit:PricePerUnit}),
+        }).then((response) => {
+            if (response.ok) {
+                resolve(null);
+            } else {
+                // analyze the cause of error
+                response.json()
+                    .then((message) => { reject(message); }) // error message in the response body
+                    .catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+            }
+        }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+    });
+}
+
+function updateProductState(State,Id) {
+    // call: PUT /api/product/:State/:Id
+    return new Promise((resolve, reject) => {
+        fetch(BASEURL + '/product/' + State +'/' + Id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({State: State, Id:Id}),
+        }).then((response) => {
+            if (response.ok) {
+                resolve(null);
+            } else {
+                // analyze the cause of error
+                response.json()
+                    .then((obj) => { reject(obj); }) // error message in the response body
+                    .catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+            }
+        }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+    });
+}
+
+
+
+const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getAllClients,getProdFarmer,addProduct,updateProductState};
 export default API;

@@ -158,3 +158,30 @@ exports.listFarmerProd = (farmerId, state) => {
         });
     });
 };
+
+exports.createProduct = (product) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'INSERT INTO Products(Id,FarmerId, Name, Description,Quantity,State,TypeId,PricePerUnit) VALUES(?,?,?,?,?,?,?,?)';
+        db.run(sql, [52,product.FarmerId, product.Name, product.Description,product.Quantity,product.State,product.TypeId,product.PricePerUnit], function (err) {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve();
+        });
+    });
+};
+
+// update product state
+exports.updateProductState = (State, Id) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'UPDATE Products SET State=? WHERE Id = ?';
+        db.run(sql, [State, Id], function (err) {
+            if (err) {
+                reject(err);
+                return;
+            }
+
+        });
+    });
+};

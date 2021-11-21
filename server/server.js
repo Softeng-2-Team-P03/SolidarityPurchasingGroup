@@ -224,6 +224,42 @@ app.get('/api/products/:farmerId/:state', async (req, res) => {
         .catch(() => res.status(500).end());
 });
 
+// POST /api/product
+app.post('/api/product', async (req, res) => {
+    const product = {
+        Id:req.body.Id,
+        FarmerId: req.body.FarmerId,
+        Name: req.body.Name,
+        Description: req.body.Description,
+        Quantity: req.body.Quantity,
+        State: req.body.State,
+        TypeId: req.body.TypeId,
+        PricePerUnit: req.body.PricePerUnit
+    };
+
+    try {
+        await productDao.createProduct(product);
+        res.status(201).end();
+    } catch(err) {
+        res.status(503).json({error: `Database error during the creation of product.`});
+    }
+});
+
+
+// PUT /api/product/<State>/<Id>
+app.put('/api/product/:State/:Id', async (req, res) => {
+    const product = req.body;
+
+    // you can also check here if the code passed in the URL matches with the code in req.body
+    try {
+        await productDao.updateProductState(req.params.State, req.params.Id);
+        res.status(200).end();
+    } catch(err) {
+        res.status(503).json({error: `Database error during the update of Survey.`});
+    }
+
+});
+
 //****************************************************** */
 //                Booking API
 //****************************************************** */

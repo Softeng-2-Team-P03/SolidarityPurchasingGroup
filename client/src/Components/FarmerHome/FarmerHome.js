@@ -55,7 +55,7 @@ function FarmerHome() {
                     <Modal.Title>New product</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <AddProductForm />
+                    <AddProductForm handleClose={handleClose}/>
 
                 </Modal.Body>
             </Modal>
@@ -66,9 +66,10 @@ function FarmerHome() {
                     <Modal.Title>Edit product</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <EditProductForm productToEdit={productToEdit}/>
+                    <EditProductForm productToEdit={productToEdit} handleCloseEdit={handleCloseEdit}/>
 
                 </Modal.Body>
+
             </Modal>
 
 
@@ -94,7 +95,7 @@ function FarmerHome() {
                                 <path
                                     d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                             </svg> Edit Product</Button></Col>
-                        <Col md="2"><Button className="buttonConfirm" variant="success">Confirm</Button></Col>
+                        <Col md="2"><Button className="buttonConfirm" variant="success" onClick={()=>API.updateProductState(1, x.Id).catch(err => console.log(err) )}>Confirm</Button></Col>
 
                     </Row>
                     </ListGroup.Item>
@@ -123,7 +124,10 @@ function AddProductForm(props) {
     const handleAdd = (event) => {
         event.preventDefault();
 
-        let valid = true;
+        API.addProduct(4, name, description,quantity,0,1,pricePerUnit);
+        props.handleClose();
+
+        /*let valid = true;
         if (name === '') {
             setErrorMessage('Missing name description!');
             valid = false;
@@ -151,7 +155,7 @@ function AddProductForm(props) {
             //props.addClient(new Client(name, surname, email, password, phoneNumber, address));
             formReset();
             setSubmitted(true);
-        }
+        }*/
     };
 
     const formReset = () => {
@@ -166,7 +170,7 @@ function AddProductForm(props) {
 
     if (submitted) {
         return (
-            <Redirect to='/' />
+            <Redirect to='/FarmerHome' />
         );
     } else {
         return (<>
@@ -215,7 +219,7 @@ function AddProductForm(props) {
                     </Form.Group>
 
 
-                    <Button className="mt-3" onClick={handleAdd}>Register</Button>
+                    <Button className="mt-3" onClick={handleAdd}>Add product</Button>
                     <Form.Text className="text-danger">{errorMessage}</Form.Text>
                 </Form >
             </>
@@ -238,7 +242,11 @@ function EditProductForm(props) {
     const handleAdd = (event) => {
         event.preventDefault();
 
-        let valid = true;
+
+        props.handleCloseEdit();
+
+
+        /*let valid = true;
         if (name === '') {
             setErrorMessage('Missing name description!');
             valid = false;
@@ -266,7 +274,7 @@ function EditProductForm(props) {
             //props.addClient(new Client(name, surname, email, password, phoneNumber, address));
             formReset();
             setSubmitted(true);
-        }
+        }*/
     };
 
     const formReset = () => {
@@ -281,7 +289,7 @@ function EditProductForm(props) {
 
     if (submitted) {
         return (
-            <Redirect to='/' />
+            <Redirect to='/FarmerHome' />
         );
     } else {
         return (<>
