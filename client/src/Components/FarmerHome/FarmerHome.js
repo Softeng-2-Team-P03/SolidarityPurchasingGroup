@@ -13,6 +13,8 @@ function FarmerHome() {
     const [show, setShow] = useState(false);
     const [showSell, setShowSell] = useState(false);
     const [edit, setEdit] = useState(false);
+    const [confirm, setConfirm] = useState(false);
+
     const [productToEdit, setProductToEdit] = useState();
     let prod = [];
     let prodSell = [];
@@ -32,6 +34,7 @@ function FarmerHome() {
                 setProducts(prod);
                 setProductsSell(prodSell);
                 console.log(prod);
+                setConfirm(true);
             }
         })
             .catch(err => {
@@ -40,7 +43,9 @@ function FarmerHome() {
         return () => {
             mounted = false
         };
-    }, []);
+    }, [confirm]);
+
+
 
 
     const handleClose = () => {
@@ -104,6 +109,9 @@ function FarmerHome() {
                                         Edit Product</Button></Col>
                                     <Col md="2"><Button className="buttonConfirm" variant="success" onClick={() => {
                                         API.updateProductState(1, x.Id).catch(err => console.log(err));
+                                        setConfirm(false);
+
+
                                     }}>Confirm</Button></Col>
 
                                 </Row>
