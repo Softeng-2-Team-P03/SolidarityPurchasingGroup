@@ -1,17 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import ProductList from "./Components/ProductList/ProductList";
-import { Container } from "react-bootstrap";
 import OrderList from './Components/OrderList/OrderList';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
 import OrderSuccess from './Components/SuccessPage/OrderSuccess';
 import FarmerHome from './Components/FarmerHome/FarmerHome';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import bookingApi from "./api/booking-api";
-import productApi from "./api/product-api";
 import { React, useState, useEffect } from "react";
-import booking from './models/booking';
 import API from './API';
 import { LoginComponent } from './Components/LoginComponents/LoginComponent';
 import { ClientList} from './Components/ClientList/ClientList';
@@ -28,7 +24,6 @@ const fakeOrders = [
 ];
 
 function App() {
-  const [orders, setOrders] = useState([...fakeOrders]);
   const [loggedIn, setLoggedIn] = useState(false);
   const [message, setMessage] = useState('');
   const [user, setUser] = useState(undefined);
@@ -122,7 +117,6 @@ function App() {
 
   const addClient = (newClient) => {
     API.addNewClient(newClient).then(() => {
-      //setClients(...clients, newClient);
     }).catch(/*err => handleErrors(err) */);
   };
 
