@@ -21,6 +21,8 @@ function FarmerHome() {
     const [products, setProducts] = useState([]);
     const [productsSell, setProductsSell] = useState([]);
     let user;
+    const [farmer, setFarmer] = useState([]);
+
 
 
     useEffect(() => {
@@ -28,6 +30,7 @@ function FarmerHome() {
 
         const getProdFarmer = async () => {
             user = await API.getUserInfo();
+            setFarmer(user);
             prod = await API.getProdFarmer(user.id, 0);
             prodSell = await API.getProdFarmer(user.id, 1);
         };
@@ -66,7 +69,7 @@ function FarmerHome() {
                         <Modal.Title>New product</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <AddProductForm handleClose={handleClose} idFarmer={user}/>
+                        <AddProductForm handleClose={handleClose} idFarmer={farmer}/>
 
                     </Modal.Body>
                 </Modal>
@@ -186,7 +189,7 @@ function AddProductForm(props) {
     const handleAdd = (event) => {
         event.preventDefault();
 
-        API.addProduct(props.idFarmer, name, description,quantity,0,1,pricePerUnit);
+        API.addProduct(props.idFarmer.id, name, description,quantity,0,1,pricePerUnit);
         props.handleClose();
 
         /*let valid = true;
