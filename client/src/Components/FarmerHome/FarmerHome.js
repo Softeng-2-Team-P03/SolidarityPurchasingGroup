@@ -20,20 +20,21 @@ function FarmerHome() {
     let prodSell = [];
     const [products, setProducts] = useState([]);
     const [productsSell, setProductsSell] = useState([]);
+    let user;
 
 
     useEffect(() => {
         let mounted = true;
 
         const getProdFarmer = async () => {
-            prod = await API.getProdFarmer(4, 0);
-            prodSell = await API.getProdFarmer(4, 1);
+            user = await API.getUserInfo();
+            prod = await API.getProdFarmer(user.id, 0);
+            prodSell = await API.getProdFarmer(user.id, 1);
         };
         getProdFarmer().then(data => {
             if (mounted) {
                 setProducts(prod);
                 setProductsSell(prodSell);
-                console.log(prod);
                 setConfirm(true);
             }
         })
@@ -65,7 +66,7 @@ function FarmerHome() {
                         <Modal.Title>New product</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <AddProductForm handleClose={handleClose}/>
+                        <AddProductForm handleClose={handleClose} idFarmer={user}/>
 
                     </Modal.Body>
                 </Modal>
@@ -185,7 +186,7 @@ function AddProductForm(props) {
     const handleAdd = (event) => {
         event.preventDefault();
 
-        API.addProduct(4, name, description,quantity,0,1,pricePerUnit);
+        API.addProduct(props.idFarmer, name, description,quantity,0,1,pricePerUnit);
         props.handleClose();
 
         /*let valid = true;
@@ -252,8 +253,8 @@ function AddProductForm(props) {
                         <Form.Label>Type</Form.Label>
 
                         <Form.Select aria-label="Default select example" value={typeName} onChange={ev =>{ setType(typeNameArray.indexOf(ev.target.value)+1);
-                             
-                             setTypeName(ev.target.value);                             
+
+                             setTypeName(ev.target.value);
                              }}>
                              <option  hidden value>Select product type</option>
                              <option >{typeNameArray[0]}</option>
@@ -297,7 +298,7 @@ function EditProductForm(props) {
 
         props.handleCloseEdit();
 
-       
+
 
 
         /*let valid = true;
@@ -355,8 +356,8 @@ function EditProductForm(props) {
                     <Form.Group controlId="formType">
                         <Form.Label>Type</Form.Label>
                         <Form.Select aria-label="Default select example" value={typeName} onChange={ev =>{ setType(typeNameArray.indexOf(ev.target.value)+1);
-                             
-                            setTypeName(ev.target.value);                             
+
+                            setTypeName(ev.target.value);
                             }}>
                             <option  hidden value>{typeNameArray[props.productToEdit.TypeId-1]}</option>
                             <option >{typeNameArray[0]}</option>
