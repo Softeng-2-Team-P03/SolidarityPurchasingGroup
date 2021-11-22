@@ -2,7 +2,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Cart.css';
 import { Col, Row, Image, Button, Modal, Form, CloseButton, Spinner } from "react-bootstrap";
 import cartIcon from "../Icons/cart-icon.png";
-import mainLogo from "../Icons/cipolle-dorate-bio.jpg";
 import { useState } from "react";
 
 function Cart(props) {
