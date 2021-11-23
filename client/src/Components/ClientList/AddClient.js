@@ -65,52 +65,47 @@ function AddClientForm(props) {
     const handleAdd = (event) => {
         event.preventDefault();
         
-
         let valid = true;
         if (name === '') {
             error[0] = 'Missing name description!';
             setErrorMessage(error);
             valid = false;
-
         }
         if (surname === '') {
             error[1] = 'Missing surname description!'
             setErrorMessage(error);
             valid = false;
-
         }
         if (password === '') {
             error[2] = 'Missing password description!'
             setErrorMessage(error);
-         //   setErrorMessage('Missing password description!');
             valid = false;
-
         }
-
         if (email === '') {
             error[3] = 'Missing email description!'
             setErrorMessage(error);
-        
-          //  setErrorMessage('Missing email description!');
             valid = false;
-
         }
-        if (phoneNumber === '') {
+       /*  if (phoneNumber === '') {
             error[4] = 'Missing phoneNumber description!'
             setErrorMessage(error);
-         //   setErrorMessage('Missing phoneNumber description!');
             valid = false;
-
-        }
+        } */
         if (address === '') {
             error[5] = 'Missing address description!'
             setErrorMessage(error);
-         //   setErrorMessage('Missing address description!');
             valid = false;
-
         }
-
-
+        if (parseInt(phoneNumber).toString().length!==10) {
+            error[6] = 'Wrong phone number format!'
+            setErrorMessage(error);
+            valid = false;
+        }
+        if (password.length>30 || password.length<8) {
+            error[7] = 'Password length must be between 8 and 30 character long'
+            setErrorMessage(error);
+            valid = false;
+        }  
         if (valid) {
             props.addClient(new Client(name, surname, email, password, phoneNumber, address));
             formReset();
@@ -125,16 +120,11 @@ function AddClientForm(props) {
         setPassword('');
         setPhoneNumber('');
         setAddress('');
-
     };
 
     if (submitted) {
         return (<>
-           <Redirect to={{
-            pathname: '/',
-            state: { showToast: true }
-        }}
-/>
+            <Redirect to='/' />
         </>
         );
     } else {
@@ -153,19 +143,21 @@ function AddClientForm(props) {
                 </Form.Group>
                 <Form.Group className = "mt-2"controlId="formEmail">
                     <Form.Label>Email</Form.Label>
-                    <h6 class="text-danger">{errorMessage[2]}</h6>   
+                    <h6 class="text-danger">{errorMessage[3]}</h6>   
                     <Form.Control required type='text' value={email} onChange={ev => setEmail(ev.target.value)} />
                     
                 </Form.Group>
                 <Form.Group className = "mt-2" controlId="formPassword">
                     <Form.Label>Password</Form.Label>
-                    <h6 class="text-danger">{errorMessage[3]}</h6>   
+                    <h6 class="text-danger">{errorMessage[2]}</h6>   
+                    <h6 class="text-danger">{errorMessage[7]}</h6>   
                     <Form.Control required type='password' value={password} onChange={ev => setPassword(ev.target.value)} />
                    
                 </Form.Group>
                 <Form.Group className = "mt-2" controlId="formPhoneNumber">
                     <Form.Label>PhoneNumber</Form.Label>
-                    <h6 class="text-danger">{errorMessage[4]}</h6>   
+{/*                     <h6 class="text-danger">{errorMessage[4]}</h6>
+ */}                    <h6 class="text-danger">{errorMessage[6]}</h6>      
                     <Form.Control required type='text' value={phoneNumber} onChange={ev => setPhoneNumber(ev.target.value)} />
              
                 </Form.Group>
