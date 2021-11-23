@@ -20,20 +20,24 @@ function FarmerHome() {
     let prodSell = [];
     const [products, setProducts] = useState([]);
     const [productsSell, setProductsSell] = useState([]);
+    let user;
+    const [farmer, setFarmer] = useState([]);
+
 
 
     useEffect(() => {
         let mounted = true;
 
         const getProdFarmer = async () => {
-            prod = await API.getProdFarmer(4, 0);
-            prodSell = await API.getProdFarmer(4, 1);
+            user = await API.getUserInfo();
+            setFarmer(user);
+            prod = await API.getProdFarmer(user.id, 0);
+            prodSell = await API.getProdFarmer(user.id, 1);
         };
         getProdFarmer().then(data => {
             if (mounted) {
                 setProducts(prod);
                 setProductsSell(prodSell);
-                console.log(prod);
                 setConfirm(true);
             }
         })
@@ -65,7 +69,7 @@ function FarmerHome() {
                         <Modal.Title>New product</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <AddProductForm handleClose={handleClose}/>
+                        <AddProductForm handleClose={handleClose} idFarmer={farmer}/>
 
                     </Modal.Body>
                 </Modal>
@@ -180,11 +184,12 @@ function AddProductForm(props) {
     const [errorMessage, setErrorMessage] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [typeName, setTypeName] = useState('Select product type');
+    let typeNameArray = ['Fruits and Vegetables', 'Dairy', 'Meat and salumi', 'Sea products', 'Baker and sweets', 'Beverages'  ]
 
     const handleAdd = (event) => {
         event.preventDefault();
 
-        API.addProduct(4, name, description,quantity,0,1,pricePerUnit);
+        API.addProduct(props.idFarmer.id, name, description,quantity,0,1,pricePerUnit);
         props.handleClose();
 
         /*let valid = true;
@@ -250,34 +255,24 @@ function AddProductForm(props) {
                     <Form.Group controlId="formType">
                         <Form.Label>Type</Form.Label>
 
-                        <Form.Select aria-label="Default select example">
-                            <option>Select product type</option>
-                            <option value={type} onSelect={ev =>{  setType(ev.target.value);
-                                setTypeName('Fruits and Vegetables')
-                            }}>Fruits and Vegetables</option>
-                            <option value={type} onSelect={ev =>{  setType(ev.target.value);
-                                setTypeName('Dairy')
-                            }}>Dairy</option>
-                            <option value={type} onSelect={ev =>{  setType(ev.target.value);
-                                setTypeName('Meat and salumi')
-                            }}>Meat and salumi</option>
-                            <option value={type} onSelect={ev =>{  setType(ev.target.value);
-                                setTypeName('Sea products')
-                            }}>Sea products</option>
-                            <option value={type} onSelect={ev =>{  setType(ev.target.value);
-                                setTypeName('Baker and sweets')
-                            }}>Baker and sweets</option>
-                            <option value={type} onSelect={ev =>{  setType(ev.target.value);
-                                setTypeName('Beverages')
-                            }}>Beverages</option>
-                        </Form.Select>
+                        <Form.Select aria-label="Default select example" value={typeName} onChange={ev =>{ setType(typeNameArray.indexOf(ev.target.value)+1);
+
+                             setTypeName(ev.target.value);
+                             }}>
+                             <option  hidden value>Select product type</option>
+                             <option >{typeNameArray[0]}</option>
+                             <option >{typeNameArray[1]}</option>
+                             <option >{typeNameArray[2]}</option>
+                             <option >{typeNameArray[3]}</option>
+                             <option >{typeNameArray[4]}</option>
+                             <option >{typeNameArray[5]}</option>
+                         </Form.Select>
 
                     </Form.Group>
                     <Form.Group className="mt-2" controlId="formPricePerUnit">
                         <Form.Label>Price per unit</Form.Label>
                         <Form.Control required type='text' value={pricePerUnit} onChange={ev => setPricePerUnit(ev.target.value)} />
                     </Form.Group>
-
 
                     <Button className="mt-3" onClick={handleAdd}>Add product</Button>
                     <Form.Text className="text-danger">{errorMessage}</Form.Text>
@@ -298,12 +293,15 @@ function EditProductForm(props) {
     const [errorMessage, setErrorMessage] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [typeName, setTypeName] = useState('Select product type');
+    let typeNameArray = ['Fruits and Vegetables', 'Dairy', 'Meat and salumi', 'Sea products', 'Baker and sweets', 'Beverages'  ]
 
-    const handleAdd = (event) => {
+    const handleEdit = (event) => {
         event.preventDefault();
 
 
         props.handleCloseEdit();
+
+
 
 
         /*let valid = true;
@@ -337,15 +335,6 @@ function EditProductForm(props) {
         }*/
     };
 
-    const formReset = () => {
-        setName('')
-        setDescription('');
-        setQuantity('');
-        setType('');
-        setPricePerUnit('');
-
-
-    };
 
     if (submitted) {
         return (
@@ -369,27 +358,17 @@ function EditProductForm(props) {
                     </Form.Group>
                     <Form.Group controlId="formType">
                         <Form.Label>Type</Form.Label>
+                        <Form.Select aria-label="Default select example" value={typeName} onChange={ev =>{ setType(typeNameArray.indexOf(ev.target.value)+1);
 
-                        <Form.Select aria-label="Default select example">
-                            <option>Select product type</option>
-                            <option value={type} onSelect={ev =>{  setType(ev.target.value);
-                                setTypeName('Fruits and Vegetables')
-                            }}>Fruits and Vegetables</option>
-                            <option value={type} onSelect={ev =>{  setType(ev.target.value);
-                                setTypeName('Dairy')
-                            }}>Dairy</option>
-                            <option value={type} onSelect={ev =>{  setType(ev.target.value);
-                                setTypeName('Meat and salumi')
-                            }}>Meat and salumi</option>
-                            <option value={type} onSelect={ev =>{  setType(ev.target.value);
-                                setTypeName('Sea products')
-                            }}>Sea products</option>
-                            <option value={type} onSelect={ev =>{  setType(ev.target.value);
-                                setTypeName('Baker and sweets')
-                            }}>Baker and sweets</option>
-                            <option value={type} onSelect={ev =>{  setType(ev.target.value);
-                                setTypeName('Beverages')
-                            }}>Beverages</option>
+                            setTypeName(ev.target.value);
+                            }}>
+                            <option  hidden value>{typeNameArray[props.productToEdit.TypeId-1]}</option>
+                            <option >{typeNameArray[0]}</option>
+                            <option >{typeNameArray[1]}</option>
+                            <option >{typeNameArray[2]}</option>
+                            <option >{typeNameArray[3]}</option>
+                            <option >{typeNameArray[4]}</option>
+                            <option >{typeNameArray[5]}</option>
                         </Form.Select>
 
                     </Form.Group>
@@ -399,7 +378,7 @@ function EditProductForm(props) {
                     </Form.Group>
 
 
-                    <Button className="mt-3" onClick={handleAdd}>Register</Button>
+                    <Button className="mt-3" onClick={handleEdit}>Register</Button>
                     <Form.Text className="text-danger">{errorMessage}</Form.Text>
                 </Form >
             </>

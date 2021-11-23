@@ -1,11 +1,27 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './HomePage.css';
-import { Link } from 'react-router-dom';
-import { Col, Row, Button, Dropdown } from "react-bootstrap"; 
+import { Link, useLocation } from 'react-router-dom';
+import { Col, Row, Button, Dropdown , Toast} from "react-bootstrap"; 
+import { useState } from "react";
 
 function HomePage(prop) {
+    const [showB, setShowB] = useState(true);
+    const location = useLocation();
+ 
+  const toggleShowB = () => setShowB(!showB);
     return (
         <>
+        {location.state && location.state.showToast  ? <> 
+        <Toast className="toast-fixed" onClose={toggleShowB} show={showB} animation={false}>
+          <Toast.Header>
+           
+            <strong className="me-auto">Registration completed</strong>
+          </Toast.Header>
+          <Toast.Body>Your account has been successfully created</Toast.Body>
+        </Toast> </> : <></>
+   
+}
+        
             <SelectionBar />
             <div className="container">
                 <section className="partSection" id="shop">

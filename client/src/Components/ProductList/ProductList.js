@@ -42,16 +42,15 @@ function ProductList(props) {
         let time = new Date(localStorage.getItem('virtualDate'));
         const day = time.getDay();
         const hour = time.getHours();
-        const minutes = time.getMinutes();
-        if (day === 0 && hour >= 23 && minutes <= 59) {
+        if ((day === 6 && hour >= 9) || (day === 0 && hour <= 22)) {
+            setTimeEnabled(true);
+        }
+        else {
             setTimeEnabled(false);
             if (cart !== []) {
                 setCart([]);
                 setCartInfo({ numItems: 0, totalPrice: 0 });
             }
-        }
-        else {
-            setTimeEnabled(true);
         }
     }
 

@@ -183,13 +183,15 @@ function ShowClock() {
     <div className="clockWrapper glow">
       <Table responsive borderless size="sm">
         <thead>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
         </thead>
         <tbody>
           <tr>
