@@ -3,7 +3,7 @@ function ClientList(clients = []) {
     this.add = (t) => { this.clients.push(t) };
 }
 
-function Client(name, surname, email,password, phoneNumber, address, id, wallet) {
+function Client(name, surname, email,password, phoneNumber, address, id, wallet) {//NOSONAR
     this.name = name;
     this.surname = surname;
     this.email = email;

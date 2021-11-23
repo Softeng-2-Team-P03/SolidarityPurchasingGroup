@@ -86,7 +86,6 @@ function AddClientForm(props) {
             setErrorMessage(error);
             valid = false;
         }
-       /*  if (phoneNumber === '') {error[4] = 'Missing phoneNumber description!';setErrorMessage(error);valid = false;} */
         if (address === '') {
             error[5] = 'Missing address description!'
             setErrorMessage(error);
