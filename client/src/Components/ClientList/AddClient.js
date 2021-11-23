@@ -1,4 +1,4 @@
-import { Button, Modal, Form, Alert } from "react-bootstrap";
+import { Button, Modal, Form } from "react-bootstrap";
 import { useState } from "react";
 import "./AddClient.css";
 import { Client } from "../Client";
@@ -86,11 +86,7 @@ function AddClientForm(props) {
             setErrorMessage(error);
             valid = false;
         }
-       /*  if (phoneNumber === '') {
-            error[4] = 'Missing phoneNumber description!'
-            setErrorMessage(error);
-            valid = false;
-        } */
+       /*  if (phoneNumber === '') {error[4] = 'Missing phoneNumber description!';setErrorMessage(error);valid = false;} */
         if (address === '') {
             error[5] = 'Missing address description!'
             setErrorMessage(error);
