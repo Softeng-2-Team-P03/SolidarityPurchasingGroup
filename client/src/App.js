@@ -116,8 +116,7 @@ function App() {
   }
 
   const addClient = (newClient) => {
-    API.addNewClient(newClient).then(() => {
-    }).catch(/*err => handleErrors(err) */);
+    API.addNewClient(newClient).catch(/*err => handleErrors(err) */);
   };
 
 
