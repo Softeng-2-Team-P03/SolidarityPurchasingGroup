@@ -3,7 +3,7 @@ import Message from './Message';
 import Progress from './Progress';
 import axios from 'axios';
 
-const FileUpload = () => {
+const FileUpload = (props) => {
     const [file, setFile] = useState('');
     const [filename, setFilename] = useState('Choose File');
     const [uploadedFile, setUploadedFile] = useState({});
@@ -16,9 +16,14 @@ const FileUpload = () => {
     };
 
     const onSubmit = async e => {
+        let numImg = props.numProd+1
+        let nameImg = 'p'+numImg.toString()+'-1.jpg'
         e.preventDefault();
         const formData = new FormData();
-        formData.append('file', file);
+        console.log(filename);
+        if(filename!='Choose File')
+        formData.append('file', file ,nameImg);
+        else formData.append('file', file);
 
         try {
             const res = await axios.post('/upload', formData, {
