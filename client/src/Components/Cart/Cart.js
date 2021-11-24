@@ -62,7 +62,7 @@ function CartProduct(props) {
         <Row style={{ borderBottom: "2px solid black", paddingTop: "5%", paddingBottom: "5%" }}>
             <Button className="cartButtons delete" variant="danger" onClick={() => props.deleteProductFromCart(props.product.id)}>X</Button>
             <Col>
-                <Image src={require('../ProductImages/' + props.product.imagePath).default} fluid thumbnail />
+                <Image src={require('../../../public' + props.product.imagePath).default} fluid thumbnail />
                 <div style={{ textAlign: "center", fontWeight: "bold", fontSize: "25px" }}>{props.product.name} </div>
                 <div style={{ textAlign: "center", fontSize: "15px" }}>Farmer: {props.product.farmer.name} {props.product.farmer.surname}</div>
             </Col>

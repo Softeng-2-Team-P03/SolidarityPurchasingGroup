@@ -8,6 +8,8 @@ import bookingApi from '../../api/booking-api';
 import { Redirect, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 
+
+
 function ProductList(props) {
     const location = useLocation(); //If employee makes order for client: {userId, userName}
 
@@ -258,7 +260,7 @@ function Product(props) {
     return (
         <Col>
             <Card className="text-center">
-                <Card.Img variant="top" src={require('../ProductImages/' + props.product.imagePath).default} />
+                <Card.Img variant="top" src={require('../../../public/ProductImages/' + props.product.imagePath).default} />
                 <Card.Body>
                     <h2>{props.product.name}</h2>
                     <Card.Text>
