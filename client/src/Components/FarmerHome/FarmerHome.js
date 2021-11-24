@@ -7,6 +7,7 @@ import {Client} from "../Client";
 import './FarmerHome.css'
 import ima from '../ProductImages/p1-1.jpg'
 import API from "../../API";
+import FileUpload from "../FileUpload/FileUpload";
 
 function FarmerHome() {
 
@@ -64,6 +65,8 @@ function FarmerHome() {
         return (
 
             <>
+
+
                 <Modal show={show} onHide={handleClose} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>New product</Modal.Title>
@@ -85,6 +88,8 @@ function FarmerHome() {
                     </Modal.Body>
 
                 </Modal>
+
+
 
 
                 <ListGroup className="prodL">
@@ -233,12 +238,14 @@ function AddProductForm(props) {
 
     };
 
-    if (submitted) {
+   /* if (submitted) {
         return (
             <Redirect to='/FarmerHome' />
         );
-    } else {
+    } else {*/
         return (<>
+                <Form.Label>Image</Form.Label>
+                <FileUpload />
                 <Form>
                     <Form.Group controlId="formName">
                         <Form.Label>Name</Form.Label>
@@ -277,9 +284,12 @@ function AddProductForm(props) {
                     <Button className="mt-3" onClick={handleAdd}>Add product</Button>
                     <Form.Text className="text-danger">{errorMessage}</Form.Text>
                 </Form >
+
+
+
             </>
         );
-    }
+   // }
 
 }
 

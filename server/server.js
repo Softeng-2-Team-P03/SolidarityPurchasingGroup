@@ -10,6 +10,7 @@ const userDao = require('./user-dao.js'); // module for accessing the users in t
 const passport = require('passport'); // auth middleware
 const LocalStrategy = require('passport-local').Strategy; // username and password for login
 const session = require('express-session'); // enable sessions
+const fileUpload = require('express-fileupload');
 
 /* Set up Passport **
 set up the "username and password" login strategy
@@ -48,6 +49,7 @@ const port = 3001;
 // set-up the middlewares
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(fileUpload());
 
 // custom middleware: check if a given request is coming from an authenticated user
 const isLoggedIn = (req, res, next) => {
@@ -258,6 +260,24 @@ app.put('/api/product/:State/:Id', async (req, res) => {
         res.status(503).json({error: `Database error during the update of Survey.`});
     }
 
+});
+
+// Upload Endpoint
+app.post('/upload', (req, res) => {
+    if (req.files === null) {
+        return res.status(400).json({ msg: 'No file uploaded' });
+    }
+
+    const file = req.files.file;
+
+    file.mv(`${__dirname}/../client/src/Components/ProductImages/${file.name}`, err => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send(err);
+        }
+
+        res.json({ fileName: file.name, filePath: `/../ProductImages/${file.name}` });
+    });
 });
 
 //****************************************************** */
