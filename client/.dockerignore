@@ -1,0 +1,2 @@
+# ignora ogni directory in ogni path con il nome "node_modules"
+node_modules

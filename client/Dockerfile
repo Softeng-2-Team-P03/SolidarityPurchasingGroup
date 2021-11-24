@@ -5,9 +5,12 @@ LABEL description="This is the base docker image for the SolidarityPurchasingGro
 
 WORKDIR /app
 
+# needed to let the docker image find the react-scripts into the node_modules folder
+ENV PATH /app/node_modules/.bin:$PATH
+
 COPY ["package.json", "package-lock.json", "./"]
 
-RUN npm install
+RUN npm install --production
 # potrebbe essere meglio usare `RUN npm install --production` che non installa la roba in dev dependencies di package.json
 
 COPY . .
