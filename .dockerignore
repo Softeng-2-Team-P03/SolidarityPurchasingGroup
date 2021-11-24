@@ -1,0 +1,11 @@
+# ignora ogni directory in ogni path con il nome "node_modules"
+*/node_modules*
+
+# ignora ogni directory in ogni path con il nome "coverage"
+*/coverage*
+
+# forse ha senso formalmente piazzare anche le sguenti due?
+# ./.github
+# ./.gitignore
+# *.md <-- ignora ogni markdown file
+
