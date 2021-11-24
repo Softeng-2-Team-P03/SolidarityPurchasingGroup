@@ -5,7 +5,6 @@ import {Redirect} from "react-router-dom";
 import {AddClientForm} from "../ClientList/AddClient";
 import {Client} from "../Client";
 import './FarmerHome.css'
-import ima from '../ProductImages/p1-1.jpg'
 import API from "../../API";
 import FileUpload from "../FileUpload/FileUpload";
 
@@ -100,7 +99,7 @@ function FarmerHome() {
                                 <Row>
                                     <Col md="2">
                                         <img className="ima"
-                                             src={require('../ProductImages/' + "p" + x.Id.toString() + "-1.jpg").default}/>
+                                             src={require('../../../public/ProductImages/' + "p" + x.Id.toString() + "-1.jpg").default}/>
                                     </Col>
                                     <Col md="2"><h4 className="textP">{x.Name}</h4></Col>
                                     <Col md="2"><h4 className="textP">QTY:{x.Quantity}</h4></Col>
@@ -139,7 +138,7 @@ function FarmerHome() {
                                     <Row>
                                         <Col md="2">
                                             <img className="ima"
-                                                 src={require('../ProductImages/' + "p" + x.Id.toString() + "-1.jpg").default}/>
+                                                 src={require('../../../public/ProductImages/' + "p" + x.Id.toString() + "-1.jpg").default}/>
                                         </Col>
                                         <Col md="2"><h4 className="textP">{x.Name}</h4></Col>
                                         <Col md="2"><h4 className="textP">QTY:{x.Quantity}</h4></Col>
@@ -353,7 +352,7 @@ function EditProductForm(props) {
     } else {
         return (<>
                 <Form>
-                    <img className="imaEdit" src={require('../ProductImages/' + "p"+props.productToEdit.Id.toString()+"-1.jpg").default} />
+                    <img className="imaEdit" src={require('../../../public/ProductImages/' + "p"+props.productToEdit.Id.toString()+"-1.jpg").default} />
                     <Form.Group controlId="formName">
                         <Form.Label>Name</Form.Label>
                         <Form.Control required type='text' defaultValue={props.productToEdit.Name} onChange={ev => setName(ev.target.value)} />

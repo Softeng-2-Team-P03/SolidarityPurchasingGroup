@@ -49,7 +49,7 @@ function Product(props) {
     return (
         <>
             <tr>
-                <td><Image src={require('../ProductImages/' + props.product.imagePath).default} thumbnail /> {props.product.name} </td>
+                <td><Image src={require('../../../public/ProductImages' + props.product.imagePath).default} thumbnail /> {props.product.name} </td>
                 <td>{props.product.quantity}</td>
                 <td> € {props.product.price}</td>
             </tr>

@@ -270,13 +270,13 @@ app.post('/upload', (req, res) => {
 
     const file = req.files.file;
 
-    file.mv(`${__dirname}/../client/src/Components/ProductImages/${file.name}`, err => {
+    file.mv(`${__dirname}/../client/public/ProductImages/${file.name}`, err => {
         if (err) {
             console.error(err);
             return res.status(500).send(err);
         }
 
-        res.json({ fileName: file.name, filePath: `/../ProductImages/${file.name}` });
+        res.json({ fileName: file.name, filePath: `../ProductImages/${file.name}` });
     });
 });
 
