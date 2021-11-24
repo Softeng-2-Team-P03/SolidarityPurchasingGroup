@@ -3,7 +3,7 @@ version: '3'
 services:
   backend:
     build:
-      context: ./backend
+      context: ./server
       dockerfile: ./Dockerfile
     image: "binco97/solidarity-purchasing-group-backend"
     ports:
