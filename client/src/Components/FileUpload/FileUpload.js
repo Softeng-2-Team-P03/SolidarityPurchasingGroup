@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import Message from './Message';
 import Progress from './Progress';
 import axios from 'axios';
+import API from "../../API";
 
 const FileUpload = (props) => {
     const [file, setFile] = useState('');
@@ -10,14 +11,20 @@ const FileUpload = (props) => {
     const [message, setMessage] = useState('');
     const [uploadPercentage, setUploadPercentage] = useState(0);
 
+
     const onChange = e => {
         setFile(e.target.files[0]);
         setFilename(e.target.files[0].name);
     };
 
+
+
     const onSubmit = async e => {
         let numImg = props.numProd+1
         let nameImg = 'p'+numImg.toString()+'-1.jpg'
+
+        API.addImage(numImg,nameImg);
+
         e.preventDefault();
         const formData = new FormData();
         console.log(filename);

@@ -198,6 +198,7 @@ function AddProductForm(props) {
 
         const getProdFarmer = async () => {
             allProducts = await API.getAllProducts();
+            console.log('pr');
             console.log(allProducts);
 
         };

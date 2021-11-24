@@ -369,6 +369,26 @@ app.put('/api/bookings/:id', [
 
 });
 
+//****************************************************** */
+//                ProductImages API
+//****************************************************** */
+
+// POST /api/image
+app.post('/api/image', async (req, res) => {
+    const image = {
+        id: req.body.id,
+        path: req.body.path,
+    };
+
+    try {
+        await productDao.createImage(image);
+        res.status(201).end();
+    } catch(err) {
+        res.status(503).json({error: `Database error during the creation of image.`});
+    }
+});
+
+
 
 
 // Activate the server
