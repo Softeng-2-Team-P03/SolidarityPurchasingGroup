@@ -185,3 +185,17 @@ exports.updateProductState = (State, Id) => {
         });
     });
 };
+
+// add a new product image
+exports.createImage = (image) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'INSERT INTO ProductImages(Id, ProductId, IsDefault, Path) VALUES(?, ?, ?, ?)';
+        db.run(sql, [ image.id, image.id, 1, image.path], function (err) {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve();
+        });
+    });
+};

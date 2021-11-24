@@ -189,6 +189,34 @@ function AddProductForm(props) {
     const [submitted, setSubmitted] = useState(false);
     const [typeName, setTypeName] = useState('Select product type');
     let typeNameArray = ['Fruits and Vegetables', 'Dairy', 'Meat and salumi', 'Sea products', 'Baker and sweets', 'Beverages'  ]
+    const [numProd,setNumProd] = useState(0);
+
+
+    useEffect(() => {
+        let mounted = true;
+        let allProducts =[];
+
+        const getProdFarmer = async () => {
+            allProducts = await API.getAllProducts();
+            console.log('pr');
+            console.log(allProducts);
+
+        };
+        getProdFarmer().then(data => {
+            if (mounted) {
+                setNumProd(allProducts.length);
+            }
+        })
+            .catch(err => {
+                console.error(err);
+            });
+        return () => {
+            mounted = false
+        };
+    }, []);
+
+
+
 
     const handleAdd = (event) => {
         event.preventDefault();
@@ -244,7 +272,7 @@ function AddProductForm(props) {
     } else {*/
         return (<>
                 <Form.Label>Image</Form.Label>
-                <FileUpload />
+                <FileUpload numProd={numProd}/>
                 <Form>
                     <Form.Group controlId="formName">
                         <Form.Label>Name</Form.Label>

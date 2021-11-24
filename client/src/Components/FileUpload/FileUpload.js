@@ -2,23 +2,35 @@ import React, { Fragment, useState } from 'react';
 import Message from './Message';
 import Progress from './Progress';
 import axios from 'axios';
+import API from "../../API";
 
-const FileUpload = () => {
+const FileUpload = (props) => {
     const [file, setFile] = useState('');
     const [filename, setFilename] = useState('Choose File');
     const [uploadedFile, setUploadedFile] = useState({});
     const [message, setMessage] = useState('');
     const [uploadPercentage, setUploadPercentage] = useState(0);
 
+
     const onChange = e => {
         setFile(e.target.files[0]);
         setFilename(e.target.files[0].name);
     };
 
+
+
     const onSubmit = async e => {
+        let numImg = props.numProd+1
+        let nameImg = 'p'+numImg.toString()+'-1.jpg'
+
+        API.addImage(numImg,nameImg);
+
         e.preventDefault();
         const formData = new FormData();
-        formData.append('file', file);
+        console.log(filename);
+        if(filename!='Choose File')
+        formData.append('file', file ,nameImg);
+        else formData.append('file', file);
 
         try {
             const res = await axios.post('/upload', formData, {
