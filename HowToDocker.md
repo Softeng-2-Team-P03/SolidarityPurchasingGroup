@@ -11,7 +11,7 @@
  - once you're done with that, i suggest to install also the **Visual Studio Code Docker extension**.
   
 ### How to run docker compose
- - Find the `"proxy": "http://localhost:3001"` line into client/package.json and substitute "localhost" with "backend" in order to obtain "proxy": `"http://backend:3001"`
+ - The `"proxy": "http://localhost:3001"` line into **client/package.json** it's been substituted "localhost" with "proxy": `"http://backend:3001"` in the **client/package-docker.json file**. in fact this is the file the Dockerfile is instructed to use as the "package.json" of the containerized app. so, **if you change something on the package.json file you also have to change it into package-docker.json** in order for it to have effect into the docker image.
  - now delete your `node_modules` folder and the `package-lock.json` file and then run `npm install` to rebuild them
  - Open a terminal in the root of the project ( your_directory\SolidarityPurchasingGroup> ) and run the command `docker-compose up --build`, it's going to take a while
    - PS: Make sure to have docker running in your computer!
@@ -24,7 +24,7 @@
  - you can stop the docker-compose containers by right-clicking the _solidaritypurchasinggroup_ and then selecting _compose down_
   
 ### Warning
- - **if images of frontend or backend are present** ( you can see them in the "IMAGES" section of the docker VSC extension ) then the ports 3000 and 3001 of your pc will be occupied by them this means that **npm start and node server.js or nodemon server.js** as you are used to use them into the cient and server directories to start the app on your pc **WILL NOT WORK** until you remove both images (and change back the proxy to _localhost_ instead of _backend_ ) ad you an remove them by right-clicking the label _latest_ under their entry in the IMAGES section and then clicking _remove_
+ - **if images of frontend or backend are present** ( you can see them in the "IMAGES" section of the docker VSC extension ) then the ports 3000 and 3001 of your pc will be occupied by them this means that **npm start and node server.js or nodemon server.js** as you are used to use them into the cient and server directories to start the app on your pc **WILL NOT WORK** until you remove both images ad you an remove them by right-clicking the label _latest_ under their entry in the IMAGES section and then clicking _remove_
 
 ### useful reference i guess
  - https://towardsdatascience.com/deploying-a-react-nodejs-application-with-docker-part-i-of-ii-910bc6edb46e

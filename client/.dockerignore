@@ -1,2 +1,4 @@
 # ignora ogni directory in ogni path con il nome "node_modules"
 node_modules
+# ignora la directory coverage generata da "npm run coverage"
+coverage
