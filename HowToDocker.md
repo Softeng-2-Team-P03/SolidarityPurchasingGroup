@@ -26,5 +26,8 @@
 ### Warning
  - **if images of frontend or backend are present** ( you can see them in the "IMAGES" section of the docker VSC extension ) then the ports 3000 and 3001 of your pc will be occupied by them this means that **npm start and node server.js or nodemon server.js** as you are used to use them into the cient and server directories to start the app on your pc **WILL NOT WORK** until you remove both images ad you an remove them by right-clicking the label _latest_ under their entry in the IMAGES section and then clicking _remove_
 
+### Push Images in docker
+ - use the command `docker-compose push` in the root folder. Both the front and back end images will be pushed in their respective remote docker repositories on docker hub. 
+   - PS: notice that you'll need to change the _user_ in \<user\>/\<imagename\> that is now setted as _binco97_ with your nickname on docker hub.
 ### useful reference i guess
  - https://towardsdatascience.com/deploying-a-react-nodejs-application-with-docker-part-i-of-ii-910bc6edb46e
