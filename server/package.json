@@ -4,7 +4,7 @@
   "description": "SolidarityPurchasingGroup server",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "license": "ISC",
   "dependencies": {
@@ -19,5 +19,18 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "jest": "^27.3.1",
+    "jest-sonar-reporter": "^2.0.0"
+  },
+  "jest": {
+    "testResultsProcessor": "jest-sonar-reporter",
+    "collectCoverage": true
+  },
+  "jestSonar": {
+    "reportPath": "reports",
+    "reportFile": "test-reporter.xml",
+    "indent": 4
   }
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js">
+        <testCase name="Testing to see if Jest works" duration="2"/>
+    </file>
+</testExecutions>
