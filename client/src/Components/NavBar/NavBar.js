@@ -1,14 +1,13 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
-import { Nav, Navbar, Button, Row, Col, Table } from "react-bootstrap";
+import { Nav, Navbar, Button, Row, Col, Table, NavDropdown, Container } from "react-bootstrap";
 import { showTime } from './clock.js'
 
 var hourMultiplier = 0;
 var dayMultiplier = 0;
 var minutesMultiplier = 0;
 window.setInterval(showTime, 1000) // per mostrare il passare dei secondi nell'orologio
-
 function NavBar(props) {
 
   const chooseNavbar = (accessType) => {
@@ -31,29 +30,43 @@ function NavBar(props) {
   }
 
   return (
-
-    <Navbar className="nav" bg="primary" variant="dark">
-      <Navbar.Brand href="/">
-        <img
-          src={spg}
-          width="30"
-          height="30"
-          className="d-inline-block align-top"
-          alt="SPG"
-        /> SPG
-      </Navbar.Brand>
-      <Nav className='m-auto' />
+    <div>
+        <Navbar bg="primary" variant="dark" expand="lg">
+         
+            <Navbar.Brand href="/" className="col-md-4">
+              <img
+                src={spg}
+                width="30"
+                height="30"
+                className="d-inline-block align-top"
+                alt="SPG"
+              /> SPG
+            </Navbar.Brand>
+          
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+           
+            <Navbar.Collapse id="basic-navbar-nav">
+              <div className="col-md-6"> 
+        
+            </div>
+            <Nav className="me-auto " />
+          {props.loggedIn && props.user !== undefined && chooseNavbar(props.user.accessType)}
+          <Nav>
+            {props.loggedIn ?
+              <Nav.Link onClick={() => props.userLogoutCallback()}>Logout</Nav.Link> :
+              <Nav.Link href='/login'>Login</Nav.Link>
+            }
+          </Nav>
+            </Navbar.Collapse>
+        </Navbar>
+    <div class="timer">
+    <div className="me-auto"> 
+      <Nav className="me-auto " >
       <ShowClock />
-      <Nav className="me-auto" />
-      {props.loggedIn && props.user !== undefined && chooseNavbar(props.user.accessType)}
-      <Nav>
-        {props.loggedIn ?
-          <Nav.Link onClick={() => props.userLogoutCallback()}>Logout</Nav.Link> :
-          <Nav.Link href='/login'>Login</Nav.Link>
-        }
       </Nav>
-
-    </Navbar>
+      </div>
+      </div>
+      </div>
   );
 }
 
@@ -183,20 +196,17 @@ function ShowClock() {
     <div className="clockWrapper glow">
       <Table responsive borderless size="sm">
         <thead>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
         </thead>
         <tbody>
           <tr>
             <td>
-              <span id='incrementDay' className="buttonArrow" onClick={setDayPlus}>▲</span>
             </td>
             <td>
               <span id='incrementHour' className="buttonArrow" onClick={setHourPlus}>▲</span>
@@ -212,23 +222,28 @@ function ShowClock() {
           <tr>
             <td>
               <div className="glow">
-                <span id="dayName" /> <span id="day" />/<span id="month" />/<span id="year" />
+              <span id='incrementDay' className="buttonArrow" onClick={setDayPlus}>〈</span>
+              <span className="timer-box">
+                <span id="dayName" className="day-name" /> 
+                <span id="day" />/<span  id="month" />/<span  id="year" />
+              </span>
+              <span id='decrementDay' className="buttonArrow" onClick={setDayMinus}>〉</span>
               </div>
             </td>
             <td>
-              <span id="hours" />
+              <span id="hours" className="timer-box" />
             </td>
             <td>
               <span>:</span>
             </td>
             <td>
-              <span id="minutes" />
+              <span id="minutes" className="timer-box" />
             </td>
             <td>
               <span>:</span>
             </td>
             <td>
-              <span id="seconds" />
+              <span id="seconds" className="timer-box" />
             </td>
             <td>
               <button id='resetTime' className="modifyButton" onClick={resetTime}>resetTime</button>
@@ -236,7 +251,6 @@ function ShowClock() {
           </tr>
           <tr>
             <td>
-              <span id='decrementDay' className="buttonArrow" onClick={setDayMinus}>▼</span>
             </td>
             <td>
               <span id='decrementHour' className="buttonArrow" onClick={setHourMinus}>▼</span>

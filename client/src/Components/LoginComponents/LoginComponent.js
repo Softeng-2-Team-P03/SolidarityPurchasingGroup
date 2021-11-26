@@ -22,10 +22,16 @@ function LoginComponent(props) {
     }
     return (
 
-        <div className="center-block">
+        <div className="center-block col-md-6 login col-sm-11   col-11" >
+            <Form noValidate validated={validated} onSubmit={handleLogin} className=" login-form col-md-4">
 
-            <Form noValidate validated={validated} onSubmit={handleLogin} className="w-50">
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+                <div class="login-header mb-20 center text-center col-11 col-sm-11">
+                    <div className="logo-user">
+                    <img  src={window.location.origin + '/images/user.png'} width="50"></img>
+                    </div>
+                    <h3>Welcome to SPG</h3>
+                </div>
+                <Form.Group className="mb-3 mt-10" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
                     <InputGroup hasValidation>
                         <Form.Control required type="email" placeholder="Email" onChange={ev => setEmail(ev.target.value)} />
@@ -41,10 +47,10 @@ function LoginComponent(props) {
                         <Form.Control required type="password" placeholder="Password" onChange={ev => setPassword(ev.target.value)} />
                     </InputGroup>
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="success w-50 mt-100 submit-botton" type="submit">
                     Login
                 </Button>
-                <div><Form.Text className={"mb-3 "+props.message.type}>{props.message.msg}</Form.Text></div>      
+                <div><Form.Text className={"mb-3 " + props.message.type}>{props.message.msg}</Form.Text></div>
             </Form>
         </div>
     );

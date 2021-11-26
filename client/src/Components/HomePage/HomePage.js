@@ -49,6 +49,7 @@ function HomePage(prop) {
                     <p>Choose the products to add to your basket in shop or online</p>
                     <p>Pick up your products by person or have them delivered to your home!</p>
                 </section>
+               
                 <section className="partSection" id="candidate">
                     <h1>Are you a farmer or a delivery person?</h1>
                     <h2>Want to join our team?</h2>
@@ -56,6 +57,55 @@ function HomePage(prop) {
                     <Link to='/candidate'>
                         <Button size="lg">Candidate</Button>
                     </Link>
+                </section>
+
+
+                <section className="partSection" id="category">
+                    <h1>Our products and category</h1>
+                    <p>Choose the category and see the fresh products</p>
+                    <Row className="items col-md-11">
+                        <Col md={2} xs={4} className="box-item ">
+                            <div class="circle-1">
+                                <img src={window.location.origin + '/images/category/fruit.jpg'} alt="Skanderbeg Square Albania" />
+                            </div>
+                        </Col>
+                        <Col md={2} xs={4} className="box-item ">
+
+                            <div class="circle-1">
+                                <img src={window.location.origin + '/images/category/dairy.jpg'} alt="Skanderbeg Square Albania" />
+                            </div>
+
+                        </Col>
+                        <Col md={2} xs={4} className="box-item ">
+                            <div class="circle-1">
+                                <img src={window.location.origin + '/images/category/meat.jpg'} alt="Skanderbeg Square Albania" />
+                            </div>
+                        </Col>
+                        <Col md={2} xs={4} className="box-item ">
+                            <div class="circle-1">
+                                <img src={window.location.origin + '/images/category/sea.jpg'} alt="Skanderbeg Square Albania" />
+                            </div>
+                        </Col>
+                        <Col md={2} xs={4} className="box-item ">
+                            <div class="circle-1">
+                                <img src={window.location.origin + '/images/category/bakery.jpg'} alt="Skanderbeg Square Albania" />
+                            </div>
+                        </Col>
+                        <Col md={2} xs={4} className="box-item ">
+                            <div class="circle-1">
+                                <img src={window.location.origin + '/images/category/beverages.jpg'} alt="Skanderbeg Square Albania" />
+                            </div>
+                        </Col>
+                    </Row>
+                </section>
+                <section className="footer" id="footer">
+                <div>
+                {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#273036" fill-opacity="1" d="M0,64L1440,160L1440,320L0,320Z"></path> */}
+                <br/>
+                <p >@copyright 2021-2022 -Software engineering-   politecnico di torino  By p3</p>
+                
+                {/* </svg> */}
+                </div>
                 </section>
             </div>
         </>
@@ -65,17 +115,14 @@ function HomePage(prop) {
 function SelectionBar() {
 
     return (
-        <Dropdown className="selection">
-            <Dropdown.Toggle variant="primary" size="lg">
-                Sections
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-                <Dropdown.Item href="#shop">Home</Dropdown.Item>
-                <Dropdown.Item href="#info">Info</Dropdown.Item>
-                <Dropdown.Item href="#candidate">Join us</Dropdown.Item>
-            </Dropdown.Menu>
-        </Dropdown>
+        <div className="selection">
+                <ul>
+                    <li><a href="#shop"><img src={window.location.origin + '/images/home.png'}></img></a></li>
+                    <li><a href="#info"><img src={window.location.origin + '/images/information.png'}></img></a></li>
+                    <li><a href="#candidate"><img src={window.location.origin + '/images/group.png'}></img></a></li>
+                    <li><a href="#category"><img src={window.location.origin + '/images/categories.png'}></img></a></li>
+                </ul>
+        </div>
     );
 }
 
