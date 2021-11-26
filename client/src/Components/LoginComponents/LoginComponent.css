@@ -1,7 +1,65 @@
 .center-block {
     display: flex;
+    text-align: center;
     justify-content: center;
     align-items: center;
     width: 100%;
     height: 100vh;
+    border-width: 0;
+    color: #333;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
 }
+.left-login{
+    background-color: brown;
+    height: 100%;
+}
+.full-height{
+    height: 100%;
+}
+.userIcon{
+    z-index: 100;
+}
+.login-form{
+    padding: 20px;
+    margin: auto;
+    border-width: 0;
+    border-radius: 10px;
+    color: #333;
+    background-color:white;
+    box-shadow: 0 1px 3px rgb(0 0 0 / 12%), 0 1px 2px rgb(0 0 0 / 24%);
+
+}
+.login{
+    background: rgb(20,135,64);
+    background-color: #ffffff;
+    background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);}
+.form-label{
+    font-weight: bold;
+}
+.login-header{
+    width: 100%;
+    padding-top: 10px;
+    height: 120px;
+    color: rgb(53, 53, 53);
+    text-align: center;
+    margin-bottom: 40px;
+    font-family: sans-serif;
+    font-weight: bold;
+}
+.login-header h3{
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+.submit-botton{
+    margin-top: 30px;
+}
+.logo-user{
+    width: 100px;
+    height: 100px;
+    background-color: #148740;
+border-radius: 50%;
+padding: 25px;
+margin:auto
+}
+.login-form div{text-align: left;font-size: 1.2em;}
+.form-control{font-weight: 1rem;}
