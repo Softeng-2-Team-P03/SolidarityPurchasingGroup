@@ -34,56 +34,39 @@ function loginUser(accessType) {
 }
 
 describe('GET /api/bookings', () => {
-    it('login manager', loginUser(1));
-    it('uri that should requires user to be logged in', function(done){
-        server
-            .get('/api/bookings')
-            .expect(200)
-            .then(response => {
-                // Check type and length
-                expect(Array.isArray(response.body)).toBeTruthy();
-                //expect(response.body.length).toEqual(1);
-
-                // Check data
-                expect(response.body[0].BookingId).toBe(1);
-                expect(response.body[0].BookingStartDate).toBe("2021-11-12");
-                expect(response.body[0].UserId).toBe(1);
-                expect(response.body[0].TotalPrice).toBe(22.5);
-                expect(response.body[0].State).toBe("1");
-                expect(response.body[0].PickupTime).toBe("2021-11-12");
-                expect(response.body[0].DeliveryTime).toBe(null);
-                done()
-            })
-            .catch(err => done(err))
-    });
-    it('login employee', loginUser(2));
-    it('uri that should requires user to be logged in', function(done){
-        server
-            .get('/api/bookings')
-            .expect(200)
-            .then(response => {
-                // Check type and length
-                expect(Array.isArray(response.body)).toBeTruthy();
-                //expect(response.body.length).toEqual(1);
-
-                // Check data
-                expect(response.body[0].BookingId).toBe(1);
-                expect(response.body[0].BookingStartDate).toBe("2021-11-12");
-                expect(response.body[0].UserId).toBe(1);
-                expect(response.body[0].TotalPrice).toBe(22.5);
-                expect(response.body[0].State).toBe("1");
-                expect(response.body[0].PickupTime).toBe("2021-11-12");
-                expect(response.body[0].DeliveryTime).toBe(null);
-                done()
-            })
-            .catch(err => done(err))
-    });
-    it('login client', loginUser(3));
-    it('uri that should requires user to be logged in', function(done){
+    it('login as manager', loginUser(1));
+    it('bookings should be visible as manager', checkBookingBody());
+    it('login as employee', loginUser(2));
+    it('bookings should be visible as employee', checkBookingBody());
+    it('login as client', loginUser(3));
+    it('bookings should NOT be visible as client', function (done) {
         server
             .get('/api/bookings')
             .expect(403)
             .then(() => done())
             .catch(err => done(err))
     });
-})
+});
+
+function checkBookingBody() {
+    return function (done) {
+        server
+            .get('/api/bookings')
+            .expect(200)
+            .then(response => {
+                expect(Array.isArray(response.body)).toBeTruthy();
+                //expect(response.body.length).toEqual(1);
+
+                // Check data
+                expect(response.body[0].BookingId).toBe(1);
+                expect(response.body[0].BookingStartDate).toBe("2021-11-12");
+                expect(response.body[0].UserId).toBe(1);
+                expect(response.body[0].TotalPrice).toBe(22.5);
+                expect(response.body[0].State).toBe("1");
+                expect(response.body[0].PickupTime).toBe("2021-11-12");
+                expect(response.body[0].DeliveryTime).toBe(null);
+                done();
+            })
+            .catch(err => done(err))
+    }
+}
