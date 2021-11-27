@@ -3,10 +3,10 @@
  */
 import React from "react";
 const BASEURL = '/api';
-async function getAllProducts(arg) {
-    // call: GET /api/products
-    //const response = await fetch(BASEURL + '/products?page='+arg.page); If we want pagination
-    const response = await fetch(BASEURL + '/products');
+
+async function getAllProducts(date) {
+    // call: GET /api/products/day/month/year
+    const response = await fetch(BASEURL + '/products/' + date);
     const productsJson = await response.json();
     if (response.ok) {
         return productsJson;
