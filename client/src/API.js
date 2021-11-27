@@ -15,6 +15,18 @@ async function getAllProducts() {
     }
 }
 
+async function getProductsByDate(day,month,year) {
+    // call: GET /api/products
+    const response = await fetch(BASEURL + '/products/' + day +'/' + month +'/'+ year);
+    const productsJson = await response.json();
+    console.log(productsJson);
+    if (response.ok) {
+        return productsJson;
+    } else {
+        throw productsJson;  // an object with the error coming from the server
+    }
+}
+
 async function getProdFarmer(farmerId,state) {
     // call: GET /api/products/farmerId/state/
     const response = await fetch(BASEURL + '/products/' + farmerId +'/' + state);
@@ -126,5 +138,5 @@ function updateProductState(State,Id) {
 
 
 
-const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getAllClients,getProdFarmer,addProduct,updateProductState};
+const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,getAllClients,getProdFarmer,addProduct,updateProductState};
 export default API;

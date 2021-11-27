@@ -1,3 +1,5 @@
+GET http://localhost:3001/api/products/2021/12/03 HTTP/1.1
+
 GET  http://localhost:3001/api/bookings HTTP/1.1
 
 

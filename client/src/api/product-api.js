@@ -4,11 +4,12 @@
 import React from "react";
 //import { propTypes } from "react-bootstrap/esm/Image";
 const BASEURL = '/api';
-async function getAllProducts(arg) {
-    // call: GET /api/products
-    //const response = await fetch(BASEURL + '/products?page='+arg.page); If we want pagination
-    const response = await fetch(BASEURL + '/products');
+
+async function getAllProducts(day,month,year) {
+    // call: GET /api/products/day/month/year
+    const response = await fetch(BASEURL + '/products/' + year +'/' + month +'/'+ day);
     const productsJson = await response.json();
+    console.log(productsJson);
     if (response.ok) {
         return productsJson;
     } else {

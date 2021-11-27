@@ -75,7 +75,12 @@ function ProductList(props) {
     }, [])
 
     useEffect(() => {
-        productApi.getAllProducts().then((products) => {
+        let time = new Date(localStorage.getItem('virtualDate'));
+        const day = time.getDate();
+        const month = time.getMonth() + 1;
+        const year = time.getFullYear();
+
+        productApi.getAllProducts(day, month, year).then((products) => {
             setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
             setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
             setLoadingProducts(false);
@@ -94,6 +99,11 @@ function ProductList(props) {
     }, [])
 
     useEffect(() => {
+        let time = new Date(localStorage.getItem('virtualDate'));
+        const day = time.getDate();
+        const month = time.getMonth() + 1;
+        const year = time.getFullYear();
+
         if (category !== 0) {
             setLoadingProducts(true);
             productApi.getProductsByType(category).then((products) => {
@@ -108,7 +118,7 @@ function ProductList(props) {
         }
         else {
             setLoadingProducts(true);
-            productApi.getAllProducts(category).then((products) => {
+            productApi.getAllProducts(day,month,year).then((products) => {
                 setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
                 setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
                 setLoadingProducts(false);

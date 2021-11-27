@@ -174,6 +174,24 @@ app.get('/api/products', async (req, res) => {
         res.status(500).end();
     }
 });
+
+/*** Get products By EpiringDate ***/
+app.get('/api/products/:year/:month/:day', async (req, res) => {
+    try {
+        let date = req.params.year+"/"+ req.params.month+"/"+req.params.day;
+        console.log(date);
+        const result = await productDao.getProducts(date);
+        if (result.error) {
+            res.status(404).json(result);
+        }
+        else {
+            res.json(result);
+        }
+    } catch (err) {
+        res.status(500).end();
+    }
+})
+
 //**** Get A Product By Id ****//
 app.get('/api/products/:id', async (req, res) => {
     try {
@@ -214,6 +232,7 @@ app.get('/api/products/type/:typeId', async (req, res) => {
         res.status(500).end();
     }
 })
+
 
 /*** Get products By State and FarmerId ***/
 app.get('/api/products/:farmerId/:state', async (req, res) => {
