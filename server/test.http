@@ -1,6 +1,9 @@
+###  here we can test server requests with REST Client extension for VSCode
+
+###
 GET  http://localhost:3001/api/bookings HTTP/1.1
 
-
+###
 PUT http://localhost:3001/api/updatewallet HTTP/1.1
 Content-Type: application/json
 

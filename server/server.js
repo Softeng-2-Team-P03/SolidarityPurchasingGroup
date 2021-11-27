@@ -392,6 +392,9 @@ app.post('/api/image', async (req, res) => {
 
 
 // Activate the server
+// Comment this app.listen function when testing
 app.listen(port, () => {
     console.log(`react-score-server listening at http://localhost:${port}`);
 });
+
+module.exports = app
