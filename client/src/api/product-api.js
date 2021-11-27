@@ -5,11 +5,10 @@ import React from "react";
 //import { propTypes } from "react-bootstrap/esm/Image";
 const BASEURL = '/api';
 
-async function getAllProducts(day,month,year) {
+async function getAllProducts(date) {
     // call: GET /api/products/day/month/year
-    const response = await fetch(BASEURL + '/products/' + year +'/' + month +'/'+ day);
+    const response = await fetch(BASEURL + '/products/' + date);
     const productsJson = await response.json();
-    console.log(productsJson);
     if (response.ok) {
         return productsJson;
     } else {

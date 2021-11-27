@@ -53,6 +53,24 @@ function ProductList(props) {
             }
         }
     }
+// function to create the right date format 
+    const createDate = (time) => {
+        const day = time.getDate();
+        const month = time.getMonth() + 1;
+        const year = time.getFullYear();
+        let date = year.toString()+"-";
+        if (month > 9) {
+            date+=month.toString()+"-"; 
+        } else {
+            date+= "0"+month.toString()+"-";
+        }
+        if (day > 9) {
+            date+=day.toString(); 
+        } else {
+            date+= "0"+day.toString();
+        }
+        return date;
+    }
 
     useEffect(() => {
         if (props.loggedIn && props.user !== undefined) {
@@ -76,11 +94,9 @@ function ProductList(props) {
 
     useEffect(() => {
         let time = new Date(localStorage.getItem('virtualDate'));
-        const day = time.getDate();
-        const month = time.getMonth() + 1;
-        const year = time.getFullYear();
+        let date = createDate(time);
 
-        productApi.getAllProducts(day, month, year).then((products) => {
+        productApi.getAllProducts(date).then((products) => {
             setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
             setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
             setLoadingProducts(false);
@@ -100,10 +116,7 @@ function ProductList(props) {
 
     useEffect(() => {
         let time = new Date(localStorage.getItem('virtualDate'));
-        const day = time.getDate();
-        const month = time.getMonth() + 1;
-        const year = time.getFullYear();
-
+        let date= createDate(time);
         if (category !== 0) {
             setLoadingProducts(true);
             productApi.getProductsByType(category).then((products) => {
@@ -118,7 +131,7 @@ function ProductList(props) {
         }
         else {
             setLoadingProducts(true);
-            productApi.getAllProducts(day,month,year).then((products) => {
+            productApi.getAllProducts(date).then((products) => {
                 setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
                 setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
                 setLoadingProducts(false);

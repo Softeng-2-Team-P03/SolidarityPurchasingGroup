@@ -154,7 +154,6 @@ app.get('/api/clients', isLoggedIn, async (req, res) => {
     } catch (err) {
         res.status(500).end();
     }
-    //console.log(res);
 });
 
 //****************************************************** */
@@ -170,21 +169,22 @@ app.get('/api/products', async (req, res) => {
             res.json(result);
         }
     } catch (err) {
-        console.log(err)
         res.status(500).end();
     }
 });
 
 /*** Get products By EpiringDate ***/
-app.get('/api/products/:year/:month/:day', async (req, res) => {
+app.get('/api/products/:date', async (req, res) => {
     try {
-        let date = req.params.year+"/"+ req.params.month+"/"+req.params.day;
-        console.log(date);
+
+        let date = req.params.date;
+
         const result = await productDao.getProducts(date);
         if (result.error) {
             res.status(404).json(result);
         }
         else {
+            
             res.json(result);
         }
     } catch (err) {
@@ -238,7 +238,7 @@ app.get('/api/products/type/:typeId', async (req, res) => {
 app.get('/api/products/:farmerId/:state', async (req, res) => {
 
 
-    productDao.listFarmerProd( req.params.farmerId,req.params.state)
+    productDao.listFarmerProd(req.params.farmerId, req.params.state)
         .then(products => res.json(products))
         .catch(() => res.status(500).end());
 });
@@ -246,7 +246,7 @@ app.get('/api/products/:farmerId/:state', async (req, res) => {
 // POST /api/product
 app.post('/api/product', async (req, res) => {
     const product = {
-        Id:req.body.Id,
+        Id: req.body.Id,
         FarmerId: req.body.FarmerId,
         Name: req.body.Name,
         Description: req.body.Description,
@@ -259,8 +259,8 @@ app.post('/api/product', async (req, res) => {
     try {
         await productDao.createProduct(product);
         res.status(201).end();
-    } catch(err) {
-        res.status(503).json({error: `Database error during the creation of product.`});
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the creation of product.` });
     }
 });
 
@@ -273,8 +273,8 @@ app.put('/api/product/:State/:Id', async (req, res) => {
     try {
         await productDao.updateProductState(req.params.State, req.params.Id);
         res.status(200).end();
-    } catch(err) {
-        res.status(503).json({error: `Database error during the update of Survey.`});
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the update of Survey.` });
     }
 
 });
