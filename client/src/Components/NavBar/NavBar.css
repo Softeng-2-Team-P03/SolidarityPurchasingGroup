@@ -20,6 +20,7 @@
 .navbar-dark .navbar-nav .nav-link {
   color: rgb(255 255 255);
   font-weight: bold;
+  font-size: 20px;
 }
 #incrementDay , #decrementDay {
   width: 80px;
@@ -50,7 +51,7 @@
   margin-top: 0.5%;
   position: absolute;
   /* margin-left: 40%; */
-  margin: auto;
+  margin: auto;  /* NOSONAR */
   min-width: 20%;
   text-align: center;
   justify-content: center;
@@ -73,9 +74,7 @@
   color: rgba(255, 255, 255, 0.87);
   font-weight: bold;
 }
-.navbar-dark .navbar-nav .nav-link{
-  font-size: 20px;
-}
+
 .clockWrapper div{
   font-size: 15px;
   color: #fff;

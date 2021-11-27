@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './HomePage.css';
 import { Link, useLocation } from 'react-router-dom';
-import { Col, Row, Button, Dropdown , Toast} from "react-bootstrap"; 
+import { Col, Row, Button, Toast} from "react-bootstrap"; 
 import { useState } from "react";
 
 function HomePage(prop) {
