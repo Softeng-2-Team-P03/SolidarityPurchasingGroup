@@ -90,25 +90,6 @@ describe("Retrieving products", () => {
 
 })
 
-function checkBookingBody() {
-    return function (done) {
-        server
-            .get('/api/bookings')
-            .expect(200)
-            .then(response => {
-                expect(Array.isArray(response.body)).toBeTruthy();
-                //expect(response.body.length).toEqual(1);
-
-                // Check data
-                expect(response.body[0].BookingId).toBe(1);
-                expect(response.body[0].BookingStartDate).toBe("2021-11-12");
-                expect(response.body[0].UserId).toBe(1);
-                expect(response.body[0].TotalPrice).toBe(22.5);
-                expect(response.body[0].State).toBe("1");
-                expect(response.body[0].PickupTime).toBe("2021-11-12");
-                expect(response.body[0].DeliveryTime).toBe(null);
-                done();
-            })
 function logoutUser() {
     return function (done) {
         server
