@@ -11,3 +11,45 @@ Content-Type: application/json
     "amount":56,
     "userId": 1
 }
+
+### LogIn as Employee
+POST http://localhost:3001/api/sessions
+Content-Type: application/json
+
+{
+    "username": "clodia@spg.com", "password": "Mnbvcxz1234"
+}
+
+### LogIn as Client
+POST http://localhost:3001/api/sessions
+Content-Type: application/json
+
+{
+    "username": "federico@spg.com", "password": "26gKpQK9"
+}
+
+### LogIn as Manager
+POST http://localhost:3001/api/sessions
+Content-Type: application/json
+
+{
+    "username": "luca@spg.com", "password": "FgKECe4w"
+}
+
+### LogIn as Farmer
+POST http://localhost:3001/api/sessions
+Content-Type: application/json
+
+{
+    "username": "paolo@spg.com", "password": "eGB2VrUe"
+}
+
+### LogOut
+DELETE http://localhost:3001/api/sessions/current
+
+### Only manager and employee can get clients
+GET http://localhost:3001/api/clients
+
+### Only client can not see all booking
+GET http://localhost:3001/api/bookings
+
