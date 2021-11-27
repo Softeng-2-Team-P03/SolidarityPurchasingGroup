@@ -379,7 +379,7 @@ app.put('/api/bookings/:id', [
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
         await orderDao.updateBookingState(state, req.params.id);
-        setTimeout(() => res.status(200).end(), 2000);
+        res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of booking state ${req.params.id}.` });
     }
