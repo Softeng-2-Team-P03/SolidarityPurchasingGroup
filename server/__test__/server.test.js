@@ -109,15 +109,24 @@ function checkBookingBody() {
                 expect(response.body[0].DeliveryTime).toBe(null);
                 done();
             })
+function logoutUser() {
+    return function (done) {
+        server
+            .delete('/api/sessions/current')
+            .expect(200)
+            .then(() => done())
             .catch(err => done(err))
     }
 }
 
-
-
-
-
 describe('GET /api/bookings', () => {
+    it('bookings should NOT be visible if not loggedIn', function (done) {
+        server
+            .get('/api/bookings')
+            .expect(401)
+            .then(() => done())
+            .catch(err => done(err))
+    });
     it('login as manager', loginUser(1));
     it('bookings should be visible as manager', checkBookingBody());
     it('login as employee', loginUser(2));
