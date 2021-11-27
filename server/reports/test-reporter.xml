@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js">
-        <testCase name="Testing to see if Jest works" duration="2"/>
-        <testCase name="GET /api/bookings" duration="38"/>
+        <testCase name="Testing to see if Jest works" duration="3"/>
+        <testCase name="Retrieving products GET /api/products" duration="52"/>
+        <testCase name="Retrieving products GET /api/products/1" duration="4"/>
+        <testCase name="GET /api/bookings login as manager" duration="284"/>
+        <testCase name="GET /api/bookings bookings should be visible as manager" duration="17"/>
+        <testCase name="GET /api/bookings login as employee" duration="109"/>
+        <testCase name="GET /api/bookings bookings should be visible as employee" duration="14"/>
+        <testCase name="GET /api/bookings login as client" duration="145"/>
+        <testCase name="GET /api/bookings bookings should NOT be visible as client" duration="15"/>
     </file>
 </testExecutions>
