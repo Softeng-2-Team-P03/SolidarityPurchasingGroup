@@ -2,7 +2,6 @@
  * All the API For Product
  */
 import React from "react";
-//import { propTypes } from "react-bootstrap/esm/Image";
 const BASEURL = '/api';
 async function getAllProducts(arg) {
     // call: GET /api/products
