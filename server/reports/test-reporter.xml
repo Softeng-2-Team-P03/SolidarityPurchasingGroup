@@ -2,5 +2,6 @@
 <testExecutions version="1">
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js">
         <testCase name="Testing to see if Jest works" duration="2"/>
+        <testCase name="GET /api/bookings" duration="38"/>
     </file>
 </testExecutions>
