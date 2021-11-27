@@ -113,7 +113,7 @@ exports.getUser = (email, password) => {
           const user = {id: row.Id, username: row.Email, name: row.Name, accessType: row.AccessType};
 
           // check the hashes with an async call, given that the operation may be CPU-intensive (and we don't want to block the server)
-          bcrypt.compare(password, row.Password).then(result => {
+          bcrypt.compare(password, row.Password).then(result => { //NOSONAR
             if(result)
               resolve(user);
             else
