@@ -53,6 +53,9 @@
 {
     align-items: flex-start !important;
     text-align: left !important;
+    background: url('./slide1.jpg') no-repeat center center/
+    cover;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 71% 90%, 49% 93%, 27% 96%, 0 100%);
 }
 
 .partSection h1 {
@@ -102,13 +105,11 @@
 .selection  button {
     background-color: transparent;
 }
-.selection{
-}
+
 .hero {
     display: block;
     box-sizing: border-box;
     height: 500px;
-    align-items: center;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -120,19 +121,13 @@
     clip-path: ellipse(279% 100% at 194.27% 0%);
     }
     .partSection#category{
-        padding:0px !important
+        padding:0px !important;
+        color: rgb(255, 255, 255);
     }
-.partSection#shop {
-    background: url('./slide1.jpg') no-repeat center center/
-    cover;
-    clip-path: polygon(0% 0%, 100% 0%, 100% 85%, 71% 90%, 49% 93%, 27% 96%, 0 100%);}
-.partSection#category{
-    color: rgb(255, 255, 255);
-}
+
 .partSection#info {
     /* background: url('./info.jpg') no-repeat center center/ */
     /* cover; */
-
     color: white!important;
 }
 
