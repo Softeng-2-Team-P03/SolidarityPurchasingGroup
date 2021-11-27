@@ -149,8 +149,8 @@ app.post('/api/new_client', [
 app.get('/api/clients', isLoggedIn, async (req, res) => {
     try {
 
-        if(![1, 2].includes(req.user.accessType)){ //Manager and Employee
-            return res.status(403).json({error: `Forbidden: User does not have necessary permissions for this resource.`});
+        if (![1, 2].includes(req.user.accessType)) { //Manager and Employee
+            return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
         }
 
         const result = await userDao.getUsersByAccessType(3);
@@ -225,11 +225,11 @@ app.get('/api/products/type/:typeId', async (req, res) => {
 /*** Get products By State and FarmerId ***/
 app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
 
-    if(![1, 4].includes(req.user.accessType)){ //Manager and Farmer
-        return res.status(403).json({error: `Forbidden: User does not have necessary permissions for this resource.`});
+    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
-    productDao.listFarmerProd( req.params.farmerId,req.params.state)
+    productDao.listFarmerProd(req.params.farmerId, req.params.state)
         .then(products => res.json(products))
         .catch(() => res.status(500).end());
 });
@@ -237,13 +237,13 @@ app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
 // POST /api/product
 app.post('/api/product', isLoggedIn, async (req, res) => {
 
-    if(![1, 4].includes(req.user.accessType)){ //Manager and Farmer
-        return res.status(403).json({error: `Forbidden: User does not have necessary permissions for this resource.`});
+    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
 
     const product = {
-        Id:req.body.Id,
+        Id: req.body.Id,
         FarmerId: req.body.FarmerId,
         Name: req.body.Name,
         Description: req.body.Description,
@@ -256,8 +256,8 @@ app.post('/api/product', isLoggedIn, async (req, res) => {
     try {
         await productDao.createProduct(product);
         res.status(201).end();
-    } catch(err) {
-        res.status(503).json({error: `Database error during the creation of product.`});
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the creation of product.` });
     }
 });
 
@@ -265,8 +265,8 @@ app.post('/api/product', isLoggedIn, async (req, res) => {
 // PUT /api/product/<State>/<Id>
 app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
 
-    if(![1, 4].includes(req.user.accessType)){ //Manager and Farmer
-        return res.status(403).json({error: `Forbidden: User does not have necessary permissions for this resource.`});
+    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
     const product = req.body;
@@ -275,8 +275,8 @@ app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
     try {
         await productDao.updateProductState(req.params.State, req.params.Id);
         res.status(200).end();
-    } catch(err) {
-        res.status(503).json({error: `Database error during the update of Survey.`});
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the update of Survey.` });
     }
 
 });
@@ -284,8 +284,8 @@ app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
 // Upload Endpoint
 app.post('/upload', isLoggedIn, (req, res) => {
 
-    if(![1, 4].includes(req.user.accessType)){ //Manager and Farmer
-        return res.status(403).json({error: `Forbidden: User does not have necessary permissions for this resource.`});
+    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
     if (req.files === null) {
@@ -311,8 +311,8 @@ app.post('/upload', isLoggedIn, (req, res) => {
 //****   Get all bookings ****//
 app.get('/api/bookings', isLoggedIn, async (req, res) => {
 
-    if(![1, 2, 4, 5].includes(req.user.accessType)){ //Manager, Employee, Farmer, Deliverer
-        return res.status(403).json({error: `Forbidden: User does not have necessary permissions for this resource.`});
+    if (![1, 2, 4, 5].includes(req.user.accessType)) { //Manager, Employee, Farmer, Deliverer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
     try {
@@ -334,8 +334,8 @@ app.post('/api/booking', isLoggedIn, [
     check('state').isInt()
 ], async (req, res) => {
 
-    if(![1, 2, 3].includes(req.user.accessType)){ //Manager, Employee, Client
-        return res.status(403).json({error: `Forbidden: User does not have necessary permissions for this resource.`});
+    if (![1, 2, 3].includes(req.user.accessType)) { //Manager, Employee, Client
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
     const errors = validationResult(req);
@@ -388,8 +388,8 @@ app.put('/api/bookings/:id', [
     check('state').isInt({ min: 0, max: 2 }),
 ], isLoggedIn, async (req, res) => {
 
-    if(![1, 2, 4].includes(req.user.accessType)){ //Manager, Employee and Farmer
-        return res.status(403).json({error: `Forbidden: User does not have necessary permissions for this resource.`});
+    if (![1, 2, 4].includes(req.user.accessType)) { //Manager, Employee and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
     const errors = validationResult(req);
@@ -415,8 +415,8 @@ app.put('/api/bookings/:id', [
 // POST /api/image
 app.post('/api/image', isLoggedIn, async (req, res) => {
 
-    if(![1, 4].includes(req.user.accessType)){ //Manager and Farmer
-        return res.status(403).json({error: `Forbidden: User does not have necessary permissions for this resource.`});
+    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
     const image = {
@@ -427,8 +427,8 @@ app.post('/api/image', isLoggedIn, async (req, res) => {
     try {
         await productDao.createImage(image);
         res.status(201).end();
-    } catch(err) {
-        res.status(503).json({error: `Database error during the creation of image.`});
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the creation of image.` });
     }
 });
 

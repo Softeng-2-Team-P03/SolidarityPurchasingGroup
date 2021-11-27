@@ -53,3 +53,5 @@ GET http://localhost:3001/api/clients
 ### Only client can not see all booking
 GET http://localhost:3001/api/bookings
 
+### Get products
+GET http://localhost:3001/api/products/4/1
