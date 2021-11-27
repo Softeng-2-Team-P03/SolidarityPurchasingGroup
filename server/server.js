@@ -96,7 +96,7 @@ app.post('/api/sessions', function (req, res, next) {
             return res.status(401).json(info);
         }
         // success, perform the login
-        req.login(user, (err) => {
+        req.login(user, (err) => { //NOSONAR
             if (err)
                 return next(err);
 
@@ -156,7 +156,6 @@ app.get('/api/clients', isLoggedIn, async (req, res) => {
     } catch (err) {
         res.status(500).end();
     }
-    //console.log(res);
 });
 
 //****************************************************** */
@@ -250,7 +249,6 @@ app.post('/api/product', async (req, res) => {
 
 // PUT /api/product/<State>/<Id>
 app.put('/api/product/:State/:Id', async (req, res) => {
-    const product = req.body;
 
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
@@ -361,7 +359,6 @@ app.put('/api/bookings/:id', [
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
         await orderDao.updateBookingState(state, req.params.id);
-        //res.status(200).end();
         setTimeout(() => res.status(200).end(), 2000);
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of booking state ${req.params.id}.` });
