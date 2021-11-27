@@ -54,4 +54,12 @@ GET http://localhost:3001/api/clients
 GET http://localhost:3001/api/bookings
 
 ### Get products
+GET  http://localhost:3001/api/products HTTP/1.1
+
+### Get product by id
+GET  http://localhost:3001/api/products/1 HTTP/1.1
+
+
+
+### Get products
 GET http://localhost:3001/api/products/4/1
