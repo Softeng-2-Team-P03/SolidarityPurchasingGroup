@@ -180,7 +180,7 @@ exports.updateProductState = (State, Id) => {
                 reject(err);
                 return;
             }
-
+            resolve();
         });
     });
 };
