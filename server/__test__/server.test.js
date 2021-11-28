@@ -224,7 +224,7 @@ describe("Logins and Logout", () => {
 describe("Retrieving products and categories", () => {
     beforeAll(() => logoutUser());
 
-    test("GET /api/products", async () => {
+    test("GET /api/products", (done) => {
         //const post = await Post.create({ title: "Post 1", content: "Lorem ipsum" });
 
         server.get("/api/products")
@@ -247,10 +247,41 @@ describe("Retrieving products and categories", () => {
                 expect(response.body[0].imagePath).toBe("p1-1.jpg");
                 expect(response.body[0].farmer.name).toBe("Paolo");
                 expect(response.body[0].farmer.surname).toBe("Rossi");
-            });
+                done();
+            })
+            .catch(err => done(err))
     });
 
-    test("GET /api/products/1", async () => {
+    test("GET /api/products/2021-11-29",  (done) => {
+        //const post = await Post.create({ title: "Post 1", content: "Lorem ipsum" });
+
+        server.get("/api/products/2021-11-29")
+            .expect(200)
+            .then((response) => {
+                // Check type and length
+                expect(Array.isArray(response.body)).toBeTruthy();
+                //expect(response.body.length).toEqual(1);
+
+                // Check data
+                expect(response.body[0].id).toBe(15);
+                expect(response.body[0].farmerId).toBe(4);
+                expect(response.body[0].name).toBe("Strawberry Compote");
+                expect(response.body[0].description).toBe("240 g");
+                expect(response.body[0].quantity).toBe(23);
+                expect(response.body[0].state).toBe(0);
+
+                expect(response.body[0].typeId).toBe(1);
+                expect(response.body[0].pricePerUnit).toBe(5.5);
+                expect(response.body[0].imagePath).toBe("p15-1.jpg");
+                expect(response.body[0].ExpiringDate).toBe("2021-11-30")
+                expect(response.body[0].farmer.name).toBe("Paolo");
+                expect(response.body[0].farmer.surname).toBe("Rossi");
+                done();
+            })
+            .catch(err => done(err))
+    });
+
+    test("GET /api/products/1", (done) => {
         //const post = await Post.create({ title: "Post 1", content: "Lorem ipsum" });
 
         server.get("/api/products/1")
@@ -275,10 +306,12 @@ describe("Retrieving products and categories", () => {
                 expect(response.body.images[0].path).toBe("p1-1.jpg")
                 //expect(response.body.farmer.name).toBe("Paolo");
                 //expect(response.body.farmer.surname).toBe("Rossi");
-            });
+                done();
+            })
+            .catch(err => done(err))
     });
 
-    it('GET /api/types', function (done) {
+    test('GET /api/types', function (done) {
         server
             .get('/api/types')
             .expect(200)
@@ -304,34 +337,35 @@ describe("Retrieving products and categories", () => {
             .catch(err => done(err));
     })
 
-    it('GET /api/products/type/1', function (done) {
+    test('GET /api/products/type/1/2021-12-01', function (done) {
         server
-            .get('/api/products/type/1')
+            .get('/api/products/type/1/2021-12-01')
             .expect(200)
             .then((response) => {
                 expect(Array.isArray(response.body)).toBeTruthy();
                 // Check data
-                expect(response.body[0].id).toBe(1);
-                expect(response.body[0].farmerId).toBe(4);
-                expect(response.body[0].name).toBe("Crimson Crisp Apple");
-                expect(response.body[0].description).toBe("1 kg");
-                expect(response.body[0].quantity).toBe(57);
+                expect(response.body[0].id).toBe(30);
+                expect(response.body[0].farmerId).toBe(9);
+                expect(response.body[0].name).toBe("Rocket");
+                expect(response.body[0].description).toBe("1 piece");
+                expect(response.body[0].quantity).toBe(34);
                 expect(response.body[0].state).toBe(1);
 
                 expect(response.body[0].typeId).toBe(1);
-                expect(response.body[0].pricePerUnit).toBe(2.2);
-                expect(response.body[0].imagePath).toBe("p1-1.jpg");
-                expect(response.body[0].farmer.name).toBe("Paolo");
-                expect(response.body[0].farmer.surname).toBe("Rossi");
+                expect(response.body[0].pricePerUnit).toBe(1.0);
+                expect(response.body[0].ExpiringDate).toBe('2021-12-03')
+                expect(response.body[0].imagePath).toBe("p30-1.jpg");
+                expect(response.body[0].farmer.name).toBe("Maria");
+                expect(response.body[0].farmer.surname).toBe("Colombo");
 
                 done();
             })
             .catch(err => done(err));
     })
 
-    it('GET /api/products/type/2', function (done) {
+    test('GET /api/products/type/2/2021-11-25', function (done) {
         server
-            .get('/api/products/type/2')
+            .get('/api/products/type/2/2021-11-25')
             .expect(200)
             .then((response) => {
                 expect(Array.isArray(response.body)).toBeTruthy();
@@ -342,9 +376,9 @@ describe("Retrieving products and categories", () => {
             .catch(err => done(err));
     })
 
-    it('GET /api/products/type/3', function (done) {
+    test('GET /api/products/type/3/2021-12-01', function (done) {
         server
-            .get('/api/products/type/3')
+            .get('/api/products/type/3/2021-12-01')
             .expect(200)
             .then((response) => {
                 expect(Array.isArray(response.body)).toBeTruthy();
@@ -355,9 +389,9 @@ describe("Retrieving products and categories", () => {
             .catch(err => done(err));
     })
 
-    it('GET /api/products/type/4', function (done) {
+    test('GET /api/products/type/4/2021-11-28', function (done) {
         server
-            .get('/api/products/type/4')
+            .get('/api/products/type/4/2021-11-28')
             .expect(200)
             .then((response) => {
                 expect(Array.isArray(response.body)).toBeTruthy();
@@ -372,6 +406,7 @@ describe("Retrieving products and categories", () => {
                 expect(response.body[0].typeId).toBe(4);
                 expect(response.body[0].pricePerUnit).toBe(5.0);
                 expect(response.body[0].imagePath).toBe("p19-1.jpg");
+                expect(response.body[0].ExpiringDate).toBe("2021-11-30")
                 expect(response.body[0].farmer.name).toBe("Federico");
                 expect(response.body[0].farmer.surname).toBe("Bianchi");
 
@@ -380,9 +415,9 @@ describe("Retrieving products and categories", () => {
             .catch(err => done(err));
     })
 
-    it('GET /api/products/type/5', function (done) {
+    test('GET /api/products/type/5/2021-11-28', function (done) {
         server
-            .get('/api/products/type/5')
+            .get('/api/products/type/5/2021-11-28')
             .expect(200)
             .then((response) => {
                 expect(Array.isArray(response.body)).toBeTruthy();
@@ -393,9 +428,9 @@ describe("Retrieving products and categories", () => {
             .catch(err => done(err));
     })
 
-    it('GET /api/products/type/6', function (done) {
+    test('GET /api/products/type/6/2021-12-04', function (done) {
         server
-            .get('/api/products/type/6')
+            .get('/api/products/type/6/2021-12-04')
             .expect(200)
             .then((response) => {
                 expect(Array.isArray(response.body)).toBeTruthy();
