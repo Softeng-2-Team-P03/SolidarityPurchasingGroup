@@ -1,4 +1,4 @@
-class user {
+class User {
     constructor(id, name,surname) {
         this.id = id;
         this.name = name;
@@ -15,4 +15,4 @@ class user {
     }
   }
   
-  export default user;
+  export default User;

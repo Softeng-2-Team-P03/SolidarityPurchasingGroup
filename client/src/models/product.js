@@ -1,5 +1,5 @@
  class Product {
-    constructor(id, farmerId,name,description, quantity,state,typeId,pricePerUnit,images,user) {
+    constructor(id, farmerId,name,description, quantity,state,typeId,pricePerUnit,images,user) { //NOSONAR
         this.id = id;
         this.farmerId = farmerId;
         this.name = name;
