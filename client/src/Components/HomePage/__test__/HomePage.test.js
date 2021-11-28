@@ -27,9 +27,9 @@ test("renders the HomePage ", () => {
     expect(getByText("Candidate")).not.toBeNull();
 });
 
-/*
+
 test("The icons on the sections sidebar hooks to different sections of the homepage when clicked", async () => {
-    const { getByText, findByText } = render(
+    const { getByText, getByTestId } = render(
         <Router>
             <Switch>
                 <Route exact path="/" render={() =>
@@ -42,16 +42,22 @@ test("The icons on the sections sidebar hooks to different sections of the homep
         </Router>
     );
 
-    //verify the Sections dropdown is rendered
-    //expect(getByText("Sections")).not.toBeNull();
-
     //click on the section dropdown button to open it
     userEvent.click(getByTestId("infoHook"));
     await waitFor(() => getByText("How does it work?"));
 
+    userEvent.click(getByTestId("candidateHook"));
+    await waitFor(() => getByText("Are you a farmer or a delivery person?"));
+
+    userEvent.click(getByTestId("categoryHook"));
+    await waitFor(() => getByText("Our products and category"));
+
+    userEvent.click(getByTestId("shopHook"));
+    await waitFor(() => getByText("Solidarity Purchasing Group!"));
+
     //await waitFor(() => getByText("Info"));
     //await waitFor(() => getByText("Join us"));
-});*/
+});
 
 
 
