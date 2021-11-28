@@ -1,29 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\__test__\Cart.test.js">
-        <testCase name="renders the cart button" duration="64"/>
-        <testCase name="clicking on cart button renders the cart modal as expected" duration="140"/>
-        <testCase name="the cart modal renders products as expected" duration="59"/>
+        <testCase name="renders the cart button" duration="63"/>
+        <testCase name="clicking on cart button renders the cart modal as expected" duration="157"/>
+        <testCase name="the cart modal renders products as expected" duration="83"/>
     </file>
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\LoginComponents\__test__\LoginComponent.test.js">
-        <testCase name="renders the Login form as intended " duration="139"/>
+        <testCase name="renders the Login form as intended " duration="182"/>
     </file>
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\App.test.js">
-        <testCase name="renders learn react link" duration="229"/>
+        <testCase name="renders learn react link" duration="277"/>
     </file>
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\NavBar\__test__\NavBar.test.js">
-        <testCase name="renders the NavBar " duration="151"/>
+        <testCase name="renders the NavBar " duration="194"/>
     </file>
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\HomePage\__test__\HomePage.test.js">
-        <testCase name="renders the HomePage " duration="157"/>
-        <testCase name="The icons on the sections sidebar hooks to different sections of the homepage when clicked" duration="127"/>
-        <testCase name="The Products button redirects you to the /products path" duration="52"/>
-        <testCase name="The Log In button redirects you to the /login path" duration="34"/>
-        <testCase name="The Register button redirects you to the /addClient path" duration="27"/>
+        <testCase name="renders the HomePage " duration="209"/>
+        <testCase name="The icons on the sections sidebar hooks to different sections of the homepage when clicked" duration="158"/>
+        <testCase name="The Products button redirects you to the /products path" duration="55"/>
+        <testCase name="The Log In button redirects you to the /login path" duration="36"/>
+        <testCase name="The Register button redirects you to the /addClient path" duration="33"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\ClientList\__test__\ClientList.test.js">
+        <testCase name="the client table renders as expected " duration="438"/>
+        <testCase name="the top up wallet modal renders as expected " duration="208"/>
     </file>
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\ClientList\__test__\AddClient.test.js">
-        <testCase name="renders the AddClient component with all it&apos;s input fields " duration="292"/>
-        <testCase name="All input fields work as ecxpected and are linked to their label and register button redirects you to root path" duration="397"/>
-        <testCase name="Error messages pops up when input is missing or wrong" duration="81"/>
+        <testCase name="renders the AddClient component with all it&apos;s input fields " duration="323"/>
+        <testCase name="All input fields work as ecxpected and are linked to their label and register button redirects you to root path" duration="500"/>
+        <testCase name="Error messages pops up when input is missing or wrong" duration="86"/>
     </file>
 </testExecutions>
