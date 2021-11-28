@@ -27,6 +27,28 @@ async function getProductsByDate(day,month,year) {
     }
 }
 
+function addImage(id,path) {
+    // call: POST /api/image
+    return new Promise((resolve, reject) => {
+        fetch(BASEURL + '/image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id: id, path: path}),
+        }).then((response) => {
+            if (response.ok) {
+                resolve(null);
+            } else {
+                // analyze the cause of error
+                response.json()
+                    .then((message) => { reject(message); }) // error message in the response body
+                    .catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+            }
+        }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+    });
+}
+
 async function getProdFarmer(farmerId,state) {
     // call: GET /api/products/farmerId/state/
     const response = await fetch(BASEURL + '/products/' + farmerId +'/' + state);
@@ -138,5 +160,5 @@ function updateProductState(State,Id) {
 
 
 
-const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,getAllClients,getProdFarmer,addProduct,updateProductState};
+const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,addImage,getAllClients,getProdFarmer,addProduct,updateProductState};
 export default API;

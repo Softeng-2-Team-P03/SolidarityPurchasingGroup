@@ -221,9 +221,9 @@ app.get('/api/types', async (req, res) => {
     }
 });
 /*** Get products By TypeId ***/
-app.get('/api/products/type/:typeId', async (req, res) => {
+app.get('/api/products/type/:typeId/:date', async (req, res) => {
     try {
-        const result = await productDao.getProductsByType(req.params.typeId);
+        const result = await productDao.getProductsByType(req.params.typeId, req.params.date);
         if (result.error) {
             res.status(404).json(result);
         }

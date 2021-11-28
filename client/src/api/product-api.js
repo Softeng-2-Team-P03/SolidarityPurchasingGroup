@@ -38,8 +38,8 @@ async function getProductTypes() {
     }
 }
 
-async function getProductsByType(typeId) {
-    const response = await fetch(BASEURL + '/products/type/' + typeId);
+async function getProductsByType(typeId,date) {
+    const response = await fetch(BASEURL + '/products/type/' + typeId + '/'+ date);
     const productsJson = await response.json();
     if (response.ok) {
         return productsJson;

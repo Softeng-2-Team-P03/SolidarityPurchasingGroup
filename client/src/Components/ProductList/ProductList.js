@@ -121,7 +121,7 @@ function ProductList(props) {
         let date= createDate(time);
         if (category !== 0) {
             setLoadingProducts(true);
-            productApi.getProductsByType(category).then((products) => {
+            productApi.getProductsByType(category,date).then((products) => {
                 setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
                 setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
                 setLoadingProducts(false);

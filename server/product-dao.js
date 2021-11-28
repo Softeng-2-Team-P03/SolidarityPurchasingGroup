@@ -146,11 +146,11 @@ exports.getTypes = () => {
     });
 }
 // Get ProductByType
-exports.getProductsByType = (typeId) => {
+exports.getProductsByType = (typeId, date) => {
     return new Promise((resolve, reject) => {
         const sql = `SELECT Products.* ,ProductImages.Path,Users.Name as FarmerName ,Users.Surname  From Products,ProductImages,Users 
-                    WHERE ProductImages.ProductId==Products.Id AND Users.Id=Products.FarmerId AND ProductImages.IsDefault==1 AND Products.TypeId = ?`;
-        db.all(sql, [typeId], (err, rows) => {
+                    WHERE ProductImages.ProductId==Products.Id AND Users.Id=Products.FarmerId AND ProductImages.IsDefault==1 AND Products.TypeId = ? AND ExpiringDate > ?`;
+        db.all(sql, [typeId, date], (err, rows) => {
             if (err) {
                 reject(err);
                 return;
