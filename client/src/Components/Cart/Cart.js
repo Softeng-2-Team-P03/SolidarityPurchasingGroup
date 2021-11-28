@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Cart.css';
-import { Col, Row, Image, Button, Modal, Form, CloseButton, Spinner } from "react-bootstrap";
+import { Col, Row, Image, Button, Modal,Alert, Form, CloseButton, Spinner } from "react-bootstrap";
 import cartIcon from "../Icons/cart-icon.png";
 import { useState } from "react";
 
@@ -43,8 +43,12 @@ function Cart(props) {
                         {props.loadingConfirm ? <>Submitting order <Spinner animation="border" size="sm" /></> : "Confirm Order"}
                     </Button>
                     <br />
-                    <h4 style={{ color: "#8B0000", fontWeight: "bold" }}>{props.errorConfirm}</h4>
-                </Col>
+                    {props.errorConfirm.length>0? 
+                    <Alert key={2233} variant="danger"  >
+                         {props.errorConfirm}
+                    </Alert>
+                    :""
+                    }  </Col>
             </Modal.Header>
             <Modal.Body>
                 {props.cart.length === 0 ? <h2 style={{ textAlign: 'center' }}>Cart is empty</h2>
@@ -58,11 +62,10 @@ function Cart(props) {
 
 function CartProduct(props) {
     return (
-
         <Row style={{ borderBottom: "2px solid black", paddingTop: "5%", paddingBottom: "5%" }}>
             <Button className="cartButtons delete" variant="danger" onClick={() => props.deleteProductFromCart(props.product.id)}>X</Button>
             <Col>
-                <Image src={require('../../../public/ProductImages/' + props.product.imagePath).default} fluid thumbnail />
+            <Image src={require('../../../public/ProductImages/' + props.product.imagePath).default} fluid thumbnail />
                 <div style={{ textAlign: "center", fontWeight: "bold", fontSize: "25px" }}>{props.product.name} </div>
                 <div style={{ textAlign: "center", fontSize: "15px" }}>Farmer: {props.product.farmer.name} {props.product.farmer.surname}</div>
             </Col>
@@ -74,15 +77,16 @@ function CartProduct(props) {
                 <Row>
                     <Col style={{ padding: "0px" }}>
                         <Button className="cartButtons" variant="primary"
-                            disabled={props.product.selectedQuantity === 0} onClick={() => props.modifyProductInCart(props.product.id, -1)}>-</Button>
-                    </Col>
+                            disabled={props.product.selectedQuantity === 0} onClick={() => props.modifyProductInCart(props.product.id, -1,1)}>-</Button>                    
+                     </Col>
                     <Col>
-                        <div style={{ textAlign: "center", fontWeight: "bold", fontSize: "25px" }}>{props.product.selectedQuantity}</div>
+                    <input className="quantity-text " type="text    " onChange={e =>  props.modifyProductInCart(props.product.id,e.target.value,2)} value={props.product.selectedQuantity} >
+                    </input> 
                     </Col>
                     <Col style={{ padding: "0px" }}>
                         <Button className="cartButtons" variant="primary"
                             disabled={props.product.quantity === props.product.selectedQuantity}
-                            onClick={() => props.modifyProductInCart(props.product.id, +1)}>+</Button>
+                            onClick={() => props.modifyProductInCart(props.product.id, +1,1)}>+</Button>
                     </Col>
                 </Row>
                 <br />

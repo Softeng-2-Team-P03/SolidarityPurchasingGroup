@@ -6,8 +6,16 @@
     margin: 0;
     padding: 0;
     margin-top: -1%;
-    background: #ffb800;
+    background: #afcbd6;
 }
+.div.fade.in.modal {
+    display:flex !important;
+  }
+
+  .modal-dialog {
+    margin: auto;
+    margin-top: 20%;
+  }
 .footer{
     background-color: #292929;   
     height: 100px;
@@ -46,7 +54,7 @@
     width: 100%;
     height: 100vh;
     padding: 10px;
-    color: #ffb800;
+    color: #afcbd6;
     /* text-shadow: -4px 2px 0px #000; */
 }
 .partSection#shop
@@ -115,20 +123,20 @@
     text-align: center;
     padding-top: 10%;
     margin-top: -150px;
-    color: white;
+    color: rgb(27, 27, 27);
     width: 100%;
-    background-color: #ffb800;
+    background-color: #afcbd6;
     clip-path: ellipse(279% 100% at 194.27% 0%);
     }
     .partSection#category{
         padding:0px !important;
-        color: rgb(255, 255, 255);
+        color: rgb(26, 26, 26);
     }
 
 .partSection#info {
     /* background: url('./info.jpg') no-repeat center center/ */
     /* cover; */
-    color: white!important;
+    color: rgb(32, 32, 32)!important;
 }
 
 .partSection#candidate {

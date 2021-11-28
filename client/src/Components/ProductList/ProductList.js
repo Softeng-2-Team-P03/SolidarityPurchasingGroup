@@ -178,6 +178,23 @@ function ProductList(props) {
         }
 
         setLoadingConfirm(true);
+        bookingApi.getWalletBalance()
+        .then((wallet) => {
+            setLoadingConfirm(false);
+            console.log("wallet");
+            console.log(wallet["Wallet"])
+            if (wallet["Wallet"] >= cartInfo.totalPrice) {
+
+            }
+            else {
+                setErrorConfirm('Your Booked is registred ,But Your wallet balance is not enough, Please increase');
+                setLoadingConfirm(false);
+
+            }
+        }).catch(err => {
+            console.error(err);
+        });
+        
         bookingApi.addBooking(booking)
             .then((orderId) => {
                 setLoadingConfirm(false);
@@ -214,16 +231,31 @@ function ProductList(props) {
         setDirtyInfo(true);
     }
 
-    const modifyProductInCart = (modifyId, addQuantity) => {
-        const newQuantity = cart.filter(product => product.id === modifyId)[0].selectedQuantity + addQuantity;
+    const modifyProductInCart = (modifyId, addQuantity, type) => {
+        if (type === 1) {
+            const newQuantity = Number.parseInt(cart.filter(product => product.id === modifyId)[0].selectedQuantity) +Number.parseInt( addQuantity);
+            if (newQuantity === 0) {
+                deleteProductFromCart(modifyId);
+            }
+            else {
+                setCart(oldCart => oldCart.map(product => product.id === modifyId ? { ...product, selectedQuantity: newQuantity } : product));
+            }
+        }
+        else {
+        setCart(oldCart => oldCart.map(product => product.id === modifyId ? { ...product, selectedQuantity:   Number.parseInt(  addQuantity) } : product));
+        }
+        setDirtyInfo(true);
+    }
 
+    const changeQuantityFromInput = (modifyId, newQuantity) => {
+        // const newQuantity = cart.filter(product => product.id === modifyId)[0].selectedQuantity + addQuantity;
         if (newQuantity === 0) {
             deleteProductFromCart(modifyId);
         }
-        else {
+        else{
             setCart(oldCart => oldCart.map(product => product.id === modifyId ? { ...product, selectedQuantity: newQuantity } : product));
+
         }
-        setDirtyInfo(true);
     }
 
     const changeCategory = (value) => {
@@ -257,7 +289,7 @@ function ProductList(props) {
                 </Col>
             </Row>
             {(timeEnabled && canSeeCart) ?
-                <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart}
+                <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart} changeQuantityFromInput={changeQuantityFromInput}
                     modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
                     errorConfirm={errorConfirm} userName={location.state && location.state.userName} />
                 : <></>}
@@ -270,9 +302,11 @@ function Product(props) {
     const [quantity, setQuantity] = useState(0);
 
     const modifyQuantity = (add) => {
-        setQuantity(quantity + add);
+        setQuantity(Number.parseInt(quantity) + Number.parseInt(add));
     }
-
+    const modifyQuantityFromInput = (add) => {
+        setQuantity(Number.parseInt(add));
+    }
     const addToBasket = () => {
         props.addProductToCart({ ...props.product, selectedQuantity: quantity });
         setQuantity(0);
@@ -304,7 +338,8 @@ function Product(props) {
                     <Card.Footer>
                         <Button className="button" variant="primary" disabled={quantity === 0}
                             onClick={() => modifyQuantity(-1)}>-</Button>{' '}
-                        <small className="text"> {quantity} </small>
+                        <input className="quantity-text " type="text" onChange={e => modifyQuantityFromInput(e.target.value)} value={quantity} >
+                        </input>
                         <Button className="button" variant="primary" disabled={quantity === props.product.quantity}
                             onClick={() => modifyQuantity(+1)}>+</Button>{' '}
                         <br />
