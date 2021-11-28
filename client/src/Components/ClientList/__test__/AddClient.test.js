@@ -123,7 +123,4 @@ test("Error messages pops up when input is missing or wrong", async () => {
     expect(queryByText("Missing password description!")).toBeNull();
     expect(getByText("Password length must be between 8 and 30 character long")).not.toBeNull();
 
-
-    //await waitFor(() => expect(testLocation.pathname).toBe("/addClient"));
-
 });
