@@ -137,7 +137,7 @@ function App() {
               <ClientModal addClient={addClient}></ClientModal></>
           )} />
           <Route path="/products" render={() =>
-            <ProductList loggedIn={loggedIn} user={user} />
+            <ProductList loggedIn={loggedIn} user={user}  />
           } />
           <Route path='/orders' render={() =>
             <OrderList orders={fakeOrders} ></OrderList>

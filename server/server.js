@@ -157,6 +157,47 @@ app.get('/api/clients', isLoggedIn, async (req, res) => {
         res.status(500).end();
     }
 });
+//**** Get Get Wallet Balance ****//
+app.get('/api/clients/getWallet', isLoggedIn, async (req, res) => {
+    try {
+        const result = await userDao.getWalletBalance(req.user.id);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+    //console.log(res);
+});
+//**** Get Get Wallet Balance ****//
+app.get('/api/clients/riquredCharge', isLoggedIn, async (req, res) => {
+    try {
+        const result = await userDao.getRequiredCharge(req.user.id);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+    //console.log(res);
+});
+
+//**** Get Get Wallet Balance For A booking with booking Id ****//
+app.get('/api/clients/getRequiredChargeByBookingId', isLoggedIn, async (req, res) => {
+    try {
+        console.log(req.query.bookingId +"xxxxxx");
+        const result = await userDao.getRequiredChargeByBookingId(req.user.id,req.query.bookingId);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+    //console.log(res);
+});
 
 //****************************************************** */
 //                Products API
@@ -280,6 +321,17 @@ app.put('/api/product/:State/:Id', async (req, res) => {
 
 });
 
+// PUT /api/product/change-available-date/<Id> {availableDate:"string"}
+app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) => {
+    try {
+        await productDao.updateAvailbeleDate(req.body.availableDate, req.params.Id,req.user.id);
+        res.status(200).end();
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the update of Survey.` });
+    }
+
+});
+
 // Upload Endpoint
 app.post('/upload', (req, res) => {
     if (req.files === null) {
@@ -316,6 +368,21 @@ app.get('/api/bookings', async (req, res) => {
 
 });
 
+//****   Get all bookings ****//
+app.get('/api/users/:id/bookings', async (req, res) => {
+    try {
+        console.log("orderUserId:")
+        console.log(req.params.id)
+        const result = await orderDao.getOrdersByUserId(req.params.id);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+
+});
 /*** Post Booking  ***/
 app.post('/api/booking', isLoggedIn, [
     check('bookingStartDate').isDate({ format: 'YYYY-MM-DD', strictMode: true }),

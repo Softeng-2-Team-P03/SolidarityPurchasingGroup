@@ -6,9 +6,12 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AddClientBtn, } from './AddClient';
 import API from '../../API';
+import ModalClientOrderes from './ModalClientOrders';
 
 
 function Client(props) {
+    
+    
     return (
         <>
             <tr>
@@ -22,6 +25,11 @@ function Client(props) {
                     <Link to={{ pathname: '/products', state: { userId: props.client.id, userName: props.client.name } }}>
                         <Button className="buttonNewOrder" variant="primary"> New Order </Button>
                     </Link>
+
+                </td>
+                <td>
+                <ModalClientOrderes  client={props.client} ></ModalClientOrderes>
+
                 </td>
             </tr>
         </>
@@ -31,6 +39,8 @@ function Client(props) {
 
 
 function ClientList(props) {
+
+
     let clients = [];
     const [resultC, setResultC] = useState([]);
     const [searchClients, setSearchClients] = useState([]);
@@ -81,24 +91,27 @@ function ClientList(props) {
                         <th>Surname</th>
                         <th>Email</th>
                         <th width="13%"></th>
+                        <th width="13%"></th>
                     </tr>
                 </thead>
                 <tbody> {
                     searchClients.map((cl) =>
                         <Client key={cl.userId}
                             client={cl}
+                            
                         />)
 
                 }
                 </tbody>
             </Table>
             <Link to="/addClient"><AddClientBtn /></Link>
+
+
         </>
     );
 }
 
 function WalletTopUpModal(props) {
-
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

@@ -48,28 +48,28 @@ function ProductList(props) {
             setTimeEnabled(true);
         }
         else {
-            setTimeEnabled(false);
+            setTimeEnabled(true);
             if (cart !== []) {
                 setCart([]);
                 setCartInfo({ numItems: 0, totalPrice: 0 });
             }
         }
     }
-// function to create the right date format 
+    // function to create the right date format 
     const createDate = (time) => {
         const day = time.getDate();
         const month = time.getMonth() + 1;
         const year = time.getFullYear();
-        let date = year.toString()+"-";
+        let date = year.toString() + "-";
         if (month > 9) {
-            date+=month.toString()+"-"; 
+            date += month.toString() + "-";
         } else {
-            date+= "0"+month.toString()+"-";
+            date += "0" + month.toString() + "-";
         }
         if (day > 9) {
-            date+=day.toString(); 
+            date += day.toString();
         } else {
-            date+= "0"+day.toString();
+            date += "0" + day.toString();
         }
         return date;
     }
@@ -118,10 +118,10 @@ function ProductList(props) {
 
     useEffect(() => {
         let time = new Date(localStorage.getItem('virtualDate'));
-        let date= createDate(time);
+        let date = createDate(time);
         if (category !== 0) {
             setLoadingProducts(true);
-            productApi.getProductsByType(category,date).then((products) => {
+            productApi.getProductsByType(category, date).then((products) => {
                 setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
                 setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
                 setLoadingProducts(false);
@@ -178,7 +178,25 @@ function ProductList(props) {
         }
 
         setLoadingConfirm(true);
-        bookingApi.addBooking(booking)
+        bookingApi.getWalletBalance()
+            .then((wallet) => {
+                setLoadingConfirm(false);
+                console.log("wallet");
+                console.log(wallet["Wallet"])
+                if (wallet["Wallet"] >= cartInfo.totalPrice) {
+                  
+                }
+                else {
+                    setErrorConfirm('Your Booked is registred ,But Your wallet balance is not enough, Please increase');
+                    setLoadingConfirm(false);
+
+                }
+            }).catch(err => {
+                console.error(err);
+            });
+
+
+            bookingApi.addBooking(booking)
             .then((orderId) => {
                 setLoadingConfirm(false);
                 setCart([]);
@@ -187,6 +205,8 @@ function ProductList(props) {
                 setOrderConfirmed({ orderId: orderId, booking: booking });
             }).catch(err => {
                 setErrorConfirm('Error during the confirmation of the order')
+                console.error(err);
+            }).catch(err => {
                 console.error(err);
             });
     }
@@ -214,9 +234,24 @@ function ProductList(props) {
         setDirtyInfo(true);
     }
 
-    const modifyProductInCart = (modifyId, addQuantity) => {
-        const newQuantity = cart.filter(product => product.id === modifyId)[0].selectedQuantity + addQuantity;
+    const modifyProductInCart = (modifyId, addQuantity, type) => {
+        if (type === 1) {
+            const newQuantity = Number.parseInt(cart.filter(product => product.id === modifyId)[0].selectedQuantity) +Number.parseInt( addQuantity);
+            if (newQuantity === 0) {
+                deleteProductFromCart(modifyId);
+            }
+            else {
+                setCart(oldCart => oldCart.map(product => product.id === modifyId ? { ...product, selectedQuantity: newQuantity } : product));
+            }
+        }
+        else {
+        setCart(oldCart => oldCart.map(product => product.id === modifyId ? { ...product, selectedQuantity:   Number.parseInt(  addQuantity) } : product));
+        }
+        setDirtyInfo(true);
+    }
 
+    const changeQuantityFromInput = (modifyId, newQuantity) => {
+        // const newQuantity = cart.filter(product => product.id === modifyId)[0].selectedQuantity + addQuantity;
         if (newQuantity === 0) {
             deleteProductFromCart(modifyId);
         }
@@ -246,7 +281,7 @@ function ProductList(props) {
                         <Row xs={2} md={5} className="g-4">
                             {searchProducts.map((x) =>
                                 <Product key={x.id} canShop={timeEnabled && canSeeCart}
-                                    product={x} addProductToCart={addProductToCart}
+                                    product={x} addProductToCart={addProductToCart} 
                                     productInCart={cart.filter(product => product.id === x.id)[0] === undefined ? 0
                                         : cart.filter(product => product.id === x.id)[0].selectedQuantity}
                                 />)
@@ -257,7 +292,7 @@ function ProductList(props) {
                 </Col>
             </Row>
             {(timeEnabled && canSeeCart) ?
-                <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart}
+                <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart} changeQuantityFromInput={changeQuantityFromInput}
                     modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
                     errorConfirm={errorConfirm} userName={location.state && location.state.userName} />
                 : <></>}
@@ -270,7 +305,10 @@ function Product(props) {
     const [quantity, setQuantity] = useState(0);
 
     const modifyQuantity = (add) => {
-        setQuantity(quantity + add);
+        setQuantity(Number.parseInt(quantity) + Number.parseInt(add));
+    }
+    const modifyQuantityFromInput = (add) => {
+        setQuantity(Number.parseInt(add));
     }
 
     const addToBasket = () => {
@@ -304,7 +342,8 @@ function Product(props) {
                     <Card.Footer>
                         <Button className="button" variant="primary" disabled={quantity === 0}
                             onClick={() => modifyQuantity(-1)}>-</Button>{' '}
-                        <small className="text"> {quantity} </small>
+                        <input className="quantity-text " type="text" onChange={e => modifyQuantityFromInput(e.target.value)} value={quantity} >
+                        </input>
                         <Button className="button" variant="primary" disabled={quantity === props.product.quantity}
                             onClick={() => modifyQuantity(+1)}>+</Button>{' '}
                         <br />

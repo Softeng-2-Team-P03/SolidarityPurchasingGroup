@@ -232,3 +232,17 @@ exports.createImage = (image) => {
         });
     });
 };
+
+// update product state
+exports.updateAvailbeleDate = (availableDate, Id,userId) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'UPDATE Products SET AvailableDate=? WHERE Id =? and FarmerId=?';
+        db.run(sql, [availableDate, Id,userId], function (err) {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve();
+        });
+    });
+};

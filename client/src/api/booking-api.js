@@ -67,6 +67,26 @@ function updateBookingState(booking) {
   });
 }
 
+async function getWalletBalance() {
+  // call: GET /api/orders
+  const response = await fetch(BASEURL + '/clients/getWallet');
+  const walletBalance = await response.json();
+  if (response.ok) {
+    return walletBalance;
+  } else {
+    throw walletBalance;  // an object with the error coming from the server
+  }
+}
 
-const bookingApi = { addBooking, updateBookingState, getOrders };
+async function getOrdersByUserId(userId) {
+  // call: GET /api/orders
+  const response = await fetch(BASEURL + '/users/'+userId+'/bookings');
+  const ordersJson = await response.json();
+  if (response.ok) {
+    return ordersJson;
+  } else {
+    throw ordersJson;  // an object with the error coming from the server
+  }
+}
+const bookingApi = { addBooking, updateBookingState, getOrders,getWalletBalance,getOrdersByUserId };
 export default bookingApi;

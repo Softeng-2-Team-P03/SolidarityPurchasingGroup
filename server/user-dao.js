@@ -123,3 +123,47 @@ exports.getUser = (email, password) => {
     });
   });
 };
+// ----------->  <---------------
+exports.getWalletBalance = (id) => {
+  return new Promise(async (resolve, reject) => {
+      var sqlQuery = 'SELECT Wallet From Users where Id=?';
+      db.all(sqlQuery, [id], (err, rows) => {
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve(rows[0]);
+      });
+
+  });
+};
+
+// ----------->  <---------------
+exports.getRequiredCharge = (id) => {
+  return new Promise(async (resolve, reject) => {
+      var sqlQuery = 'select Sum(TotalPrice) as TotalPrice from Bookings where UserId=? and State=1';
+      db.all(sqlQuery, [id], (err, rows) => {
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve(rows[0]);
+      });
+
+  });
+};
+// ----------->  <---------------
+exports.getRequiredChargeByBookingId = (userId,id) => {
+  return new Promise(async (resolve, reject) => {
+      var sqlQuery = 'select (Users.Wallet - Bookings.TotalPrice)as TotalPrice from Bookings,Users where Bookings.UserId=? and Bookings.Id=? AND Users.Id=?';
+      db.all(sqlQuery, [userId,id,userId], (err, rows) => {
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve(rows[0]);
+      });
+
+  });
+};
+
