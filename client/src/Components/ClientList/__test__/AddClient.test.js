@@ -37,7 +37,7 @@ test("renders the AddClient component with all it's input fields ", () => {
 });
 
 
-test("All input fields work as ecxpected and are linked to their label", async () => {
+test("All input fields work as ecxpected and are linked to their label and register button redirects you to root path", async () => {
 
     let testHistory, testLocation;
 
@@ -75,7 +75,13 @@ test("All input fields work as ecxpected and are linked to their label", async (
     userEvent.type(inputPhoneNumber, '3317144651')
     expect(inputPhoneNumber.value).toBe('3317144651')
 
-    //await waitFor(() => expect(testLocation.pathname).toBe("/addClient"));
+    const inputAddress = screen.getByLabelText("Address")
+    userEvent.type(inputAddress, 'Via Ormea 420')
+    expect(inputAddress.value).toBe('Via Ormea 420')
+
+    userEvent.click(getByText("Register"))
+
+    await waitFor(() => expect(testLocation.pathname).toBe("/"));
 
 });
 
@@ -84,7 +90,7 @@ test("Error messages pops up when input is missing or wrong", async () => {
 
     let testHistory, testLocation;
 
-    const { getByText, getByLabelText } = render(
+    const { getByText, getByLabelText, queryByText } = render(
         <MemoryRouter initialEntries={["/addClient"]}>
             <ClientModal addClient={addClient}></ClientModal>
             <Route
@@ -97,29 +103,26 @@ test("Error messages pops up when input is missing or wrong", async () => {
             />
         </MemoryRouter>
     );
-
-    userEvent.click(getByText("Register"))
     
-    /*
-    const inputName = screen.getByLabelText("Name")
-    userEvent.type(inputName, 'nometest')
-    expect(inputName.value).toBe('nometest')
+    //test empty field error messages
+    userEvent.click(getByText("Register"))
 
-    const inputSurname = screen.getByLabelText("Surname")
-    userEvent.type(inputSurname, 'cognometest')
-    expect(inputSurname.value).toBe('cognometest')
+    expect(getByText("Missing name description!")).not.toBeNull();
+    expect(getByText("Missing surname description!")).not.toBeNull();
+    expect(getByText("Missing email description!")).not.toBeNull();
+    expect(getByText("Missing password description!")).not.toBeNull();
 
-    const inputEmail = screen.getByLabelText("Email")
-    userEvent.type(inputEmail, 'nometest.cognometest@poli.it')
-    expect(inputEmail.value).toBe('nometest.cognometest@poli.it')
-
+    expect(getByText("Password length must be between 8 and 30 character long")).not.toBeNull();
+    expect(getByText("Wrong phone number format!")).not.toBeNull();
+    expect(getByText("Missing address description!")).not.toBeNull();
+    
+    //test wrong length passsword message
     const inputPassword = screen.getByLabelText("Password")
-    userEvent.type(inputPassword, 'testpassword')
-    expect(inputPassword.value).toBe('testpassword')
+    userEvent.type(inputPassword, 'five5')
+    userEvent.click(getByText("Register"))
+    expect(queryByText("Missing password description!")).toBeNull();
+    expect(getByText("Password length must be between 8 and 30 character long")).not.toBeNull();
 
-    const inputPhoneNumber = screen.getByLabelText("PhoneNumber")
-    userEvent.type(inputPhoneNumber, '3317144651')
-    expect(inputPhoneNumber.value).toBe('3317144651')*/
 
     //await waitFor(() => expect(testLocation.pathname).toBe("/addClient"));
 
