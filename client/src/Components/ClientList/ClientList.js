@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AddClientBtn, } from './AddClient';
 import API from '../../API';
-
+import ModalClientOrderes from './ModalClientOrders';
 
 function Client(props) {
     return (
@@ -22,6 +22,12 @@ function Client(props) {
                     <Link to={{ pathname: '/products', state: { userId: props.client.id, userName: props.client.name } }}>
                         <Button className="buttonNewOrder" variant="primary"> New Order </Button>
                     </Link>
+                </td>
+                <td>
+                    
+                </td>
+                <td>
+                <ModalClientOrderes  client={props.client} ></ModalClientOrderes>
                 </td>
             </tr>
         </>
@@ -80,6 +86,7 @@ function ClientList(props) {
                         <th>Name</th>
                         <th>Surname</th>
                         <th>Email</th>
+                        <th width="13%"></th>
                         <th width="13%"></th>
                     </tr>
                 </thead>

@@ -33,7 +33,7 @@ function NavBar(props) {
     <div>
         <Navbar bg="primary" variant="dark" expand="lg">
          
-            <Navbar.Brand href="/" className="col-md-4">
+            <Navbar.Brand href="/" className="col-md-2">
               <img
                 src={spg}
                 width="30"

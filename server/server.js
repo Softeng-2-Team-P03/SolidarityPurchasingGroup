@@ -163,6 +163,55 @@ app.get('/api/clients', isLoggedIn, async (req, res) => {
     }
 });
 
+
+//**** Get Get Wallet Balance ****//
+app.get('/api/clients/getWallet', isLoggedIn, async (req, res) => {
+    try {
+        const result = await userDao.getWalletBalance(req.user.id);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+    //console.log(res);
+});
+//**** Get Get Wallet Balance ****//
+app.get('/api/clients/riquredCharge', isLoggedIn, async (req, res) => {
+    try {
+        console.log("userIdddddddd:"+req.user.id)
+        
+        const result = await userDao.getRequiredCharge(req.user.id);
+        conosole.log(result)   
+        console.log("yyyyyyyyyyyyy");
+        console.log(result)
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+    //console.log(res);
+});
+
+//**** Get Get Wallet Balance For A booking with booking Id ****//
+app.get('/api/clients/getRequiredChargeByBookingId', isLoggedIn, async (req, res) => {
+    try {
+        console.log(req.query.bookingId +"xxxxxx");
+        const result = await userDao.getRequiredChargeByBookingId(req.user.id,req.query.bookingId);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+    //console.log(res);
+});
+
+
 //****************************************************** */
 //                Products API
 //****************************************************** */
@@ -299,7 +348,15 @@ app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
     }
 
 });
+app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) => {
+    try {
+        await productDao.updateAvailbeleDate(req.body.availableDate, req.params.Id,req.user.id);
+        res.status(200).end();
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the update of Survey.` });
+    }
 
+});
 // Upload Endpoint
 app.post('/upload', isLoggedIn, (req, res) => {
 
@@ -455,7 +512,20 @@ app.post('/api/image', isLoggedIn, async (req, res) => {
 
 // Activate the server
 // Comment this app.listen function when testing
+app.get('/api/users/:id/bookings', async (req, res) => {
+    try {
+        console.log("orderUserId:")
+        console.log(req.params.id)
+        const result = await orderDao.getOrdersByUserId(req.params.id);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
 
+});
 app.listen(port, () => {
     console.log(`react-score-server listening at http://localhost:${port}`);
 });

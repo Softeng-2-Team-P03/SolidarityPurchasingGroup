@@ -5,57 +5,7 @@ import bookingApi from '../../api/booking-api';
 import { Button, Form, Table } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 //import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
-
-
-function Order(props) {
-
-    const [isHandedOut, setIsHandedOut] = useState("click to hand it out");
-    const [timeEnabled, setTimeEnabled] = useState(false);
-
-    const checkDate = () => {
-        let time = new Date(localStorage.getItem('virtualDate'));
-        const day = time.getDay();
-        const hour = time.getHours();
-        console.log("day "+day +" hour "+hour)
-        if (day >= 3 && hour >= 8 && hour<=19 && day<= 5 ) 
-            setTimeEnabled(true);
-        else
-            setTimeEnabled(false);
-    }
-
-    useEffect(() => {
-        const id = setInterval(checkDate, 1000);
-        checkDate();
-        return () => clearInterval(id);
-    }, [])
-    
-    return (
-        <>
-            <tr>
-                <td>{props.order.BookingId}</td>
-                <td>{props.order.UserId}</td>
-                <td>{props.order.BookingStartDate}</td>
-                <td>{props.order.State}</td>
-                {props.order.PickupTime ? <td> {props.order.PickupTime} </td> : <td> {props.order.DeliveryTime} </td>}
-                <td>{props.order.TotalPrice}</td>
-                
-                {console.log(timeEnabled)}
-                {timeEnabled ? <td ><Form.Check
-                    type="switch"
-                    id="custom-switch"
-                    label={isHandedOut}
-                    onClick={() => { isHandedOut === "click to hand it out" ? setIsHandedOut("Handed out") : setIsHandedOut("click to hand it out") }}
-                /></td> : <td ><Form.Check
-                type="switch"
-                id="custom-switch"
-                label={isHandedOut}
-                disabled
-            /></td>}
-            </tr>
-        </>
-    );
-}
-
+import Order from './Order';
 
 
 function OrderList(props) {
@@ -85,7 +35,11 @@ function OrderList(props) {
             console.log(order.UserId);
             if (order.UserId == text.toLowerCase() || text === "") c.push(order);
         })
-
+        
+        if (c.length==0)
+        {
+            c = orders.filter(function (order) { return order.UserName.toLowerCase().includes(text.toLowerCase()); });
+        }
         setSearchOrders(c);
     }
 
@@ -97,6 +51,7 @@ function OrderList(props) {
                     <tr>
                         <th>OrderID</th>
                         <th>UserId</th>
+                        <th>Name And Surname</th>
                         <th>Booking Issue Date </th>
                         <th>State</th>
                         <th>Scheduled Date</th>
