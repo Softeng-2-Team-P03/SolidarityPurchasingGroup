@@ -281,6 +281,16 @@ describe("Retrieving products and categories", () => {
             .catch(err => done(err))
     });
 
+    test("GET /api/products/NotADate NoDate check",  (done) => {
+        //const post = await Post.create({ title: "Post 1", content: "Lorem ipsum" });
+
+        server.get("/api/products/NotADate")
+            .expect(422)
+            .then(() => done())
+            .catch(err => done(err))
+    });
+
+    //THIS API SHOULD NOT EXIST! Delete test in the future
     test("GET /api/products/1", (done) => {
         //const post = await Post.create({ title: "Post 1", content: "Lorem ipsum" });
 
@@ -441,6 +451,13 @@ describe("Retrieving products and categories", () => {
             .catch(err => done(err));
     })
 
+    test('GET /api/products/type/6/NotADate NoDate check', function (done) {
+        server
+            .get('/api/products/type/6/NotADate')
+            .expect(422)
+            .then(() => done())
+            .catch(err => done(err));
+    })
 })
 
 describe('GET /api/bookings', () => {
@@ -757,21 +774,7 @@ describe('POST /api/new_client', () => {
             .catch(err => done(err))
     })
 
-    it('wallet empty in parameters', function (done) {
-        server
-            .post('/api/new_client')
-            .send({ ...client, wallet: undefined })
-            .expect(422)
-            .then((response) => {
-                expect(Array.isArray(response.body.errors)).toBeTruthy();
-                expect(response.body.errors.length).toEqual(1);
-
-                expect(response.body.errors[0].value).toBe(undefined);
-                expect(response.body.errors[0].param).toBe("wallet");
-                done();
-            })
-            .catch(err => done(err))
-    })
+    //Empty Wallet not checked because the default is 0.0 in dao.js
 
     it('accessType empty in parameters', function (done) {
         server
