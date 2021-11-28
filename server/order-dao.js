@@ -27,7 +27,7 @@ exports.createBookingAndProduct = (bookingProduct, userId) => {
             bookingProduct.bookingId,
             bookingProduct.productId,
             bookingProduct.quantity,
-            bookingProduct.price], function (err) {
+            bookingProduct.price], function (err) {//NOSONAR
                 if (err) {
                     reject(err);
                     return;
@@ -40,7 +40,7 @@ exports.createBookingAndProduct = (bookingProduct, userId) => {
 exports.updateProductQuantity = (quantity,id) => {
     return new Promise((resolve, reject) => {
       const sql = 'UPDATE Products SET Quantity=Quantity - ?   WHERE  Id=?';
-      db.run(sql, [quantity, id], function (err) {
+      db.run(sql, [quantity, id], function (err) {//NOSONAR
         if (err) {
           reject(err);
           return;
@@ -53,7 +53,7 @@ exports.updateProductQuantity = (quantity,id) => {
 exports.updateBookingState = (state,id) => {
     return new Promise((resolve, reject) => {
       const sql = 'UPDATE Bookings SET State= ? WHERE Id = ?';
-      db.run(sql, [state, id], function (err) {
+      db.run(sql, [state, id], function (err) {//NOSONAR
         if (err) {
           reject(err);
           return;
