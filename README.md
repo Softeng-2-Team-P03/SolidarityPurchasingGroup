@@ -47,6 +47,12 @@ Username: `paolo@spg.com`
 
 Password: `eGB2VrUe`
 
+### Deliverer
+
+Username: `simone@spg.com`
+
+Password: `+r[xe=kWpQ'4.2fT`
+
 ## List of APIs offered by the server
 
 Provide a short description for API with the required parameters, follow the proposed structure.
