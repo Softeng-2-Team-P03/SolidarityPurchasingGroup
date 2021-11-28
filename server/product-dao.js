@@ -49,7 +49,7 @@ exports.getProductsByDate = (date) => {
         +'Users.Surname  From Products,ProductImages,Users WHERE ProductImages.ProductId==Products.Id '
         +'AND Users.Id=Products.FarmerId AND ProductImages.IsDefault==1 AND ExpiringDate > ?';
         //FOR PAGINATION: var sqlQuery = 'SELECT Products.* ,ProductImages.Path,Users.Name as FarmerName ,Users.Surname  From Products,ProductImages,Users WHERE ProductImages.ProductId==Products.Id AND Users.Id=Products.FarmerId AND   ProductImages.IsDefault==1 LIMIT 10  OFFSET "' + pageNumber + '"';
-        db.all(sqlQuery, [date], (err, rows) => {
+        db.all(sqlQuery, [date], (err, rows) => { //NOSONAR
             if (err) {
                 reject(err);
                 return;
@@ -199,7 +199,7 @@ exports.createProduct = (product) => {
 exports.updateProductState = (State, Id) => {
     return new Promise((resolve, reject) => {
         const sql = 'UPDATE Products SET State=? WHERE Id = ?';
-        db.run(sql, [State, Id], function (err) {
+        db.run(sql, [State, Id], function (err) { //NOSONAR
             if (err) {
                 reject(err);
                 return;
@@ -213,7 +213,7 @@ exports.updateProductState = (State, Id) => {
 exports.createImage = (image) => {
     return new Promise((resolve, reject) => {
         const sql = 'INSERT INTO ProductImages(Id, ProductId, IsDefault, Path) VALUES(?, ?, ?, ?)';
-        db.run(sql, [ image.id, image.id, 1, image.path], function (err) {
+        db.run(sql, [ image.id, image.id, 1, image.path], function (err) { //NOSONAR
             if (err) {
                 reject(err);
                 return;
