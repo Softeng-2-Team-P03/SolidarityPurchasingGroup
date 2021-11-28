@@ -117,10 +117,10 @@ function SelectionBar() {
     return (
         <div className="selection">
                 <ul>
-                    <li><a href="#shop"><img src={window.location.origin + '/images/home.png'}></img></a></li>
-                    <li><a href="#info"><img src={window.location.origin + '/images/information.png'}></img></a></li>
-                    <li><a href="#candidate"><img src={window.location.origin + '/images/group.png'}></img></a></li>
-                    <li><a href="#category"><img src={window.location.origin + '/images/categories.png'}></img></a></li>
+                    <li data-testid="shopHook"><a href="#shop"><img src={window.location.origin + '/images/home.png'}></img></a></li>
+                    <li><a href="#info"><img data-testid="infoHook" src={window.location.origin + '/images/information.png'}></img></a></li>
+                    <li data-testid="candidateHook"><a href="#candidate"><img src={window.location.origin + '/images/group.png'}></img></a></li>
+                    <li data-testid="categoryHook"><a href="#category"><img src={window.location.origin + '/images/categories.png'}></img></a></li>
                 </ul>
         </div>
     );

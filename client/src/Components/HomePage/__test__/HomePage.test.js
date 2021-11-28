@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect, MemoryRouter } from 'react-router-dom';
-import { render, waitFor } from '@testing-library/react';
+import { getByTestId, render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import HomePage from '../HomePage';
@@ -21,16 +21,14 @@ test("renders the HomePage ", () => {
     );
 
     //verify the cart button it's rendering and shows 0 products added to the cart by default
-    expect(getByText("Sections")).not.toBeNull();
     expect(getByText("Log In")).not.toBeNull();
     expect(getByText("Products")).not.toBeNull();
     expect(getByText("Register")).not.toBeNull();
     expect(getByText("Candidate")).not.toBeNull();
 });
 
-
-//verify the dropdown shows when clicking the Sections button
-test("The Section Dropdown shows sections when clicked", async () => {
+/*
+test("The icons on the sections sidebar hooks to different sections of the homepage when clicked", async () => {
     const { getByText, findByText } = render(
         <Router>
             <Switch>
@@ -45,15 +43,15 @@ test("The Section Dropdown shows sections when clicked", async () => {
     );
 
     //verify the Sections dropdown is rendered
-    expect(getByText("Sections")).not.toBeNull();
+    //expect(getByText("Sections")).not.toBeNull();
 
     //click on the section dropdown button to open it
-    userEvent.click(getByText("Sections"));
+    userEvent.click(getByTestId("infoHook"));
+    await waitFor(() => getByText("How does it work?"));
 
-    await waitFor(() => getByText("Home"));
-    await waitFor(() => getByText("Info"));
-    await waitFor(() => getByText("Join us"));
-});
+    //await waitFor(() => getByText("Info"));
+    //await waitFor(() => getByText("Join us"));
+});*/
 
 
 
