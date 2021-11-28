@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { render, fireEvent } from '@testing-library/react';
 
 import Cart from '../Cart';

@@ -96,7 +96,7 @@ app.post('/api/sessions', function (req, res, next) {
             return res.status(401).json(info);
         }
         // success, perform the login
-        req.login(user, (err) => {
+        req.login(user, (err) => { //NOSONAR
             if (err)
                 return next(err);
 
@@ -161,7 +161,6 @@ app.get('/api/clients', isLoggedIn, async (req, res) => {
     } catch (err) {
         res.status(500).end();
     }
-    //console.log(res);
 });
 
 //****************************************************** */
@@ -177,10 +176,29 @@ app.get('/api/products', async (req, res) => {
             res.json(result);
         }
     } catch (err) {
-        console.log(err)
         res.status(500).end();
     }
 });
+
+/*** Get products By EpiringDate ***/
+app.get('/api/products/:date', async (req, res) => {
+    try {
+
+        let date = req.params.date;
+
+        const result = await productDao.getProducts(date);
+        if (result.error) {
+            res.status(404).json(result);
+        }
+        else {
+            
+            res.json(result);
+        }
+    } catch (err) {
+        res.status(500).end();
+    }
+})
+
 //**** Get A Product By Id ****//
 app.get('/api/products/:id', async (req, res) => {
     try {
@@ -208,9 +226,9 @@ app.get('/api/types', async (req, res) => {
     }
 });
 /*** Get products By TypeId ***/
-app.get('/api/products/type/:typeId', async (req, res) => {
+app.get('/api/products/type/:typeId/:date', async (req, res) => {
     try {
-        const result = await productDao.getProductsByType(req.params.typeId);
+        const result = await productDao.getProductsByType(req.params.typeId, req.params.date);
         if (result.error) {
             res.status(404).json(result);
         }
@@ -221,6 +239,7 @@ app.get('/api/products/type/:typeId', async (req, res) => {
         res.status(500).end();
     }
 })
+
 
 /*** Get products By State and FarmerId ***/
 app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
@@ -400,7 +419,7 @@ app.put('/api/bookings/:id', [
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
         await orderDao.updateBookingState(state, req.params.id);
-        res.status(200).end()
+        res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of booking state ${req.params.id}.` });
     }

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch, Redirect, MemoryRouter } from 'react-router-dom';
 import { render, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -27,13 +26,6 @@ test("renders the HomePage ", () => {
     expect(getByText("Products")).not.toBeNull();
     expect(getByText("Register")).not.toBeNull();
     expect(getByText("Candidate")).not.toBeNull();
-
-    //verify the dropdown shows when clicking the Sections button
-    /*act(() => {
-        fireEvent.click(getByText("Sections"));
-    });*/
-
-
 });
 
 
@@ -61,11 +53,6 @@ test("The Section Dropdown shows sections when clicked", async () => {
     await waitFor(() => getByText("Home"));
     await waitFor(() => getByText("Info"));
     await waitFor(() => getByText("Join us"));
-
-    //await expect(findByText("Home")).not.toBeNull();
-    //await expect(findByText("Info")).not.toBeNull();
-    //await expect(findByText("Join us")).not.toBeNull();
-
 });
 
 

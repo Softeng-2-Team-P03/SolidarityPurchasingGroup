@@ -1,5 +1,5 @@
-class booking {
-    constructor(id, bookingStartDate,userId,totalPrice, pickupTime,state,deliveryTime,products) {
+class Booking {
+    constructor(id, bookingStartDate,userId,totalPrice, pickupTime,state,deliveryTime,products) { //NOSONAR
         this.id = id;
         this.bookingStartDate = bookingStartDate;
         this.userId = userId;
@@ -11,7 +11,7 @@ class booking {
     }
 
     static from(json) {
-      return new booking(
+      return new Booking(
           json.id,
            json.bookingStartDate,
            json.userId,
@@ -23,7 +23,7 @@ class booking {
             );
     }
   }
-  class bookingsAndProduct {
+  class BookingsAndProduct {
     constructor(id, bookingId,productId,quantity, price) {
         this.id = id;
         this.bookingId = bookingId;
@@ -34,7 +34,7 @@ class booking {
     }
 
     static from(json) {
-      return new bookingsAndProduct(
+      return new BookingsAndProduct(
           json.id,
            json.bookingId,
            json.productId,
@@ -45,4 +45,4 @@ class booking {
     }
   }
   
-  export default {booking,bookingsAndProduct};
+  export default {Booking,BookingsAndProduct};

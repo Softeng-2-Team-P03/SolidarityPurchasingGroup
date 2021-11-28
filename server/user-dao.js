@@ -3,6 +3,21 @@ const db = require('./db');
 const bcrypt = require('bcrypt');
 // const db =;
 // ----------->  <---------------
+
+function userReturned(rows){
+  return rows.map((row) => ({
+    id: row.Id,
+    name: row.Name,
+    surname: row.Surname,
+    email: row.Email,
+    phoneNumber: row.PhoneNumber,
+    accessType: row.AccessType,
+    wallet: row.Wallet,
+    address: row.Address,
+})
+);
+}
+
 exports.getUsers = (pageNumber) => {
     return new Promise(async (resolve, reject) => {
         var sqlQuery = 'SELECT * From Users LIMIT 10 OFFSET "' + pageNumber + '"';
@@ -11,18 +26,7 @@ exports.getUsers = (pageNumber) => {
                 reject(err);
                 return;
             }
-            const users = rows.map((row) => ({
-                id: row.Id,
-                name: row.Name,
-                surname: row.Surname,
-                email: row.Email,
-                phoneNumber: row.PhoneNumber,
-                accessType: row.AccessType,
-                wallet: row.Wallet,
-                address: row.Address,
-            })
-            );
-            //console.log(users);
+            const users =userReturned(rows);
             resolve(users);
         });
 
@@ -33,23 +37,12 @@ exports.getUsers = (pageNumber) => {
 exports.getUsersByAccessType = (accessType) => {
     return new Promise(async (resolve, reject) => {
         var sqlQuery = "SELECT * From Users WHERE AccessType= ? ";
-        db.all(sqlQuery, [accessType], (err, rows) => {
+        db.all(sqlQuery, [accessType], (err, rows) => { //NOSONAR
             if (err) {
                 reject(err);
                 return;
             }
-            const users = rows.map((row) => ({
-                id: row.Id,
-                name: row.Name,
-                surname: row.Surname,
-                email: row.Email,
-                phoneNumber: row.PhoneNumber,
-                accessType: row.AccessType,
-                wallet: row.Wallet,
-                address: row.Address,
-            })
-            );
-            //console.log(users);
+            const users = userReturned(rows);
             resolve(users);
         });
 
@@ -120,7 +113,7 @@ exports.getUser = (email, password) => {
           const user = {id: row.Id, username: row.Email, name: row.Name, accessType: row.AccessType};
 
           // check the hashes with an async call, given that the operation may be CPU-intensive (and we don't want to block the server)
-          bcrypt.compare(password, row.Password).then(result => {
+          bcrypt.compare(password, row.Password).then(result => { //NOSONAR
             if(result)
               resolve(user);
             else

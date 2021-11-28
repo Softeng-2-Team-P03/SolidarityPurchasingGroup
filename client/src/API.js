@@ -15,6 +15,40 @@ async function getAllProducts() {
     }
 }
 
+async function getProductsByDate(day,month,year) {
+    // call: GET /api/products
+    const response = await fetch(BASEURL + '/products/' + day +'/' + month +'/'+ year);
+    const productsJson = await response.json();
+    console.log(productsJson);
+    if (response.ok) {
+        return productsJson;
+    } else {
+        throw productsJson;  // an object with the error coming from the server
+    }
+}
+
+function addImage(id,path) {
+    // call: POST /api/image
+    return new Promise((resolve, reject) => {
+        fetch(BASEURL + '/image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({id: id, path: path}),
+        }).then((response) => {
+            if (response.ok) {
+                resolve(null);
+            } else {
+                // analyze the cause of error
+                response.json()
+                    .then((message) => { reject(message); }) // error message in the response body
+                    .catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+            }
+        }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+    });
+}
+
 async function getProdFarmer(farmerId,state) {
     // call: GET /api/products/farmerId/state/
     const response = await fetch(BASEURL + '/products/' + farmerId +'/' + state);
@@ -89,7 +123,7 @@ function addProduct(FarmerId, Name, Description,Quantity,State,TypeId,PricePerUn
             },
             body: JSON.stringify({FarmerId: FarmerId, Name: Name,Description:Description,
                 Quantity:Quantity,State:State,TypeId:TypeId,PricePerUnit:PricePerUnit}),
-        }).then((response) => {
+        }).then((response) => {//NOSONAR
             if (response.ok) {
                 resolve(null);
             } else {
@@ -124,28 +158,7 @@ function updateProductState(State,Id) {
     });
 }
 
-function addImage(id,path) {
-    // call: POST /api/image
-    return new Promise((resolve, reject) => {
-        fetch(BASEURL + '/image', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({id: id, path: path}),
-        }).then((response) => {
-            if (response.ok) {
-                resolve(null);
-            } else {
-                // analyze the cause of error
-                response.json()
-                    .then((message) => { reject(message); }) // error message in the response body
-                    .catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
-            }
-        }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
-    });
-}
 
 
-const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getAllClients,getProdFarmer,addProduct,updateProductState,addImage};
+const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,addImage,getAllClients,getProdFarmer,addProduct,updateProductState};
 export default API;

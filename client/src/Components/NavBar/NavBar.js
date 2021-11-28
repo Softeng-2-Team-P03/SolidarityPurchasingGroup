@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
-import { Nav, Navbar, Button, Row, Col, Table, NavDropdown, Container } from "react-bootstrap";
+import { Nav, Navbar,Table } from "react-bootstrap";
 import { showTime } from './clock.js'
 
 var hourMultiplier = 0;
