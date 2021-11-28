@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.17% </span>
+                <span class="strong">56.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>32/58</span>
+                <span class='fraction'>33/58</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">57.89% </span>
+                <span class="strong">63.15% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>11/19</span>
+                <span class='fraction'>12/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.35% </span>
+                <span class="strong">56.14% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>31/56</span>
+                <span class='fraction'>32/57</span>
             </div>
         
             
@@ -182,18 +182,26 @@
 <a name='L123'></a><a href='#L123'>123</a>
 <a name='L124'></a><a href='#L124'>124</a>
 <a name='L125'></a><a href='#L125'>125</a>
-<a name='L126'></a><a href='#L126'>126</a>
-<a name='L127'></a><a href='#L127'>127</a>
-<a name='L128'></a><a href='#L128'>128</a>
-<a name='L129'></a><a href='#L129'>129</a>
-<a name='L130'></a><a href='#L130'>130</a>
-<a name='L131'></a><a href='#L131'>131</a>
-<a name='L132'></a><a href='#L132'>132</a>
-<a name='L133'></a><a href='#L133'>133</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L126'></a><a href='#L126'>126</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -203,17 +211,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -229,18 +226,7 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -326,6 +312,21 @@ const db = require('./db');
 const bcrypt = require('bcrypt');
 // const db =;
 // -----------&gt;  &lt;---------------
+&nbsp;
+function userReturned(rows){
+  return rows.map((row) =&gt; ({
+    id: row.Id,
+    name: row.Name,
+    surname: row.Surname,
+    email: row.Email,
+    phoneNumber: row.PhoneNumber,
+    accessType: row.AccessType,
+    wallet: row.Wallet,
+    address: row.Address,
+})
+);
+}
+&nbsp;
 exports.getUsers = <span class="fstat-no" title="function not covered" >(p</span>ageNumber) =&gt; {
 <span class="cstat-no" title="statement not covered" >    return new Promise(<span class="fstat-no" title="function not covered" >as</span>ync (resolve, reject) =&gt; {</span>
         var sqlQuery = <span class="cstat-no" title="statement not covered" >'SELECT * From Users LIMIT 10 OFFSET "' + pageNumber + '"';</span>
@@ -334,18 +335,7 @@ exports.getUsers = <span class="fstat-no" title="function not covered" >(p</span
 <span class="cstat-no" title="statement not covered" >                reject(err);</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
-            const users = <span class="cstat-no" title="statement not covered" >rows.map(<span class="fstat-no" title="function not covered" >(r</span>ow) =&gt; (<span class="cstat-no" title="statement not covered" >{</span></span>
-                id: row.Id,
-                name: row.Name,
-                surname: row.Surname,
-                email: row.Email,
-                phoneNumber: row.PhoneNumber,
-                accessType: row.AccessType,
-                wallet: row.Wallet,
-                address: row.Address,
-            })
-            );
-            //console.log(users);
+            const users =<span class="cstat-no" title="statement not covered" >userReturned(rows);</span>
 <span class="cstat-no" title="statement not covered" >            resolve(users);</span>
         });
 &nbsp;
@@ -356,23 +346,12 @@ exports.getUsers = <span class="fstat-no" title="function not covered" >(p</span
 exports.getUsersByAccessType = (accessType) =&gt; {
     return new Promise(async (resolve, reject) =&gt; {
         var sqlQuery = "SELECT * From Users WHERE AccessType= ? ";
-        db.all(sqlQuery, [accessType], (err, rows) =&gt; {
+        db.all(sqlQuery, [accessType], (err, rows) =&gt; { //NOSONAR
             <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
 <span class="cstat-no" title="statement not covered" >                reject(err);</span>
 <span class="cstat-no" title="statement not covered" >                return;</span>
             }
-            const users = rows.map((row) =&gt; ({
-                id: row.Id,
-                name: row.Name,
-                surname: row.Surname,
-                email: row.Email,
-                phoneNumber: row.PhoneNumber,
-                accessType: row.AccessType,
-                wallet: row.Wallet,
-                address: row.Address,
-            })
-            );
-            //console.log(users);
+            const users = userReturned(rows);
             resolve(users);
         });
 &nbsp;
@@ -443,7 +422,7 @@ exports.getUser = (email, password) =&gt; {
           const user = {id: row.Id, username: row.Email, name: row.Name, accessType: row.AccessType};
 &nbsp;
           // check the hashes with an async call, given that the operation may be CPU-intensive (and we don't want to block the server)
-          bcrypt.compare(password, row.Password).then(result =&gt; {
+          bcrypt.compare(password, row.Password).then(result =&gt; { //NOSONAR
             if(result)
               resolve(user);
             else
@@ -460,7 +439,7 @@ exports.getUser = (email, password) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Nov 28 2021 00:49:25 GMT+0100 (Ora standard dell’Europa centrale)
+                at Sun Nov 28 2021 19:17:33 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="prettify.js"></script>

@@ -1,275 +1,303 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\__test__\server.test.js">
-        <testCase name="Testing to see if Jest works" duration="1"/>
-        <testCase name="Logins and Logout login as manager" duration="93"/>
-        <testCase name="Logins and Logout check if manager still logged in" duration="8"/>
-        <testCase name="Logins and Logout login as employee" duration="76"/>
-        <testCase name="Logins and Logout check if employee still logged in" duration="7"/>
-        <testCase name="Logins and Logout login as client" duration="72"/>
-        <testCase name="Logins and Logout check if client still logged in" duration="6"/>
-        <testCase name="Logins and Logout login as farmer" duration="74"/>
-        <testCase name="Logins and Logout check if farmer still logged in" duration="6"/>
-        <testCase name="Logins and Logout login as deliverer" duration="72"/>
-        <testCase name="Logins and Logout check if deliverer still logged in" duration="6"/>
-        <testCase name="Logins and Logout logout" duration="5"/>
-        <testCase name="Logins and Logout check if user is not logged in" duration="5"/>
-        <testCase name="Logins and Logout wrong username" duration="7"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js">
+        <testCase name="Testing to see if Jest works" duration="3"/>
+        <testCase name="Logins and Logout login as manager" duration="246"/>
+        <testCase name="Logins and Logout check if manager still logged in" duration="18"/>
+        <testCase name="Logins and Logout login as employee" duration="92"/>
+        <testCase name="Logins and Logout check if employee still logged in" duration="10"/>
+        <testCase name="Logins and Logout login as client" duration="86"/>
+        <testCase name="Logins and Logout check if client still logged in" duration="10"/>
+        <testCase name="Logins and Logout login as farmer" duration="79"/>
+        <testCase name="Logins and Logout check if farmer still logged in" duration="10"/>
+        <testCase name="Logins and Logout login as deliverer" duration="75"/>
+        <testCase name="Logins and Logout check if deliverer still logged in" duration="11"/>
+        <testCase name="Logins and Logout logout" duration="11"/>
+        <testCase name="Logins and Logout check if user is not logged in" duration="9"/>
+        <testCase name="Logins and Logout wrong username" duration="10"/>
         <testCase name="Logins and Logout wrong password" duration="72"/>
-        <testCase name="Logins and Logout wrong username and password" duration="5"/>
-        <testCase name="Retrieving products and categories GET /api/products" duration="2"/>
-        <testCase name="Retrieving products and categories GET /api/products/1" duration="1"/>
-        <testCase name="Retrieving products and categories GET /api/types" duration="63"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/1" duration="11"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/2" duration="9"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/3" duration="6"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/4" duration="7"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/5" duration="5"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/6" duration="5"/>
-        <testCase name="GET /api/bookings bookings should NOT be visible if not loggedIn" duration="5"/>
-        <testCase name="GET /api/bookings login as manager then show bookings" duration="79"/>
-        <testCase name="GET /api/bookings login as employee then show bookings" duration="78"/>
+        <testCase name="Logins and Logout wrong username and password" duration="10"/>
+        <testCase name="Retrieving products and categories GET /api/products" duration="13"/>
+        <testCase name="Retrieving products and categories GET /api/products/2021-11-29" duration="13"/>
+        <testCase name="Retrieving products and categories GET /api/products/NotADate NoDate check" duration="14">
+            <failure message="Error: expected 422 &quot;Unprocessable Entity&quot;, got 200 &quot;OK&quot;"><![CDATA[Error: expected 422 "Unprocessable Entity", got 200 "OK"
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:288:14)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:66:9)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="Retrieving products and categories GET /api/products/1" duration="26">
+            <failure message="Error: expect(received).not.toBeTruthy()"><![CDATA[Error: expect(received).not.toBeTruthy()
+
+Received: true
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:301:58
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="Retrieving products and categories GET /api/types" duration="11"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/1/2021-12-01" duration="12"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/2/2021-11-25" duration="12"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/3/2021-12-01" duration="10"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/4/2021-11-28" duration="9"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/5/2021-11-28" duration="8"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/6/2021-12-04" duration="8"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/6/NotADate NoDate check" duration="10">
+            <failure message="Error: expected 422 &quot;Unprocessable Entity&quot;, got 200 &quot;OK&quot;"><![CDATA[Error: expected 422 "Unprocessable Entity", got 200 "OK"
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:457:14)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:66:9)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="GET /api/bookings bookings should NOT be visible if not loggedIn" duration="9"/>
+        <testCase name="GET /api/bookings login as manager then show bookings" duration="78"/>
+        <testCase name="GET /api/bookings login as employee then show bookings" duration="75"/>
         <testCase name="GET /api/bookings login as client then do NOT show booking" duration="77"/>
-        <testCase name="GET /api/bookings login as farmer then show bookings" duration="78"/>
-        <testCase name="GET /api/bookings login as deliverer then show bookings" duration="79"/>
-        <testCase name="PUT /api/bookings/:id booking should NOT be updated if not loggedIn" duration="8"/>
-        <testCase name="PUT /api/bookings/:id login as client then do NOT update booking" duration="78"/>
-        <testCase name="PUT /api/bookings/:id login as deliverer then do NOT update booking" duration="77"/>
-        <testCase name="PUT /api/bookings/:id login as manager then update booking" duration="91"/>
-        <testCase name="PUT /api/bookings/:id login as employee then update booking" duration="82"/>
-        <testCase name="PUT /api/bookings/:id login as farmer then update booking" duration="82"/>
-        <testCase name="PUT /api/bookings/:id check error if state &lt; 0" duration="78"/>
-        <testCase name="PUT /api/bookings/:id check error if state &gt; 2" duration="77"/>
-        <testCase name="POST /api/new_client name empty in parameters" duration="8"/>
-        <testCase name="POST /api/new_client surname empty in parameters" duration="7"/>
-        <testCase name="POST /api/new_client email empty in parameters" duration="7"/>
-        <testCase name="POST /api/new_client password empty in parameters" duration="7"/>
-        <testCase name="POST /api/new_client password shorter than 8 in parameters" duration="6"/>
-        <testCase name="POST /api/new_client password longer than 30 in parameters" duration="6"/>
-        <testCase name="POST /api/new_client phoneNumber shorter than 10 in parameters" duration="6"/>
-        <testCase name="POST /api/new_client phoneNumber greater than 10 in parameters" duration="6"/>
-        <testCase name="POST /api/new_client wallet empty in parameters" duration="81">
-            <failure message="Error: expected 422 &quot;Unprocessable Entity&quot;, got 201 &quot;Created&quot;"><![CDATA[Error: expected 422 "Unprocessable Entity", got 201 "Created"
-    at Object.<anonymous> (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\__test__\server.test.js:729:14)
-    at Promise.then.completed (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
-    at _callCircusTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
-    at processTicksAndRejections (internal/process/task_queues.js:93:5)
-    at _runTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:66:9)
-----
-    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
-    at C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
-    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
-    at Test.Object.<anonymous>.Test.assert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
-    at Server.localAssert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
-    at Object.onceWrapper (events.js:421:28)
-    at Server.emit (events.js:315:20)
-    at emitCloseNT (net.js:1659:8)
-    at processTicksAndRejections (internal/process/task_queues.js:79:21)]]></failure>
-        </testCase>
-        <testCase name="POST /api/new_client accessType empty in parameters" duration="74">
+        <testCase name="GET /api/bookings login as farmer then show bookings" duration="74"/>
+        <testCase name="GET /api/bookings login as deliverer then show bookings" duration="75"/>
+        <testCase name="PUT /api/bookings/:id booking should NOT be updated if not loggedIn" duration="16"/>
+        <testCase name="PUT /api/bookings/:id login as client then do NOT update booking" duration="75"/>
+        <testCase name="PUT /api/bookings/:id login as deliverer then do NOT update booking" duration="81"/>
+        <testCase name="PUT /api/bookings/:id login as manager then update booking" duration="93"/>
+        <testCase name="PUT /api/bookings/:id login as employee then update booking" duration="74"/>
+        <testCase name="PUT /api/bookings/:id login as farmer then update booking" duration="95"/>
+        <testCase name="PUT /api/bookings/:id check error if state &lt; 0" duration="75"/>
+        <testCase name="PUT /api/bookings/:id check error if state &gt; 2" duration="79"/>
+        <testCase name="POST /api/new_client name empty in parameters" duration="10"/>
+        <testCase name="POST /api/new_client surname empty in parameters" duration="8"/>
+        <testCase name="POST /api/new_client email empty in parameters" duration="9"/>
+        <testCase name="POST /api/new_client password empty in parameters" duration="8"/>
+        <testCase name="POST /api/new_client password shorter than 8 in parameters" duration="9"/>
+        <testCase name="POST /api/new_client password longer than 30 in parameters" duration="8"/>
+        <testCase name="POST /api/new_client phoneNumber shorter than 10 in parameters" duration="9"/>
+        <testCase name="POST /api/new_client phoneNumber greater than 10 in parameters" duration="8"/>
+        <testCase name="POST /api/new_client accessType empty in parameters" duration="73">
             <failure message="Error: expected 422 &quot;Unprocessable Entity&quot;, got 503 &quot;Service Unavailable&quot;"><![CDATA[Error: expected 422 "Unprocessable Entity", got 503 "Service Unavailable"
-    at Object.<anonymous> (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\__test__\server.test.js:745:14)
-    at Promise.then.completed (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:783:14)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
-    at _callCircusTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
-    at processTicksAndRejections (internal/process/task_queues.js:93:5)
-    at _runTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
-    at _runTestsForDescribeBlock (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:66:9)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+    at _runTestsForDescribeBlock (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:66:9)
 ----
-    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
-    at C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
-    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
-    at Test.Object.<anonymous>.Test.assert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
-    at Server.localAssert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
-    at Object.onceWrapper (events.js:421:28)
-    at Server.emit (events.js:315:20)
-    at emitCloseNT (net.js:1659:8)
-    at processTicksAndRejections (internal/process/task_queues.js:79:21)]]></failure>
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
         </testCase>
-        <testCase name="POST /api/new_client address empty in parameters" duration="6"/>
-        <testCase name="POST /api/new_client all parameters wrong" duration="7">
+        <testCase name="POST /api/new_client address empty in parameters" duration="8"/>
+        <testCase name="POST /api/new_client all parameters wrong" duration="10">
             <failure message="Error: expect(received).toEqual(expected) // deep equality"><![CDATA[Error: expect(received).toEqual(expected) // deep equality
 
 Expected: 8
 Received: 6
-    at C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\__test__\server.test.js:783:53
-    at processTicksAndRejections (internal/process/task_queues.js:93:5)]]></failure>
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:821:53
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
         </testCase>
-        <testCase name="POST /api/new_client create new user" duration="85"/>
-        <testCase name="GET /api/clients should NOT see clients as not logged in" duration="5"/>
+        <testCase name="POST /api/new_client create new user" duration="92"/>
+        <testCase name="GET /api/clients should NOT see clients as not logged in" duration="6"/>
         <testCase name="GET /api/clients login as client then do NOT show clients" duration="76"/>
-        <testCase name="GET /api/clients login as farmer then do NOT show clients" duration="79"/>
-        <testCase name="GET /api/clients login as deliverer then do NOT show clients" duration="77"/>
-        <testCase name="GET /api/clients login as manager then show clients" duration="78"/>
-        <testCase name="GET /api/clients login as employee then show clients" duration="84"/>
-        <testCase name="GET /api/products/:farmerId/:state should not be able to see those products as NOT logged in" duration="6"/>
+        <testCase name="GET /api/clients login as farmer then do NOT show clients" duration="77"/>
+        <testCase name="GET /api/clients login as deliverer then do NOT show clients" duration="76"/>
+        <testCase name="GET /api/clients login as manager then show clients" duration="79"/>
+        <testCase name="GET /api/clients login as employee then show clients" duration="86"/>
+        <testCase name="GET /api/products/:farmerId/:state should not be able to see those products as NOT logged in" duration="8"/>
         <testCase name="GET /api/products/:farmerId/:state login as employee then do NOT show products" duration="75"/>
-        <testCase name="GET /api/products/:farmerId/:state login as client then do NOT show products" duration="76"/>
-        <testCase name="GET /api/products/:farmerId/:state login as deliverer then do NOT show products" duration="76"/>
-        <testCase name="GET /api/products/:farmerId/:state login as manager then show products in state 1" duration="80"/>
-        <testCase name="GET /api/products/:farmerId/:state login as farmer then show products in state 0" duration="79"/>
-        <testCase name="POST /api/product should not be able to create a product if not logged in" duration="6"/>
-        <testCase name="POST /api/product login as employee then do NOT create product" duration="76"/>
-        <testCase name="POST /api/product login as client then do NOT create product" duration="76"/>
-        <testCase name="POST /api/product login as deliverer then do NOT create product" duration="79"/>
-        <testCase name="POST /api/product login as farmer then create product" duration="82"/>
-        <testCase name="POST /api/product login as manager then create product" duration="86"/>
-        <testCase name="POST /api/product FarmerId empty in parameters" duration="6">
+        <testCase name="GET /api/products/:farmerId/:state login as client then do NOT show products" duration="77"/>
+        <testCase name="GET /api/products/:farmerId/:state login as deliverer then do NOT show products" duration="72"/>
+        <testCase name="GET /api/products/:farmerId/:state login as manager then show products in state 1" duration="120"/>
+        <testCase name="GET /api/products/:farmerId/:state login as farmer then show products in state 0" duration="100"/>
+        <testCase name="POST /api/product should not be able to create a product if not logged in" duration="9"/>
+        <testCase name="POST /api/product login as employee then do NOT create product" duration="100"/>
+        <testCase name="POST /api/product login as client then do NOT create product" duration="95"/>
+        <testCase name="POST /api/product login as deliverer then do NOT create product" duration="113"/>
+        <testCase name="POST /api/product login as farmer then create product" duration="99"/>
+        <testCase name="POST /api/product login as manager then create product" duration="91"/>
+        <testCase name="POST /api/product FarmerId empty in parameters" duration="9">
             <failure message="Error: expected 422 &quot;Unprocessable Entity&quot;, got 503 &quot;Service Unavailable&quot;"><![CDATA[Error: expected 422 "Unprocessable Entity", got 503 "Service Unavailable"
-    at Object.<anonymous> (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\__test__\server.test.js:1089:14)
-    at Promise.then.completed (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1127:14)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
-    at _callCircusTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
     at runMicrotasks (<anonymous>)
-    at processTicksAndRejections (internal/process/task_queues.js:93:5)
-    at _runTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
 ----
-    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
-    at C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
-    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
-    at Test.Object.<anonymous>.Test.assert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
-    at Server.localAssert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
-    at Object.onceWrapper (events.js:421:28)
-    at Server.emit (events.js:315:20)
-    at emitCloseNT (net.js:1659:8)
-    at processTicksAndRejections (internal/process/task_queues.js:79:21)]]></failure>
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
         </testCase>
-        <testCase name="POST /api/product Name empty in parameters" duration="9">
+        <testCase name="POST /api/product Name empty in parameters" duration="19">
             <failure message="Error: expected 422 &quot;Unprocessable Entity&quot;, got 201 &quot;Created&quot;"><![CDATA[Error: expected 422 "Unprocessable Entity", got 201 "Created"
-    at Object.<anonymous> (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\__test__\server.test.js:1107:14)
-    at Promise.then.completed (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1145:14)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
-    at _callCircusTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
     at runMicrotasks (<anonymous>)
-    at processTicksAndRejections (internal/process/task_queues.js:93:5)
-    at _runTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
 ----
-    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
-    at C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
-    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
-    at Test.Object.<anonymous>.Test.assert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
-    at Server.localAssert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
-    at Object.onceWrapper (events.js:421:28)
-    at Server.emit (events.js:315:20)
-    at emitCloseNT (net.js:1659:8)
-    at processTicksAndRejections (internal/process/task_queues.js:79:21)]]></failure>
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
         </testCase>
-        <testCase name="POST /api/product Description empty in parameters" duration="8">
+        <testCase name="POST /api/product Description empty in parameters" duration="22">
             <failure message="Error: expected 422 &quot;Unprocessable Entity&quot;, got 201 &quot;Created&quot;"><![CDATA[Error: expected 422 "Unprocessable Entity", got 201 "Created"
-    at Object.<anonymous> (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\__test__\server.test.js:1123:14)
-    at Promise.then.completed (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1161:14)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
-    at _callCircusTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
     at runMicrotasks (<anonymous>)
-    at processTicksAndRejections (internal/process/task_queues.js:93:5)
-    at _runTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
 ----
-    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
-    at C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
-    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
-    at Test.Object.<anonymous>.Test.assert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
-    at Server.localAssert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
-    at Object.onceWrapper (events.js:421:28)
-    at Server.emit (events.js:315:20)
-    at emitCloseNT (net.js:1659:8)
-    at processTicksAndRejections (internal/process/task_queues.js:79:21)]]></failure>
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
         </testCase>
-        <testCase name="POST /api/product Quantity empty in parameters" duration="5">
+        <testCase name="POST /api/product Quantity empty in parameters" duration="10">
             <failure message="Error: expected 422 &quot;Unprocessable Entity&quot;, got 503 &quot;Service Unavailable&quot;"><![CDATA[Error: expected 422 "Unprocessable Entity", got 503 "Service Unavailable"
-    at Object.<anonymous> (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\__test__\server.test.js:1139:14)
-    at Promise.then.completed (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1177:14)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
-    at _callCircusTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
     at runMicrotasks (<anonymous>)
-    at processTicksAndRejections (internal/process/task_queues.js:93:5)
-    at _runTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
 ----
-    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
-    at C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
-    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
-    at Test.Object.<anonymous>.Test.assert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
-    at Server.localAssert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
-    at Object.onceWrapper (events.js:421:28)
-    at Server.emit (events.js:315:20)
-    at emitCloseNT (net.js:1659:8)
-    at processTicksAndRejections (internal/process/task_queues.js:79:21)]]></failure>
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
         </testCase>
-        <testCase name="POST /api/product State empty in parameters" duration="6">
+        <testCase name="POST /api/product State empty in parameters" duration="10">
             <failure message="Error: expected 422 &quot;Unprocessable Entity&quot;, got 503 &quot;Service Unavailable&quot;"><![CDATA[Error: expected 422 "Unprocessable Entity", got 503 "Service Unavailable"
-    at Object.<anonymous> (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\__test__\server.test.js:1155:14)
-    at Promise.then.completed (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1193:14)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
-    at _callCircusTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
     at runMicrotasks (<anonymous>)
-    at processTicksAndRejections (internal/process/task_queues.js:93:5)
-    at _runTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
 ----
-    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
-    at C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
-    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
-    at Test.Object.<anonymous>.Test.assert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
-    at Server.localAssert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
-    at Object.onceWrapper (events.js:421:28)
-    at Server.emit (events.js:315:20)
-    at emitCloseNT (net.js:1659:8)
-    at processTicksAndRejections (internal/process/task_queues.js:79:21)]]></failure>
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
         </testCase>
-        <testCase name="POST /api/product TypeId empty in parameters" duration="6">
+        <testCase name="POST /api/product TypeId empty in parameters" duration="11">
             <failure message="Error: expected 422 &quot;Unprocessable Entity&quot;, got 503 &quot;Service Unavailable&quot;"><![CDATA[Error: expected 422 "Unprocessable Entity", got 503 "Service Unavailable"
-    at Object.<anonymous> (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\__test__\server.test.js:1171:14)
-    at Promise.then.completed (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1209:14)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
-    at _callCircusTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
     at runMicrotasks (<anonymous>)
-    at processTicksAndRejections (internal/process/task_queues.js:93:5)
-    at _runTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
 ----
-    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
-    at C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
-    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
-    at Test.Object.<anonymous>.Test.assert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
-    at Server.localAssert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
-    at Object.onceWrapper (events.js:421:28)
-    at Server.emit (events.js:315:20)
-    at emitCloseNT (net.js:1659:8)
-    at processTicksAndRejections (internal/process/task_queues.js:79:21)]]></failure>
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
         </testCase>
-        <testCase name="POST /api/product PricePerUnit empty in parameters" duration="7">
+        <testCase name="POST /api/product PricePerUnit empty in parameters" duration="10">
             <failure message="Error: expected 422 &quot;Unprocessable Entity&quot;, got 503 &quot;Service Unavailable&quot;"><![CDATA[Error: expected 422 "Unprocessable Entity", got 503 "Service Unavailable"
-    at Object.<anonymous> (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\__test__\server.test.js:1187:14)
-    at Promise.then.completed (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1225:14)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
     at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
-    at _callCircusTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
     at runMicrotasks (<anonymous>)
-    at processTicksAndRejections (internal/process/task_queues.js:93:5)
-    at _runTest (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
 ----
-    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
-    at C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
-    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
-    at Test.Object.<anonymous>.Test.assert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
-    at Server.localAssert (C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
-    at Object.onceWrapper (events.js:421:28)
-    at Server.emit (events.js:315:20)
-    at emitCloseNT (net.js:1659:8)
-    at processTicksAndRejections (internal/process/task_queues.js:79:21)]]></failure>
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
         </testCase>
-        <testCase name="PUT /api/product/:State/:Id cannot update product state as not logged in" duration="6"/>
-        <testCase name="PUT /api/product/:State/:Id cannot update product state as employee" duration="80"/>
-        <testCase name="PUT /api/product/:State/:Id cannot update product state as client" duration="80"/>
-        <testCase name="PUT /api/product/:State/:Id cannot update product state as deliverer" duration="83"/>
-        <testCase name="PUT /api/product/:State/:Id update product state as manager" duration="87"/>
-        <testCase name="PUT /api/product/:State/:Id update product state as farmer" duration="89"/>
+        <testCase name="PUT /api/product/:State/:Id cannot update product state as not logged in" duration="7"/>
+        <testCase name="PUT /api/product/:State/:Id cannot update product state as employee" duration="73"/>
+        <testCase name="PUT /api/product/:State/:Id cannot update product state as client" duration="78"/>
+        <testCase name="PUT /api/product/:State/:Id cannot update product state as deliverer" duration="101"/>
+        <testCase name="PUT /api/product/:State/:Id update product state as manager" duration="101"/>
+        <testCase name="PUT /api/product/:State/:Id update product state as farmer" duration="90"/>
     </file>
 </testExecutions>
