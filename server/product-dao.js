@@ -145,22 +145,7 @@ exports.getProductsByType = (typeId, date) => {
                 reject(err);
                 return;
             }
-            const products = rows.map((row) => ({
-                id: row.Id,
-                farmerId: row.FarmerId,
-                name: row.Name,
-                description: row.Description,
-                quantity: row.Quantity,
-                state: row.State,
-                typeId: row.TypeId,
-                pricePerUnit: row.PricePerUnit,
-                imagePath: row.Path,
-                farmer: {
-                    name: row.FarmerName,
-                    surname: row.Surname,
-                }
-            })
-            );
+            const products =  productsReturned(rows);
             resolve(products);
         });
     });
@@ -175,6 +160,7 @@ exports.listFarmerProd = (farmerId, state) => {
                 reject(err);
                 return;
             }
+
             const products = rows.map((e) => ({Id:e.Id, FarmerId: e.FarmerId, Name: e.Name, Description: e.Description,Quantity: e.Quantity,State:e.State,TypeId:e.TypeId,PricePerUnit:e.PricePerUnit}));
 
             resolve(products);

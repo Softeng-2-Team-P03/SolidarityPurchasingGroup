@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15% </span>
+                <span class="strong">85% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>3/20</span>
+                <span class='fraction'>17/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/6</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">15% </span>
+                <span class="strong">85% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>3/20</span>
+                <span class='fraction'>17/20</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -100,27 +100,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -133,28 +133,28 @@ const bcrypt = require('bcrypt');
 &nbsp;
 &nbsp;
 // add a new client
-exports.createClient = <span class="fstat-no" title="function not covered" >(c</span>lient) =&gt; {
-<span class="cstat-no" title="statement not covered" >    return new Promise(<span class="fstat-no" title="function not covered" >(r</span>esolve, reject) =&gt; {</span>
-      let id = <span class="cstat-no" title="statement not covered" >-1;</span>
-      const id_sql = <span class="cstat-no" title="statement not covered" >'SELECT MAX(id) AS maxId FROM Users';</span>
-<span class="cstat-no" title="statement not covered" >      db.get(id_sql, <span class="fstat-no" title="function not covered" >(e</span>rr, row) =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if (err) {</span>
+exports.createClient = (client) =&gt; {
+    return new Promise((resolve, reject) =&gt; {
+      let id = -1;
+      const id_sql = 'SELECT MAX(id) AS maxId FROM Users';
+      db.get(id_sql, (err, row) =&gt; {
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (err) {
 <span class="cstat-no" title="statement not covered" >          reject(err);</span>
 <span class="cstat-no" title="statement not covered" >          return;</span>
         }
-<span class="cstat-no" title="statement not covered" >        if (row.maxId == null) {</span>
+        <span class="missing-if-branch" title="if path not taken" >I</span>if (row.maxId == null) {
 <span class="cstat-no" title="statement not covered" >          id = 1;</span>
         } else {
-<span class="cstat-no" title="statement not covered" >          id = row.maxId+1;</span>
+          id = row.maxId+1;
         }
-        let pass= <span class="cstat-no" title="statement not covered" >bcrypt.hashSync(client.password,10);</span>
-        const sql = <span class="cstat-no" title="statement not covered" >'INSERT INTO Users (Id, Password, Name, Surname, Email, PhoneNumber, AccessType, Wallet, Address) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';</span>
-<span class="cstat-no" title="statement not covered" >        db.run(sql, [id, pass, client.name, client.surname, client.email, client.phoneNumber, client.accessType, 0.0, client.address], <span class="fstat-no" title="function not covered" >fu</span>nction (err) {</span>
-<span class="cstat-no" title="statement not covered" >          if (err) {</span>
-<span class="cstat-no" title="statement not covered" >            reject(err);</span>
-<span class="cstat-no" title="statement not covered" >            return;</span>
+        let pass= bcrypt.hashSync(client.password,10);
+        const sql = 'INSERT INTO Users (Id, Password, Name, Surname, Email, PhoneNumber, AccessType, Wallet, Address) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
+        db.run(sql, [id, pass, client.name, client.surname, client.email, client.phoneNumber, client.accessType, 0.0, client.address], function (err) {
+          if (err) {
+            reject(err);
+            return;
           }
-<span class="cstat-no" title="statement not covered" >          resolve(id);</span>
+          resolve(id);
         });
   
       });
@@ -166,7 +166,7 @@ exports.createClient = <span class="fstat-no" title="function not covered" >(c</
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Nov 27 2021 01:21:41 GMT+0100 (Ora standard dell’Europa centrale)
+                at Sun Nov 28 2021 19:17:33 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="prettify.js"></script>
