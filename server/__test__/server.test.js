@@ -774,21 +774,7 @@ describe('POST /api/new_client', () => {
             .catch(err => done(err))
     })
 
-    it('wallet empty in parameters', function (done) {
-        server
-            .post('/api/new_client')
-            .send({ ...client, wallet: undefined })
-            .expect(422)
-            .then((response) => {
-                expect(Array.isArray(response.body.errors)).toBeTruthy();
-                expect(response.body.errors.length).toEqual(1);
-
-                expect(response.body.errors[0].value).toBe(undefined);
-                expect(response.body.errors[0].param).toBe("wallet");
-                done();
-            })
-            .catch(err => done(err))
-    })
+    //Empty Wallet not checked because the default is 0.0 in dao.js
 
     it('accessType empty in parameters', function (done) {
         server
