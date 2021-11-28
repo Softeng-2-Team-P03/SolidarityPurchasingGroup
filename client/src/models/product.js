@@ -1,4 +1,4 @@
- class product {
+ class Product {
     constructor(id, farmerId,name,description, quantity,state,typeId,pricePerUnit,images,user) {
         this.id = id;
         this.farmerId = farmerId;
@@ -13,7 +13,7 @@
     }
 
     static from(json) {
-      return new product(
+      return new Product(
           json.id,
            json.farmerId,
            json.name,
@@ -28,4 +28,4 @@
     }
   }
   
-  export default product;
+  export default Product;
