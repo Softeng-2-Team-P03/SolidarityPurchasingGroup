@@ -364,6 +364,37 @@ Provide a short description for API with the required parameters, follow the pro
 ``` 
 - Error responses: `500 Internal Server Error`,  `403 Forbidden: User does not have necessary permissions for this resource.`, `404 page not found`
 
+### get Orders filter by a special user 
+- HTTP Method: `GET` URL: `/api/users/{userId}/bookings`
+- Description: Shows all placed orders for a special user
+- Reponse: `304 OK` (success)
+- Response body: authenticated user
+```
+[
+    {
+        "BookingId":1,
+        "UserName":"Luca",
+        "UserSurname":"Abruzzi",
+        "BookingStartDate":"2021-11-12",
+        "UserId":1,
+        "TotalPrice":22.5,
+        "State":1,"PickupTime":"2021-11-12",
+        "DeliveryTime":null
+    },
+    {
+        "BookingId":2,
+        "UserName":"Luca",
+        "UserSurname":"Abruzzi",
+        "BookingStartDate":"2021-11-12",
+        "UserId":1,
+        "TotalPrice":22.5,
+        "State":1,
+        "PickupTime":"2021-11-12",
+        "DeliveryTime":null
+    }
+]
+``` 
+- Error responses: `500 Internal Server Error`,  `403 Forbidden: User does not have necessary permissions for this resource.`, `404 page not found`
 
 ### Add new product by farmer
 - HTTP Method: `POST` URL: `/api/product`
