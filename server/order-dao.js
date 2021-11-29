@@ -27,7 +27,7 @@ exports.createBookingAndProduct = (bookingProduct, userId) => {
             bookingProduct.bookingId,
             bookingProduct.productId,
             bookingProduct.quantity,
-            bookingProduct.price], function (err) {
+            bookingProduct.price], function (err) {//NOSONAR
                 if (err) {
                     reject(err);
                     return;
@@ -40,7 +40,7 @@ exports.createBookingAndProduct = (bookingProduct, userId) => {
 exports.updateProductQuantity = (quantity,id) => {
     return new Promise((resolve, reject) => {
       const sql = 'UPDATE Products SET Quantity=Quantity - ?   WHERE  Id=?';
-      db.run(sql, [quantity, id], function (err) {
+      db.run(sql, [quantity, id], function (err) {//NOSONAR
         if (err) {
           reject(err);
           return;
@@ -53,7 +53,7 @@ exports.updateProductQuantity = (quantity,id) => {
 exports.updateBookingState = (state,id) => {
     return new Promise((resolve, reject) => {
       const sql = 'UPDATE Bookings SET State= ? WHERE Id = ?';
-      db.run(sql, [state, id], function (err) {
+      db.run(sql, [state, id], function (err) {//NOSONAR
         if (err) {
           reject(err);
           return;
@@ -66,15 +66,27 @@ exports.updateBookingState = (state,id) => {
 
 exports.getOrders = () => {
     return new Promise((resolve, reject) => {
-        const sql = 'SELECT * FROM Bookings';
+      const sql = 'SELECT Bookings.*, Users.Name, Users.Surname FROM Bookings,Users where Bookings.UserId=Users.Id ';
         db.all(sql, [], (err, rows) => {
             if (err) {
                 reject(err);
                 return;
             }
-            const orders = rows.map((e) => ({BookingId : e.Id, BookingStartDate : e.BookingStartDate, UserId : e.UserId, TotalPrice : e.TotalPrice, State:e.State, PickupTime : e.PickupTime, DeliveryTime : e.DeliveryTime}));
+            const orders = rows.map((e) => ({BookingId : e.Id,UserName:e.Name,UserSurname:e.Surname, BookingStartDate : e.BookingStartDate, UserId : e.UserId, TotalPrice : e.TotalPrice, State:e.State, PickupTime : e.PickupTime, DeliveryTime : e.DeliveryTime}));
             resolve(orders);
         });
     });
 };
-
+exports.getOrdersByUserId = (userId) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'SELECT Bookings.*, Users.Name, Users.Surname FROM Bookings,Users Where UserId=? And Bookings.UserId=Users.Id';
+      db.all(sql, [userId], (err, rows) => { //NOSONAR
+          if (err) {
+              reject(err);
+              return;
+          }
+          const orders = rows.map((e) => ({BookingId : e.Id,UserName:e.Name,UserSurname:e.Surname, BookingStartDate : e.BookingStartDate, UserId : e.UserId, TotalPrice : e.TotalPrice, State:e.State, PickupTime : e.PickupTime, DeliveryTime : e.DeliveryTime}));
+          resolve(orders);
+      });
+  });
+};

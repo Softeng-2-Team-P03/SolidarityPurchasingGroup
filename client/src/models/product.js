@@ -1,5 +1,5 @@
- class product {
-    constructor(id, farmerId,name,description, quantity,state,typeId,pricePerUnit,images,user) {
+ class Product {
+    constructor(id, farmerId,name,description, quantity,state,typeId,pricePerUnit,images,user) { //NOSONAR
         this.id = id;
         this.farmerId = farmerId;
         this.name = name;
@@ -13,7 +13,7 @@
     }
 
     static from(json) {
-      return new product(
+      return new Product(
           json.id,
            json.farmerId,
            json.name,
@@ -28,4 +28,4 @@
     }
   }
   
-  export default product;
+  export default Product;

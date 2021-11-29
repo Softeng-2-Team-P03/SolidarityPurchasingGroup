@@ -2,7 +2,30 @@
 const db = require('./db');
 const bcrypt = require('bcrypt');
 
+
+
+
 // Get Products
+function productsReturned(rows){
+    return rows.map((row) => ({
+        id: row.Id,
+        farmerId: row.FarmerId,
+        name: row.Name,
+        description: row.Description,
+        quantity: row.Quantity,
+        state: row.State,
+        typeId: row.TypeId,
+        pricePerUnit: row.PricePerUnit,
+        imagePath: row.Path,
+        farmer: {
+            name: row.FarmerName,
+            surname: row.Surname,
+        },
+        ExpiringDate: row.ExpiringDate
+    })
+    );
+}
+
 exports.getProducts = (date) => {
     return new Promise(async (resolve, reject) => {
         var sqlQuery = 'SELECT Products.* ,ProductImages.Path,Users.Name as FarmerName ,Users.Surname  From Products,ProductImages,Users WHERE ProductImages.ProductId==Products.Id AND Users.Id=Products.FarmerId AND ProductImages.IsDefault==1 AND ExpiringDate > ?';
@@ -13,23 +36,7 @@ exports.getProducts = (date) => {
                 reject(err);
                 return;
             }
-            const products = rows.map((row) => ({
-                id: row.Id,
-                farmerId: row.FarmerId,
-                name: row.Name,
-                description: row.Description,
-                quantity: row.Quantity,
-                state: row.State,
-                typeId: row.TypeId,
-                pricePerUnit: row.PricePerUnit,
-                imagePath: row.Path,
-                farmer: {
-                    name: row.FarmerName,
-                    surname: row.Surname,
-                },
-                ExpiringDate: row.ExpiringDate
-            })
-            );
+            const products = productsReturned(rows);
             resolve(products);
         });
 
@@ -42,29 +49,12 @@ exports.getProductsByDate = (date) => {
         +'Users.Surname  From Products,ProductImages,Users WHERE ProductImages.ProductId==Products.Id '
         +'AND Users.Id=Products.FarmerId AND ProductImages.IsDefault==1 AND ExpiringDate > ?';
         //FOR PAGINATION: var sqlQuery = 'SELECT Products.* ,ProductImages.Path,Users.Name as FarmerName ,Users.Surname  From Products,ProductImages,Users WHERE ProductImages.ProductId==Products.Id AND Users.Id=Products.FarmerId AND   ProductImages.IsDefault==1 LIMIT 10  OFFSET "' + pageNumber + '"';
-        db.all(sqlQuery, [date], (err, rows) => {
-
+        db.all(sqlQuery, [date], (err, rows) => { //NOSONAR
             if (err) {
                 reject(err);
                 return;
             }
-            const products = rows.map((row) => ({
-                id: row.Id,
-                farmerId: row.FarmerId,
-                name: row.Name,
-                description: row.Description,
-                quantity: row.Quantity,
-                state: row.State,
-                typeId: row.TypeId,
-                pricePerUnit: row.PricePerUnit,
-                imagePath: row.Path,
-                farmer: {
-                    name: row.FarmerName,
-                    surname: row.Surname,
-                },
-                ExpiringDate: row.ExpiringDate
-            })
-            );
+            const products =  productsReturned(rows);
             resolve(products);
         });
 
@@ -155,22 +145,7 @@ exports.getProductsByType = (typeId, date) => {
                 reject(err);
                 return;
             }
-            const products = rows.map((row) => ({
-                id: row.Id,
-                farmerId: row.FarmerId,
-                name: row.Name,
-                description: row.Description,
-                quantity: row.Quantity,
-                state: row.State,
-                typeId: row.TypeId,
-                pricePerUnit: row.PricePerUnit,
-                imagePath: row.Path,
-                farmer: {
-                    name: row.FarmerName,
-                    surname: row.Surname,
-                }
-            })
-            );
+            const products =  productsReturned(rows);
             resolve(products);
         });
     });
@@ -180,11 +155,12 @@ exports.getProductsByType = (typeId, date) => {
 exports.listFarmerProd = (farmerId, state) => {
     return new Promise((resolve, reject) => {
         const sql = 'SELECT * FROM Products WHERE FarmerId = ? AND State = ?';
-        db.all(sql, [farmerId, state], (err, rows) => {
+        db.all(sql, [farmerId, state], (err, rows) => { //NOSONAR
             if (err) {
                 reject(err);
                 return;
             }
+
             const products = rows.map((e) => ({Id:e.Id, FarmerId: e.FarmerId, Name: e.Name, Description: e.Description,Quantity: e.Quantity,State:e.State,TypeId:e.TypeId,PricePerUnit:e.PricePerUnit}));
 
             resolve(products);
@@ -209,7 +185,7 @@ exports.createProduct = (product) => {
 exports.updateProductState = (State, Id) => {
     return new Promise((resolve, reject) => {
         const sql = 'UPDATE Products SET State=? WHERE Id = ?';
-        db.run(sql, [State, Id], function (err) {
+        db.run(sql, [State, Id], function (err) { //NOSONAR
             if (err) {
                 reject(err);
                 return;
@@ -223,7 +199,19 @@ exports.updateProductState = (State, Id) => {
 exports.createImage = (image) => {
     return new Promise((resolve, reject) => {
         const sql = 'INSERT INTO ProductImages(Id, ProductId, IsDefault, Path) VALUES(?, ?, ?, ?)';
-        db.run(sql, [ image.id, image.id, 1, image.path], function (err) {
+        db.run(sql, [ image.id, image.id, 1, image.path], function (err) { //NOSONAR
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve();
+        });
+    });
+};
+exports.updateAvailbeleDate = (availableDate,Quantity, Id) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'UPDATE Products SET AvailableDate=? , Quantity=? WHERE Id =? ';
+        db.run(sql, [availableDate,Quantity, Id], function (err) {
             if (err) {
                 reject(err);
                 return;

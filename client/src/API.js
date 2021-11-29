@@ -123,7 +123,7 @@ function addProduct(FarmerId, Name, Description,Quantity,State,TypeId,PricePerUn
             },
             body: JSON.stringify({FarmerId: FarmerId, Name: Name,Description:Description,
                 Quantity:Quantity,State:State,TypeId:TypeId,PricePerUnit:PricePerUnit}),
-        }).then((response) => {
+        }).then((response) => {//NOSONAR
             if (response.ok) {
                 resolve(null);
             } else {

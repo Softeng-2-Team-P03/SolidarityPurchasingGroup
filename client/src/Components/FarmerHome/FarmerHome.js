@@ -14,6 +14,7 @@ function FarmerHome() {
     const [showSell, setShowSell] = useState(false);
     const [edit, setEdit] = useState(false);
     const [confirm, setConfirm] = useState(false);
+    const [dirty, setDirty] = useState(false);
 
     const [productToEdit, setProductToEdit] = useState();
     let prod = [];
@@ -47,7 +48,7 @@ function FarmerHome() {
         return () => {
             mounted = false
         };
-    }, [confirm]);
+    }, [confirm,dirty]);
 
 
 
@@ -71,7 +72,7 @@ function FarmerHome() {
                         <Modal.Title>New product</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <AddProductForm handleClose={handleClose} idFarmer={farmer}/>
+                        <AddProductForm handleClose={handleClose} idFarmer={farmer} setDirty={setDirty} dirty={dirty}/>
 
                     </Modal.Body>
                 </Modal>
@@ -118,6 +119,7 @@ function FarmerHome() {
                                     <Col md="2"><Button className="buttonConfirm" variant="success" onClick={() => {
                                         API.updateProductState(1, x.Id).catch(err => console.log(err));
                                         setConfirm(false);
+
 
 
                                     }}>Confirm</Button></Col>
@@ -223,6 +225,10 @@ function AddProductForm(props) {
 
         API.addProduct(props.idFarmer.id, name, description,quantity,0,1,pricePerUnit);
         props.handleClose();
+
+        if(props.dirty) props.setDirty(false);
+        else props.setDirty(true);
+
 
         /*let valid = true;
         if (name === '') {

@@ -45,9 +45,10 @@
     ]
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.9.11",
     "@testing-library/dom": "^8.11.1",
     "@testing-library/user-event": "^13.5.0",
-    "cypress": "^9.0.0",
+    "cypress": "^9.1.0",
     "jest-sonar-reporter": "^2.0.0"
   },
   "jest": {},

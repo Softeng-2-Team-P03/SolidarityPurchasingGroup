@@ -9,8 +9,8 @@ import { Redirect, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 
 
-
 function ProductList(props) {
+    const [timeToString, setTimeToString] = useState(localStorage.getItem('virtualDateToString'));
     const location = useLocation(); //If employee makes order for client: {userId, userName}
 
     const [products, setProducts] = useState([]); //All products retrieved from server
@@ -23,12 +23,10 @@ function ProductList(props) {
     const [canSeeCart, setCanSeeCart] = useState(false);
     const [timeEnabled, setTimeEnabled] = useState(false);
     const [orderConfirmed, setOrderConfirmed] = useState(undefined);
-
     const [loadingProducts, setLoadingProducts] = useState(true);
     const [loadingTypes, setLoadingTypes] = useState(true);
     const [loadingConfirm, setLoadingConfirm] = useState(false);
-
-    const [errorConfirm, setErrorConfirm] = useState(''); //Error in submitting order
+    const [errorConfirm, setErrorConfirm] = useState(''); 
     const [errorLoading, setErrorLoading] = useState(''); //Error in loading products/types
 
     function changeSearchText(text) {
@@ -42,6 +40,7 @@ function ProductList(props) {
 
     const checkDate = () => {
         let time = new Date(localStorage.getItem('virtualDate'));
+        setTimeToString(localStorage.getItem('virtualDateToString'));
         const day = time.getDay();
         const hour = time.getHours();
         if ((day === 6 && hour >= 9) || (day === 0 && hour <= 22)) {
@@ -55,21 +54,21 @@ function ProductList(props) {
             }
         }
     }
-// function to create the right date format 
+    // function to create the right date format 
     const createDate = (time) => {
         const day = time.getDate();
         const month = time.getMonth() + 1;
         const year = time.getFullYear();
-        let date = year.toString()+"-";
+        let date = year.toString() + "-";
         if (month > 9) {
-            date+=month.toString()+"-"; 
+            date += month.toString() + "-";
         } else {
-            date+= "0"+month.toString()+"-";
+            date += "0" + month.toString() + "-";
         }
         if (day > 9) {
-            date+=day.toString(); 
+            date += day.toString();
         } else {
-            date+= "0"+day.toString();
+            date += "0" + day.toString();
         }
         return date;
     }
@@ -94,56 +93,38 @@ function ProductList(props) {
         return () => clearInterval(id);
     }, [])
 
-    useEffect(() => {
-        let time = new Date(localStorage.getItem('virtualDate'));
-        let date = createDate(time);
+    function setProductsLoaded(products) { //NOSONAR
+        setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+        setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+        setLoadingProducts(false);
+        setErrorLoading('');
+    }
 
-        productApi.getAllProducts(date).then((products) => {
-            setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-            setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-            setLoadingProducts(false);
-            productApi.getProductTypes().then((types) => {
-                setTypes(types);
-                setLoadingTypes(false);
-                setErrorLoading('');
-            }).catch(err => {
-                setErrorLoading('Error during the loading of the types')
-                console.error(err);
-            })
+    useEffect(() => {
+        //let time = new Date(localStorage.getItem('virtualDate'));
+        //let date = createDate(time);
+        //let time = localStorage.getItem("virtualDateToString")
+
+        setLoadingProducts(true);
+        productApi.getProductsByType(category, timeToString).then((products) => { //NOSONAR
+            setProductsLoaded(products);
+            if (loadingTypes === true) { //Only first time opening the page
+                productApi.getProductTypes().then((types) => {//NOSONAR
+                    setTypes(types);
+                    setLoadingTypes(false);
+                    setErrorLoading('');
+                }).catch(err => {
+                    setErrorLoading('Error during the loading of the types')
+                    console.error(err);
+                })
+
+            }
         }).catch(err => {
             setErrorLoading('Error during the loading of the products')
             console.error(err);
-        });
-    }, [])
+        })
 
-    useEffect(() => {
-        let time = new Date(localStorage.getItem('virtualDate'));
-        let date= createDate(time);
-        if (category !== 0) {
-            setLoadingProducts(true);
-            productApi.getProductsByType(category,date).then((products) => {
-                setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-                setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-                setLoadingProducts(false);
-                setErrorLoading('');
-            }).catch(err => {
-                setErrorLoading('Error during the loading of the products')
-                console.error(err);
-            })
-        }
-        else {
-            setLoadingProducts(true);
-            productApi.getAllProducts(date).then((products) => {
-                setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-                setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-                setLoadingProducts(false);
-                setErrorLoading('');
-            }).catch(err => {
-                setErrorLoading('Error during the loading of the products')
-                console.error(err);
-            })
-        }
-    }, [category])
+    }, [category, timeToString])
 
     useEffect(() => {
         if (dirtyInfo === true) {
@@ -178,13 +159,27 @@ function ProductList(props) {
         }
 
         setLoadingConfirm(true);
+        bookingApi.getWalletBalance()
+        .then((wallet) => {
+            setLoadingConfirm(false);
+            console.log("wallet");
+            console.log(wallet["Wallet"])
+            if (wallet["Wallet"] < cartInfo.totalPrice) {
+                setErrorConfirm("Your Booked is registred ,But Your wallet balance is not enough, Please increase");
+                setLoadingConfirm(false);
+                console.log(errorConfirm)
+            }
+        }).catch(err => {
+            console.error(err);
+        });
+        
+
         bookingApi.addBooking(booking)
             .then((orderId) => {
                 setLoadingConfirm(false);
                 setCart([]);
                 setCartInfo({ numItems: 0, totalPrice: 0 });
-                setErrorConfirm('');
-                setOrderConfirmed({ orderId: orderId, booking: booking });
+                setOrderConfirmed({ orderId: orderId, booking: booking,errorWallet:errorConfirm });
             }).catch(err => {
                 setErrorConfirm('Error during the confirmation of the order')
                 console.error(err);
@@ -214,16 +209,37 @@ function ProductList(props) {
         setDirtyInfo(true);
     }
 
-    const modifyProductInCart = (modifyId, addQuantity) => {
-        const newQuantity = cart.filter(product => product.id === modifyId)[0].selectedQuantity + addQuantity;
+    const modifyProductInCart = (modifyId, addQuantity, type) => {
+        if (type === 1) { //+1 or -1
+            const newQuantity = cart.filter(product => product.id === modifyId)[0].selectedQuantity + addQuantity;
+            if (newQuantity === 0) {
+                deleteProductFromCart(modifyId);
+            }
+            else {
+                setCart(oldCart => oldCart.map(product => product.id === modifyId ? { ...product, selectedQuantity: newQuantity } : product));
+            }
+        }
+        else { //input number field
+            addQuantity = Number.parseInt(addQuantity);
+            if (addQuantity === 0) {
+                deleteProductFromCart(modifyId);
+            }
+            else {
+                setCart(oldCart => oldCart.map(product => product.id === modifyId ?
+                    { ...product, selectedQuantity: (addQuantity > product.quantity) ? product.quantity : addQuantity } : product));
+            }
+        }
+        setDirtyInfo(true);
+    }
 
+    const changeQuantityFromInput = (modifyId, newQuantity) => {
         if (newQuantity === 0) {
             deleteProductFromCart(modifyId);
         }
         else {
             setCart(oldCart => oldCart.map(product => product.id === modifyId ? { ...product, selectedQuantity: newQuantity } : product));
+
         }
-        setDirtyInfo(true);
     }
 
     const changeCategory = (value) => {
@@ -257,10 +273,10 @@ function ProductList(props) {
                 </Col>
             </Row>
             {(timeEnabled && canSeeCart) ?
-                <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart}
+                <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart} changeQuantityFromInput={changeQuantityFromInput}
                     modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
                     errorConfirm={errorConfirm} userName={location.state && location.state.userName} />
-                : <></>}
+             : <></>}
         </>
     );
 }
@@ -272,7 +288,15 @@ function Product(props) {
     const modifyQuantity = (add) => {
         setQuantity(quantity + add);
     }
-
+    const modifyQuantityFromInput = (add) => {
+        add = Number.parseInt(add);
+        if (add > props.product.quantity) {
+            setQuantity(props.product.quantity)
+        }
+        else {
+            setQuantity(add)
+        }
+    }
     const addToBasket = () => {
         props.addProductToCart({ ...props.product, selectedQuantity: quantity });
         setQuantity(0);
@@ -304,7 +328,9 @@ function Product(props) {
                     <Card.Footer>
                         <Button className="button" variant="primary" disabled={quantity === 0}
                             onClick={() => modifyQuantity(-1)}>-</Button>{' '}
-                        <small className="text"> {quantity} </small>
+                        <input className="quantity-text" type="number" min={0} onChange={e => modifyQuantityFromInput(!e.target.value ? 0 : e.target.value)}
+                            value={Number(quantity).toString()} >
+                        </input>
                         <Button className="button" variant="primary" disabled={quantity === props.product.quantity}
                             onClick={() => modifyQuantity(+1)}>+</Button>{' '}
                         <br />

@@ -29,8 +29,9 @@ const FileUpload = (props) => {
         const formData = new FormData();
         console.log(filename);
         if(filename!='Choose File')
-        formData.append('file', file ,nameImg);
-        else formData.append('file', file);
+            formData.append('file', file ,nameImg);
+        else 
+            formData.append('file', file);
 
         try {
             const res = await axios.post('/upload', formData, {

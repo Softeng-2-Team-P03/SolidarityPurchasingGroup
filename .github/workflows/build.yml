@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - main
-      - Jest_backend
+      - testingBranch
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:

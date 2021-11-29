@@ -1,12 +1,44 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './HomePage.css';
 import { Link, useLocation } from 'react-router-dom';
-import { Col, Row, Button, Toast} from "react-bootstrap"; 
-import { useState } from "react";
+import { Col, Row, Button, Toast } from "react-bootstrap";
+import { useState, useEffect } from "react";
+import userApi from '../../api/user-api';
+import ModalError from './modalWallet';
 
 function HomePage(prop) {
+
     const [showB, setShowB] = useState(true);
     const location = useLocation();
+    const [showModal, setShowModal] = useState(false);
+    const setModalclose = () => {
+        setShowModal(false);
+    }
+
+    useEffect(() => {
+        var required = 0;
+        if (prop.loggedIn) {
+            userApi.getRequiredCharge()
+                .then((reqiuired) => {
+                    required = reqiuired["TotalPrice"];
+                    userApi.getWalletBalance()
+                        .then((wallet) => {
+                            console.log("ddddddddddddd");
+                            console.log(wallet["Wallet"])
+                            console.log("required"+required)
+
+                            if (wallet["Wallet"] < required) {
+                                setShowModal(true);
+                            }
+                        })
+                }).catch(err => {
+                    console.error(err);
+                });
+
+
+        }
+    }, []);
+
  
   const toggleShowB = () => setShowB(!showB);
     return (
@@ -14,14 +46,12 @@ function HomePage(prop) {
         {location.state && location.state.showToast  ? <> 
         <Toast className="toast-fixed" onClose={toggleShowB} show={showB} animation={false}>
           <Toast.Header>
-           
             <strong className="me-auto">Registration completed</strong>
           </Toast.Header>
           <Toast.Body>Your account has been successfully created</Toast.Body>
         </Toast> </> : <></>
    
 }
-        
             <SelectionBar />
             <div className="container">
                 <section className="partSection" id="shop">
@@ -108,6 +138,8 @@ function HomePage(prop) {
                 </div>
                 </section>
             </div>
+            <ModalError show={showModal} handleClose={setModalclose} title={"Error in Balance Wallet"} description={"Your wallet balance is not enough to complete your orders, please increase your credit amount!"} ></ModalError>
+
         </>
     );
 }
@@ -117,10 +149,10 @@ function SelectionBar() {
     return (
         <div className="selection">
                 <ul>
-                    <li><a href="#shop"><img src={window.location.origin + '/images/home.png'}></img></a></li>
-                    <li><a href="#info"><img src={window.location.origin + '/images/information.png'}></img></a></li>
-                    <li><a href="#candidate"><img src={window.location.origin + '/images/group.png'}></img></a></li>
-                    <li><a href="#category"><img src={window.location.origin + '/images/categories.png'}></img></a></li>
+                    <li data-testid="shopHook"><a href="#shop"><img src={window.location.origin + '/images/home.png'}></img></a></li>
+                    <li><a href="#info"><img data-testid="infoHook" src={window.location.origin + '/images/information.png'}></img></a></li>
+                    <li data-testid="candidateHook"><a href="#candidate"><img src={window.location.origin + '/images/group.png'}></img></a></li>
+                    <li data-testid="categoryHook"><a href="#category"><img src={window.location.origin + '/images/categories.png'}></img></a></li>
                 </ul>
         </div>
     );
