@@ -148,6 +148,11 @@ app.post('/api/new_client', [
 //**** Get All User For Admin ****//
 app.get('/api/clients', isLoggedIn, async (req, res) => {
     try {
+
+        if (![1, 2].includes(req.user.accessType)) { //Manager and Employee
+            return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+        }
+
         const result = await userDao.getUsersByAccessType(3);
         if (result.error)
             res.status(404).json(result);
@@ -186,7 +191,7 @@ app.get('/api/products/:date', async (req, res) => {
             res.status(404).json(result);
         }
         else {
-            
+
             res.json(result);
         }
     } catch (err) {
@@ -223,6 +228,7 @@ app.get('/api/types', async (req, res) => {
 /*** Get products By TypeId ***/
 app.get('/api/products/type/:typeId/:date', async (req, res) => {
     try {
+
         const result = await productDao.getProductsByType(req.params.typeId, req.params.date);
         if (result.error) {
             res.status(404).json(result);
@@ -231,14 +237,18 @@ app.get('/api/products/type/:typeId/:date', async (req, res) => {
             res.json(result);
         }
     } catch (err) {
+        console.log(err);
         res.status(500).end();
     }
 })
 
 
 /*** Get products By State and FarmerId ***/
-app.get('/api/products/:farmerId/:state', async (req, res) => {
+app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
 
+    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+    }
 
     productDao.listFarmerProd(req.params.farmerId, req.params.state)
         .then(products => res.json(products))
@@ -246,7 +256,12 @@ app.get('/api/products/:farmerId/:state', async (req, res) => {
 });
 
 // POST /api/product
-app.post('/api/product', async (req, res) => {
+app.post('/api/product', isLoggedIn, async (req, res) => {
+
+    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+    }
+
     const product = {
         Id: req.body.Id,
         FarmerId: req.body.FarmerId,
@@ -268,10 +283,15 @@ app.post('/api/product', async (req, res) => {
 
 
 // PUT /api/product/<State>/<Id>
-app.put('/api/product/:State/:Id', async (req, res) => {
+app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
 
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
+
+        if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+            return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+        }
+
         await productDao.updateProductState(req.params.State, req.params.Id);
         res.status(200).end();
     } catch (err) {
@@ -281,7 +301,12 @@ app.put('/api/product/:State/:Id', async (req, res) => {
 });
 
 // Upload Endpoint
-app.post('/upload', (req, res) => {
+app.post('/upload', isLoggedIn, (req, res) => {
+
+    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+    }
+
     if (req.files === null) {
         return res.status(400).json({ msg: 'No file uploaded' });
     }
@@ -303,8 +328,14 @@ app.post('/upload', (req, res) => {
 //****************************************************** */
 
 //****   Get all bookings ****//
-app.get('/api/bookings', async (req, res) => {
+app.get('/api/bookings', isLoggedIn, async (req, res) => {
     try {
+
+        if (![1, 2, 4, 5].includes(req.user.accessType)) { //Manager, Employee, Farmer, Deliverer
+            return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+        }
+
+
         const result = await orderDao.getOrders();
         if (result.error)
             res.status(404).json(result);
@@ -322,6 +353,12 @@ app.post('/api/booking', isLoggedIn, [
     check('totalPrice').isDecimal(),
     check('state').isInt()
 ], async (req, res) => {
+
+    if (![1, 2, 3].includes(req.user.accessType)) { //Manager, Employee, Client
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+    }
+
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -370,8 +407,13 @@ async function updateProductQUantity(quantity, productId) {
 /*** Get Booking With ID ***/
 app.put('/api/bookings/:id', [
     check('state').isInt({ min: 0, max: 2 }),
-], async (req, res) => {
-    console.log(req.body);
+], isLoggedIn, async (req, res) => {
+
+    if (![1, 2, 4].includes(req.user.accessType)) { //Manager, Employee and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+    }
+
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -392,17 +434,21 @@ app.put('/api/bookings/:id', [
 //****************************************************** */
 
 // POST /api/image
-app.post('/api/image', async (req, res) => {
+app.post('/api/image', isLoggedIn, async (req, res) => {
     const image = {
         id: req.body.id,
         path: req.body.path,
     };
 
+    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+    }
+
     try {
         await productDao.createImage(image);
         res.status(201).end();
-    } catch(err) {
-        res.status(503).json({error: `Database error during the creation of image.`});
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the creation of image.` });
     }
 });
 
@@ -411,6 +457,7 @@ app.post('/api/image', async (req, res) => {
 
 // Activate the server
 // Comment this app.listen function when testing
+
 app.listen(port, () => {
     console.log(`react-score-server listening at http://localhost:${port}`);
 });
