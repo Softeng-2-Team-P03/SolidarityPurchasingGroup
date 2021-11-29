@@ -325,6 +325,7 @@ Provide a short description for API with the required parameters, follow the pro
 ```
 { 
     "availableDate": "yyyy-mm-dd",
+    "Quantity":100
 }
 ``` 
 - Reponse: `200 OK` (success)
