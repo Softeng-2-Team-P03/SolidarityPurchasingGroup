@@ -1,29 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\__test__\Cart.test.js">
-        <testCase name="renders the cart button" duration="64"/>
-        <testCase name="clicking on cart button renders the cart modal as expected" duration="140"/>
-        <testCase name="the cart modal renders products as expected" duration="59"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\LoginComponents\__test__\LoginComponent.test.js">
-        <testCase name="renders the Login form as intended " duration="139"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\App.test.js">
-        <testCase name="renders learn react link" duration="229"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\NavBar\__test__\NavBar.test.js">
-        <testCase name="renders the NavBar " duration="151"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\HomePage\__test__\HomePage.test.js">
-        <testCase name="renders the HomePage " duration="157"/>
-        <testCase name="The icons on the sections sidebar hooks to different sections of the homepage when clicked" duration="127"/>
-        <testCase name="The Products button redirects you to the /products path" duration="52"/>
-        <testCase name="The Log In button redirects you to the /login path" duration="34"/>
-        <testCase name="The Register button redirects you to the /addClient path" duration="27"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\ClientList\__test__\AddClient.test.js">
-        <testCase name="renders the AddClient component with all it&apos;s input fields " duration="292"/>
-        <testCase name="All input fields work as ecxpected and are linked to their label and register button redirects you to root path" duration="397"/>
-        <testCase name="Error messages pops up when input is missing or wrong" duration="81"/>
+    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\client\src\Components\NavBar\__test__\NavBar.test.js">
+        <testCase name="renders the NavBar when not logged in" duration="368"/>
+        <testCase name="renders the NavBar when logged in as manager" duration="236"/>
+        <testCase name="renders the NavBar when logged in as employee" duration="217"/>
+        <testCase name="renders the NavBar when logged in as client" duration="253"/>
+        <testCase name="renders the NavBar when logged in as farmer" duration="156"/>
+        <testCase name="renders the NavBar when logged in as deliverer" duration="135"/>
     </file>
 </testExecutions>
