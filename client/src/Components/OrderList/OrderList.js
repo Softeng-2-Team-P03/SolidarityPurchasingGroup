@@ -2,9 +2,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderList.css';
 import bookingApi from '../../api/booking-api';
-import { Button, Form, Table } from "react-bootstrap";
+import { Form, Table } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
-//import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 import Order from './Order';
 
 
@@ -13,18 +12,11 @@ function OrderList(props) {
     const [orders, setOrders] = useState([]);
     const [searchOrders, setSearchOrders] = useState([]);
 
-    const [loadingProducts, setLoadingProducts] = useState(true);
-    const [errorLoading, setErrorLoading] = useState(''); //Error in loading orders
-
-
-
     useEffect(() => {
         bookingApi.getOrders().then((orders) => {
             setOrders(orders.map(order => ({ ...order})));
             setSearchOrders(orders.map(order => ({ ...order})));
-            setLoadingProducts(false);
         }).catch(err => {
-            setErrorLoading('Error during the loading of the orders')
             console.error(err);
         });
     }, [])

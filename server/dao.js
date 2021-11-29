@@ -22,9 +22,9 @@ exports.createClient = (client) => {
         }
         let pass= bcrypt.hashSync(client.password,10);
         const sql = 'INSERT INTO Users (Id, Password, Name, Surname, Email, PhoneNumber, AccessType, Wallet, Address) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)';
-        db.run(sql, [id, pass, client.name, client.surname, client.email, client.phoneNumber, client.accessType, 0.0, client.address], function (err) {
-          if (err) {
-            reject(err);
+        db.run(sql, [id, pass, client.name, client.surname, client.email, client.phoneNumber, client.accessType, 0.0, client.address], function (err1) {
+          if (err1) {
+            reject(err1);
             return;
           }
           resolve(id);
