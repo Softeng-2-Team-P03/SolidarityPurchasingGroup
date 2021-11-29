@@ -139,4 +139,4 @@ function OrderList(props) {
     );
 }
 
-export default OrderList;
+export  {OrderList, Order};
