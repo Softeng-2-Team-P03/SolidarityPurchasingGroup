@@ -3,7 +3,7 @@ import { Button, Table ,Modal} from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 import Order from '../OrderList/Order';
 
-function ModalClientOrderes(props) {
+function ModalClientOrders(props) {
 const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -75,4 +75,4 @@ const [show, setShow] = useState(false);
     </>
   );
 }
-  export default ModalClientOrderes; 
+  export default ModalClientOrders; 
