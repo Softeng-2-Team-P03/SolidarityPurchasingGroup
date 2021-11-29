@@ -18,7 +18,7 @@ function Cart(props) {
         </Button>
 
         <Modal data-testid="cartModal" show={show} onHide={close} scrollable>
-            <Modal.Header style={{ backgroundColor: "#6da8fd" }}>
+            <Modal.Header style={{ backgroundColor: "#afcbd6" }}>
                 <Col style={{ textAlign: "center" }}>
                     <Row>
                         <Col xs={15} md={11}>

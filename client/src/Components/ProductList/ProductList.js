@@ -26,7 +26,7 @@ function ProductList(props) {
     const [loadingProducts, setLoadingProducts] = useState(true);
     const [loadingTypes, setLoadingTypes] = useState(true);
     const [loadingConfirm, setLoadingConfirm] = useState(false);
-    const [errorConfirm, setErrorConfirm] = useState(''); 
+    const [errorConfirm, setErrorConfirm] = useState('');
     const [errorLoading, setErrorLoading] = useState(''); //Error in loading products/types
 
     function changeSearchText(text) {
@@ -158,39 +158,35 @@ function ProductList(props) {
             }))
         }
 
-        setLoadingConfirm(true);
         bookingApi.getWalletBalance()
-        .then((wallet) => {
-            setLoadingConfirm(false);
-            console.log("wallet");
-            console.log(wallet["Wallet"])
-            if (wallet["Wallet"] < cartInfo.totalPrice) {
-                setErrorConfirm("Your Booked is registred ,But Your wallet balance is not enough, Please increase");
-                setLoadingConfirm(false);
-                ConformForSuccessPage(booking,"Your Booked is registred ,But Your wallet balance is not enough, Please increase")
-            }
-            else
-            ConformForSuccessPage(booking,"")
-        }).catch(err => {
-            console.error(err);
-        });
-        
+            .then((wallet) => {
+                if (wallet["Wallet"] < cartInfo.totalPrice) {
+                    setErrorConfirm("Your booking will be registered but your wallet balance is not enough. Please, remember to top it up as soon as possible");
+                    ConfirmForSucessPage(booking, "Your booking is registered in the system but your wallet balance is not enough. Please, remember to top it up as soon as possible")
+                }
+                else {
+                    ConfirmForSucessPage(booking, "")
+                }
+            }).catch(err => {
+                console.error(err);
+            });
 
-      
+
+
     }
 
-    function ConformForSuccessPage(booking,error)
-    {
+    function ConfirmForSucessPage(booking, error) {
+        setLoadingConfirm(true);
         bookingApi.addBooking(booking)
-        .then((orderId) => {
-            setLoadingConfirm(false);
-            setCart([]);
-            setCartInfo({ numItems: 0, totalPrice: 0 });
-            setOrderConfirmed({ orderId: orderId, booking: booking,errorWallet:error });
-        }).catch(err => {
-            setErrorConfirm('Error during the confirmation of the order')
-            console.error(err);
-        });
+            .then((orderId) => {
+                setLoadingConfirm(false);
+                setCart([]);
+                setCartInfo({ numItems: 0, totalPrice: 0 });
+                setOrderConfirmed({ orderId: orderId, booking: booking, errorWallet: error });
+            }).catch(err => {
+                setErrorConfirm('Error during the confirmation of the order')
+                console.error(err);
+            });
     }
 
     function addProductToCart(newProduct) {
@@ -268,7 +264,7 @@ function ProductList(props) {
                         <h1 style={{ textAlign: "center" }}>Loading products... <Spinner animation="border" /></h1> :
                         <Row xs={2} md={5} className="g-4">
                             {searchProducts.map((x) =>
-                            // 
+                                // 
                                 <Product key={x.id} canShop={timeEnabled && canSeeCart}
                                     product={x} addProductToCart={addProductToCart}
                                     productInCart={cart.filter(product => product.id === x.id)[0] === undefined ? 0
@@ -284,7 +280,7 @@ function ProductList(props) {
                 <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart} changeQuantityFromInput={changeQuantityFromInput}
                     modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
                     errorConfirm={errorConfirm} userName={location.state && location.state.userName} />
-             : <></>}
+                : <></>}
         </>
     );
 }
