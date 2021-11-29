@@ -4,9 +4,15 @@
 import React from "react";
 const BASEURL = '/api';
 
-async function getAllProducts(date) {
+async function getProductsByType(category, date) {
     // call: GET /api/products/day/month/year
-    const response = await fetch(BASEURL + '/products/' + date);
+    let response;
+    if (category !== 0) {
+        response = await fetch(BASEURL + '/products/type/' + category + '/' + date);
+    }
+    else {
+        response = await fetch(BASEURL + '/products/' + date);
+    }
     const productsJson = await response.json();
     if (response.ok) {
         return productsJson;
@@ -38,15 +44,5 @@ async function getProductTypes() {
     }
 }
 
-async function getProductsByType(typeId,date) {
-    const response = await fetch(BASEURL + '/products/type/' + typeId + '/'+ date);
-    const productsJson = await response.json();
-    if (response.ok) {
-        return productsJson;
-    } else {
-        throw productsJson;
-    }
-}
-
-const API = { getAllProducts, getProducts, getProductTypes, getProductsByType };
+const API = { getProducts, getProductTypes, getProductsByType };
 export default API;

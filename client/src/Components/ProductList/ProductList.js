@@ -55,21 +55,21 @@ function ProductList(props) {
             }
         }
     }
-// function to create the right date format 
+    // function to create the right date format 
     const createDate = (time) => {
         const day = time.getDate();
         const month = time.getMonth() + 1;
         const year = time.getFullYear();
-        let date = year.toString()+"-";
+        let date = year.toString() + "-";
         if (month > 9) {
-            date+=month.toString()+"-"; 
+            date += month.toString() + "-";
         } else {
-            date+= "0"+month.toString()+"-";
+            date += "0" + month.toString() + "-";
         }
         if (day > 9) {
-            date+=day.toString(); 
+            date += day.toString();
         } else {
-            date+= "0"+day.toString();
+            date += "0" + day.toString();
         }
         return date;
     }
@@ -94,29 +94,7 @@ function ProductList(props) {
         return () => clearInterval(id);
     }, [])
 
-    useEffect(() => {
-        let time = new Date(localStorage.getItem('virtualDate'));
-        let date = createDate(time);
-
-        productApi.getAllProducts(date).then((products) => { //NOSONAR
-            setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-            setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-            setLoadingProducts(false);
-            productApi.getProductTypes().then((types) => {//NOSONAR
-                setTypes(types);
-                setLoadingTypes(false);
-                setErrorLoading('');
-            }).catch(err => {
-                setErrorLoading('Error during the loading of the types')
-                console.error(err);
-            })
-        }).catch(err => {
-            setErrorLoading('Error during the loading of the products')
-            console.error(err);
-        });
-    }, [])
-
-    function setProductsLoaded(products){ //NOSONAR
+    function setProductsLoaded(products) { //NOSONAR
         setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
         setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
         setLoadingProducts(false);
@@ -125,26 +103,27 @@ function ProductList(props) {
 
     useEffect(() => {
         let time = new Date(localStorage.getItem('virtualDate'));
-        let date= createDate(time);
-        if (category !== 0) {
-            setLoadingProducts(true);
-            productApi.getProductsByType(category,date).then((products) => { //NOSONAR
-                setProductsLoaded(products);
-            }).catch(err => {
-                setErrorLoading('Error during the loading of the products')
-                console.error(err);
-            })
-        }
-        else {
-            setLoadingProducts(true);
-            productApi.getAllProducts(date).then((products) => {//NOSONAR
-                setProductsLoaded(products);
-            }).catch(err => {
-                setErrorLoading('Error during the loading of the products')
-                console.error(err);
-            })
-        }
-    }, [category])
+        let date = createDate(time);
+
+        setLoadingProducts(true);
+        productApi.getProductsByType(category, date).then((products) => { //NOSONAR
+            setProductsLoaded(products);
+            if (loadingTypes === true) { //Only first time opening the page
+                productApi.getProductTypes().then((types) => {//NOSONAR
+                    setTypes(types);
+                    setLoadingTypes(false);
+                    setErrorLoading('');
+                }).catch(err => {
+                    setErrorLoading('Error during the loading of the types')
+                    console.error(err);
+                })
+
+            }
+        }).catch(err => {
+            setErrorLoading('Error during the loading of the products')
+            console.error(err);
+        })
+    }, [category, localStorage.getItem("virtualDateToString")])
 
     useEffect(() => {
         if (dirtyInfo === true) {
@@ -180,18 +159,18 @@ function ProductList(props) {
 
         setLoadingConfirm(true);
         bookingApi.getWalletBalance()
-        .then((wallet) => {
-            setLoadingConfirm(false);
-            console.log("wallet");
-            console.log(wallet["Wallet"])
-            if (wallet["Wallet"] < cartInfo.totalPrice) {
-                setErrorConfirm('Your Booked is registred ,But Your wallet balance is not enough, Please increase');
+            .then((wallet) => {
                 setLoadingConfirm(false);
-            }
-        }).catch(err => {
-            console.error(err);
-        });
-        
+                console.log("wallet");
+                console.log(wallet["Wallet"])
+                if (wallet["Wallet"] < cartInfo.totalPrice) {
+                    setErrorConfirm('Your Booked is registred ,But Your wallet balance is not enough, Please increase');
+                    setLoadingConfirm(false);
+                }
+            }).catch(err => {
+                console.error(err);
+            });
+
         bookingApi.addBooking(booking)
             .then((orderId) => {
                 setLoadingConfirm(false);
@@ -230,7 +209,7 @@ function ProductList(props) {
 
     const modifyProductInCart = (modifyId, addQuantity, type) => {
         if (type === 1) {
-            const newQuantity = Number.parseInt(cart.filter(product => product.id === modifyId)[0].selectedQuantity) +Number.parseInt( addQuantity);
+            const newQuantity = Number.parseInt(cart.filter(product => product.id === modifyId)[0].selectedQuantity) + Number.parseInt(addQuantity);
             if (newQuantity === 0) {
                 deleteProductFromCart(modifyId);
             }
@@ -239,7 +218,7 @@ function ProductList(props) {
             }
         }
         else {
-        setCart(oldCart => oldCart.map(product => product.id === modifyId ? { ...product, selectedQuantity:   Number.parseInt(  addQuantity) } : product));
+            setCart(oldCart => oldCart.map(product => product.id === modifyId ? { ...product, selectedQuantity: Number.parseInt(addQuantity) } : product));
         }
         setDirtyInfo(true);
     }
@@ -248,7 +227,7 @@ function ProductList(props) {
         if (newQuantity === 0) {
             deleteProductFromCart(modifyId);
         }
-        else{
+        else {
             setCart(oldCart => oldCart.map(product => product.id === modifyId ? { ...product, selectedQuantity: newQuantity } : product));
 
         }
