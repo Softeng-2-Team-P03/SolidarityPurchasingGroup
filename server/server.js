@@ -329,8 +329,6 @@ app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
-    const product = req.body;
-
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
         await productDao.updateProductState(req.params.State, req.params.Id);

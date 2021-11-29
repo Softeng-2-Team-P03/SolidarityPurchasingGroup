@@ -80,7 +80,7 @@ exports.getOrders = () => {
 exports.getOrdersByUserId = (userId) => {
   return new Promise((resolve, reject) => {
       const sql = 'SELECT Bookings.*, Users.Name, Users.Surname FROM Bookings,Users Where UserId=? And Bookings.UserId=Users.Id';
-      db.all(sql, [userId], (err, rows) => {
+      db.all(sql, [userId], (err, rows) => { //NOSONAR
           if (err) {
               reject(err);
               return;

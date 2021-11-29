@@ -98,11 +98,11 @@ function ProductList(props) {
         let time = new Date(localStorage.getItem('virtualDate'));
         let date = createDate(time);
 
-        productApi.getAllProducts(date).then((products) => {
+        productApi.getAllProducts(date).then((products) => { //NOSONAR
             setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
             setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
             setLoadingProducts(false);
-            productApi.getProductTypes().then((types) => {
+            productApi.getProductTypes().then((types) => {//NOSONAR
                 setTypes(types);
                 setLoadingTypes(false);
                 setErrorLoading('');
@@ -116,16 +116,20 @@ function ProductList(props) {
         });
     }, [])
 
+    function setProductsLoaded(products){ //NOSONAR
+        setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+        setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
+        setLoadingProducts(false);
+        setErrorLoading('');
+    }
+
     useEffect(() => {
         let time = new Date(localStorage.getItem('virtualDate'));
         let date= createDate(time);
         if (category !== 0) {
             setLoadingProducts(true);
-            productApi.getProductsByType(category,date).then((products) => {
-                setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-                setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-                setLoadingProducts(false);
-                setErrorLoading('');
+            productApi.getProductsByType(category,date).then((products) => { //NOSONAR
+                setProductsLoaded(products);
             }).catch(err => {
                 setErrorLoading('Error during the loading of the products')
                 console.error(err);
@@ -133,11 +137,8 @@ function ProductList(props) {
         }
         else {
             setLoadingProducts(true);
-            productApi.getAllProducts(date).then((products) => {
-                setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-                setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
-                setLoadingProducts(false);
-                setErrorLoading('');
+            productApi.getAllProducts(date).then((products) => {//NOSONAR
+                setProductsLoaded(products);
             }).catch(err => {
                 setErrorLoading('Error during the loading of the products')
                 console.error(err);
@@ -183,13 +184,9 @@ function ProductList(props) {
             setLoadingConfirm(false);
             console.log("wallet");
             console.log(wallet["Wallet"])
-            if (wallet["Wallet"] >= cartInfo.totalPrice) {
-
-            }
-            else {
+            if (wallet["Wallet"] < cartInfo.totalPrice) {
                 setErrorConfirm('Your Booked is registred ,But Your wallet balance is not enough, Please increase');
                 setLoadingConfirm(false);
-
             }
         }).catch(err => {
             console.error(err);
@@ -248,7 +245,6 @@ function ProductList(props) {
     }
 
     const changeQuantityFromInput = (modifyId, newQuantity) => {
-        // const newQuantity = cart.filter(product => product.id === modifyId)[0].selectedQuantity + addQuantity;
         if (newQuantity === 0) {
             deleteProductFromCart(modifyId);
         }
