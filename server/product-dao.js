@@ -208,3 +208,15 @@ exports.createImage = (image) => {
         });
     });
 };
+exports.updateAvailbeleDate = (availableDate,Quantity, Id) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'UPDATE Products SET AvailableDate=? , Quantity=? WHERE Id =? ';
+        db.run(sql, [availableDate,Quantity, Id], function (err) {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve();
+        });
+    });
+};

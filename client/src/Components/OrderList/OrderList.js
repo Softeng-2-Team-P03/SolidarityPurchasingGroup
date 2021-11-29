@@ -72,7 +72,6 @@ function OrderList(props) {
             setLoadingOrders(false);
             setErrorLoading('');
         }).catch(err => {
-            setErrorLoading('Error during the loading of the orders')
             console.error(err);
         });
     }, [])
@@ -83,7 +82,11 @@ function OrderList(props) {
             console.log(order.UserId);
             if (order.UserId == text.toLowerCase() || text === "") c.push(order);
         })
-
+        
+        if (c.length==0)
+        {
+            c = orders.filter(function (order) { return order.UserName.toLowerCase().includes(text.toLowerCase()); });
+        }
         setSearchOrders(c);
     }
 

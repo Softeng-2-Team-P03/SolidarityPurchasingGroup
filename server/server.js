@@ -163,6 +163,46 @@ app.get('/api/clients', isLoggedIn, async (req, res) => {
     }
 });
 
+
+//**** Get Get Wallet Balance ****//
+app.get('/api/clients/getWallet', isLoggedIn, async (req, res) => {
+    try {
+        const result = await userDao.getWalletBalance(req.user.id);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+});
+//**** Get Get Wallet Balance ****//
+app.get('/api/clients/riquredCharge', isLoggedIn, async (req, res) => {
+    try {
+        const result = await userDao.getRequiredCharge(req.user.id);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+});
+
+//**** Get Get Wallet Balance For A booking with booking Id ****//
+app.get('/api/clients/getRequiredChargeByBookingId', isLoggedIn, async (req, res) => {
+    try {
+        const result = await userDao.getRequiredChargeByBookingId(req.user.id,req.query.bookingId);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+});
+
+
 //****************************************************** */
 //                Products API
 //****************************************************** */
@@ -288,8 +328,6 @@ app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
-    const product = req.body;
-
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
         await productDao.updateProductState(req.params.State, req.params.Id);
@@ -299,7 +337,15 @@ app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
     }
 
 });
+app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) => {
+    try {
+        await productDao.updateAvailbeleDate(req.body.availableDate,req.body.Quantity, req.params.Id);
+        res.status(200).end();
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the update of Available Product.` });
+    }
 
+});
 // Upload Endpoint
 app.post('/upload', isLoggedIn, (req, res) => {
 
@@ -455,7 +501,18 @@ app.post('/api/image', isLoggedIn, async (req, res) => {
 
 // Activate the server
 // Comment this app.listen function when testing
+app.get('/api/users/:id/bookings', async (req, res) => {
+    try {
+        const result = await orderDao.getOrdersByUserId(req.params.id);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
 
+});
 app.listen(port, () => {
     console.log(`react-score-server listening at http://localhost:${port}`);
 });

@@ -1,6 +1,7 @@
 'use strict';
 const db = require('./db');
 const bcrypt = require('bcrypt');
+const { log } = require('npmlog');
 // const db =;
 // ----------->  <---------------
 
@@ -121,5 +122,52 @@ exports.getUser = (email, password) => {
           });
         }
     });
+  });
+};
+exports.getWalletBalance = (id) => {
+  console.log("getWalletBalance");
+  return new Promise(async (resolve, reject) => {
+      var sqlQuery = 'SELECT Wallet From Users where Id=?';
+      db.all(sqlQuery, [id], (err, rows) => {
+          if (err) {
+              reject(err);
+              return;
+          }
+          console.log(rows[0])
+          resolve(rows[0]);
+      });
+
+  });
+};
+
+// ----------->  <---------------
+exports.getRequiredCharge = (id) => {
+  return new Promise(async (resolve, reject) => {
+      var sqlQuery = 'select Sum(TotalPrice) as TotalPrice from Bookings where UserId=? and State=1';
+      db.all(sqlQuery,[id], (err, rows) => {
+          if (err) {
+            console.log(err)
+              reject(err);
+              return;
+          }
+          if (rows[0]["TotalPrice"]==null)
+          rows[0]["TotalPrice"]=0
+          resolve(rows[0]);
+      });
+
+  });
+};
+// ----------->  <---------------
+exports.getRequiredChargeByBookingId = (userId,id) => {
+  return new Promise(async (resolve, reject) => {
+      var sqlQuery = 'select (Users.Wallet - Bookings.TotalPrice)as TotalPrice from Bookings,Users where Bookings.UserId=? and Bookings.Id=? AND Users.Id=?';
+      db.all(sqlQuery, [userId,id,userId], (err, rows) => {
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve(rows[0]);
+      });
+
   });
 };

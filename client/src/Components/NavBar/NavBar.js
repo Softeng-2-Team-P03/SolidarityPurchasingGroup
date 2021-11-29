@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
-import { Nav, Navbar,Table } from "react-bootstrap";
+import { Nav, Navbar, Table } from "react-bootstrap";
 import { showTime } from './clock.js'
 
 var hourMultiplier = 0;
@@ -31,42 +31,42 @@ function NavBar(props) {
 
   return (
     <div>
-        <Navbar bg="primary" variant="dark" expand="lg">
-         
-            <Navbar.Brand href="/" className="col-md-4">
-              <img
-                src={spg}
-                width="30"
-                height="30"
-                className="d-inline-block align-top"
-                alt="SPG"
-              /> SPG
-            </Navbar.Brand>
-          
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-           
-            <Navbar.Collapse id="basic-navbar-nav">
-              <div className="col-md-6"> 
-        
-            </div>
-            <Nav className="me-auto " />
+      <Navbar bg="primary" variant="dark" expand="lg">
+
+        <Navbar.Brand href="/" className="col-md-2">
+          <img
+            src={spg}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+            alt="SPG"
+          /> SPG
+        </Navbar.Brand>
+
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+        <Navbar.Collapse id="basic-navbar-nav">
+          <div className="col-md-6">
+
+          </div>
+          <Nav className="me-auto " />
           {props.loggedIn && props.user !== undefined && chooseNavbar(props.user.accessType)}
           <Nav>
             {props.loggedIn ?
-              <Nav.Link onClick={() => props.userLogoutCallback()}>Logout</Nav.Link> :
+              <Nav.Link onClick={() => { window.location.href = 'http://localhost:3000/'; props.userLogoutCallback() }}>Logout</Nav.Link> :
               <Nav.Link href='/login'>Login</Nav.Link>
             }
           </Nav>
-            </Navbar.Collapse>
-        </Navbar>
-    <div class="timer">
-    <div className="me-auto"> 
-      <Nav className="me-auto " >
-      <ShowClock />
-      </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <div class="timer">
+        <div className="me-auto">
+          <Nav className="me-auto " >
+            <ShowClock />
+          </Nav>
+        </div>
       </div>
-      </div>
-      </div>
+    </div>
   );
 }
 
@@ -222,12 +222,12 @@ function ShowClock() {
           <tr>
             <td>
               <div className="glow">
-              <span id='incrementDay' className="buttonArrow" onClick={setDayPlus}>〈</span>
-              <span className="timer-box">
-                <span id="dayName" className="day-name" /> 
-                <span id="day" />/<span  id="month" />/<span  id="year" />
-              </span>
-              <span id='decrementDay' className="buttonArrow" onClick={setDayMinus}>〉</span>
+                <span id='decrementDay' className="buttonArrow" onClick={setDayMinus}>〈</span>
+                <span className="timer-box">
+                  <span id="dayName" className="day-name" />
+                  <span id="day" />/<span id="month" />/<span id="year" />
+                </span>
+                <span id='incrementDay' className="buttonArrow" onClick={setDayPlus}>〉</span>
               </div>
             </td>
             <td>
