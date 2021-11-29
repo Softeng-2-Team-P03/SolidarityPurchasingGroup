@@ -11,7 +11,7 @@
  - once you're done with that, i suggest to install also the **Visual Studio Code Docker extension**.
   
 ### How to run docker compose
- - The `"proxy": "http://localhost:3001"` line into **client/package.json** it's been substituted "localhost" with "proxy": `"http://backend:3001"` in the **client/package-docker.json file**. in fact this is the file the Dockerfile is instructed to use as the "package.json" of the containerized app. so, **if you change something on the package.json file you also have to change it into package-docker.json** in order for it to have effect into the docker image.
+ - The `"proxy": "http://localhost:3001"` line into **client/package.json** it had "localhost" substituted  with "backend" resulting in `"proxy": "http://backend:3001"` in the **client/package-docker.json file**. in fact this is the file the Dockerfile is instructed to use as the "package.json" of the containerized app. so, **if you change something on the package.json file you also have to change it into package-docker.json** in order for it to have effect into the docker image.
  - now delete your `node_modules` folder and the `package-lock.json` file and then run `npm install` to rebuild them
  - Open a terminal in the root of the project ( your_directory\SolidarityPurchasingGroup> ) and run the command `docker-compose up --build`, it's going to take a while
    - PS: Make sure to have docker running in your computer!
