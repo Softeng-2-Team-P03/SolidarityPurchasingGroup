@@ -110,6 +110,7 @@ function FarmerNavbar() {
     <Nav>
       <Nav.Link>Clients</Nav.Link>
       <Nav.Link>Orders</Nav.Link>
+      <Nav.Link href='/FarmerHome'>FarmerHome</Nav.Link>
     </Nav>
   );
 }
