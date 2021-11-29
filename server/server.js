@@ -175,7 +175,6 @@ app.get('/api/clients/getWallet', isLoggedIn, async (req, res) => {
     } catch (err) {
         res.status(500).end();
     }
-    //console.log(res);
 });
 //**** Get Get Wallet Balance ****//
 app.get('/api/clients/riquredCharge', isLoggedIn, async (req, res) => {
@@ -193,7 +192,6 @@ app.get('/api/clients/riquredCharge', isLoggedIn, async (req, res) => {
     } catch (err) {
         res.status(500).end();
     }
-    //console.log(res);
 });
 
 //**** Get Get Wallet Balance For A booking with booking Id ****//
@@ -208,7 +206,6 @@ app.get('/api/clients/getRequiredChargeByBookingId', isLoggedIn, async (req, res
     } catch (err) {
         res.status(500).end();
     }
-    //console.log(res);
 });
 
 
@@ -336,8 +333,6 @@ app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
     if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
-
-    const product = req.body;
 
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
