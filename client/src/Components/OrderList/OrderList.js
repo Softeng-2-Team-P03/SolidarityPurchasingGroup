@@ -11,16 +11,37 @@ function Order(props) {
 
     const [isHandedOut, setIsHandedOut] = useState("click to hand it out");
     const [timeEnabled, setTimeEnabled] = useState(false);
+    const [statusUpdated, setStatusUpdated] = useState();
+    const [handedOut, setHandedOut] = useState(false);
 
     const checkDate = () => {
         let time = new Date(localStorage.getItem('virtualDate'));
         const day = time.getDay();
         const hour = time.getHours();
-        console.log("day "+day +" hour "+hour)
-        if (day >= 3 && hour >= 8 && hour<=19 && day<= 5 ) 
+        if (day >= 3 && hour >= 8 && hour <= 19 && day <= 5)
             setTimeEnabled(true);
         else
             setTimeEnabled(false);
+    }
+
+    const updateBookingState = (bookingId) => {
+        setStatusUpdated("Updating order...");
+        let newState;
+        switch (handedOut) { 
+            case false : 
+                newState = 2;
+                setHandedOut(true);
+            break;
+            case true : 
+                newState = 0;
+                setHandedOut(false);
+            break;
+            default :newState=0;
+        }
+        bookingApi.updateBookingState(bookingId, newState).then(() => {
+            setStatusUpdated("Order status updated");
+        }
+        ).catch(err => setStatusUpdated("Can't update the Order status"));
     }
 
     useEffect(() => {
@@ -28,7 +49,7 @@ function Order(props) {
         checkDate();
         return () => clearInterval(id);
     }, [])
-    
+
     return (
         <>
             <tr>
@@ -38,19 +59,19 @@ function Order(props) {
                 <td>{props.order.State}</td>
                 {props.order.PickupTime ? <td> {props.order.PickupTime} </td> : <td> {props.order.DeliveryTime} </td>}
                 <td>{props.order.TotalPrice}</td>
-                
-                {console.log(timeEnabled)}
+
                 {timeEnabled ? <td ><Form.Check
                     type="switch"
                     id="custom-switch"
                     label={isHandedOut}
-                    onClick={() => { isHandedOut === "click to hand it out" ? setIsHandedOut("Handed out") : setIsHandedOut("click to hand it out") }}
-                /></td> : <td ><Form.Check
-                type="switch"
-                id="custom-switch"
-                label={isHandedOut}
-                disabled
-            /></td>}
+                    onClick={(ev) => updateBookingState(props.order.BookingId)}
+                /> <div style={statusUpdated==="Updating order..." ? {color : "#FFA900" }:{color : "#00B74A" }}>{statusUpdated}</div>
+                </td> : <td ><Form.Check
+                    type="switch"
+                    id="custom-switch"
+                    label={isHandedOut}
+                    disabled
+                /> </td>}
             </tr>
         </>
     );
@@ -70,8 +91,8 @@ function OrderList(props) {
 
     useEffect(() => {
         bookingApi.getOrders().then((orders) => {
-            setOrders(orders.map(order => ({ ...order})));
-            setSearchOrders(orders.map(order => ({ ...order})));
+            setOrders(orders.map(order => ({ ...order })));
+            setSearchOrders(orders.map(order => ({ ...order })));
             setLoadingProducts(false);
         }).catch(err => {
             setErrorLoading('Error during the loading of the orders')
