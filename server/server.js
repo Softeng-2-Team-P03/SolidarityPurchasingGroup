@@ -179,12 +179,7 @@ app.get('/api/clients/getWallet', isLoggedIn, async (req, res) => {
 //**** Get Get Wallet Balance ****//
 app.get('/api/clients/riquredCharge', isLoggedIn, async (req, res) => {
     try {
-        console.log("userIdddddddd:"+req.user.id)
-        
         const result = await userDao.getRequiredCharge(req.user.id);
-        conosole.log(result)   
-        console.log("yyyyyyyyyyyyy");
-        console.log(result)
         if (result.error)
             res.status(404).json(result);
         else

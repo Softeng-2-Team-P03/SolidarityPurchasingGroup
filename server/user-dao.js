@@ -142,19 +142,16 @@ exports.getWalletBalance = (id) => {
 
 // ----------->  <---------------
 exports.getRequiredCharge = (id) => {
-  console.log("ddddddddddd")
   return new Promise(async (resolve, reject) => {
       var sqlQuery = 'select Sum(TotalPrice) as TotalPrice from Bookings where UserId=? and State=1';
       db.all(sqlQuery,[id], (err, rows) => {
           if (err) {
-            console.log("xxxxxxxxx");
             console.log(err)
               reject(err);
               return;
           }
-          console.log("xxxxxxxxx");
           if (rows[0]["TotalPrice"]==null)
-            rows[0]["TotalPrice"]=0
+          rows[0]["TotalPrice"]=0
           resolve(rows[0]);
       });
 
