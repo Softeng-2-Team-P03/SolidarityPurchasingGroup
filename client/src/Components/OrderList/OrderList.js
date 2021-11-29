@@ -2,13 +2,17 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderList.css';
 import bookingApi from '../../api/booking-api';
-import { Form, Table,Button,Spinner } from "react-bootstrap";
+import { Button, Form, Table } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
+//import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
+
 
 function Order(props) {
 
     const [isHandedOut, setIsHandedOut] = useState("click to hand it out");
     const [timeEnabled, setTimeEnabled] = useState(false);
+    const [statusUpdated, setStatusUpdated] = useState();
+    const [handedOut, setHandedOut] = useState(false);
 
     const checkDate = () => {
         let time = new Date(localStorage.getItem('virtualDate'));
@@ -18,6 +22,26 @@ function Order(props) {
             setTimeEnabled(true);
         else
             setTimeEnabled(false);
+    }
+
+    const updateBookingState = (bookingId) => {
+        setStatusUpdated("Updating order...");
+        let newState;
+        switch (handedOut) { 
+            case false : 
+                newState = 2;
+                setHandedOut(true);
+            break;
+            case true : 
+                newState = 0;
+                setHandedOut(false);
+            break;
+            default :newState=0;
+        }
+        bookingApi.updateBookingState(bookingId, newState).then(() => {
+            setStatusUpdated("Order status updated");
+        }
+        ).catch(err => setStatusUpdated("Can't update the Order status"));
     }
 
     useEffect(() => {
@@ -35,17 +59,19 @@ function Order(props) {
                 <td>{props.order.State}</td>
                 {props.order.PickupTime ? <td> {props.order.PickupTime} </td> : <td> {props.order.DeliveryTime} </td>}
                 <td>{props.order.TotalPrice}</td>
+
                 {timeEnabled ? <td ><Form.Check
                     type="switch"
                     id="custom-switch"
                     label={isHandedOut}
-                    onClick={() => { isHandedOut === "click to hand it out" ? setIsHandedOut("Handed out") : setIsHandedOut("click to hand it out") }}
-                /></td> : <td ><Form.Check
+                    onClick={(ev) => updateBookingState(props.order.BookingId)}
+                /> <div style={statusUpdated==="Updating order..." ? {color : "#FFA900" }:{color : "#00B74A" }}>{statusUpdated}</div>
+                </td> : <td ><Form.Check
                     type="switch"
                     id="custom-switch"
                     label={isHandedOut}
                     disabled
-                /></td>}
+                /> </td>}
             </tr>
         </>
     );
@@ -57,19 +83,8 @@ function OrderList(props) {
 
     const [orders, setOrders] = useState([]);
     const [searchOrders, setSearchOrders] = useState([]);
-    const [pendingOrders, setPendingOrders] = useState([]);
-    const [isPending, setIsPending] = useState(false);
 
-    useEffect(() => {
-        bookingApi.getOrders().then((orders) => {
-            setPendingOrders(orders.flatMap(order => order.State===1 ? {...order} : []));
-            console.log(pendingOrders);
-        }).catch(err => {
-            console.error(err);
-        });
-    }, [])
-
-    const [loadingOrders, setLoadingOrders] = useState(true);
+    const [loadingProducts, setLoadingProducts] = useState(true);
     const [errorLoading, setErrorLoading] = useState(''); //Error in loading orders
 
 
@@ -78,9 +93,9 @@ function OrderList(props) {
         bookingApi.getOrders().then((orders) => {
             setOrders(orders.map(order => ({ ...order })));
             setSearchOrders(orders.map(order => ({ ...order })));
-            setLoadingOrders(false);
-            setErrorLoading('');
+            setLoadingProducts(false);
         }).catch(err => {
+            setErrorLoading('Error during the loading of the orders')
             console.error(err);
         });
     }, [])
@@ -91,53 +106,37 @@ function OrderList(props) {
             console.log(order.UserId);
             if (order.UserId == text.toLowerCase() || text === "") c.push(order);
         })
-        
-        if (c.length==0)
-        {
-            c = orders.filter(function (order) { return order.UserName.toLowerCase().includes(text.toLowerCase()); });
-        }
+
         setSearchOrders(c);
     }
 
     return (
         <>
             <Form.Control type="text" className="searchB" placeholder="Search order" onChange={x => changeSearchText(x.target.value)} />
-            <div  align="center">{isPending ?<Button className='pending' onClick={() =>{setIsPending(false)}}>Show All Orders</Button> :<Button className='pending' onClick={() =>{setIsPending(true)}}>Show Only Pending Orders</Button>}</div>
-            {loadingOrders ? <h1 style={{ textAlign: "center" }}>Loading orders... <Spinner animation="border" /></h1>
-                :
-                <Table data-testid="tableOrders" responsive striped bordered hover className="ordersTable">
-                    <thead>
-                        <tr>
-                            <th>OrderID</th>
-                            <th>UserId</th>
-                            <th>Booking Issue Date </th>
-                            <th>State</th>
-                            <th>Scheduled Date</th>
-                            <th>Total price</th>
-                            <th>Handed out</th>
-                            <th width="13%"></th>
-                        </tr>
-                    </thead>
-                    {isPending ? 
+            <Table responsive striped bordered hover className="ordersTable">
+                <thead>
+                    <tr>
+                        <th>OrderID</th>
+                        <th>UserId</th>
+                        <th>Booking Issue Date </th>
+                        <th>State</th>
+                        <th>Scheduled Date</th>
+                        <th>Total price</th>
+                        <th>Handed out</th>
+
+                        <th width="13%"></th>
+                    </tr>
+                </thead>
                 <tbody> {
-                    pendingOrders.map((or) =>
-                        <Order key={or.BookingID}
-                            order={or}
-                        />)
-                }
-                </tbody>
-                : <tbody> {
                     searchOrders.map((or) =>
                         <Order key={or.BookingID}
                             order={or}
                         />)
                 }
-                </tbody>}
-                </Table>
-            }
-            <h2 style={{ textAlign: "center", color: "red" }}>{errorLoading}</h2>
+                </tbody>
+            </Table>
         </>
     );
 }
 
-export {OrderList, Order};
+export default OrderList;

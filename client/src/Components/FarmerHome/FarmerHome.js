@@ -23,7 +23,9 @@ function FarmerHome() {
     const [productsSell, setProductsSell] = useState([]);
     let user;
     const [farmer, setFarmer] = useState([]);
-
+    const [timeToString, setTimeToString] = useState(localStorage.getItem('virtualDateToString'));
+    const [timeAddEdit, setTimeAddEdit] = useState(false);
+    const [timeConfirm, setTimeConfirm] = useState(false);
 
 
     useEffect(() => {
@@ -50,8 +52,7 @@ function FarmerHome() {
         };
     }, [confirm,dirty]);
 
-
-
+    
 
     const handleClose = () => {
         setShow(false);
@@ -60,6 +61,33 @@ function FarmerHome() {
     const handleCloseEdit = () => {
         setEdit(false);
     }
+
+    const checkDate = () => {
+        let time = new Date(localStorage.getItem('virtualDate'));
+        setTimeToString(localStorage.getItem('virtualDateToString'));
+        const day = time.getDay();
+        const hour = time.getHours();
+        if (((day === 1 && hour >= 9) || (day>=2 && day<=5) || (day===6 && hour<9))) {
+            setTimeAddEdit(true);
+        }
+        else{
+            setTimeAddEdit(false);
+        }
+        if((day === 6 && hour >=9)  || day===0 || (day===1 && hour<9)){
+            setTimeConfirm(true);
+        }
+        else{
+            
+            setTimeConfirm(false);
+         
+        }
+    }
+
+    useEffect(() => {
+        const id = setInterval(checkDate, 1000);
+        checkDate();
+        return () => clearInterval(id);
+    }, [])
 
 
         return (
@@ -105,7 +133,7 @@ function FarmerHome() {
                                     <Col md="2"><h4 className="textP">{x.Name}</h4></Col>
                                     <Col md="2"><h4 className="textP">QTY:{x.Quantity}</h4></Col>
                                     <Col md="2"><h6 className="toConf" color="red">to confirm</h6></Col>
-                                    <Col md="2"><Button className="buttonEdit" variant="secondary" onClick={() => {
+                                    <Col md="2">{ timeAddEdit ?  <Button className="buttonEdit" variant="secondary" onClick={() => {
                                         setEdit(true);
                                         setProductToEdit(x);
                                     }
@@ -115,14 +143,14 @@ function FarmerHome() {
                                             <path
                                                 d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                         </svg>
-                                        Edit Product</Button></Col>
-                                    <Col md="2"><Button className="buttonConfirm" variant="success" onClick={() => {
+                                        Edit Product</Button> : <></>}</Col>
+                                    <Col md="2">{timeConfirm ? <Button className="buttonConfirm" variant="success" onClick={() => {
                                         API.updateProductState(1, x.Id).catch(err => console.log(err));
                                         setConfirm(false);
 
 
 
-                                    }}>Confirm</Button></Col>
+                                    }}>Confirm</Button> : <></>}</Col>
 
                                 </Row>
                             </ListGroup.Item>
@@ -170,7 +198,7 @@ function FarmerHome() {
                     }
 
                 </Alert>
-                <Button className="addP" variant="primary" onClick={() => setShow(true)}>Add product</Button>
+                {timeAddEdit ? <Button className="addP" variant="primary" onClick={() => setShow(true)}>Add product</Button> : <></>}
             </>
 
         )

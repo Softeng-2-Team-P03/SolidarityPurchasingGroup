@@ -46,14 +46,14 @@ function addBooking(booking) {
   })
 }
 
-function updateBookingState(booking) {
+function updateBookingState(id, state) {
   return new Promise((resolve, reject) => {
-    fetch(BASEURL + '/bookings/' + booking.id, {
+    fetch(BASEURL + '/bookings/' + id, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ state: booking.state }),
+      body: JSON.stringify({ state : state }), 
     }).then((response) => {
       if (response.ok) {
         resolve(null);

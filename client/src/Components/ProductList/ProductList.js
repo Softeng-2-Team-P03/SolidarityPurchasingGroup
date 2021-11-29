@@ -23,12 +23,10 @@ function ProductList(props) {
     const [canSeeCart, setCanSeeCart] = useState(false);
     const [timeEnabled, setTimeEnabled] = useState(false);
     const [orderConfirmed, setOrderConfirmed] = useState(undefined);
-
     const [loadingProducts, setLoadingProducts] = useState(true);
     const [loadingTypes, setLoadingTypes] = useState(true);
     const [loadingConfirm, setLoadingConfirm] = useState(false);
-
-    const [errorConfirm, setErrorConfirm] = useState(''); //Error in submitting order
+    const [errorConfirm, setErrorConfirm] = useState(''); 
     const [errorLoading, setErrorLoading] = useState(''); //Error in loading products/types
 
     function changeSearchText(text) {
@@ -162,25 +160,26 @@ function ProductList(props) {
 
         setLoadingConfirm(true);
         bookingApi.getWalletBalance()
-            .then((wallet) => {
+        .then((wallet) => {
+            setLoadingConfirm(false);
+            console.log("wallet");
+            console.log(wallet["Wallet"])
+            if (wallet["Wallet"] < cartInfo.totalPrice) {
+                setErrorConfirm("Your Booked is registred ,But Your wallet balance is not enough, Please increase");
                 setLoadingConfirm(false);
-                console.log("wallet");
-                console.log(wallet["Wallet"])
-                if (wallet["Wallet"] < cartInfo.totalPrice) {
-                    setErrorConfirm('Your Booked is registred ,But Your wallet balance is not enough, Please increase');
-                    setLoadingConfirm(false);
-                }
-            }).catch(err => {
-                console.error(err);
-            });
+                console.log(errorConfirm)
+            }
+        }).catch(err => {
+            console.error(err);
+        });
+        
 
         bookingApi.addBooking(booking)
             .then((orderId) => {
                 setLoadingConfirm(false);
                 setCart([]);
                 setCartInfo({ numItems: 0, totalPrice: 0 });
-                setErrorConfirm('');
-                setOrderConfirmed({ orderId: orderId, booking: booking });
+                setOrderConfirmed({ orderId: orderId, booking: booking,errorWallet:errorConfirm });
             }).catch(err => {
                 setErrorConfirm('Error during the confirmation of the order')
                 console.error(err);
@@ -277,7 +276,7 @@ function ProductList(props) {
                 <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart} changeQuantityFromInput={changeQuantityFromInput}
                     modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
                     errorConfirm={errorConfirm} userName={location.state && location.state.userName} />
-                : <></>}
+             : <></>}
         </>
     );
 }
