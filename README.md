@@ -328,6 +328,8 @@ Provide a short description for API with the required parameters, follow the pro
 | "Quantity"  INTEGER NOT NULL, | |
 | "State"  INTEGER, | 0="declared", 1="confirmed by farmer", 2="confirmed in warehouse"|
 | "TypeId"  INTEGER NOT NULL, | |
+| "ExpiringDate"  Text, | |
+| "AvailableDate"  Text, | |
 | PRIMARY KEY("Id"), | |
 | FOREIGN KEY("FarmerId") REFERENCES "Users"("Id") | |
 
