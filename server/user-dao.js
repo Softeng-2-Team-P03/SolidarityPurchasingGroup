@@ -142,7 +142,8 @@ exports.getWalletBalance = (id) => {
 // ----------->  <---------------
 exports.getRequiredCharge = (id) => {
   return new Promise(async (resolve, reject) => {
-      var sqlQuery = 'select Sum(TotalPrice) as TotalPrice from Bookings where UserId=? and State=1';
+    // and State=1
+      var sqlQuery = 'select Sum(TotalPrice) as TotalPrice from Bookings where UserId=? ';
       db.all(sqlQuery,[id], (err, rows) => {
           if (err) {
             console.log(err)

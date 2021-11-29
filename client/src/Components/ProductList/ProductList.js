@@ -167,23 +167,30 @@ function ProductList(props) {
             if (wallet["Wallet"] < cartInfo.totalPrice) {
                 setErrorConfirm("Your Booked is registred ,But Your wallet balance is not enough, Please increase");
                 setLoadingConfirm(false);
-                console.log(errorConfirm)
+                ConformForSuccessPage(booking,"Your Booked is registred ,But Your wallet balance is not enough, Please increase")
             }
+            else
+            ConformForSuccessPage(booking,"")
         }).catch(err => {
             console.error(err);
         });
         
 
+      
+    }
+
+    function ConformForSuccessPage(booking,error)
+    {
         bookingApi.addBooking(booking)
-            .then((orderId) => {
-                setLoadingConfirm(false);
-                setCart([]);
-                setCartInfo({ numItems: 0, totalPrice: 0 });
-                setOrderConfirmed({ orderId: orderId, booking: booking,errorWallet:errorConfirm });
-            }).catch(err => {
-                setErrorConfirm('Error during the confirmation of the order')
-                console.error(err);
-            });
+        .then((orderId) => {
+            setLoadingConfirm(false);
+            setCart([]);
+            setCartInfo({ numItems: 0, totalPrice: 0 });
+            setOrderConfirmed({ orderId: orderId, booking: booking,errorWallet:error });
+        }).catch(err => {
+            setErrorConfirm('Error during the confirmation of the order')
+            console.error(err);
+        });
     }
 
     function addProductToCart(newProduct) {
@@ -261,6 +268,7 @@ function ProductList(props) {
                         <h1 style={{ textAlign: "center" }}>Loading products... <Spinner animation="border" /></h1> :
                         <Row xs={2} md={5} className="g-4">
                             {searchProducts.map((x) =>
+                            // 
                                 <Product key={x.id} canShop={timeEnabled && canSeeCart}
                                     product={x} addProductToCart={addProductToCart}
                                     productInCart={cart.filter(product => product.id === x.id)[0] === undefined ? 0
