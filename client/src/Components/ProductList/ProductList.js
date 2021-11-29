@@ -116,7 +116,7 @@ function ProductList(props) {
         });
     }, [])
 
-    function setProductsLoaded(products){
+    function setProductsLoaded(products){ //NOSONAR
         setProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
         setSearchProducts(products.map(product => ({ ...product, pricePerUnit: product.pricePerUnit.toFixed(2) })));
         setLoadingProducts(false);
@@ -184,13 +184,9 @@ function ProductList(props) {
             setLoadingConfirm(false);
             console.log("wallet");
             console.log(wallet["Wallet"])
-            if (wallet["Wallet"] >= cartInfo.totalPrice) {
-
-            }
-            else {
+            if (wallet["Wallet"] < cartInfo.totalPrice) {
                 setErrorConfirm('Your Booked is registred ,But Your wallet balance is not enough, Please increase');
                 setLoadingConfirm(false);
-
             }
         }).catch(err => {
             console.error(err);
@@ -249,7 +245,6 @@ function ProductList(props) {
     }
 
     const changeQuantityFromInput = (modifyId, newQuantity) => {
-        // const newQuantity = cart.filter(product => product.id === modifyId)[0].selectedQuantity + addQuantity;
         if (newQuantity === 0) {
             deleteProductFromCart(modifyId);
         }
