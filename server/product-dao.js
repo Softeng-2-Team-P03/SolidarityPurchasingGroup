@@ -140,7 +140,7 @@ exports.getProductsByType = (typeId, date) => {
     return new Promise((resolve, reject) => {
         const sql = `SELECT Products.* ,ProductImages.Path,Users.Name as FarmerName ,Users.Surname  From Products,ProductImages,Users 
                     WHERE ProductImages.ProductId==Products.Id AND Users.Id=Products.FarmerId AND ProductImages.IsDefault==1 AND Products.TypeId = ? AND ExpiringDate > ?`;
-        db.all(sql, [typeId, date], (err, rows) => {
+        db.all(sql, [typeId, date], (err, rows) => { //NOSONAR
             if (err) {
                 reject(err);
                 return;
@@ -211,7 +211,7 @@ exports.createImage = (image) => {
 exports.updateAvailbeleDate = (availableDate,Quantity, Id) => {
     return new Promise((resolve, reject) => {
         const sql = 'UPDATE Products SET AvailableDate=? , Quantity=? WHERE Id =? ';
-        db.run(sql, [availableDate,Quantity, Id], function (err) {
+        db.run(sql, [availableDate,Quantity, Id], function (err) { //NOSONAR
             if (err) {
                 reject(err);
                 return;
