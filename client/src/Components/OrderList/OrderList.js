@@ -2,10 +2,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderList.css';
 import bookingApi from '../../api/booking-api';
-import { Spinner, Form, Table } from "react-bootstrap";
+import { Form, Table,Button,Spinner } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
-//import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
-
 
 function Order(props) {
 
@@ -59,6 +57,17 @@ function OrderList(props) {
 
     const [orders, setOrders] = useState([]);
     const [searchOrders, setSearchOrders] = useState([]);
+    const [pendingOrders, setPendingOrders] = useState([]);
+    const [isPending, setIsPending] = useState(false);
+
+    useEffect(() => {
+        bookingApi.getOrders().then((orders) => {
+            setPendingOrders(orders.flatMap(order => order.State===1 ? {...order} : []));
+            console.log(pendingOrders);
+        }).catch(err => {
+            console.error(err);
+        });
+    }, [])
 
     const [loadingOrders, setLoadingOrders] = useState(true);
     const [errorLoading, setErrorLoading] = useState(''); //Error in loading orders
@@ -93,6 +102,7 @@ function OrderList(props) {
     return (
         <>
             <Form.Control type="text" className="searchB" placeholder="Search order" onChange={x => changeSearchText(x.target.value)} />
+            <div  align="center">{isPending ?<Button className='pending' onClick={() =>{setIsPending(false)}}>Show All Orders</Button> :<Button className='pending' onClick={() =>{setIsPending(true)}}>Show Only Pending Orders</Button>}</div>
             {loadingOrders ? <h1 style={{ textAlign: "center" }}>Loading orders... <Spinner animation="border" /></h1>
                 :
                 <Table data-testid="tableOrders" responsive striped bordered hover className="ordersTable">
@@ -108,13 +118,21 @@ function OrderList(props) {
                             <th width="13%"></th>
                         </tr>
                     </thead>
-                    <tbody> {
-                        searchOrders.map((or) =>
-                            <Order key={or.BookingID}
-                                order={or}
-                            />)
-                    }
-                    </tbody>
+                    {isPending ? 
+                <tbody> {
+                    pendingOrders.map((or) =>
+                        <Order key={or.BookingID}
+                            order={or}
+                        />)
+                }
+                </tbody>
+                : <tbody> {
+                    searchOrders.map((or) =>
+                        <Order key={or.BookingID}
+                            order={or}
+                        />)
+                }
+                </tbody>}
                 </Table>
             }
             <h2 style={{ textAlign: "center", color: "red" }}>{errorLoading}</h2>
