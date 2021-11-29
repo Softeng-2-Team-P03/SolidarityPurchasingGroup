@@ -291,6 +291,33 @@ Provide a short description for API with the required parameters, follow the pro
 - Response body: authenticated user
 - Error responses: `503 Internal Server Error` (generic error), `Database error during the update Booking state.`
 
+### Check for "enough credits" For a special Booking
+- HTTP Method: `GET` URL: /api/clients/getRequiredChargeByBookingId?bookingId={id}`
+- Description: return the needed credit for one booking, if rsualt <0 ==> client need to increase credit(how much money the client needs to recharge) else client have enugh Credit
+- Reponse: `200 OK` (success)
+- Response body: authenticated user
+```
+    { 
+       TotalPrice: -2
+    }
+
+``` 
+- Error responses: `500 Internal Server Error`
+
+
+### get Wallet Balance 
+- HTTP Method: `GET` URL: /api/clients/getWallet`
+- Description: When Client register an order we check how much money has in her/his wallet and controll it with current TotalPrice of booking  
+- Reponse: `200 OK` (success)
+- Response body: authenticated user
+```
+    { 
+       Wallet: 0
+    }
+
+``` 
+- Error responses: `500 Internal Server Error`
+
 ## Database Tables
   
 |Table `Users` - contains |  |
