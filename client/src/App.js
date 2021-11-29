@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import ProductList from "./Components/ProductList/ProductList";
-import OrderList from './Components/OrderList/OrderList';
+import { OrderList } from './Components/OrderList/OrderList';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
 import OrderSuccess from './Components/SuccessPage/OrderSuccess';
@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-d
 import { React, useState, useEffect } from "react";
 import API from './API';
 import { LoginComponent } from './Components/LoginComponents/LoginComponent';
-import { ClientList} from './Components/ClientList/ClientList';
+import { ClientList } from './Components/ClientList/ClientList';
 import { ClientModal } from './Components/ClientList/AddClient';
 
 const fakeOrders = [
@@ -149,7 +149,7 @@ function App() {
             <HomePage loggedIn={loggedIn} userLogoutCallback={userLogoutCallback} />
           } />
           <Route path='/farmerHome' render={() =>
-              <FarmerHome></FarmerHome>
+            <FarmerHome></FarmerHome>
           } />
           <Route render={() =>
             <Redirect to='/' />

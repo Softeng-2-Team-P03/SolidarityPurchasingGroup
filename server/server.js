@@ -192,7 +192,6 @@ app.get('/api/clients/riquredCharge', isLoggedIn, async (req, res) => {
 //**** Get Get Wallet Balance For A booking with booking Id ****//
 app.get('/api/clients/getRequiredChargeByBookingId', isLoggedIn, async (req, res) => {
     try {
-        console.log(req.query.bookingId +"xxxxxx");
         const result = await userDao.getRequiredChargeByBookingId(req.user.id,req.query.bookingId);
         if (result.error)
             res.status(404).json(result);
@@ -340,10 +339,10 @@ app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
 });
 app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) => {
     try {
-        await productDao.updateAvailbeleDate(req.body.availableDate, req.params.Id,req.user.id);
+        await productDao.updateAvailbeleDate(req.body.availableDate,req.body.Quantity, req.params.Id);
         res.status(200).end();
     } catch (err) {
-        res.status(503).json({ error: `Database error during the update of Survey.` });
+        res.status(503).json({ error: `Database error during the update of Available Product.` });
     }
 
 });
@@ -504,8 +503,6 @@ app.post('/api/image', isLoggedIn, async (req, res) => {
 // Comment this app.listen function when testing
 app.get('/api/users/:id/bookings', async (req, res) => {
     try {
-        console.log("orderUserId:")
-        console.log(req.params.id)
         const result = await orderDao.getOrdersByUserId(req.params.id);
         if (result.error)
             res.status(404).json(result);
