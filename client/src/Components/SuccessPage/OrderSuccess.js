@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderSuccess.css';
 import { Link } from 'react-router-dom';
-import { Table, Image, Button } from "react-bootstrap";
+import { Table, Image, Button,Alert } from "react-bootstrap";
 import { Redirect, useLocation } from 'react-router-dom';
 
 
@@ -15,6 +15,12 @@ function OrderSuccess() {
             <div className="containerSuccess">
                 <section className="confirmation">
                     <h1>Booking #{allOk && location.state.orderId} received</h1>
+                    {location.state.errorWallet.length>0? 
+                    <Alert key={2233} variant="danger"  >
+                         {location.state.errorWallet}
+                    </Alert>
+                    :""
+                    } 
                     <p>Info for scheduled pickup/delivery will be added here...</p>
                     <Link to = '/' >
                         <Button>Go to Homepage</Button>
