@@ -9,8 +9,8 @@ import { Redirect, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 
 
-
 function ProductList(props) {
+    const [timeToString, setTimeToString] = useState(localStorage.getItem('virtualDateToString'));
     const location = useLocation(); //If employee makes order for client: {userId, userName}
 
     const [products, setProducts] = useState([]); //All products retrieved from server
@@ -42,6 +42,7 @@ function ProductList(props) {
 
     const checkDate = () => {
         let time = new Date(localStorage.getItem('virtualDate'));
+        setTimeToString(localStorage.getItem('virtualDateToString'));
         const day = time.getDay();
         const hour = time.getHours();
         if ((day === 6 && hour >= 9) || (day === 0 && hour <= 22)) {
@@ -102,11 +103,12 @@ function ProductList(props) {
     }
 
     useEffect(() => {
-        let time = new Date(localStorage.getItem('virtualDate'));
-        let date = createDate(time);
+        //let time = new Date(localStorage.getItem('virtualDate'));
+        //let date = createDate(time);
+        //let time = localStorage.getItem("virtualDateToString")
 
         setLoadingProducts(true);
-        productApi.getProductsByType(category, date).then((products) => { //NOSONAR
+        productApi.getProductsByType(category, timeToString).then((products) => { //NOSONAR
             setProductsLoaded(products);
             if (loadingTypes === true) { //Only first time opening the page
                 productApi.getProductTypes().then((types) => {//NOSONAR
@@ -123,7 +125,8 @@ function ProductList(props) {
             setErrorLoading('Error during the loading of the products')
             console.error(err);
         })
-    }, [category, localStorage.getItem("virtualDateToString")])
+
+    }, [category, timeToString])
 
     useEffect(() => {
         if (dirtyInfo === true) {
