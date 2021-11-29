@@ -9,7 +9,13 @@ it("renders the OrderList", () => {
 
     expect(getByRole('textbox')).not.toBeNull();
     expect(getByPlaceholderText('Search order')).not.toBeNull();
-    expect(getByText("Loading orders...")).not.toBeNull();
+    expect(getByText("OrderID")).not.toBeNull();
+    expect(getByText("UserId")).not.toBeNull();
+    expect(getByText("Booking Issue Date")).not.toBeNull();
+    expect(getByText("State")).not.toBeNull();
+    expect(getByText("Scheduled Date")).not.toBeNull();
+    expect(getByText("Total price")).not.toBeNull();
+    expect(getByText("Handed out")).not.toBeNull();
 })
 
 it("renders an order tuple", () => {
