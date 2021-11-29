@@ -151,7 +151,7 @@ exports.getRequiredCharge = (id) => {
               return;
           }
           if (rows[0]["TotalPrice"]==null)
-          rows[0]["TotalPrice"]=0
+            rows[0]["TotalPrice"]=0
           resolve(rows[0]);
       });
 
