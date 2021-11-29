@@ -348,4 +348,4 @@ function Product(props) {
     );
 }
 
-export default ProductList;
+export { ProductList, Product };

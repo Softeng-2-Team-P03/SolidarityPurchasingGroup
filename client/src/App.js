@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import ProductList from "./Components/ProductList/ProductList";
+import { ProductList } from "./Components/ProductList/ProductList";
 import { OrderList } from './Components/OrderList/OrderList';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
