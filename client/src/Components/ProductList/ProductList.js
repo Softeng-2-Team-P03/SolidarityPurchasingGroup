@@ -211,8 +211,8 @@ function ProductList(props) {
     }
 
     const modifyProductInCart = (modifyId, addQuantity, type) => {
-        if (type === 1) {
-            const newQuantity = Number.parseInt(cart.filter(product => product.id === modifyId)[0].selectedQuantity) + Number.parseInt(addQuantity);
+        if (type === 1) { //+1 or -1
+            const newQuantity = cart.filter(product => product.id === modifyId)[0].selectedQuantity + addQuantity;
             if (newQuantity === 0) {
                 deleteProductFromCart(modifyId);
             }
@@ -220,8 +220,15 @@ function ProductList(props) {
                 setCart(oldCart => oldCart.map(product => product.id === modifyId ? { ...product, selectedQuantity: newQuantity } : product));
             }
         }
-        else {
-            setCart(oldCart => oldCart.map(product => product.id === modifyId ? { ...product, selectedQuantity: Number.parseInt(addQuantity) } : product));
+        else { //input number field
+            addQuantity = Number.parseInt(addQuantity);
+            if (addQuantity === 0) {
+                deleteProductFromCart(modifyId);
+            }
+            else {
+                setCart(oldCart => oldCart.map(product => product.id === modifyId ?
+                    { ...product, selectedQuantity: (addQuantity > product.quantity) ? product.quantity : addQuantity } : product));
+            }
         }
         setDirtyInfo(true);
     }
@@ -280,10 +287,16 @@ function Product(props) {
     const [quantity, setQuantity] = useState(0);
 
     const modifyQuantity = (add) => {
-        setQuantity(Number.parseInt(quantity) + Number.parseInt(add));
+        setQuantity(quantity + add);
     }
     const modifyQuantityFromInput = (add) => {
-        setQuantity(Number.parseInt(add));
+        add = Number.parseInt(add);
+        if (add > props.product.quantity) {
+            setQuantity(props.product.quantity)
+        }
+        else {
+            setQuantity(add)
+        }
     }
     const addToBasket = () => {
         props.addProductToCart({ ...props.product, selectedQuantity: quantity });
@@ -316,7 +329,8 @@ function Product(props) {
                     <Card.Footer>
                         <Button className="button" variant="primary" disabled={quantity === 0}
                             onClick={() => modifyQuantity(-1)}>-</Button>{' '}
-                        <input className="quantity-text " type="text" onChange={e => modifyQuantityFromInput(e.target.value)} value={quantity} >
+                        <input className="quantity-text" type="number" min={0} onChange={e => modifyQuantityFromInput(!e.target.value ? 0 : e.target.value)}
+                            value={Number(quantity).toString()} >
                         </input>
                         <Button className="button" variant="primary" disabled={quantity === props.product.quantity}
                             onClick={() => modifyQuantity(+1)}>+</Button>{' '}
