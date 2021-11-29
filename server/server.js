@@ -175,17 +175,11 @@ app.get('/api/clients/getWallet', isLoggedIn, async (req, res) => {
     } catch (err) {
         res.status(500).end();
     }
-    //console.log(res);
 });
 //**** Get Get Wallet Balance ****//
 app.get('/api/clients/riquredCharge', isLoggedIn, async (req, res) => {
     try {
-        console.log("userIdddddddd:"+req.user.id)
-        
         const result = await userDao.getRequiredCharge(req.user.id);
-        conosole.log(result)   
-        console.log("yyyyyyyyyyyyy");
-        console.log(result)
         if (result.error)
             res.status(404).json(result);
         else
@@ -193,7 +187,6 @@ app.get('/api/clients/riquredCharge', isLoggedIn, async (req, res) => {
     } catch (err) {
         res.status(500).end();
     }
-    //console.log(res);
 });
 
 //**** Get Get Wallet Balance For A booking with booking Id ****//
@@ -208,7 +201,6 @@ app.get('/api/clients/getRequiredChargeByBookingId', isLoggedIn, async (req, res
     } catch (err) {
         res.status(500).end();
     }
-    //console.log(res);
 });
 
 
