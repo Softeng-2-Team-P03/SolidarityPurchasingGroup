@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">58.33% </span>
+                <span class="strong">53.84% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>7/12</span>
+                <span class='fraction'>7/13</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">57.14% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/8</span>
+                <span class='fraction'>8/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">44.44% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/9</span>
+                <span class='fraction'>4/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">54.54% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/10</span>
+                <span class='fraction'>6/11</span>
             </div>
         
             
@@ -152,7 +152,13 @@
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L96'></a><a href='#L96'>96</a>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a>
+<a name='L99'></a><a href='#L99'>99</a>
+<a name='L100'></a><a href='#L100'>100</a>
+<a name='L101'></a><a href='#L101'>101</a>
+<a name='L102'></a><a href='#L102'>102</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -194,6 +200,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,7 +223,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -231,12 +240,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -249,7 +261,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import 'bootstrap/dist/css/bootstrap.min.css';
 import './Cart.css';
-import { Col, Row, Image, Button, Modal, Form, CloseButton, Spinner } from "react-bootstrap";
+import { Col, Row, Image, Button, Modal, Alert, Form, CloseButton, Spinner } from "react-bootstrap";
 import cartIcon from "../Icons/cart-icon.png";
 import { useState } from "react";
 &nbsp;
@@ -292,8 +304,12 @@ function Cart(props) {
                         {props.loadingConfirm ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;&gt;Submitting order &lt;Spinner animation="border" size="sm" /&gt;&lt;/&gt; </span>: "Confirm Order"}
                     &lt;/Button&gt;
                     &lt;br /&gt;
-                    &lt;h4 style={{ color: "#8B0000", fontWeight: "bold" }}&gt;{props.errorConfirm}&lt;/h4&gt;
-                &lt;/Col&gt;
+                    {props.errorConfirm.length &gt; 0 ?
+<span class="branch-0 cbranch-no" title="branch not covered" >                        &lt;Alert key={2233} variant="danger"  &gt;</span>
+                            {props.errorConfirm}
+                        &lt;/Alert&gt;
+                        : ""
+                    }  &lt;/Col&gt;
             &lt;/Modal.Header&gt;
             &lt;Modal.Body&gt;
                 {props.cart.length === 0 ? &lt;h2 style={{ textAlign: 'center' }}&gt;Cart is empty&lt;/h2&gt;
@@ -307,7 +323,6 @@ function Cart(props) {
 &nbsp;
 function CartProduct(props) {
     return (
-&nbsp;
         &lt;Row style={{ borderBottom: "2px solid black", paddingTop: "5%", paddingBottom: "5%" }}&gt;
             &lt;Button className="cartButtons delete" variant="danger" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.deleteProductFromCart(props.product.id)}</span>&gt;X&lt;/Button&gt;
             &lt;Col&gt;
@@ -323,17 +338,20 @@ function CartProduct(props) {
                 &lt;Row&gt;
                     &lt;Col style={{ padding: "0px" }}&gt;
                         &lt;Button className="cartButtons" variant="primary"
-                            disabled={props.product.selectedQuantity === 0} onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.modifyProductInCart(props.product.id, -1)}</span>&gt;-&lt;/Button&gt;
+                            disabled={props.product.selectedQuantity === 0} onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.modifyProductInCart(props.product.id, -1, 1)}</span>&gt;-&lt;/Button&gt;
                     &lt;/Col&gt;
                     &lt;Col&gt;
-                        &lt;div style={{ textAlign: "center", fontWeight: "bold", fontSize: "25px" }}&gt;{props.product.selectedQuantity}&lt;/div&gt;
+                        &lt;input className="quantity-text " type="number" min={0} onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >props.modifyProductInCart(props.product.id, !e.target.value ? 0 : e.target.value, 2)} </span>
+                        value={Number(props.product.selectedQuantity).toString()} &gt;
+                        &lt;/input&gt;
                     &lt;/Col&gt;
                     &lt;Col style={{ padding: "0px" }}&gt;
                         &lt;Button className="cartButtons" variant="primary"
                             disabled={props.product.quantity === props.product.selectedQuantity}
-                            onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.modifyProductInCart(props.product.id, +1)}</span>&gt;+&lt;/Button&gt;
+                            onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.modifyProductInCart(props.product.id, +1, 1)}</span>&gt;+&lt;/Button&gt;
                     &lt;/Col&gt;
                 &lt;/Row&gt;
+                {props.product.quantity === props.product.selectedQuantity &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;small style={{ color: "red" }}&gt;Max quantity reached&lt;/small&gt;}</span>
                 &lt;br /&gt;
                 &lt;div style={{ fontSize: "15px" }}&gt;{props.product.quantity} pieces available&lt;/div&gt;
             &lt;/Col&gt;
@@ -349,7 +367,7 @@ export default Cart;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Nov 28 2021 23:48:59 GMT+0100 (Ora standard dell’Europa centrale)
+                at Mon Nov 29 2021 21:54:37 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
