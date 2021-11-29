@@ -293,7 +293,7 @@ Provide a short description for API with the required parameters, follow the pro
 
 ### Check for "enough credits" For a special Booking
 - HTTP Method: `GET` URL: /api/clients/getRequiredChargeByBookingId?bookingId={id}`
-- Description: return the needed credit for one booking, if rsualt <0 ==> client need to increase credit(how much money the client needs to recharge) else client have enugh Credit
+- Description: return the needed credit for one booking, if rsualt <0 ==> client need to increase credit(how much money the client needs to recharge) else client have enough Credit
 - Reponse: `200 OK` (success)
 - Response body: authenticated user
 ```
@@ -317,6 +317,19 @@ Provide a short description for API with the required parameters, follow the pro
 
 ``` 
 - Error responses: `500 Internal Server Error`
+
+### Send Available Product
+- HTTP Method: `PUT` URL: `/api/product/change-available-date/{Id}`
+- Description: Update the available product by farmer
+- Request body: 
+```
+{ 
+    "availableDate": "yyyy-mm-dd",
+}
+``` 
+- Reponse: `200 OK` (success)
+- Response body: authenticated user
+- Error responses: `503 Internal Server Error` (generic error), `Database error during the update of Available Product`
 
 ## Database Tables
   
