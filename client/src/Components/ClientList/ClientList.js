@@ -1,11 +1,12 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './ClientList.css';
-import { Button, Form, Table, Modal } from "react-bootstrap";
+import { Button, Form, Table, Modal, Alert } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AddClientBtn, } from './AddClient';
 import API from '../../API';
+import userApi from '../../api/user-api';
 import ModalClientOrderes from './ModalClientOrders';
 
 function Client(props) {
@@ -16,7 +17,7 @@ function Client(props) {
                 <td>{props.client.surname}</td>
                 <td>{props.client.email}</td>
                 <td >
-                    <WalletTopUpModal client={props.client} />
+                    <WalletTopUpModal client={props.client} setConfirmationMessage={props.setConfirmationMessage} />
                 </td>
                 <td >
                     <Link to={{ pathname: '/products', state: { userId: props.client.id, userName: props.client.name } }}>
@@ -24,10 +25,10 @@ function Client(props) {
                     </Link>
                 </td>
                 <td>
-                    
+
                 </td>
                 <td>
-                <ModalClientOrderes  client={props.client} ></ModalClientOrderes>
+                    <ModalClientOrderes client={props.client} ></ModalClientOrderes>
                 </td>
             </tr>
         </>
@@ -40,6 +41,7 @@ function ClientList(props) {
     let clients = [];
     const [resultC, setResultC] = useState([]);
     const [searchClients, setSearchClients] = useState([]);
+    const [confirmationMessage, setConfirmationMessage] = useState('');
 
 
     useEffect(() => {
@@ -78,6 +80,11 @@ function ClientList(props) {
 
     return (
         <>
+            {confirmationMessage ?
+                <Alert color="danger">
+                    {confirmationMessage}
+                </Alert> : ''}
+
 
             <Form.Control type="text" className="searchB" placeholder="Search client" onChange={x => changeSearchText(x.target.value)} />
             <Table responsive striped bordered hover className="clientsTable">
@@ -93,7 +100,7 @@ function ClientList(props) {
                 <tbody> {
                     searchClients.map((cl) =>
                         <Client key={cl.userId}
-                            client={cl}
+                            client={cl} setConfirmationMessage={setConfirmationMessage}
                         />)
 
                 }
@@ -105,15 +112,22 @@ function ClientList(props) {
 }
 
 function WalletTopUpModal(props) {
-
+    const [amountTopUp, setAmountTopUp] = useState(0);
     const [show, setShow] = useState(false);
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = () => {
+        let newWallet = props.client.wallet + parseInt(amountTopUp);
+        userApi.chargeWallet(props.client.id, newWallet ).then((orderId) => {
+            props.setConfirmationMessage('wallet succesfully updated');
+        }).catch(err => {
+            props.setConfirmationMessage('Error during the wallet top up');
+            console.error(err);
+        });
+    }
 
-    };
 
     return (
         <>
@@ -131,21 +145,21 @@ function WalletTopUpModal(props) {
 
                 <Modal.Body>
                     <h6><b>{props.client.name} {props.client.surname}'s Credit: </b>{props.client.wallet}</h6><br></br>
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Amount of money to Top up in the user wallet :</Form.Label>
-                            <Form.Control type="number" placeholder="Enter amount" />
-                            
+                            <Form.Control type="number" placeholder="Enter amount" onChange={(ev) => setAmountTopUp(ev.target.value)} />
+
                         </Form.Group>
 
-                        
+
                         <Button variant="primary" type="submit">
                             Submit
                         </Button>
                     </Form>
                 </Modal.Body>
 
-            
+
             </Modal>
         </>
     )

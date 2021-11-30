@@ -1,4 +1,4 @@
-import React from "react";
+
  const BASEURL = '/api';
 
  async function getRequiredCharge() {
@@ -13,9 +13,9 @@ import React from "react";
  }
 
 
-async function getWalletBalance() {
+async function getWalletBalance(userId) {
     // call: GET /api/orders
-    const response = await fetch(BASEURL + '/clients/getWallet');
+    const response = await fetch(BASEURL + '/clients/getWallet/'+ userId);
     const walletBalance = await response.json();
     if (response.ok) {
       return walletBalance;
@@ -38,5 +38,22 @@ async function getRequiredChargeByBookingId(bookinId) {
     }
   }
 
- const userApi = { getRequiredCharge,getWalletBalance,getRequiredChargeByBookingId };
+  async function chargeWallet(userId, amount) {
+      return new Promise((resolve, reject) => {
+        fetch(BASEURL + '/topup/' + userId +'/'+amount, {
+          method: 'PUT'
+        }).then((response) => {
+          if (response.ok) {
+            resolve(null);
+          } else {
+            // analyze the cause of error
+            response.json()
+              .then((obj) => { reject(obj); }) // error msg in the response body
+              .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
+          }
+        }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
+      });
+    }
+
+ const userApi = { getRequiredCharge,getWalletBalance,getRequiredChargeByBookingId, chargeWallet};
  export default userApi; 

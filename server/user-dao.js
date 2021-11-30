@@ -171,3 +171,17 @@ exports.getRequiredChargeByBookingId = (userId,id) => {
 
   });
 };
+
+
+exports.topUpWallet = (userId, amount) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'UPDATE Users SET wallet= ? WHERE Id = ?';
+    db.run(sql, [amount, userId], function (err) {//NOSONAR
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};

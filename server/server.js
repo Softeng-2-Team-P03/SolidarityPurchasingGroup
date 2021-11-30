@@ -202,6 +202,19 @@ app.get('/api/clients/getRequiredChargeByBookingId', isLoggedIn, async (req, res
     }
 });
 
+//**** Put to update the wallet */
+app.put('/api/topup/:userId/:amount', isLoggedIn, async (req, res) => {
+
+    // you can also check here if the code passed in the URL matches with the code in req.body
+    try {
+        await userDao.topUpWallet(req.params.userId,req.params.amount);
+        res.status(200).end();
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the update of Survey.` });
+    }
+
+});
+
 
 
 //****************************************************** */
