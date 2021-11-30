@@ -119,7 +119,11 @@ function AddClientForm(props) {
 
     if (submitted) {
         return (<>
-            <Redirect to='/' />
+           <Redirect to={{
+            pathname: '/',
+            state: { showToast: true }
+        }}
+/>
         </>
         );
     } else {

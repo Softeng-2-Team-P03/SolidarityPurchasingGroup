@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './HomePage.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { Col, Row, Button, Toast } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import userApi from '../../api/user-api';
@@ -10,6 +10,7 @@ function HomePage(prop) {
 
     const [showB, setShowB] = useState(true);
     const location = useLocation();
+    const history = useHistory();
     const [showModal, setShowModal] = useState(false);
     const setModalclose = () => {
         setShowModal(false);
@@ -40,7 +41,10 @@ function HomePage(prop) {
     }, []);
 
  
-  const toggleShowB = () => setShowB(!showB);
+  const toggleShowB = () => {setShowB(!showB); let state = { ...history.location.state };
+  delete state.showToast;
+  history.replace({ ...history.location, state });}
+    
     return (
         <>
         {location.state && location.state.showToast  ? <> 

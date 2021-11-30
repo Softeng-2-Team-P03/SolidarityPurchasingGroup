@@ -179,7 +179,7 @@
 
 .toast-fixed {
     position:fixed; 
-    top: 10%; 
+    top: 25%; 
     left: 35%; 
     width: 30%;
     z-index:9999; 
