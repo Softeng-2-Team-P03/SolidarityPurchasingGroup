@@ -15,8 +15,7 @@ sections:
 - Number of stories committed vs done: 9 committed vs 6 done
 - Total points committed vs done: 52 vs 31
 - Nr of hours planned vs spent (as a team): 
-  - Hours planned without "Fixed add product bugs", "Setup testing tools for backend", "Push docker images": 113h 20m
-  - Hours planned with all: 116h 50m
+  - Hours planned: 113h 20m
   - Hours spent as a team: 112h 30m
 
 **Remember**  a story is done ONLY if it fits the Definition of Done:
@@ -67,7 +66,7 @@ sections:
 - Technical Debt management:
   - Total hours estimated: 10h
   - Total hours spent: 7h 30m
-  - Hours estimated for remediation by SonarQube: 8h (post sprint. Vogliono il valore a inizio sprint? -> 10h)
+  - Hours estimated for remediation by SonarQube: 10h
   - Hours estimated for remediation by SonarQube only for the selected and planned issues: 10h 
   - Hours spent on remediation: 7h 30m 
   - debt ratio (as reported by SonarQube under "Measures-Maintainability"): 0.3%
@@ -77,16 +76,26 @@ sections:
 
 ## ASSESSMENT
 
-- What caused your errors in estimation (if any)?
+- What caused your errors in estimation (if any)? 
+  - underestimation of time needed to implement some feateures (coding).
+  - underestimation of time needed to implement tests.
+  - unexpected issues with setup of frameworks and tools.
+  - misunderstanding the meaning of some tasks. 
 
 - What lessons did you learn (both positive and negative) in this sprint?
+  - we have overestimated our productivity level.
+  - setup of new technologies and tools are very difficult to estimate since we do not know enough about them.
 
-- Which improvement goals set in the previous retrospective were you able to achieve? 
+- Which improvement goals set in the previous retrospective were you able to achieve?
+  - we increased our overall coverage from 4% to 35%, it's still not enough but we will improve it furthermore.
   
 - Which ones you were not able to achieve? Why?
+  - we were not able to meet our objective to have (at least) 4 scrum meetings for this sprint because we all started to work late.
 
 - Improvement goals for the next sprint and how to achieve them (technical tasks, team coordination, etc.)
-
-> Propose one or two
+  - start to work sooner and have at least 4 scrum meetings, we intend to achieve this objective creating the scrum meeting tasks with their respective dates already during the sprint planning.
+  - improve coverage level. We intend to do so by learning how to mock functions to provide more in-depth unit tests and by setting up the tool we are using for end to end tests in a way that its coverage reports are accounted by sonarcloud.
+  - be more prepared for the demo by preparing a nicer and more complete presentation.
 
 - One thing you are proud of as a Team!!
+  - we are proud of our team cohesion during critical moments.
