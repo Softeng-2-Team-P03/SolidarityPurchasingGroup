@@ -207,6 +207,11 @@ app.put('/api/topup/:userId/:amount', isLoggedIn, async (req, res) => {
 
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
+        
+        if (![1, 2].includes(req.user.accessType)) { //Manager and Employee
+            return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+        }
+
         await userDao.topUpWallet(req.params.userId,req.params.amount);
         res.status(200).end();
     } catch (err) {

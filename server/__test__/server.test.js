@@ -1316,3 +1316,76 @@ describe('PUT /api/product/:State/:Id', () => {
             .catch(err => done(err))
     })*/
 })
+
+describe('PUT /api/topup/:userId/:amount', () => {
+    beforeAll(() => logoutUser());
+
+    it('cannot update wallet state as not logged in', function (done) {
+        server
+            .put('/api/topup/2/1')
+            .expect(401)
+            .then(() => done())
+            .catch(err => done(err));
+    })
+
+    it('cannot update wallet state as client', function (done) {
+        loginUser(3)
+            .then(() => {
+                server
+                    .put('/api/topup/2/1')
+                    .expect(403)
+                    .then(() => done())
+                    .catch(err => done(err))
+            })
+            .catch(err => done(err))
+    })
+
+    it('cannot update wallet state as deliverer', function (done) {
+        loginUser(5)
+            .then(() => {
+                server
+                    .put('/api/topup/2/1')
+                    .expect(403)
+                    .then(() => done())
+                    .catch(err => done(err))
+            })
+            .catch(err => done(err))
+    })
+
+    it('cannot update wallet state as farmer', function (done) {
+        loginUser(4)
+            .then(() => {
+                server
+                    .put('/api/topup/2/1')
+                    .expect(403)
+                    .then(() => done())
+                    .catch(err => done(err))
+            })
+            .catch(err => done(err))
+    })
+
+    it('update wallet state as employee', function (done) {
+        loginUser(2)
+            .then(() => {
+                server
+                    .put('/api/topup/1/1')
+                    .expect(200)
+                    .then(() => done())
+                    .catch(err => done(err))
+            })
+            .catch(err => done(err))
+    })
+
+    it('update wallet state as manager', function (done) {
+        loginUser(1)
+            .then(() => {
+                server
+                    .put('/api/topup/1/1')
+                    .expect(200)
+                    .then(() => done())
+                    .catch(err => done(err))
+            })
+            .catch(err => done(err))
+    })
+    
+})
