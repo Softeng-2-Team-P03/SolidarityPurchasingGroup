@@ -332,6 +332,20 @@ Provide a short description for API with the required parameters, follow the pro
 - Response body: authenticated user
 - Error responses: `503 Internal Server Error` (generic error), `Database error during the update of Available Product`
 
+### Update Product State
+- HTTP Method: `PUT` URL: `/api/product/{State}/{Id}`
+- Description: Update Product State to 1 for confirmed by farmer, to 2 for confirmed in warehouse
+- Request body: 
+```
+    {
+        "State": 1, 
+        "Id":"1"
+    }
+``` 
+- Reponse: `200 OK` (success)
+- Response body: authenticated user
+- Error responses: `503 Internal Server Error` (generic error), `Database error during the update of Available Product`,`403 Forbidden: User does not have`
+
 ### get Orders  
 - HTTP Method: `GET` URL: `/api/bookings`
 - Description: Shows all placed orders
