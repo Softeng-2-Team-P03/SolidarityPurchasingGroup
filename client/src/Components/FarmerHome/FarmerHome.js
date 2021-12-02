@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {useEffect, useState} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {ListGroup, Table, Button, Row, Col, Modal, Form, Dropdown, Image, Alert} from "react-bootstrap";
 import {Redirect} from "react-router-dom";
 import {AddClientForm} from "../ClientList/AddClient";
@@ -7,6 +7,9 @@ import {Client} from "../Client";
 import './FarmerHome.css'
 import API from "../../API";
 import FileUpload from "../FileUpload/FileUpload";
+import axios from "axios";
+import Message from "../FileUpload/Message";
+import Progress from "../FileUpload/Progress";
 
 function FarmerHome() {
 
@@ -52,7 +55,7 @@ function FarmerHome() {
         };
     }, [confirm,dirty]);
 
-    
+
 
     const handleClose = () => {
         setShow(false);
@@ -77,9 +80,9 @@ function FarmerHome() {
             setTimeConfirm(true);
         }
         else{
-            
+
             setTimeConfirm(false);
-         
+
         }
     }
 
@@ -214,12 +217,16 @@ function AddProductForm(props) {
     const [quantity, setQuantity] = useState('');
     const [type, setType] = useState('');
     const [pricePerUnit, setPricePerUnit] = useState('');
-
     const [errorMessage, setErrorMessage] = useState('');
     const [submitted, setSubmitted] = useState(false);
     const [typeName, setTypeName] = useState('Select product type');
     let typeNameArray = ['Fruits and Vegetables', 'Dairy', 'Meat and salumi', 'Sea products', 'Baker and sweets', 'Beverages'  ]
     const [numProd,setNumProd] = useState(0);
+    const [file, setFile] = useState('');
+    const [filename, setFilename] = useState('Choose File');
+    const [uploadedFile, setUploadedFile] = useState({});
+    const [message, setMessage] = useState('');
+    const [uploadPercentage, setUploadPercentage] = useState(0);
 
 
     useEffect(() => {
@@ -243,51 +250,78 @@ function AddProductForm(props) {
         return () => {
             mounted = false
         };
-    }, []);
+    }, [numProd]);
 
-
-
-
-    const handleAdd = (event) => {
-        event.preventDefault();
-
-        API.addProduct(props.idFarmer.id, name, description,quantity,0,1,pricePerUnit);
-        props.handleClose();
-
-        if(props.dirty) props.setDirty(false);
-        else props.setDirty(true);
-
-
-        /*let valid = true;
-        if (name === '') {
-            setErrorMessage('Missing name description!');
-            valid = false;
-        }
-        if (description === '') {
-            setErrorMessage('Missing surname description!');
-            valid = false;
-        }
-        if (quantity === '') {
-            setErrorMessage('Missing password description!');
-            valid = false;
-        }
-        if (type === '') {
-            setErrorMessage('Missing email description!');
-            valid = false;
-        }
-        if (pricePerUnit === '') {
-            setErrorMessage('Missing phoneNumber description!');
-            valid = false;
-        }
-
-
-
-        if (valid) {
-            //props.addClient(new Client(name, surname, email, password, phoneNumber, address));
-            formReset();
-            setSubmitted(true);
-        }*/
+    const onChange = e => {
+        setFile(e.target.files[0]);
+        setFilename(e.target.files[0].name);
     };
+
+    const onSubmit = async e => {
+        let numImg = numProd+1
+        let nameImg = 'p'+numImg.toString()+'-1.jpg'
+
+        API.addImage(numImg,nameImg);
+
+        e.preventDefault();
+        const formData = new FormData();
+        console.log(filename);
+        if(filename!='Choose File')
+            formData.append('file', file ,nameImg);
+        else
+            formData.append('file', file);
+
+        try {
+            const res = await axios.post('/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+                onUploadProgress: progressEvent => {
+                    setUploadPercentage(
+                        parseInt(
+                            Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                        )
+                    );
+
+
+                }
+
+
+            });
+
+            // Clear percentage
+            setTimeout(() => setUploadPercentage(0), 10000);
+
+            const { fileName, filePath } = res.data;
+
+            setUploadedFile({ fileName, filePath });
+
+            setMessage('File Uploaded');
+
+
+
+                API.addProduct(props.idFarmer.id, name, description,quantity,0,1,pricePerUnit,'10-12-2021');
+                props.handleClose();
+
+                if(props.dirty) props.setDirty(false);
+                else props.setDirty(true);
+
+
+
+        } catch (err) {
+
+            if (err.response.status === 200){
+
+            } else if (err.response.status === 500) {
+                setMessage('There was a problem with the server');
+            } else {
+                setMessage(err.response.data.msg);
+            }
+            setUploadPercentage(0)
+        }
+    };
+
+
 
     const formReset = () => {
         setName('')
@@ -306,7 +340,39 @@ function AddProductForm(props) {
     } else {*/
         return (<>
                 <Form.Label>Image</Form.Label>
-                <FileUpload numProd={numProd}/>
+
+
+                <Fragment>
+                    {message ? <Message msg={message} /> : null}
+
+                    {uploadedFile ? (
+                        <div className='row mt-5'>
+                            <div className='col-md-6 m-auto'>
+                                <img style={{ width: '100%' }} src={uploadedFile.filePath}  />
+                            </div>
+                        </div>
+                    ) : null}
+
+
+                    <form onSubmit={onSubmit}>
+                        <div className='custom-file mb-4'>
+                            <input
+
+                                type='file'
+                                className='custom-file-input'
+                                id='customFile'
+                                onChange={onChange}
+                            />
+                            <label className='custom-file-label' htmlFor='customFile'>
+                                {filename}
+                            </label>
+                        </div>
+                        <Progress percentage={uploadPercentage} />
+                    </form>
+
+                </Fragment>
+
+
                 <Form>
                     <Form.Group controlId="formName">
                         <Form.Label>Name</Form.Label>
@@ -342,7 +408,12 @@ function AddProductForm(props) {
                         <Form.Control required type='text' value={pricePerUnit} onChange={ev => setPricePerUnit(ev.target.value)} />
                     </Form.Group>
 
-                    <Button className="mt-3" onClick={handleAdd}>Add product</Button>
+                    <input
+                        type='submit'
+                        value='Add product'
+                        className='btn btn-secondary btn-block mt-4'
+                        onClick={onSubmit}
+                    />
                     <Form.Text className="text-danger">{errorMessage}</Form.Text>
                 </Form >
 

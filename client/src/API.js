@@ -113,7 +113,7 @@ async function getAllClients() {
     }
 }
 
-function addProduct(FarmerId, Name, Description,Quantity,State,TypeId,PricePerUnit) {
+function addProduct(FarmerId, Name, Description,Quantity,State,TypeId,PricePerUnit,ExpiringDate) {
     // call: POST /api/product
     return new Promise((resolve, reject) => {
         fetch(BASEURL + '/product', {
@@ -122,7 +122,7 @@ function addProduct(FarmerId, Name, Description,Quantity,State,TypeId,PricePerUn
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({FarmerId: FarmerId, Name: Name,Description:Description,
-                Quantity:Quantity,State:State,TypeId:TypeId,PricePerUnit:PricePerUnit}),
+                Quantity:Quantity,State:State,TypeId:TypeId,PricePerUnit:PricePerUnit,ExpiringDate:ExpiringDate}),
         }).then((response) => {//NOSONAR
             if (response.ok) {
                 resolve(null);

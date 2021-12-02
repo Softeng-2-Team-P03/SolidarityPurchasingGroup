@@ -207,7 +207,7 @@ app.put('/api/topup/:userId/:amount', isLoggedIn, async (req, res) => {
 
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
-        
+
         if (![1, 2].includes(req.user.accessType)) { //Manager and Employee
             return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
         }
@@ -329,7 +329,8 @@ app.post('/api/product', isLoggedIn, async (req, res) => {
         Quantity: req.body.Quantity,
         State: req.body.State,
         TypeId: req.body.TypeId,
-        PricePerUnit: req.body.PricePerUnit
+        PricePerUnit: req.body.PricePerUnit,
+        ExpiringDate: req.body.ExpiringDate
     };
 
     try {
