@@ -353,6 +353,12 @@ function AddProductForm(props) {
                 <Fragment>
                     {message ? <Message msg={message} /> : null}
 
+                    {uploadedFile ? (
+                        <div className='col-md-6 m-auto'>
+                            <img style={{ width: '100%' }} src={uploadedFile.filePath}  />
+                        </div>
+                    ) : null}
+
                     <form onSubmit={onSubmit}>
                         <div className='custom-file mb-4'>
                             <input
