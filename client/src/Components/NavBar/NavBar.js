@@ -1,8 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
-import { Nav, Navbar, Table } from "react-bootstrap";
+import {Button, Nav, Navbar, Table} from "react-bootstrap";
 import { showTime } from './clock.js'
+import Notifications from "../Notifications/Notifications";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 var hourMultiplier = 0;
 var dayMultiplier = 0;
@@ -31,6 +33,13 @@ function NavBar(props) {
 
   return (
     <div>
+      <div className="timer">
+        <div className="me-auto">
+          <Nav className="me-auto ">
+            <ShowClock/>
+          </Nav>
+        </div>
+      </div>
       <Navbar bg="primary" variant="dark" expand="lg">
 
         <Navbar.Brand href="/" className="col-md-2">
@@ -58,14 +67,9 @@ function NavBar(props) {
             }
           </Nav>
         </Navbar.Collapse>
+
       </Navbar>
-      <div class="timer">
-        <div className="me-auto">
-          <Nav className="me-auto " >
-            <ShowClock />
-          </Nav>
-        </div>
-      </div>
+
     </div>
   );
 }
@@ -77,6 +81,7 @@ function ClientNavbar() {
       <Nav.Link href='/products'>Browse Shop</Nav.Link>
       <Nav.Link>My Orders</Nav.Link>
       <Nav.Link>My Wallet</Nav.Link>
+      <Notifications placement={'end'} ></Notifications>
     </Nav>
   );
 }
