@@ -521,8 +521,6 @@ app.post('/api/image', isLoggedIn, async (req, res) => {
 });
 
 
-// Activate the server
-// Comment this app.listen function when testing
 app.get('/api/users/:id/bookings', async (req, res) => {
     try {
         const result = await orderDao.getOrdersByUserId(req.params.id);

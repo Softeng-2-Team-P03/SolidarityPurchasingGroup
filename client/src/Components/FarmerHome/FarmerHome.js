@@ -6,7 +6,6 @@ import {AddClientForm} from "../ClientList/AddClient";
 import {Client} from "../Client";
 import './FarmerHome.css'
 import API from "../../API";
-import FileUpload from "../FileUpload/FileUpload";
 import axios from "axios";
 import Message from "../FileUpload/Message";
 import Progress from "../FileUpload/Progress";
@@ -227,6 +226,7 @@ function AddProductForm(props) {
     const [uploadedFile, setUploadedFile] = useState({});
     const [message, setMessage] = useState('');
     const [uploadPercentage, setUploadPercentage] = useState(0);
+    const [timeToString, setTimeToString] = useState(localStorage.getItem('virtualDateToString'));
 
 
     useEffect(() => {
@@ -252,6 +252,12 @@ function AddProductForm(props) {
         };
     }, [numProd]);
 
+    const checkDate = () => {
+        let time = new Date(localStorage.getItem('virtualDate'));
+        setTimeToString(localStorage.getItem('virtualDateToString'));
+
+    }
+
     const onChange = e => {
         setFile(e.target.files[0]);
         setFilename(e.target.files[0].name);
@@ -260,6 +266,8 @@ function AddProductForm(props) {
     const onSubmit = async e => {
         let numImg = numProd+1
         let nameImg = 'p'+numImg.toString()+'-1.jpg'
+
+        checkDate();
 
         API.addImage(numImg,nameImg);
 
@@ -344,15 +352,6 @@ function AddProductForm(props) {
 
                 <Fragment>
                     {message ? <Message msg={message} /> : null}
-
-                    {uploadedFile ? (
-                        <div className='row mt-5'>
-                            <div className='col-md-6 m-auto'>
-                                <img style={{ width: '100%' }} src={uploadedFile.filePath}  />
-                            </div>
-                        </div>
-                    ) : null}
-
 
                     <form onSubmit={onSubmit}>
                         <div className='custom-file mb-4'>
