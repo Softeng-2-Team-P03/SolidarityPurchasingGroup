@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.14% </span>
+                <span class="strong">34.78% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>56/164</span>
+                <span class='fraction'>56/161</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">18.86% </span>
+                <span class="strong">18.52% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>10/53</span>
+                <span class='fraction'>10/54</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.41% </span>
+                <span class="strong">38.19% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>55/147</span>
+                <span class='fraction'>55/144</span>
             </div>
         
             
@@ -54,6 +54,12 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
     <div class='status-line low'></div>
     <pre><table class="coverage">
@@ -408,7 +414,11 @@
 <a name='L349'></a><a href='#L349'>349</a>
 <a name='L350'></a><a href='#L350'>350</a>
 <a name='L351'></a><a href='#L351'>351</a>
-<a name='L352'></a><a href='#L352'>352</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L352'></a><a href='#L352'>352</a>
+<a name='L353'></a><a href='#L353'>353</a>
+<a name='L354'></a><a href='#L354'>354</a>
+<a name='L355'></a><a href='#L355'>355</a>
+<a name='L356'></a><a href='#L356'>356</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -569,12 +579,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -583,7 +588,15 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -661,6 +674,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -787,7 +801,7 @@ function ProductList(props) {
     const [loadingProducts, setLoadingProducts] = useState(true);
     const [loadingTypes, setLoadingTypes] = useState(true);
     const [loadingConfirm, setLoadingConfirm] = useState(false);
-    const [errorConfirm, setErrorConfirm] = useState(''); 
+    const [errorConfirm, setErrorConfirm] = useState('');
     const [errorLoading, setErrorLoading] = useState(''); //Error in loading products/types
 &nbsp;
     function changeSearchText(text) {
@@ -919,28 +933,31 @@ function ProductList(props) {
             }))
         }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        setLoadingConfirm(true);</span>
 <span class="cstat-no" title="statement not covered" >        bookingApi.getWalletBalance()</span>
-        .then(<span class="fstat-no" title="function not covered" >(w</span>allet) =&gt; {
-<span class="cstat-no" title="statement not covered" >            setLoadingConfirm(false);</span>
-<span class="cstat-no" title="statement not covered" >            console.log("wallet");</span>
-<span class="cstat-no" title="statement not covered" >            console.log(wallet["Wallet"])</span>
-<span class="cstat-no" title="statement not covered" >            if (wallet["Wallet"] &lt; cartInfo.totalPrice) {</span>
-<span class="cstat-no" title="statement not covered" >                setErrorConfirm("Your Booked is registred ,But Your wallet balance is not enough, Please increase");</span>
-<span class="cstat-no" title="statement not covered" >                setLoadingConfirm(false);</span>
-<span class="cstat-no" title="statement not covered" >                console.log(errorConfirm)</span>
-            }
-        }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
-<span class="cstat-no" title="statement not covered" >            console.error(err);</span>
-        });
-        
+            .then(<span class="fstat-no" title="function not covered" >(w</span>allet) =&gt; {
+<span class="cstat-no" title="statement not covered" >                if (wallet["Wallet"] &lt; cartInfo.totalPrice) {</span>
+<span class="cstat-no" title="statement not covered" >                    setErrorConfirm("Your booking will be registered but your wallet balance is not enough. Please, remember to top it up as soon as possible");</span>
+<span class="cstat-no" title="statement not covered" >                    ConfirmForSucessPage(booking, "Your booking is registered in the system but your wallet balance is not enough. Please, remember to top it up as soon as possible")</span>
+                }
+                else {
+<span class="cstat-no" title="statement not covered" >                    ConfirmForSucessPage(booking, "")</span>
+                }
+            }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+<span class="cstat-no" title="statement not covered" >                console.error(err);</span>
+            });
 &nbsp;
+&nbsp;
+&nbsp;
+    }
+&nbsp;
+    function <span class="fstat-no" title="function not covered" >ConfirmForSucessPage(</span>booking, error) {
+<span class="cstat-no" title="statement not covered" >        setLoadingConfirm(true);</span>
 <span class="cstat-no" title="statement not covered" >        bookingApi.addBooking(booking)</span>
             .then(<span class="fstat-no" title="function not covered" >(o</span>rderId) =&gt; {
 <span class="cstat-no" title="statement not covered" >                setLoadingConfirm(false);</span>
 <span class="cstat-no" title="statement not covered" >                setCart([]);</span>
 <span class="cstat-no" title="statement not covered" >                setCartInfo({ numItems: 0, totalPrice: 0 });</span>
-<span class="cstat-no" title="statement not covered" >                setOrderConfirmed({ orderId: orderId, booking: booking,errorWallet:errorConfirm });</span>
+<span class="cstat-no" title="statement not covered" >                setOrderConfirmed({ orderId: orderId, booking: booking, errorWallet: error });</span>
             }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
 <span class="cstat-no" title="statement not covered" >                setErrorConfirm('Error during the confirmation of the order')</span>
 <span class="cstat-no" title="statement not covered" >                console.error(err);</span>
@@ -1022,6 +1039,7 @@ function ProductList(props) {
                         &lt;h1 style={{ textAlign: "center" }}&gt;Loading products... &lt;Spinner animation="border" /&gt;&lt;/h1&gt; :
 <span class="branch-1 cbranch-no" title="branch not covered" >                        &lt;Row xs={2} md={5} className="g-4"&gt;</span>
                             {searchProducts.map(<span class="fstat-no" title="function not covered" >(x</span>) =&gt;
+                                // 
 <span class="cstat-no" title="statement not covered" >                                &lt;Product key={x.id} canShop={timeEnabled &amp;&amp; canSeeCart}</span>
                                     product={x} addProductToCart={addProductToCart}
                                     productInCart={cart.filter(<span class="fstat-no" title="function not covered" >pr</span>oduct =&gt; <span class="cstat-no" title="statement not covered" >product.id === x.id)</span>[0] === undefined ? 0
@@ -1037,7 +1055,7 @@ function ProductList(props) {
 <span class="branch-0 cbranch-no" title="branch not covered" >                &lt;Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart} changeQuantityFromInput={changeQuantityFromInput}</span>
                     modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
                     errorConfirm={errorConfirm} userName={location.state &amp;&amp; location.state.userName} /&gt;
-             : &lt;&gt;&lt;/&gt;}
+                : &lt;&gt;&lt;/&gt;}
         &lt;/&gt;
     );
 }
@@ -1116,8 +1134,8 @@ export { ProductList, Product };
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 29 2021 21:54:37 GMT+0100 (Ora standard dell’Europa centrale)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
+                at Sun Dec 05 2021 19:31:26 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

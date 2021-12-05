@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\client\src\Components\ProductList\__test__\ProductList.test.js">
-        <testCase name="renders the product list without products" duration="278"/>
-        <testCase name="renders a shoppable test product" duration="86"/>
-        <testCase name="renders a non-shoppable test product" duration="57"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\__test__\Cart.test.js">
+        <testCase name="renders the cart button" duration="88"/>
+        <testCase name="clicking on cart button renders the cart modal as expected" duration="206"/>
+        <testCase name="the cart modal renders products as expected" duration="107"/>
     </file>
-    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\client\src\Components\SuccessPage\__test__\OrderSuccess.test.js">
-        <testCase name="renders success page with test products" duration="779"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\OrderList\__test__\OrderList.test.js">
+        <testCase name="renders the OrderList" duration="340"/>
+        <testCase name="renders an order tuple" duration="270"/>
     </file>
-    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\client\src\Components\NavBar\__test__\NavBar.test.js">
-        <testCase name="renders the NavBar when not logged in" duration="343"/>
-        <testCase name="renders the NavBar when logged in as manager" duration="260"/>
-        <testCase name="renders the NavBar when logged in as employee" duration="265"/>
-        <testCase name="renders the NavBar when logged in as client" duration="390"/>
-        <testCase name="renders the NavBar when logged in as farmer" duration="245"/>
-        <testCase name="renders the NavBar when logged in as deliverer" duration="186"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\LoginComponents\__test__\LoginComponent.test.js">
+        <testCase name="renders the Login form as intended " duration="224"/>
     </file>
-    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\client\src\Components\HomePage\__test__\HomePage.test.js">
-        <testCase name="renders the HomePage " duration="473"/>
-        <testCase name="The icons on the sections sidebar hooks to different sections of the homepage when clicked" duration="98"/>
-        <testCase name="The Products button redirects you to the /products path" duration="136"/>
-        <testCase name="The Log In button redirects you to the /login path" duration="137"/>
-        <testCase name="The Register button redirects you to the /addClient path" duration="135"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\App.test.js">
+        <testCase name="renders learn react link" duration="415"/>
     </file>
-    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\client\src\Components\ClientList\__test__\AddClient.test.js">
-        <testCase name="renders the AddClient component with all it&apos;s input fields " duration="203"/>
-        <testCase name="All input fields work as ecxpected and are linked to their label and register button redirects you to root path" duration="540"/>
-        <testCase name="Error messages pops up when input is missing or wrong" duration="91"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\SideBar\__test__\SideBar.test.js">
+        <testCase name="renders the loading sidebar" duration="93"/>
+        <testCase name="renders the sidebar with types" duration="477"/>
     </file>
-    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\client\src\Components\ClientList\__test__\ClientList.test.js">
-        <testCase name="the client table renders as expected " duration="250"/>
-        <testCase name="the top up wallet modal renders as expected " duration="182"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\ProductList\__test__\ProductList.test.js">
+        <testCase name="renders the product list without products" duration="482"/>
+        <testCase name="renders a shoppable test product" duration="123"/>
+        <testCase name="renders a non-shoppable test product" duration="65"/>
     </file>
-    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\client\src\Components\SideBar\__test__\SideBar.test.js">
-        <testCase name="renders the loading sidebar" duration="8"/>
-        <testCase name="renders the sidebar with types" duration="229"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\ClientList\__test__\ClientList.test.js">
+        <testCase name="the client table renders as expected " duration="567"/>
+        <testCase name="the top up wallet modal renders as expected " duration="251"/>
     </file>
-    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\client\src\App.test.js">
-        <testCase name="renders learn react link" duration="107"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\SuccessPage\__test__\OrderSuccess.test.js">
+        <testCase name="renders success page with test products" duration="1119"/>
     </file>
-    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\client\src\Components\OrderList\__test__\OrderList.test.js">
-        <testCase name="renders the OrderList" duration="51"/>
-        <testCase name="renders an order tuple" duration="177"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\ClientList\__test__\AddClient.test.js">
+        <testCase name="renders the AddClient component with all it&apos;s input fields " duration="392"/>
+        <testCase name="All input fields work as ecxpected and are linked to their label and register button redirects you to root path" duration="618"/>
+        <testCase name="Error messages pops up when input is missing or wrong" duration="97"/>
     </file>
-    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\client\src\Components\LoginComponents\__test__\LoginComponent.test.js">
-        <testCase name="renders the Login form as intended " duration="59"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\HomePage\__test__\HomePage.test.js">
+        <testCase name="renders the HomePage " duration="718"/>
+        <testCase name="The icons on the sections sidebar hooks to different sections of the homepage when clicked" duration="101"/>
+        <testCase name="The Products button redirects you to the /products path" duration="163"/>
+        <testCase name="The Log In button redirects you to the /login path" duration="130"/>
+        <testCase name="The Register button redirects you to the /addClient path" duration="104"/>
     </file>
-    <file path="C:\Users\Paolo\Desktop\SoftEng2\SolidarityPurchasingGroup\client\src\Components\Cart\__test__\Cart.test.js">
-        <testCase name="renders the cart button" duration="9"/>
-        <testCase name="clicking on cart button renders the cart modal as expected" duration="32"/>
-        <testCase name="the cart modal renders products as expected" duration="33"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\NavBar\__test__\NavBar.test.js">
+        <testCase name="renders the NavBar when not logged in" duration="632"/>
+        <testCase name="renders the NavBar when logged in as manager" duration="318"/>
+        <testCase name="renders the NavBar when logged in as employee" duration="307"/>
+        <testCase name="renders the NavBar when logged in as client" duration="284"/>
+        <testCase name="renders the NavBar when logged in as farmer" duration="244"/>
+        <testCase name="renders the NavBar when logged in as deliverer" duration="110"/>
     </file>
 </testExecutions>

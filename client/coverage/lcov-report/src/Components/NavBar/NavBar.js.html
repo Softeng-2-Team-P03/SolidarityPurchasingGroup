@@ -23,7 +23,7 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40.84% </span>
+                <span class="strong">40.85% </span>
                 <span class="quiet">Statements</span>
                 <span class='fraction'>29/71</span>
             </div>
@@ -44,7 +44,7 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.42% </span>
+                <span class="strong">41.43% </span>
                 <span class="quiet">Lines</span>
                 <span class='fraction'>29/70</span>
             </div>
@@ -54,6 +54,12 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
     <div class='status-line low'></div>
     <pre><table class="coverage">
@@ -330,7 +336,14 @@
 <a name='L271'></a><a href='#L271'>271</a>
 <a name='L272'></a><a href='#L272'>272</a>
 <a name='L273'></a><a href='#L273'>273</a>
-<a name='L274'></a><a href='#L274'>274</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L274'></a><a href='#L274'>274</a>
+<a name='L275'></a><a href='#L275'>275</a>
+<a name='L276'></a><a href='#L276'>276</a>
+<a name='L277'></a><a href='#L277'>277</a>
+<a name='L278'></a><a href='#L278'>278</a>
+<a name='L279'></a><a href='#L279'>279</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -385,6 +398,13 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -399,12 +419,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -606,8 +622,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
-import { Nav, Navbar, Table } from "react-bootstrap";
+import { Button, Nav, Navbar, Table, Col } from "react-bootstrap";
 import { showTime } from './clock.js'
+import Notifications from "../Notifications/Notifications";
+import 'bootstrap-icons/font/bootstrap-icons.css';
 &nbsp;
 var hourMultiplier = 0;
 var dayMultiplier = 0;
@@ -636,41 +654,43 @@ function NavBar(props) {
 &nbsp;
   return (
     &lt;div&gt;
+&nbsp;
       &lt;Navbar bg="primary" variant="dark" expand="lg"&gt;
+        &lt;Col xs="2"&gt;
+          &lt;Navbar.Brand href="/" className="col-md-2"&gt;
+            &lt;img
+              src={spg}
+              width="60"
+              height="60"
+              className="d-inline-block align-top"
+              alt="SPG"
+            /&gt; &lt;h3&gt;SPG&lt;/h3&gt;
+          &lt;/Navbar.Brand&gt;
 &nbsp;
-        &lt;Navbar.Brand href="/" className="col-md-2"&gt;
-          &lt;img
-            src={spg}
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-            alt="SPG"
-          /&gt; SPG
-        &lt;/Navbar.Brand&gt;
+        &lt;/Col&gt;
 &nbsp;
-        &lt;Navbar.Toggle aria-controls="basic-navbar-nav" /&gt;
+        &lt;Col xs="7"&gt;
 &nbsp;
-        &lt;Navbar.Collapse id="basic-navbar-nav"&gt;
-          &lt;div className="col-md-6"&gt;
+          &lt;ShowClock className="me-auto timer" /&gt;
 &nbsp;
-          &lt;/div&gt;
-          &lt;Nav className="me-auto " /&gt;
-          {props.loggedIn &amp;&amp; props.user !== undefined &amp;&amp; chooseNavbar(props.user.accessType)}
-          &lt;Nav&gt;
-            {props.loggedIn ?
-              &lt;Nav.Link onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >window.location.href = 'http://localhost:3000/'; <span class="cstat-no" title="statement not covered" ></span>props.userLogoutCallback() </span>}}&gt;Logout&lt;/Nav.Link&gt; :
-              &lt;Nav.Link href='/login'&gt;Login&lt;/Nav.Link&gt;
-            }
-          &lt;/Nav&gt;
-        &lt;/Navbar.Collapse&gt;
+&nbsp;
+        &lt;/Col&gt;
+        &lt;Col xs="3"&gt;
+          &lt;Navbar.Toggle aria-controls="basic-navbar-nav" /&gt;
+          &lt;Navbar.Collapse id="basic-navbar-nav"&gt;
+            
+            &lt;Nav className="me-auto " /&gt;
+            {props.loggedIn &amp;&amp; props.user !== undefined &amp;&amp; chooseNavbar(props.user.accessType)}
+            &lt;Nav&gt;
+              {props.loggedIn ?
+                &lt;Nav.Link onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >window.location.href = 'http://localhost:3000/'; <span class="cstat-no" title="statement not covered" ></span>props.userLogoutCallback() </span>}}&gt;Logout&lt;/Nav.Link&gt; :
+                &lt;Nav.Link href='/login'&gt;Login&lt;/Nav.Link&gt;
+              }
+            &lt;/Nav&gt;
+          &lt;/Navbar.Collapse&gt;
+        &lt;/Col&gt;
       &lt;/Navbar&gt;
-      &lt;div class="timer"&gt;
-        &lt;div className="me-auto"&gt;
-          &lt;Nav className="me-auto " &gt;
-            &lt;ShowClock /&gt;
-          &lt;/Nav&gt;
-        &lt;/div&gt;
-      &lt;/div&gt;
+&nbsp;
     &lt;/div&gt;
   );
 }
@@ -682,6 +702,7 @@ function ClientNavbar() {
       &lt;Nav.Link href='/products'&gt;Browse Shop&lt;/Nav.Link&gt;
       &lt;Nav.Link&gt;My Orders&lt;/Nav.Link&gt;
       &lt;Nav.Link&gt;My Wallet&lt;/Nav.Link&gt;
+      &lt;Notifications placement={'end'} &gt;&lt;/Notifications&gt;
     &lt;/Nav&gt;
   );
 }
@@ -882,8 +903,8 @@ export default NavBar;
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 29 2021 21:54:37 GMT+0100 (Ora standard dell’Europa centrale)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
+                at Sun Dec 05 2021 19:31:26 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

@@ -23,14 +23,14 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">47.82% </span>
+                <span class="strong">44.44% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>11/23</span>
+                <span class='fraction'>12/27</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">41.66% </span>
+                <span class="strong">41.67% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>5/12</span>
             </div>
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">48% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>11/22</span>
+                <span class='fraction'>12/25</span>
             </div>
         
             
@@ -54,6 +54,12 @@
         <p class="quiet">
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input oninput="onInput()" type="search" id="fileSearch">
+            </div>
+        </template>
     </div>
     <div class='status-line low'></div>
     <pre><table class="coverage">
@@ -232,7 +238,11 @@
 <a name='L173'></a><a href='#L173'>173</a>
 <a name='L174'></a><a href='#L174'>174</a>
 <a name='L175'></a><a href='#L175'>175</a>
-<a name='L176'></a><a href='#L176'>176</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -242,7 +252,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -275,6 +286,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,7 +423,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import 'bootstrap/dist/css/bootstrap.min.css';
 import './HomePage.css';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import { Col, Row, Button, Toast } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import userApi from '../../api/user-api';
@@ -419,6 +433,7 @@ function HomePage(prop) {
 &nbsp;
     const [showB, setShowB] = useState(true);
     const location = useLocation();
+    const history = useHistory();
     const [showModal, setShowModal] = useState(false);
     const setModalclose = <span class="fstat-no" title="function not covered" >()</span> =&gt; {
 <span class="cstat-no" title="statement not covered" >        setShowModal(false);</span>
@@ -449,7 +464,10 @@ function HomePage(prop) {
     }, []);
 &nbsp;
  
-  const toggleShowB = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShowB(!showB);</span>
+  const toggleShowB = <span class="fstat-no" title="function not covered" >()</span> =&gt; {<span class="cstat-no" title="statement not covered" >setShowB(!showB); </span>let state = <span class="cstat-no" title="statement not covered" >{ ...history.location.state };</span>
+<span class="cstat-no" title="statement not covered" >  delete state.showToast;</span>
+<span class="cstat-no" title="statement not covered" >  history.replace({ ...history.location, state });}</span>
+    
     return (
         &lt;&gt;
         {location.state &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >location.state.showToast </span> ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;&gt; </span>
@@ -473,14 +491,14 @@ function HomePage(prop) {
                         &lt;/Col&gt;
                         &lt;Col&gt;
                             &lt;Link to='/products' style={{ whiteSpace: "nowrap" }}&gt;
-                                &lt;Button size="lg"&gt;Products&lt;/Button&gt;
+                                &lt;Button style={{color : 'black', background : '#FF7E8E', border : 'none'}} size="lg" &gt; Products &lt;/Button&gt;
                             &lt;/Link&gt;
                         &lt;/Col&gt;
                     &lt;/Row&gt;
                     {prop.loggedIn ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;&gt; &lt;/&gt; </span>: &lt;&gt;
                     &lt;p&gt;Not already registered?&lt;/p&gt;
                     &lt;Link to='/addClient'&gt;
-                        &lt;Button size="lg" style={{ whiteSpace: "nowrap" }}&gt;Register&lt;/Button&gt;
+                        &lt;Button size="lg" style={{color : 'black', background : '#FF7E8E', border : 'none'}}&gt;Register&lt;/Button&gt;
                     &lt;/Link&gt; &lt;/&gt; }
                 &lt;/section&gt;
                 &lt;section className="partSection" id="info"&gt;
@@ -494,7 +512,7 @@ function HomePage(prop) {
                     &lt;h2&gt;Want to join our team?&lt;/h2&gt;
                     &lt;p&gt;Candidate now!&lt;/p&gt;
                     &lt;Link to='/candidate'&gt;
-                        &lt;Button size="lg"&gt;Candidate&lt;/Button&gt;
+                        &lt;Button style={{color : 'black',background : '#FF7E8E', border : 'none'}} size="lg"&gt;Candidate&lt;/Button&gt;
                     &lt;/Link&gt;
                 &lt;/section&gt;
 &nbsp;
@@ -570,7 +588,7 @@ function SelectionBar() {
 function LogIn(){
     return(&lt;&gt;
         &lt;Link to='/login'&gt;
-            &lt;Button size="lg" style={{ whiteSpace: "nowrap" }}&gt;Log In&lt;/Button&gt;
+            &lt;Button size="lg" style={{color : 'black',background : '#FF7E8E', border : 'none'}}&gt;Log In&lt;/Button&gt;
         &lt;/Link&gt;
     &lt;/&gt;);
 }
@@ -578,7 +596,7 @@ function LogIn(){
 function <span class="fstat-no" title="function not covered" >LogOut(</span>prop){
 <span class="cstat-no" title="statement not covered" >    return(&lt;&gt;</span>
     &lt;Link to="/"&gt;
-        &lt;Button size="lg" style={{ whiteSpace: "nowrap" }} onClick={prop.userLogoutCallback}&gt;Log Out&lt;/Button&gt;
+        &lt;Button size="lg" style={{color : 'black',background : '#FF7E8E', border : 'none'}} onClick={prop.userLogoutCallback}&gt;Log Out&lt;/Button&gt;
     &lt;/Link&gt;
     &lt;/&gt;);
 }
@@ -588,8 +606,8 @@ export default HomePage;</pre></td></tr></table></pre>
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
-                <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Mon Nov 29 2021 21:54:37 GMT+0100 (Ora standard dell’Europa centrale)
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
+                at Sun Dec 05 2021 19:31:26 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
