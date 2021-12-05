@@ -68,14 +68,14 @@ function HomePage(prop) {
                         </Col>
                         <Col>
                             <Link to='/products' style={{ whiteSpace: "nowrap" }}>
-                                <Button size="lg">Products</Button>
+                                <Button style={{color : 'black', background : '#FF7E8E', border : 'none'}} size="lg" > Products </Button>
                             </Link>
                         </Col>
                     </Row>
                     {prop.loggedIn ? <> </> : <>
                     <p>Not already registered?</p>
                     <Link to='/addClient'>
-                        <Button size="lg" style={{ whiteSpace: "nowrap" }}>Register</Button>
+                        <Button size="lg" style={{color : 'black', background : '#FF7E8E', border : 'none'}}>Register</Button>
                     </Link> </> }
                 </section>
                 <section className="partSection" id="info">
@@ -89,7 +89,7 @@ function HomePage(prop) {
                     <h2>Want to join our team?</h2>
                     <p>Candidate now!</p>
                     <Link to='/candidate'>
-                        <Button size="lg">Candidate</Button>
+                        <Button style={{color : 'black',background : '#FF7E8E', border : 'none'}} size="lg">Candidate</Button>
                     </Link>
                 </section>
 
@@ -165,7 +165,7 @@ function SelectionBar() {
 function LogIn(){
     return(<>
         <Link to='/login'>
-            <Button size="lg" style={{ whiteSpace: "nowrap" }}>Log In</Button>
+            <Button size="lg" style={{color : 'black',background : '#FF7E8E', border : 'none'}}>Log In</Button>
         </Link>
     </>);
 }
@@ -173,7 +173,7 @@ function LogIn(){
 function LogOut(prop){
     return(<>
     <Link to="/">
-        <Button size="lg" style={{ whiteSpace: "nowrap" }} onClick={prop.userLogoutCallback}>Log Out</Button>
+        <Button size="lg" style={{color : 'black',background : '#FF7E8E', border : 'none'}} onClick={prop.userLogoutCallback}>Log Out</Button>
     </Link>
     </>);
 }

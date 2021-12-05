@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
-import {Button, Nav, Navbar, Table} from "react-bootstrap";
+import { Button, Nav, Navbar, Table, Col } from "react-bootstrap";
 import { showTime } from './clock.js'
 import Notifications from "../Notifications/Notifications";
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -33,41 +33,41 @@ function NavBar(props) {
 
   return (
     <div>
-      <div className="timer">
-        <div className="me-auto">
-          <Nav className="me-auto ">
-            <ShowClock/>
-          </Nav>
-        </div>
-      </div>
+
       <Navbar bg="primary" variant="dark" expand="lg">
+        <Col xs="2">
+          <Navbar.Brand href="/" className="col-md-2">
+            <img
+              src={spg}
+              width="60"
+              height="60"
+              className="d-inline-block align-top"
+              alt="SPG"
+            /> <h3>SPG</h3>
+          </Navbar.Brand>
 
-        <Navbar.Brand href="/" className="col-md-2">
-          <img
-            src={spg}
-            width="30"
-            height="30"
-            className="d-inline-block align-top"
-            alt="SPG"
-          /> SPG
-        </Navbar.Brand>
+        </Col>
 
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Col xs="7">
 
-        <Navbar.Collapse id="basic-navbar-nav">
-          <div className="col-md-6">
+          <ShowClock className="me-auto timer" />
 
-          </div>
-          <Nav className="me-auto " />
-          {props.loggedIn && props.user !== undefined && chooseNavbar(props.user.accessType)}
-          <Nav>
-            {props.loggedIn ?
-              <Nav.Link onClick={() => { window.location.href = 'http://localhost:3000/'; props.userLogoutCallback() }}>Logout</Nav.Link> :
-              <Nav.Link href='/login'>Login</Nav.Link>
-            }
-          </Nav>
-        </Navbar.Collapse>
 
+        </Col>
+        <Col xs="3">
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            
+            <Nav className="me-auto " />
+            {props.loggedIn && props.user !== undefined && chooseNavbar(props.user.accessType)}
+            <Nav>
+              {props.loggedIn ?
+                <Nav.Link onClick={() => { window.location.href = 'http://localhost:3000/'; props.userLogoutCallback() }}>Logout</Nav.Link> :
+                <Nav.Link href='/login'>Login</Nav.Link>
+              }
+            </Nav>
+          </Navbar.Collapse>
+        </Col>
       </Navbar>
 
     </div>
