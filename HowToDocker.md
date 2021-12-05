@@ -12,7 +12,8 @@
   
 ### How to run docker compose
  - The `"proxy": "http://localhost:3001"` line into **client/package.json** it had "localhost" substituted  with "backend" resulting in `"proxy": "http://backend:3001"` in the **client/package-docker.json file**. in fact this is the file the Dockerfile is instructed to use as the "package.json" of the containerized app. so, **if you change something on the package.json file you also have to change it into package-docker.json** in order for it to have effect into the docker image.
- - now delete your `node_modules` folder and the `package-lock.json` file and then run `npm install` to rebuild them
+ - now delete your `node_modules` folder and the `package-lock.json` files from both the client and the server paths so that they will not be copied into the docker containers, you'll be able to regenerate them using the command `npm install` bu do so only AFTER you have generated the images. <br/>At the moment this is necessary because the .dockerignore file is not behaving as i expected, it might become unnecessary in the future when i'll get what's the problem
+  
  - Open a terminal in the root of the project ( your_directory\SolidarityPurchasingGroup> ) and run the command `docker-compose up --build`, it's going to take a while
    - PS: Make sure to have docker running in your computer!
 
