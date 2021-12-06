@@ -94,7 +94,7 @@ exports.getUserById = (id) => {
           resolve({error: 'User not found.'});
         else {
           // by default, the local strategy looks for "username": not to create confusion in server.js, we can create an object with that property
-          const user = {id: row.Id, username: row.Email, name: row.Name, accessType: row.AccessType}
+          const user = {id: row.Id, username: row.Email, name: row.Name, surname: row.Surname, phoneNumber : row.PhoneNumber, wallet : row.wallet, accessType: row.AccessType}
           resolve(user);
         }
     });

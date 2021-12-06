@@ -24,6 +24,16 @@ async function getWalletBalance(userId) {
     }
   }
 
+  async function getUserById(userId) {
+    // call: GET /api/orders
+    const response = await fetch(BASEURL + '/client/'+ userId);
+    const walletBalance = await response.json();
+    if (response.ok) {
+      return walletBalance;
+    } else {
+      throw walletBalance;  // an object with the error coming from the server
+    }
+  }
 
 async function getRequiredChargeByBookingId(bookinId) {
     // call: GET /api/orders
@@ -55,5 +65,7 @@ async function getRequiredChargeByBookingId(bookinId) {
       });
     }
 
- const userApi = { getRequiredCharge,getWalletBalance,getRequiredChargeByBookingId, chargeWallet};
+  
+
+ const userApi = { getRequiredCharge,getWalletBalance,getRequiredChargeByBookingId, chargeWallet, getUserById};
  export default userApi; 

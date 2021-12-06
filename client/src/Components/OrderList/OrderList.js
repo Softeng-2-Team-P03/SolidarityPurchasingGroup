@@ -2,7 +2,9 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderList.css';
 import bookingApi from '../../api/booking-api';
-import { Button, Form, Table } from "react-bootstrap";
+import userApi from '../../api/user-api'
+import { Button, Form, Table, Modal } from "react-bootstrap";
+
 import React, { useEffect, useState } from 'react';
 //import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
 
@@ -27,16 +29,16 @@ function Order(props) {
     const updateBookingState = (bookingId) => {
         setStatusUpdated("Updating order...");
         let newState;
-        switch (handedOut) { 
-            case false : 
+        switch (handedOut) {
+            case false:
                 newState = 2;
                 setHandedOut(true);
-            break;
-            case true : 
+                break;
+            case true:
                 newState = 0;
                 setHandedOut(false);
-            break;
-            default :newState=0;
+                break;
+            default: newState = 0;
         }
         bookingApi.updateBookingState(bookingId, newState).then(() => {
             setStatusUpdated("Order status updated");
@@ -56,7 +58,7 @@ function Order(props) {
                 <td>{props.order.BookingId}</td>
                 <td>{props.order.UserId}</td>
                 <td>{props.order.BookingStartDate}</td>
-                <td>{props.order.State}</td>
+                <td>{props.order.State} {props.order.State === "pending for cancelation" ? <ContactUser order={props.order} /> : ""}</td>
                 {props.order.PickupTime ? <td> {props.order.PickupTime} </td> : <td> {props.order.DeliveryTime} </td>}
                 <td>{props.order.TotalPrice}</td>
 
@@ -65,7 +67,7 @@ function Order(props) {
                     id="custom-switch"
                     label={isHandedOut}
                     onClick={(ev) => updateBookingState(props.order.BookingId)}
-                /> <div style={statusUpdated==="Updating order..." ? {color : "#FFA900" }:{color : "#00B74A" }}>{statusUpdated}</div>
+                /> <div style={statusUpdated === "Updating order..." ? { color: "#FFA900" } : { color: "#00B74A" }}>{statusUpdated}</div>
                 </td> : <td ><Form.Check
                     type="switch"
                     id="custom-switch"
@@ -91,13 +93,31 @@ function OrderList(props) {
 
     useEffect(() => {
         bookingApi.getOrders().then((orders) => {
-            setOrders(orders.map(order => ({ ...order })));
-            setSearchOrders(orders.map(order => ({ ...order })));
-            setLoadingProducts(false);
+
+            orders.forEach((order) => {
+                // modify numeric status with relative description
+                switch (order.State) {
+                    case 0: order.State = "issued";
+                        break;
+                    case 1: order.State = "pending for cancelation";
+                        break;
+                    case 2: order.State = "paid";
+                        break;
+                    case 3: order.State = "handed out";
+                        break;
+                    default: order.State = "created";
+                }
+
+                setOrders(orders.map(order => ({ ...order })));
+                setSearchOrders(orders.map(order => ({ ...order })));
+                setLoadingProducts(false);
+
+            })
         }).catch(err => {
             setErrorLoading('Error during the loading of the orders')
             console.error(err);
         });
+
     }, [])
 
     function changeSearchText(text) {
@@ -108,7 +128,7 @@ function OrderList(props) {
         })
 
         setSearchOrders(c);
-    }
+    };
 
     return (
         <>
@@ -136,7 +156,38 @@ function OrderList(props) {
                 </tbody>
             </Table>
         </>
+    )
+}
+
+function ContactUser(props) {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    return (
+        <>
+            <span onClick={handleShow}>
+                <Button className="d-none d-sm-block mx-auto" variant="success" >
+                    Contact User
+                </Button>
+            </span>
+
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title> User info </Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <h6><b>{props.order.UserName} {props.order.UserSurname} </b></h6><br></br>
+
+                </Modal.Body>
+
+
+            </Modal>
+        </>
     );
 }
 
-export {OrderList, Order};
+export { OrderList, Order, ContactUser };
