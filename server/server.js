@@ -498,7 +498,20 @@ app.put('/api/bookings/:id', [
 
 });
 
-app.put('/api/product/:Id', isLoggedIn, async (req, res) => {
+app.put('/api/product/:Id', isLoggedIn,[
+    check('Quantity').isInt({ min: 0, max: 10000 }),
+    check('PricePerUnit').isFloat({ min: 0, max: 10000 })
+], async (req, res) => {
+
+    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+    }
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+
     try {
         await productDao.updateProduct(req.body.Quantity, req.params.Id, req.body.Name, req.body.Description, req.body.PricePerUnit, req.body.TypeId);
         res.status(200).end();
