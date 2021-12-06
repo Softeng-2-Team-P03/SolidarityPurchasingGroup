@@ -315,11 +315,20 @@ app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
 });
 
 // POST /api/product
-app.post('/api/product', isLoggedIn, async (req, res) => {
+app.post('/api/product',
+    isLoggedIn, [
+        check('Quantity').isInt({ min: 0, max: 10000 }),
+        check('PricePerUnit').isFloat({ min: 0, max: 10000 })
+    ], async (req, res) => {
 
     if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
+
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.array() });
+        }
 
     const product = {
         Id: req.body.Id,
