@@ -289,6 +289,23 @@ function AddProductForm(props) {
             valid = false;
         }
 
+        if (!Number.isInteger(quantity)) {
+            setErrorMessage('Quantity not valid');
+            valid = false;
+        }
+
+        if (quantity < 0 || quantity > 10000) {
+            setErrorMessage('Quantity must be a value between 0 and 10000');
+            valid = false;
+        }
+
+        if (pricePerUnit < 0 || pricePerUnit > 10000) {
+            setErrorMessage('price must be a value between 0 and 10000');
+            valid = false;
+        }
+
+
+
 
         if (valid) {
 
@@ -476,6 +493,21 @@ function EditProductForm(props) {
         }
         if (pricePerUnit === '') {
             setErrorMessage('Missing price per unit!');
+            valid = false;
+        }
+
+        if (!Number.isInteger(quantity)) {
+            setErrorMessage('Quantity not valid');
+            valid = false;
+        }
+
+        if (quantity < 0 || quantity > 10000) {
+            setErrorMessage('Quantity must be a value between 0 and 10000');
+            valid = false;
+        }
+
+        if (pricePerUnit < 0 || pricePerUnit > 10000) {
+            setErrorMessage('price must be a value between 0 and 10000');
             valid = false;
         }
 
