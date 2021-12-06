@@ -488,9 +488,10 @@ app.put('/api/bookings/:id', [
     }
 
 });
-app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) => {
+
+app.put('/api/product/:Id', isLoggedIn, async (req, res) => {
     try {
-        await productDao.updateAvailbeleDate(req.body.availableDate,req.body.Quantity, req.params.Id);
+        await productDao.updateProduct(req.body.Quantity, req.params.Id, req.body.Name, req.body.Description, req.body.PricePerUnit, req.body.TypeId);
         res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of Available Product.` });

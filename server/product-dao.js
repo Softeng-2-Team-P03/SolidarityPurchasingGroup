@@ -208,10 +208,10 @@ exports.createImage = (image) => {
         });
     });
 };
-exports.updateAvailbeleDate = (availableDate,Quantity, Id) => {
+exports.updateProduct = (Quantity, Id, Name, Description, PricePerUnit, TypeId) => {
     return new Promise((resolve, reject) => {
-        const sql = 'UPDATE Products SET AvailableDate=? , Quantity=? WHERE Id =? ';
-        db.run(sql, [availableDate,Quantity, Id], function (err) { //NOSONAR
+        const sql = 'UPDATE Products SET Quantity=?, Name=?, Description=?, PricePerUnit=?, TypeId=? WHERE Id =? ';
+        db.run(sql, [Quantity, Name, Description, PricePerUnit, TypeId, Id], function (err) { //NOSONAR
             if (err) {
                 reject(err);
                 return;

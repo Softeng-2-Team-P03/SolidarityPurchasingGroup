@@ -113,7 +113,7 @@ function FarmerHome() {
                         <Modal.Title>Edit product</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <EditProductForm productToEdit={productToEdit} handleCloseEdit={handleCloseEdit}/>
+                        <EditProductForm productToEdit={productToEdit} handleCloseEdit={handleCloseEdit} setDirty={setDirty} dirty={dirty}/>
 
                     </Modal.Body>
 
@@ -431,11 +431,11 @@ function AddProductForm(props) {
 }
 
 function EditProductForm(props) {
-    const [name, setName] = useState('');
-    const [description, setDescription] = useState('');
-    const [quantity, setQuantity] = useState('');
-    const [type, setType] = useState('');
-    const [pricePerUnit, setPricePerUnit] = useState('');
+    const [name, setName] = useState(props.productToEdit.Name);
+    const [description, setDescription] = useState(props.productToEdit.Description);
+    const [quantity, setQuantity] = useState(props.productToEdit.Quantity);
+    const [type, setType] = useState(props.productToEdit.TypeId);
+    const [pricePerUnit, setPricePerUnit] = useState(props.productToEdit.PricePerUnit);
 
     const [errorMessage, setErrorMessage] = useState('');
     const [submitted, setSubmitted] = useState(false);
@@ -445,8 +445,13 @@ function EditProductForm(props) {
     const handleEdit = (event) => {
         event.preventDefault();
 
+        API.updateProductInfo(quantity, props.productToEdit.Id, name, description, pricePerUnit, type).catch(err => console.log(err));
+
 
         props.handleCloseEdit();
+
+        if(props.dirty) props.setDirty(false);
+        else props.setDirty(true);
 
 
 
