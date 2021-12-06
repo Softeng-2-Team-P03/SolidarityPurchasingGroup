@@ -11,10 +11,10 @@ describe('New customer registration', () => {
         cy.get('#formEmail')
             .type('mrm@gmail.com')
             .should('have.value', 'mrm@gmail.com')
-        cy.get(':nth-child(4) > #formPhoneNumber')
+        cy.get('#formPassword')
             .type('password@')
             .should('have.value', 'password@')
-        cy.get(':nth-child(5) > #formPhoneNumber')
+        cy.get('#formPhoneNumber')
             .type('3453652347')
             .should('have.value', '3453652347')
         cy.get('#formAddress')
@@ -25,17 +25,21 @@ describe('New customer registration', () => {
     })
 })
 
+
+
+
+
 describe('New customer registration made by the shopper Employee', () => {
     it('successfully loads', () => {
         cy.visit('http://localhost:3000') // change URL to match your dev URL
         cy.contains('Login').click()
         cy.get('#formBasicEmail')
-            .type('emp@test.com')
-            .should('have.value', 'emp@test.com')
+            .type('clodia@spg.com')
+            .should('have.value', 'clodia@spg.com')
         cy.get('#formBasicPassword')
-            .type('mnbvcxz12345')
-            .should('have.value', 'mnbvcxz12345')
-        cy.get('.w-50 > .btn').click()
+            .type('Mnbvcxz1234')
+            .should('have.value', 'Mnbvcxz1234')
+        cy.get('.btn').click()
         cy.get('[href="/clients"]').click()
         cy.get('#add-client-btn').click()
         cy.get('#formName')
@@ -44,13 +48,13 @@ describe('New customer registration made by the shopper Employee', () => {
         cy.get('#formSurname')
             .type('Rossi')
             .should('have.value', 'Rossi')
-        cy.get('#formEmail')
+            cy.get('#formEmail')
             .type('mrm@gmail.com')
             .should('have.value', 'mrm@gmail.com')
-        cy.get(':nth-child(4) > #formPhoneNumber')
+        cy.get('#formPassword')
             .type('password@')
             .should('have.value', 'password@')
-        cy.get(':nth-child(5) > #formPhoneNumber')
+        cy.get('#formPhoneNumber')
             .type('3453652347')
             .should('have.value', '3453652347')
         cy.get('#formAddress')
