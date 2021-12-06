@@ -262,80 +262,99 @@ function AddProductForm(props) {
     };
 
     const onSubmit = async e => {
-        let numImg = numProd+1
-        let nameImg = 'p'+numImg.toString()+'-1.jpg'
-
-        checkDate();
-
-        API.addImage(numImg,nameImg);
 
         e.preventDefault();
-        const formData = new FormData();
-        if(filename!='Choose File')
-            formData.append('file', file ,nameImg);
-        else
-            formData.append('file', file);
 
-        try {
-            const res = await axios.post('/upload', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                },
-                onUploadProgress: progressEvent => {
-                    setUploadPercentage(
-                        parseInt(
-                            Math.round((progressEvent.loaded * 100) / progressEvent.total)
-                        )
-                    );
+        setErrorMessage('');
 
-
-                }
-
-
-            });
-
-            // Clear percentage
-            setTimeout(() => setUploadPercentage(0), 10000);
-
-            const { fileName, filePath } = res.data;
-
-            setUploadedFile({ fileName, filePath });
-
-            setMessage('File Uploaded');
+        let valid = true;
+        if (name === '') {
+            setErrorMessage('Missing name!');
+            valid = false;
+        }
+        if (description === '') {
+            setErrorMessage('Missing description!');
+            valid = false;
+        }
+        if (quantity === '') {
+            setErrorMessage('Missing quantity!');
+            valid = false;
+        }
+        if (pricePerUnit === '') {
+            setErrorMessage('Missing price per unit!');
+            valid = false;
+        }
+        if (type === '') {
+            setErrorMessage('Missing type!');
+            valid = false;
+        }
 
 
+        if (valid) {
 
-                API.addProduct(props.idFarmer.id, name, description,quantity,0,1,pricePerUnit,'10-12-2021');
+
+            let numImg = numProd + 1
+            let nameImg = 'p' + numImg.toString() + '-1.jpg'
+
+            checkDate();
+
+            API.addImage(numImg, nameImg);
+
+            e.preventDefault();
+            const formData = new FormData();
+            if (filename != 'Choose File')
+                formData.append('file', file, nameImg);
+            else
+                formData.append('file', file);
+
+            try {
+                const res = await axios.post('/upload', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    onUploadProgress: progressEvent => {
+                        setUploadPercentage(
+                            parseInt(
+                                Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                            )
+                        );
+
+
+                    }
+
+
+                });
+
+                // Clear percentage
+                setTimeout(() => setUploadPercentage(0), 10000);
+
+                const {fileName, filePath} = res.data;
+
+                setUploadedFile({fileName, filePath});
+
+                setMessage('File Uploaded');
+
+
+                API.addProduct(props.idFarmer.id, name, description, quantity, 0, 1, pricePerUnit, '10-12-2021');
                 props.handleClose();
 
-                if(props.dirty) props.setDirty(false);
+                if (props.dirty) props.setDirty(false);
                 else props.setDirty(true);
 
 
+            } catch (err) {
 
-        } catch (err) {
+                if (err.response.status === 200) {
 
-            if (err.response.status === 200){
-
-            } else if (err.response.status === 500) {
-                setMessage('There was a problem with the server');
-            } else {
-                setMessage(err.response.data.msg);
+                } else if (err.response.status === 500) {
+                    setMessage('There was a problem with the server');
+                } else {
+                    setMessage(err.response.data.msg);
+                }
+                setUploadPercentage(0)
             }
-            setUploadPercentage(0)
+
         }
-    };
-
-
-
-    const formReset = () => {
-        setName('')
-        setDescription('');
-        setQuantity('');
-        setType('');
-        setPricePerUnit('');
-
-
     };
 
    /* if (submitted) {
@@ -459,7 +478,7 @@ function EditProductForm(props) {
             setErrorMessage('Missing price per unit!');
             valid = false;
         }
-        
+
 
         if (valid) {
             API.updateProductInfo(quantity, props.productToEdit.Id, name, description, pricePerUnit, type).catch(err => console.log(err));
