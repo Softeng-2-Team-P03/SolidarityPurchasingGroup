@@ -235,8 +235,6 @@ function AddProductForm(props) {
 
         const getProdFarmer = async () => {
             allProducts = await API.getAllProducts();
-            console.log('pr');
-            console.log(allProducts);
 
         };
         getProdFarmer().then(data => {
@@ -273,7 +271,6 @@ function AddProductForm(props) {
 
         e.preventDefault();
         const formData = new FormData();
-        console.log(filename);
         if(filename!='Choose File')
             formData.append('file', file ,nameImg);
         else
@@ -389,7 +386,7 @@ function AddProductForm(props) {
                     </Form.Group>
                     <Form.Group controlId="formQuantity">
                         <Form.Label>Quantity</Form.Label>
-                        <Form.Control required type='text' value={quantity} onChange={ev => setQuantity(ev.target.value)} />
+                        <Form.Control required type='number' value={quantity} onChange={ev => setQuantity(ev.target.value)} />
                     </Form.Group>
                     <Form.Group controlId="formType">
                         <Form.Label>Type</Form.Label>
@@ -410,7 +407,7 @@ function AddProductForm(props) {
                     </Form.Group>
                     <Form.Group className="mt-2" controlId="formPricePerUnit">
                         <Form.Label>Price per unit</Form.Label>
-                        <Form.Control required type='text' value={pricePerUnit} onChange={ev => setPricePerUnit(ev.target.value)} />
+                        <Form.Control required type='number' value={pricePerUnit} onChange={ev => setPricePerUnit(ev.target.value)} />
                     </Form.Group>
 
                     <input
@@ -445,46 +442,32 @@ function EditProductForm(props) {
     const handleEdit = (event) => {
         event.preventDefault();
 
-        API.updateProductInfo(quantity, props.productToEdit.Id, name, description, pricePerUnit, type).catch(err => console.log(err));
-
-
-        props.handleCloseEdit();
-
-        if(props.dirty) props.setDirty(false);
-        else props.setDirty(true);
-
-
-
-
-        /*let valid = true;
+        let valid = true;
         if (name === '') {
-            setErrorMessage('Missing name description!');
+            setErrorMessage('Missing name!');
             valid = false;
         }
         if (description === '') {
-            setErrorMessage('Missing surname description!');
+            setErrorMessage('Missing description!');
             valid = false;
         }
         if (quantity === '') {
-            setErrorMessage('Missing password description!');
-            valid = false;
-        }
-        if (type === '') {
-            setErrorMessage('Missing email description!');
+            setErrorMessage('Missing quantity!');
             valid = false;
         }
         if (pricePerUnit === '') {
-            setErrorMessage('Missing phoneNumber description!');
+            setErrorMessage('Missing price per unit!');
             valid = false;
         }
-
-
+        
 
         if (valid) {
-            //props.addClient(new Client(name, surname, email, password, phoneNumber, address));
-            formReset();
+            API.updateProductInfo(quantity, props.productToEdit.Id, name, description, pricePerUnit, type).catch(err => console.log(err));
+            props.handleCloseEdit();
+            if(props.dirty) props.setDirty(false);
+            else props.setDirty(true);
             setSubmitted(true);
-        }*/
+        }
     };
 
 
@@ -506,7 +489,7 @@ function EditProductForm(props) {
                     </Form.Group>
                     <Form.Group controlId="formQuantity">
                         <Form.Label>Quantity</Form.Label>
-                        <Form.Control required type='text' defaultValue={props.productToEdit.Quantity} onChange={ev => setQuantity(ev.target.value)} />
+                        <Form.Control required type='number' defaultValue={props.productToEdit.Quantity} onChange={ev => setQuantity(ev.target.value)} />
                     </Form.Group>
                     <Form.Group controlId="formType">
                         <Form.Label>Type</Form.Label>
@@ -526,7 +509,7 @@ function EditProductForm(props) {
                     </Form.Group>
                     <Form.Group className="mt-2" controlId="formPricePerUnit">
                         <Form.Label>Price per unit</Form.Label>
-                        <Form.Control required type='text' defaultValue={props.productToEdit.PricePerUnit} onChange={ev => setPricePerUnit(ev.target.value)} />
+                        <Form.Control required type='number' defaultValue={props.productToEdit.PricePerUnit} onChange={ev => setPricePerUnit(ev.target.value)} />
                     </Form.Group>
 
 
