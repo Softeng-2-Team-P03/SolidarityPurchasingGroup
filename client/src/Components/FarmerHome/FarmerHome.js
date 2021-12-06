@@ -256,6 +256,10 @@ function AddProductForm(props) {
 
     }
 
+    function isInt(n) {
+        return n % 1 === 0;
+    }
+
     const onChange = e => {
         setFile(e.target.files[0]);
         setFilename(e.target.files[0].name);
@@ -289,7 +293,7 @@ function AddProductForm(props) {
             valid = false;
         }
 
-        if (!Number.isInteger(quantity)) {
+        if (!isInt(quantity)) {
             setErrorMessage('Quantity not valid');
             valid = false;
         }
@@ -475,6 +479,10 @@ function EditProductForm(props) {
     const [typeName, setTypeName] = useState('Select product type');
     let typeNameArray = ['Fruits and Vegetables', 'Dairy', 'Meat and salumi', 'Sea products', 'Baker and sweets', 'Beverages'  ]
 
+    function isInt(n) {
+        return n % 1 === 0;
+    }
+
     const handleEdit = (event) => {
         event.preventDefault();
 
@@ -496,7 +504,7 @@ function EditProductForm(props) {
             valid = false;
         }
 
-        if (!Number.isInteger(quantity)) {
+        if (!isInt(quantity)) {
             setErrorMessage('Quantity not valid');
             valid = false;
         }
