@@ -454,7 +454,7 @@ Provide a short description for API with the required parameters, follow the pro
 | "BookingStartDate"  TEXT NOT NULL, | format ISO 8601 ("yyyy-mm-dd")  used to know when the booking was issued |
 | "UserId"  INTEGER NOT NULL, | |
 | "TotalPrice"  REAL, | |
-| "State"  INTEGER NOT NULL, | 0=issued, 1=pending for cancelation, 2=confirmed |
+| "State"  INTEGER NOT NULL, | 0=issued, 1=pending for cancelation, 2=paid, 3=handed out|
 | "PickupTime"  TEXT, | format ISO 8601 ("yyyy-mm-dd hh:mm") |
 | "DeliveryTime"  TEXT, | format ISO 8601 ("yyyy-mm-dd hh:mm") |
 | FOREIGN KEY("UserId") REFERENCES "Users"("Id"), | |
