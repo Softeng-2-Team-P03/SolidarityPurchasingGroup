@@ -35,5 +35,5 @@ describe('Report availability', () => {
         cy.get('#formPricePerUnit')
             .type('3')
             .should('have.value', '3')
-        cy.get('.mt-3').click()
+        cy.get(':nth-child(4) > .btn').click()
     })})

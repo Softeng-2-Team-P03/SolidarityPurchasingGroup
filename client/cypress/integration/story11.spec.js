@@ -6,7 +6,7 @@
 // https://on.cypress.io/writing-first-test
 
 
-describe('Add product to basket', () => {
+describe('Browse availability', () => {
     it('successfully loads', () => {
         cy.viewport(1920, 1080)
         cy.visit('http://localhost:3000') // change URL to match your dev URL
