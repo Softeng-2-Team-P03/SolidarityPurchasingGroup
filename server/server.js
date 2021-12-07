@@ -508,6 +508,32 @@ app.put('/api/bookings/:id', [
     }
 
 });
+
+
+/*** Delete booking specified by the Id ***/
+
+app.put('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
+
+    if (![1, 2, 4].includes(req.user.accessType)) { //Manager, Employee and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+    }
+
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+    const id = req.params.id;
+    // you can also check here if the code passed in the URL matches with the code in req.body
+    try {
+        await orderDao.deleteBooking(id);
+        res.status(200).end();
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the deletion of booking ${req.params.id}.` });
+    }
+
+});
+
 app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) => {
     try {
         await productDao.updateAvailbeleDate(req.body.availableDate,req.body.Quantity, req.params.Id);

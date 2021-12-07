@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderList.css';
 import bookingApi from '../../api/booking-api';
 import userApi from '../../api/user-api'
-import { Button, Form, Table, Modal, Row, Col } from "react-bootstrap";
+import { Button, Form, Table, Modal, Row, Col, Alert } from "react-bootstrap";
 
 import React, { useEffect, useState } from 'react';
 //import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
@@ -75,7 +75,7 @@ function Order(props) {
                     disabled
                 /> </td>}
                 <td>
-                    <Row> <Col>{props.order.State === "pending for cancelation" ? <ContactUser order={props.order} /> : ""}</Col> <Col><Button>Delete order</Button> </Col> </Row>
+                    <Row>{props.order.State === "pending for cancelation" ?  <Col xs= "4"><ContactUser order={props.order} /></Col> : ""} <Col xs="8"><DeleteOrder order={props.order} setConfirmationMessage={props.setConfirmationMessage} setMessage={props.setMessage}/></Col> </Row>
                 </td>
             </tr>
         </>
@@ -88,14 +88,15 @@ function OrderList(props) {
 
     const [orders, setOrders] = useState([]);
     const [searchOrders, setSearchOrders] = useState([]);
+    const [show, setShow] = useState(false);
 
-    const [loadingProducts, setLoadingProducts] = useState(true);
     const [errorLoading, setErrorLoading] = useState(''); //Error in loading orders
-
-
+    const [confirmationMessage, setConfirmationMessage] = useState('');
 
     useEffect(() => {
+        
         bookingApi.getOrders().then((orders) => {
+            
             orders.forEach((order) => {
                 // modify numeric status with relative description
                 switch (order.State) {
@@ -112,7 +113,6 @@ function OrderList(props) {
 
                 setOrders(orders.map(order => ({ ...order })));
                 setSearchOrders(orders.map(order => ({ ...order })));
-                setLoadingProducts(false);
 
             })
         }).catch(err => {
@@ -120,14 +120,13 @@ function OrderList(props) {
             console.error(err);
         });
 
-    }, [])
+    }, [show])
 
     function changeSearchText(text) {
         let c = []
         orders.forEach(order => {
-            let user = order.UserSurname+" "+order.UserName;
+            let user = order.UserSurname + " " + order.UserName;
             user = user.toUpperCase();
-            console.log(user);
             if (user.toUpperCase().indexOf(text.toUpperCase()) > -1 || text === "") c.push(order);
         })
 
@@ -136,6 +135,7 @@ function OrderList(props) {
 
     return (
         <>
+            {show ? <Alert variant="success" onClose={() => setShow(false)} dismissible>{confirmationMessage}</Alert> : ""}
             <Form.Control type="text" className="searchB" placeholder="Filter by user name and surname" onChange={x => changeSearchText(x.target.value)} />
             <Table responsive striped bordered hover className="ordersTable">
                 <thead>
@@ -154,7 +154,7 @@ function OrderList(props) {
                 <tbody> {
                     searchOrders.map((or) =>
                         <Order key={or.BookingID}
-                            order={or}
+                            order={or} setConfirmationMessage={setConfirmationMessage} setMessage={setShow}
                         />)
                 }
                 </tbody>
@@ -184,7 +184,6 @@ function ContactUser(props) {
                 </Modal.Header>
 
                 <Modal.Body>
-                    {console.log(props.order)}
                     <h6><b>Name : {props.order.UserName} {props.order.UserSurname} </b></h6><br></br>
                     <h6><b>Phone number : {props.order.PhoneNumber}</b></h6><br></br>
                     <h6><b>Email : {props.order.Email}</b></h6><br></br>
@@ -198,4 +197,56 @@ function ContactUser(props) {
     );
 }
 
-export { OrderList, Order, ContactUser };
+function DeleteOrder(props) {
+    const [amountTopUp, setAmountTopUp] = useState(0);
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const handleSubmit = () => {
+        bookingApi.deleteBooking(props.order.BookingId).then(() => {
+            props.setConfirmationMessage('Order succesfully deleted');
+            props.setMessage(true);
+        }).catch(err => {
+            props.setConfirmationMessage('Error during the order deletion');
+        });
+    }
+
+    return (
+        <>
+            <span onClick={handleShow}>
+                <Button className="d-none d-sm-block mx-auto" variant="danger" >
+                    Delete Order
+                </Button>
+            </span>
+
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header>
+                    <Modal.Title> Are you sure you want to delete this order? </Modal.Title>
+                </Modal.Header>
+
+                <Modal.Footer>
+
+                    <Row>
+                        <Col xs="8">
+                            <Button variant="danger" onClick={() => { handleSubmit(); handleClose();}}>
+                                Delete Order
+                            </Button>
+                        </Col>
+                        <Col xs="2">
+                            <Button variant="secondary" onClick={handleClose}>
+                                Back
+                            </Button>
+                        </Col>
+                    </Row>
+
+
+                </Modal.Footer>
+            </Modal>
+        </>
+    )
+}
+
+export { OrderList, Order, ContactUser, DeleteOrder };

@@ -88,5 +88,26 @@ async function getOrdersByUserId(userId) {
     throw ordersJson;  // an object with the error coming from the server
   }
 }
-const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId};
+
+function deleteBooking(id) {
+  return new Promise((resolve, reject) => {
+    fetch(BASEURL + '/deletebooking/' + id, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then((response) => {
+      if (response.ok) {
+        resolve(null);
+      } else {
+        // analyze the cause of error
+        response.json()
+          .then((obj) => { reject(obj); }) // error msg in the response body
+          .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
+      }
+    }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
+  });
+}
+
+const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId, deleteBooking};
 export default bookingApi;
