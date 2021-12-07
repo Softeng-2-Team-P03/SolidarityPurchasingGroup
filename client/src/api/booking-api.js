@@ -88,5 +88,15 @@ async function getOrdersByUserId(userId) {
     throw ordersJson;  // an object with the error coming from the server
   }
 }
-const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId};
+
+async function deleteBooking(id) {
+    const response = await fetch(BASEURL+'/deletebooking/'+id, {
+        method: 'DELETE'
+    });
+    if (response.ok) {
+        return null;
+    } else return { 'err': 'DELETE error' };
+}
+
+const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId,deleteBooking};
 export default bookingApi;

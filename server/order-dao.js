@@ -1,4 +1,5 @@
 'use strict';
+const e = require('express');
 const db = require('./db');
 
 exports.createBooking = (booking, userId) => {
@@ -90,3 +91,47 @@ exports.getOrdersByUserId = (userId) => {
       });
   });
 };
+
+exports.deleteOrder = (id) => {
+  return new Promise((resolve, reject) => {
+
+    const sql = 'SELECT ProductId, Quantity FROM BookingAndProducts WHERE BookingId = ?';
+        db.all(sql, [id], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            const productAndQuantity = rows.map((e) => (
+              {productId : e.ProductId, productQuantity: e.Quantity}
+            ));
+            productAndQuantity.map((productAndQuantity)=>{
+              const sqlAdd = 'UPDATE Products SET Quantity=Quantity + ?   WHERE  Id=?';
+              db.run(sqlAdd, [productAndQuantity.productQuantity, productAndQuantity.productId], function (err) {//NOSONAR
+                if (err) {
+                  reject(err);
+                  return;
+                } else
+                resolve(null);
+              })  
+            });
+
+    const sqlDelete = 'DELETE FROM Bookings WHERE Id = ?';
+    db.run(sqlDelete, [id], (err) => {
+      if (err) {
+        reject(err);
+        return;
+      } else
+        resolve(null);
+    });
+    const sqlDelete1 = 'DELETE FROM BookingAndProducts WHERE BookingId = ?';
+    db.run(sqlDelete1, [id], (err) => {
+      if (err) {
+        reject(err);
+        return;
+      } else
+        resolve(null);
+    }); 
+  });
+});
+}
+

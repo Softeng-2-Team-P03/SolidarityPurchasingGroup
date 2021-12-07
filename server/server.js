@@ -520,6 +520,19 @@ app.put('/api/product/:Id', isLoggedIn,[
     }
 
 });
+
+app.delete('/api/deletebooking/:id',isLoggedIn, async (req, res) => {
+    try {
+         if (![1, 2, 3].includes(req.user.accessType)) { //Manager, Employee and Client
+            return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+        }     
+        await orderDao.deleteOrder(req.params.id);
+        res.status(204).end();
+    } catch(err) {
+      res.status(503).json({ error: `Database error during the deletion of order.`});
+    }
+  });
+
 //****************************************************** */
 //                ProductImages API
 //****************************************************** */
