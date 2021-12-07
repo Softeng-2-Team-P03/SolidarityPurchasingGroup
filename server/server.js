@@ -11,6 +11,9 @@ const passport = require('passport'); // auth middleware
 const LocalStrategy = require('passport-local').Strategy; // username and password for login
 const session = require('express-session'); // enable sessions
 const fileUpload = require('express-fileupload');
+const nodemailer = require('nodemailer');
+
+/* SETUP SECTION */
 
 /* Set up Passport **
 set up the "username and password" login strategy
@@ -70,6 +73,16 @@ app.use(session({
 // then, init passport
 app.use(passport.initialize());
 app.use(passport.session());
+
+let mailTransporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'solidaritypurchasinggroup@gmail.com',
+        pass: 'marcotorchiano'
+    }
+});
+
+/* API SECTION */
 
 // DELETE /sessions/current ->logout
 app.delete('/api/sessions/current', (req, res) => {
