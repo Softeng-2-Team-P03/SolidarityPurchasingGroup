@@ -67,17 +67,19 @@ exports.updateBookingState = (state,id) => {
 
 exports.getOrders = () => {
     return new Promise((resolve, reject) => {
-      const sql = 'SELECT Bookings.*, Users.Name, Users.Surname FROM Bookings,Users where Bookings.UserId=Users.Id ';
+      const sql = 'SELECT Bookings.*, bookings.Id AS BookingId, Users.* FROM Bookings,Users where Bookings.UserId=Users.Id ';
         db.all(sql, [], (err, rows) => {
             if (err) {
                 reject(err);
                 return;
             }
-            const orders = rows.map((e) => ({BookingId : e.Id,UserName:e.Name,UserSurname:e.Surname, BookingStartDate : e.BookingStartDate, UserId : e.UserId, TotalPrice : e.TotalPrice, State:e.State, PickupTime : e.PickupTime, DeliveryTime : e.DeliveryTime}));
+            const orders = rows.map((e) => ({Email: e.Email, PhoneNumber : e.PhoneNumber, Wallet : e.Wallet, BookingId : e.BookingId, UserName:e.Name, UserSurname:e.Surname, BookingStartDate : e.BookingStartDate, UserId : e.UserId, TotalPrice : e.TotalPrice, State:e.State, PickupTime : e.PickupTime, DeliveryTime : e.DeliveryTime}));
             resolve(orders);
         });
     });
 };
+
+
 exports.getOrdersByUserId = (userId) => {
   return new Promise((resolve, reject) => {
       const sql = 'SELECT Bookings.*, Users.Name, Users.Surname FROM Bookings,Users Where UserId=? And Bookings.UserId=Users.Id';
@@ -134,4 +136,17 @@ exports.deleteOrder = (id) => {
   });
 });
 }
+
+exports.deleteBooking = (id) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'DELETE from Bookings WHERE id = ?';
+    db.run(sql, [id], function (err) {//NOSONAR
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
 

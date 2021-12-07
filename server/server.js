@@ -176,6 +176,26 @@ app.get('/api/clients', isLoggedIn, async (req, res) => {
     }
 });
 
+//**** Get User by UserID  ****//
+app.get('/api/client/:userId', isLoggedIn, async (req, res) => {
+    try {
+
+        if (![1, 2].includes(req.user.accessType)) { //Manager and Employee
+            return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+        }
+
+        const result = await userDao.getUserById(req.params.userId);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+});
+
+
+
 
 //**** Get Get Wallet Balance ****//
 app.get('/api/clients/getWallet', isLoggedIn, async (req, res) => {
@@ -328,20 +348,11 @@ app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
 });
 
 // POST /api/product
-app.post('/api/product',
-    isLoggedIn, [
-        check('Quantity').isInt({ min: 0, max: 10000 }),
-        check('PricePerUnit').isFloat({ min: 0, max: 10000 })
-    ], async (req, res) => {
+app.post('/api/product', isLoggedIn, async (req, res) => {
 
     if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
-
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
-        }
 
     const product = {
         Id: req.body.Id,
@@ -486,9 +497,9 @@ async function updateProductQUantity(quantity, productId) {
     await orderDao.updateProductQuantity(quantity, productId);
 }
 
-/*** Get Booking With ID ***/
+/*** Update Booking state With ID ***/
 app.put('/api/bookings/:id', [
-    check('state').isInt({ min: 0, max: 2 }),
+    check('state').isInt({ min: 0, max: 3 }),
 ], isLoggedIn, async (req, res) => {
 
     if (![1, 2, 4].includes(req.user.accessType)) { //Manager, Employee and Farmer
@@ -511,22 +522,34 @@ app.put('/api/bookings/:id', [
 
 });
 
-app.put('/api/product/:Id', isLoggedIn,[
-    check('Quantity').isInt({ min: 0, max: 10000 }),
-    check('PricePerUnit').isFloat({ min: 0, max: 10000 })
-], async (req, res) => {
 
-    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+/*** Delete booking specified by the Id ***/
+
+app.put('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
+
+    if (![1, 2, 4].includes(req.user.accessType)) { //Manager, Employee and Farmer
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
+
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
     }
-
+    const id = req.params.id;
+    // you can also check here if the code passed in the URL matches with the code in req.body
     try {
-        await productDao.updateProduct(req.body.Quantity, req.params.Id, req.body.Name, req.body.Description, req.body.PricePerUnit, req.body.TypeId);
+        await orderDao.deleteBooking(id);
+        res.status(200).end();
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the deletion of booking ${req.params.id}.` });
+    }
+
+});
+
+app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) => {
+    try {
+        await productDao.updateAvailbeleDate(req.body.availableDate,req.body.Quantity, req.params.Id);
         res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of Available Product.` });
