@@ -520,6 +520,17 @@ Provide a short description for API with the required parameters, follow the pro
 | FOREIGN KEY("ProductId") REFERENCES "Products"("Id"), | |
 | PRIMARY KEY("Id") | |
 
+| Table `Notifications` - contains | |
+| ------ | --- |
+| "NotificationId"  INTEGER NOT NULL, | |
+| "UserId"  INTEGER NOT NULL, | |
+| "NotificationHeader"  TEXT, | |
+| "NotificationBody"  TEXT, | |
+| "Status" INTEGER | 0-to read, 1-read|
+| "Visibility" INTEGER | 0-visible, 1-not visible|
+| "NotificationType" INTEGER | |
+| PRIMARY KEY("NotificationId") | |
+
 ### Database Structure
 
 <img src="/assets/DBDesign_final.png" alt="SPGDatabase"/>
