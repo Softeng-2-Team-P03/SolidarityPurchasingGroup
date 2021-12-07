@@ -484,9 +484,9 @@ async function updateProductQUantity(quantity, productId) {
     await orderDao.updateProductQuantity(quantity, productId);
 }
 
-/*** Get Booking With ID ***/
+/*** Update Booking state With ID ***/
 app.put('/api/bookings/:id', [
-    check('state').isInt({ min: 0, max: 2 }),
+    check('state').isInt({ min: 0, max: 3 }),
 ], isLoggedIn, async (req, res) => {
 
     if (![1, 2, 4].includes(req.user.accessType)) { //Manager, Employee and Farmer

@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderList.css';
 import bookingApi from '../../api/booking-api';
 import userApi from '../../api/user-api'
-import { Button, Form, Table, Modal } from "react-bootstrap";
+import { Button, Form, Table, Modal, Row, Col } from "react-bootstrap";
 
 import React, { useEffect, useState } from 'react';
 //import FormCheckLabel from 'react-bootstrap/esm/FormCheckLabel';
@@ -31,11 +31,11 @@ function Order(props) {
         let newState;
         switch (handedOut) {
             case false:
-                newState = 2;
+                newState = 3;
                 setHandedOut(true);
                 break;
             case true:
-                newState = 0;
+                newState = 2;
                 setHandedOut(false);
                 break;
             default: newState = 0;
@@ -56,9 +56,9 @@ function Order(props) {
         <>
             <tr>
                 <td>{props.order.BookingId}</td>
-                <td>{props.order.UserId}</td>
+                <td>{props.order.UserName} {props.order.UserSurname}</td>
                 <td>{props.order.BookingStartDate}</td>
-                <td>{props.order.State} {props.order.State === "pending for cancelation" ? <ContactUser order={props.order} /> : ""}</td>
+                <td>{props.order.State}</td>
                 {props.order.PickupTime ? <td> {props.order.PickupTime} </td> : <td> {props.order.DeliveryTime} </td>}
                 <td>{props.order.TotalPrice}</td>
 
@@ -67,13 +67,16 @@ function Order(props) {
                     id="custom-switch"
                     label={isHandedOut}
                     onClick={(ev) => updateBookingState(props.order.BookingId)}
-                /> <div style={statusUpdated === "Updating order..." ? { color: "#FFA900" } : { color: "#00B74A" }}>{statusUpdated}</div>
+                /> <div style={statusUpdated !== "Order status updated" ? { color: "#FFA900" } : { color: "#00B74A" }}>{statusUpdated}</div>
                 </td> : <td ><Form.Check
                     type="switch"
                     id="custom-switch"
                     label={isHandedOut}
                     disabled
                 /> </td>}
+                <td>
+                    <Row> <Col>{props.order.State === "pending for cancelation" ? <ContactUser order={props.order} /> : ""}</Col> <Col><Button>Delete order</Button> </Col> </Row>
+                </td>
             </tr>
         </>
     );
@@ -123,8 +126,10 @@ function OrderList(props) {
     function changeSearchText(text) {
         let c = []
         orders.forEach(order => {
-            console.log(order.UserId);
-            if (order.UserId == text.toLowerCase() || text === "") c.push(order);
+            let user = order.UserSurname+" "+order.UserName;
+            user = user.toUpperCase();
+            console.log(user);
+            if (user.toUpperCase().indexOf(text.toUpperCase()) > -1 || text === "") c.push(order);
         })
 
         setSearchOrders(c);
@@ -132,19 +137,19 @@ function OrderList(props) {
 
     return (
         <>
-            <Form.Control type="text" className="searchB" placeholder="Search order" onChange={x => changeSearchText(x.target.value)} />
+            <Form.Control type="text" className="searchB" placeholder="Filter by user name and surname" onChange={x => changeSearchText(x.target.value)} />
             <Table responsive striped bordered hover className="ordersTable">
                 <thead>
                     <tr>
                         <th>OrderID</th>
-                        <th>UserId</th>
+                        <th>User</th>
                         <th>Booking Issue Date </th>
                         <th>State</th>
                         <th>Scheduled Date</th>
                         <th>Total price</th>
                         <th>Handed out</th>
 
-                        <th width="13%"></th>
+                        <th> Actions </th>
                     </tr>
                 </thead>
                 <tbody> {
