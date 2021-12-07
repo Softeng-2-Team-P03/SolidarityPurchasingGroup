@@ -291,6 +291,14 @@ Provide a short description for API with the required parameters, follow the pro
 - Response body: authenticated user
 - Error responses: `503 Internal Server Error` (generic error), `Database error during the update Booking state.`
 
+### __Delete a Task__
+
+* DELETE `/api/deletebooking/:id`
+* Description: Delete an existing order, identified by its code (passed by parameter).
+* Request body: _None_
+* Response: `204 OK` (success) or `503 Database error during the deletion of task` (generic error) or `404 Not Found` or `401 not authorized`.
+* Response body: _None_
+
 ### Check for "enough credits" For a special Booking
 - HTTP Method: `GET` URL: /api/clients/getRequiredChargeByBookingId?bookingId={id}`
 - Description: return the needed credit for one booking, if rsualt <0 ==> client need to increase credit(how much money the client needs to recharge) else client have enough Credit
