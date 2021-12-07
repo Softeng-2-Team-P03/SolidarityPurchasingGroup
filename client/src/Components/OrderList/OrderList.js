@@ -96,7 +96,6 @@ function OrderList(props) {
 
     useEffect(() => {
         bookingApi.getOrders().then((orders) => {
-
             orders.forEach((order) => {
                 // modify numeric status with relative description
                 switch (order.State) {
@@ -185,7 +184,11 @@ function ContactUser(props) {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <h6><b>{props.order.UserName} {props.order.UserSurname} </b></h6><br></br>
+                    {console.log(props.order)}
+                    <h6><b>Name : {props.order.UserName} {props.order.UserSurname} </b></h6><br></br>
+                    <h6><b>Phone number : {props.order.PhoneNumber}</b></h6><br></br>
+                    <h6><b>Email : {props.order.Email}</b></h6><br></br>
+                    <h6><b>Total price for this order : {props.order.TotalPrice} - Actual wallet : {props.order.Wallet}  </b></h6><br></br>
 
                 </Modal.Body>
 
