@@ -431,7 +431,6 @@ app.get('/api/bookings', isLoggedIn, async (req, res) => {
 
 /*** Post Booking  ***/
 app.post('/api/booking', isLoggedIn, [
-    check('bookingStartDate').isDate({ format: 'YYYY-MM-DD', strictMode: true }),
     check('totalPrice').isDecimal(),
     check('state').isInt()
 ], async (req, res) => {
@@ -440,11 +439,19 @@ app.post('/api/booking', isLoggedIn, [
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
-
     const errors = validationResult(req);
+
+    //Can't check if date with time is valid with express-validator(it only supports YYYY-MM-DD)
+    //Hence this check. Only problem: if date is without time it will be considered correct (because it's still a date)
+    //Possible fix to that issue: create a regex
+    if(isNaN(Date.parse(req.body.bookingStartDate))){
+        errors.errors = [...errors.errors, ({value: req.body.bookingStartDate, msg: "Invalid value", param: "bookingStartDate", location: "body"})];
+    }
+
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
     }
+
     const booking = {
         bookingStartDate: req.body.bookingStartDate,
         totalPrice: req.body.totalPrice,
