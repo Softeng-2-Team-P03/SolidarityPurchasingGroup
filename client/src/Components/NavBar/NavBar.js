@@ -79,7 +79,7 @@ function ClientNavbar() {
   return (
     <Nav>
       <Nav.Link href='/products'>Browse Shop</Nav.Link>
-      <Nav.Link>My Orders</Nav.Link>
+      <Nav.Link href='/myOrders'>My Orders</Nav.Link>
       <Nav.Link>My Wallet</Nav.Link>
       <Notifications placement={'end'} ></Notifications>
     </Nav>

@@ -5,6 +5,7 @@ import { OrderList } from './Components/OrderList/OrderList';
 import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
 import OrderSuccess from './Components/SuccessPage/OrderSuccess';
+import { MyOrderList } from './Components/OrderList/MyOrderList';
 import FarmerHome from './Components/FarmerHome/FarmerHome';
 import { WareHouseHome } from './Components/WareHouseHome/WareHouseHome';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
@@ -87,8 +88,8 @@ function App() {
     const checkAuth = async () => {
       try {
         const userInfo = await API.getUserInfo();
-        setLoggedIn(true);
         setUser(userInfo);
+        setLoggedIn(true);
       } catch (err) {
         console.error(err.error);
       }
@@ -142,6 +143,9 @@ function App() {
           } />
           <Route path='/orders' render={() =>
             <OrderList orders={fakeOrders} ></OrderList>
+          } />
+          <Route path='/myOrders' render={() =>
+            <MyOrderList loggedIn={loggedIn} user={user} ></MyOrderList>
           } />
           <Route path='/success' render={() =>
             <OrderSuccess />
