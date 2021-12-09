@@ -176,6 +176,26 @@ app.get('/api/clients', isLoggedIn, async (req, res) => {
     }
 });
 
+//**** Get User by UserID  ****//
+app.get('/api/client/:userId', isLoggedIn, async (req, res) => {
+    try {
+
+        if (![1, 2].includes(req.user.accessType)) { //Manager and Employee
+            return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+        }
+
+        const result = await userDao.getUserById(req.params.userId);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+});
+
+
+
 
 //**** Get Get Wallet Balance ****//
 app.get('/api/clients/getWallet', isLoggedIn, async (req, res) => {
@@ -328,20 +348,11 @@ app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
 });
 
 // POST /api/product
-app.post('/api/product',
-    isLoggedIn, [
-        check('Quantity').isInt({ min: 0, max: 10000 }),
-        check('PricePerUnit').isFloat({ min: 0, max: 10000 })
-    ], async (req, res) => {
+app.post('/api/product', isLoggedIn, async (req, res) => {
 
     if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
-
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
-        }
 
     const product = {
         Id: req.body.Id,
@@ -503,9 +514,9 @@ async function updateProductQUantity(quantity, productId) {
     await orderDao.updateProductQuantity(quantity, productId);
 }
 
-/*** Get Booking With ID ***/
+/*** Update Booking state With ID ***/
 app.put('/api/bookings/:id', [
-    check('state').isInt({ min: 0, max: 2 }),
+    check('state').isInt({ min: 0, max: 3 }),
 ], isLoggedIn, async (req, res) => {
 
     if (![1, 2, 4].includes(req.user.accessType)) { //Manager, Employee and Farmer
@@ -528,22 +539,34 @@ app.put('/api/bookings/:id', [
 
 });
 
-app.put('/api/product/:Id', isLoggedIn,[
-    check('Quantity').isInt({ min: 0, max: 10000 }),
-    check('PricePerUnit').isFloat({ min: 0, max: 10000 })
-], async (req, res) => {
 
-    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+/*** Delete booking specified by the Id ***/
+
+app.put('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
+
+    if (![1, 2, 4].includes(req.user.accessType)) { //Manager, Employee and Farmer
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
+
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
     }
-
+    const id = req.params.id;
+    // you can also check here if the code passed in the URL matches with the code in req.body
     try {
-        await productDao.updateProduct(req.body.Quantity, req.params.Id, req.body.Name, req.body.Description, req.body.PricePerUnit, req.body.TypeId);
+        await orderDao.deleteOrder(id);
+        res.status(200).end();
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the deletion of booking ${req.params.id}.` });
+    }
+
+});
+
+app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) => {
+    try {
+        await productDao.updateAvailbeleDate(req.body.availableDate,req.body.Quantity, req.params.Id);
         res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of Available Product.` });
@@ -600,6 +623,57 @@ app.get('/api/users/:id/bookings', async (req, res) => {
 
 });
 
+// After Update Available Product We Call This Url Wit Product Id
+//localhost:3001/api/confirmBookingProduct/{ProductId}'
+app.get('/api/confirmBookingProduct/:id', async (req, res) => {
+    var productId = req.params.id;
+    var farmerId = 0;
+    var bookingId = 0;
+    var quantity = 0;
+    var pricePerUnit = 0;
+    var userId = 0;
+    var productName = "Title";
+    try {
+        const product  = await orderDao.GetProductInfoForConfirmation(productId);
+        if (product.error)
+            res.status(404).json(product);
+        else
+        {
+            farmerId= product.FarmerId;
+            productName= product.ProductName;
+            pricePerUnit= product.PricePerUnit;
+            quantity=product.Quantity;
+            const bookingAndProducts  = await orderDao.GetBookingProductsByProduct(productId);
+
+            if (bookingAndProducts.length > 0) {
+                bookingAndProducts.forEach(element => {
+                    console.log (element)
+                    userId = element.UserId;
+                    bookingId = element.BookingId;
+                    if (element.Quantity <= quantity) {
+                        quantity = quantity - element.Quantity;
+                      }
+                      else {
+                        console.log("notification insert");
+                        element.Quantity = quantity
+                        quantity = 0;
+                        var header="Change Booking#" + bookingId;
+                        var body= "The quantity of " + productName + " has changed by Farmer to " + element.Quantity;
+                        const insertNotification  =  orderDao.InsertNotification(userId,header,body);
+
+                      }
+                       orderDao.UpdateBookingProduct(quantity==null?0:element.Quantity,pricePerUnit,bookingId,productId);
+                      orderDao.UpdateBookingPaid(element.Quantity*pricePerUnit,bookingId);
+
+                });
+            };
+            res.json(product);
+        }
+    } catch (err) {
+        res.status(500).end();
+    }
+
+});
 // Activate the server
 // Comment this app.listen function when testing
 
