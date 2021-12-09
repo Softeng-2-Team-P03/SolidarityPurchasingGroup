@@ -97,7 +97,7 @@ function FarmerHome() {
             <>
 
 
-                <Modal show={show} onHide={handleClose} centered>
+                <Modal data-testid="addProductModal" show={show} onHide={handleClose} centered>
                     <Modal.Header closeButton>
                         <Modal.Title>New product</Modal.Title>
                     </Modal.Header>
@@ -200,7 +200,7 @@ function FarmerHome() {
                     }
 
                 </Alert>
-                {timeAddEdit ? <Button className="addP" variant="primary" onClick={() => setShow(true)}>Add product</Button> : <></>}
+                {timeAddEdit ? <Button data-testid="addP" className="addP" variant="primary" onClick={() => setShow(true)}>Add product</Button> : <></>}
             </>
 
         )
