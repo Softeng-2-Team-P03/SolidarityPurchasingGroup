@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './MyOrderList.css';
 import bookingApi from '../../api/booking-api';
-import { Button, Form, Table } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 
 
@@ -32,7 +32,6 @@ function MyOrderList(props) {
 
     const checkDate = () => {
         let time = new Date(localStorage.getItem('virtualDate'));
-      //  setTimeToString(localStorage.getItem('virtualDateToString'));
         const day = time.getDay();
         const hour = time.getHours();
         if ((day === 6 && hour >= 9) || (day === 0 && hour <= 22)) {
