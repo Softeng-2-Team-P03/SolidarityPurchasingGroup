@@ -600,6 +600,57 @@ app.get('/api/users/:id/bookings', async (req, res) => {
 
 });
 
+// After Update Available Product We Call This Url Wit Product Id
+//localhost:3001/api/confirmBookingProduct/{ProductId}'
+app.get('/api/confirmBookingProduct/:id', async (req, res) => {
+    var productId = req.params.id;
+    var farmerId = 0;
+    var bookingId = 0;
+    var quantity = 0;
+    var pricePerUnit = 0;
+    var userId = 0;
+    var productName = "Title";
+    try {
+        const product  = await orderDao.GetProductInfoForConfirmation(productId);
+        if (product.error)
+            res.status(404).json(product);
+        else
+        {
+            farmerId= product.FarmerId;
+            productName= product.ProductName;
+            pricePerUnit= product.PricePerUnit;
+            quantity=product.Quantity;
+            const bookingAndProducts  = await orderDao.GetBookingProductsByProduct(productId);
+
+            if (bookingAndProducts.length > 0) {
+                bookingAndProducts.forEach(element => {
+                    console.log (element)
+                    userId = element.UserId;
+                    bookingId = element.BookingId;
+                    if (element.Quantity <= quantity) {
+                        quantity = quantity - element.Quantity;
+                      }
+                      else {
+                        console.log("notification insert");
+                        element.Quantity = quantity
+                        quantity = 0;
+                        var header="Change Booking#" + bookingId;
+                        var body= "The quantity of " + productName + " has changed by Farmer to " + element.Quantity;
+                        const insertNotification  =  orderDao.InsertNotification(userId,header,body);
+
+                      }
+                       orderDao.UpdateBookingProduct(quantity==null?0:element.Quantity,pricePerUnit,bookingId,productId);
+                      orderDao.UpdateBookingPaid(element.Quantity*pricePerUnit,bookingId);
+
+                });
+            };
+            res.json(product);
+        }
+    } catch (err) {
+        res.status(500).end();
+    }
+
+});
 // Activate the server
 // Comment this app.listen function when testing
 
