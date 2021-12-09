@@ -167,12 +167,12 @@ exports.GetProductInfoForConfirmation = (productId) => {
     
   exports.InsertNotification = (userId,header,body) => {
     return new Promise((resolve, reject) => {
-      const sql1 = 'INSERT INTO Notifications( UserId, NotificationHeader, NotificationBody, Status, Visibility, NotificationType) VALUES(?,?,?,?,?,?)';
+      const sql1 = 'INSERT INTO Notifications( UserId, NotificationHeader, NotificationBody, Status,Visibility, NotificationType) VALUES(?,?,?,?,?,?)';
       db.run(sql1, [
         userId,
         header,
         body,
-        1,
+        0,
         0,
         1], function (err) {
           if (err) {

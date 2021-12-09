@@ -12,6 +12,7 @@ const LocalStrategy = require('passport-local').Strategy; // username and passwo
 const session = require('express-session'); // enable sessions
 const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
+const notificationDao = require('./notification-dao.js'); // module for accessing the users in the DB
 
 /* SETUP SECTION */
 
@@ -205,7 +206,7 @@ app.get('/api/clients/riquredCharge', isLoggedIn, async (req, res) => {
 //**** Get Get Wallet Balance For A booking with booking Id ****//
 app.get('/api/clients/getRequiredChargeByBookingId', isLoggedIn, async (req, res) => {
     try {
-        const result = await userDao.getRequiredChargeByBookingId(req.user.id,req.query.bookingId);
+        const result = await userDao.getRequiredChargeByBookingId(req.user.id, req.query.bookingId);
         if (result.error)
             res.status(404).json(result);
         else
@@ -225,7 +226,7 @@ app.put('/api/topup/:userId/:amount', isLoggedIn, async (req, res) => {
             return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
         }
 
-        await userDao.topUpWallet(req.params.userId,req.params.amount);
+        await userDao.topUpWallet(req.params.userId, req.params.amount);
         res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of Survey.` });
@@ -330,18 +331,18 @@ app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
 // POST /api/product
 app.post('/api/product',
     isLoggedIn, [
-        check('Quantity').isInt({ min: 0, max: 10000 }),
-        check('PricePerUnit').isFloat({ min: 0, max: 10000 })
-    ], async (req, res) => {
+    check('Quantity').isInt({ min: 0, max: 10000 }),
+    check('PricePerUnit').isFloat({ min: 0, max: 10000 })
+], async (req, res) => {
 
     if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
-        }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
 
     const product = {
         Id: req.body.Id,
@@ -511,7 +512,7 @@ app.put('/api/bookings/:id', [
 
 });
 
-app.put('/api/product/:Id', isLoggedIn,[
+app.put('/api/product/:Id', isLoggedIn, [
     check('Quantity').isInt({ min: 0, max: 10000 }),
     check('PricePerUnit').isFloat({ min: 0, max: 10000 })
 ], async (req, res) => {
@@ -534,17 +535,17 @@ app.put('/api/product/:Id', isLoggedIn,[
 
 });
 
-app.delete('/api/deletebooking/:id',isLoggedIn, async (req, res) => {
+app.delete('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
     try {
-         if (![1, 2, 3].includes(req.user.accessType)) { //Manager, Employee and Client
+        if (![1, 2, 3].includes(req.user.accessType)) { //Manager, Employee and Client
             return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
-        }     
+        }
         await orderDao.deleteOrder(req.params.id);
         res.status(204).end();
-    } catch(err) {
-      res.status(503).json({ error: `Database error during the deletion of order.`});
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the deletion of order.` });
     }
-  });
+});
 
 //****************************************************** */
 //                ProductImages API
@@ -594,46 +595,80 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
     var userId = 0;
     var productName = "Title";
     try {
-        const product  = await orderDao.GetProductInfoForConfirmation(productId);
+        const product = await orderDao.GetProductInfoForConfirmation(productId);
         if (product.error)
             res.status(404).json(product);
-        else
-        {
-            farmerId= product.FarmerId;
-            productName= product.ProductName;
-            pricePerUnit= product.PricePerUnit;
-            quantity=product.Quantity;
-            const bookingAndProducts  = await orderDao.GetBookingProductsByProduct(productId);
-
+        else {
+            farmerId = product.FarmerId;
+            productName = product.ProductName;
+            pricePerUnit = product.PricePerUnit;
+            quantity = product.Quantity;
+            const bookingAndProducts = await orderDao.GetBookingProductsByProduct(productId);
             if (bookingAndProducts.length > 0) {
-                bookingAndProducts.forEach(element => {
-                    console.log (element)
+                bookingAndProducts.forEach(async element => {
+                    console.log(element)
                     userId = element.UserId;
                     bookingId = element.BookingId;
                     if (element.Quantity <= quantity) {
                         quantity = quantity - element.Quantity;
-                      }
-                      else {
+                    }
+                    else {
                         console.log("notification insert");
-                        element.Quantity = quantity
+                        var prevQuantity = element.Quantity;
+                        element.Quantity = quantity;
                         quantity = 0;
-                        var header="Change Booking#" + bookingId;
-                        var body= "The quantity of " + productName + " has changed by Farmer to " + element.Quantity;
-                        const insertNotification  =  orderDao.InsertNotification(userId,header,body);
-
-                      }
-                       orderDao.UpdateBookingProduct(quantity==null?0:element.Quantity,pricePerUnit,bookingId,productId);
-                      orderDao.UpdateBookingPaid(element.Quantity*pricePerUnit,bookingId);
-
+                        var header = "Change Booking#" + bookingId;
+                        var body = "The quantity of " + productName + " has changed by Farmer from " + prevQuantity + " to " + element.Quantity;
+                        const insertNotification = await orderDao.InsertNotification(userId, header, body);
+                    }
+                    await orderDao.UpdateBookingProduct(quantity == null ? 0 : element.Quantity, pricePerUnit, bookingId, productId);
+                    await orderDao.UpdateBookingPaid(element.Quantity * pricePerUnit, bookingId);
                 });
+                // await sendEmailForChangeingBooking()
             };
-            res.json(product);
+            res.json({ status: "Ok" });
         }
     } catch (err) {
         res.status(500).end();
     }
 
 });
+
+
+//We have to set this Url in Cron Docker
+app.get('/api/send-mail-notifications', async (req, res) => {
+    // async function sendEmailForChangeingBooking()
+    // {
+    const notifications = await notificationDao.getNotificationForChangedBooking();
+    var createdMail = [];
+    notifications.forEach(async element => {
+        var filter = createdMail.filter(p => p.UserId == element.UserId);
+        if (filter.length > 0) {
+            filter[0].body = filter[0].body + "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
+                "<h3>" + element.NotificationHeader + "</h3><p>" + element.NotificationBody + "</p></div>";
+        }
+        else
+            createdMail.push({
+                UserId: element.UserId, Email: element.Email, body: "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
+                    "<p><h3>" + element.NotificationHeader + "</h3>" + element.NotificationBody + "</p></div>"
+            })
+        await notificationDao.UpdateNotificaton(element.NotificationId);
+    });
+    console.log(createdMail);
+    createdMail.forEach(async element => {
+        let info = await mailTransporter.sendMail({
+            from: 'SPG P3 ES2<solidaritypurchasinggroup@gmail.com>', // sender address
+            to: element.Email, // list of receivers
+            subject: "Changed Order", // Subject line
+            text: "Dear Client, Youre bookings have changed By", // plain text body
+            html: "<h2>Dear Client, Your bookings have changed by farmers</h2>" + element.body
+        });
+        console.log("Message sent: %s", info.messageId);
+    });
+    // return;
+    res.json({ status: "Ok" });
+});
+// }
 // Activate the server
 // Comment this app.listen function when testing
 
