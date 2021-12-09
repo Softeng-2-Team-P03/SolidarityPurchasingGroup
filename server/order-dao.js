@@ -14,7 +14,7 @@ exports.createBooking = (booking, userId) => {
       booking.deliveryTime], function (err) {
         if (err) {
           reject(err);
-          return;
+         
         }
         resolve(this.lastID);
       });
@@ -31,7 +31,7 @@ exports.createBookingAndProduct = (bookingProduct, userId) => {
       bookingProduct.price], function (err) {//NOSONAR
         if (err) {
           reject(err);
-          return;
+         
         }
         resolve(this.lastID);
       });
@@ -44,7 +44,7 @@ exports.updateProductQuantity = (quantity, id) => {
     db.run(sql, [quantity, id], function (err) {//NOSONAR
       if (err) {
         reject(err);
-        return;
+       
       }
       resolve(this.lastID);
     });
@@ -57,7 +57,6 @@ exports.updateBookingState = (state, id) => {
     db.run(sql, [state, id], function (err) {//NOSONAR
       if (err) {
         reject(err);
-        return;
       }
       resolve(this.lastID);
     });
@@ -71,7 +70,7 @@ exports.getOrders = () => {
         db.all(sql, [], (err, rows) => {
             if (err) {
                 reject(err);
-                return;
+              
             }
             const orders = rows.map((e) => ({Email: e.Email, PhoneNumber : e.PhoneNumber, Wallet : e.Wallet, BookingId : e.BookingId, UserName:e.Name, UserSurname:e.Surname, BookingStartDate : e.BookingStartDate, UserId : e.UserId, TotalPrice : e.TotalPrice, State:e.State, PickupTime : e.PickupTime, DeliveryTime : e.DeliveryTime}));
             resolve(orders);
@@ -87,7 +86,7 @@ exports.getOrdersByUserId = (userId) => {
     db.all(sql, [userId], (err, rows) => { //NOSONAR
       if (err) {
         reject(err);
-        return;
+      
       }
       const orders = rows.map((e) => ({ BookingId: e.Id, UserName: e.Name, UserSurname: e.Surname, BookingStartDate: e.BookingStartDate, UserId: e.UserId, TotalPrice: e.TotalPrice, State: e.State, PickupTime: e.PickupTime, DeliveryTime: e.DeliveryTime }));
       resolve(orders);
@@ -102,7 +101,7 @@ exports.deleteOrder = (id) => {
     db.all(sql, [id], (err, rows) => {
       if (err) {
         reject(err);
-        return;
+        
       }
       const productAndQuantity = rows.map((e) => (
         { productId: e.ProductId, productQuantity: e.Quantity }
@@ -112,7 +111,7 @@ exports.deleteOrder = (id) => {
         db.run(sqlAdd, [productAndQuantity.productQuantity, productAndQuantity.productId], function (err) {//NOSONAR
           if (err) {
             reject(err);
-            return;
+            
           } else
             resolve(null);
         })
@@ -122,7 +121,7 @@ exports.deleteOrder = (id) => {
       db.run(sqlDelete, [id], (err) => {
         if (err) {
           reject(err);
-          return;
+          
         } else
           resolve(null);
       });
@@ -130,7 +129,7 @@ exports.deleteOrder = (id) => {
       db.run(sqlDelete1, [id], (err) => {
         if (err) {
           reject(err);
-          return;
+          
         } else
           resolve(null);
       });
@@ -147,7 +146,7 @@ exports.GetProductInfoForConfirmation = (productId) => {
     db.all(sqlProduct, [productId], (err, rows) => {
       if (err) {
         reject(err);
-        return;
+      
       }
      var Product= ({ ProductName: rows[0].Name, Quantity: rows[0].Quantity, FarmerId:rows[0].FarmerId, PricePerUnit: rows[0].PricePerUnit});
       resolve(Product);
@@ -160,7 +159,7 @@ exports.GetProductInfoForConfirmation = (productId) => {
       db.all(sqlBookingAndProduct, [productId], (err, BookingProducts) => {
         if (err) {
           reject(err);
-          return;
+         
         }
         console.log(BookingProducts)
        const Products=   BookingProducts.map((e) => ({ BookingId: e.BookingId, UserId: e.UserId, ProductId: e.ProductId, Quantity: e.Quantity, Price: e.Price, State: e.State }));
@@ -187,7 +186,6 @@ exports.deleteBooking = (id) => {
     db.run(sql, [id], function (err) {//NOSONAR
       if (err) {
         reject(err);
-        return;
       }
       resolve(this.lastID);
     });
@@ -195,7 +193,6 @@ exports.deleteBooking = (id) => {
 };
 
             reject(err);
-            return;
           }
         });
         resolve(this.lastID);
@@ -208,7 +205,6 @@ exports.deleteBooking = (id) => {
           if (err) {
             console.log(err)
             reject(err);
-            return;
           }
           resolve(this.lastID);
       });})
@@ -222,7 +218,6 @@ exports.deleteBooking = (id) => {
           if (err) {
             console.log(err)
             reject(err);
-            return;
           }
 
       });

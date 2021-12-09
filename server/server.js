@@ -666,7 +666,7 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
                       orderDao.UpdateBookingPaid(element.Quantity*pricePerUnit,bookingId);
 
                 });
-            };
+            }
             res.json(product);
         }
     } catch (err) {

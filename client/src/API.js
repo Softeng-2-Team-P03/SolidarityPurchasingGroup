@@ -166,7 +166,7 @@ function updateNotificationVisibility(Visibility,Id) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({Visibility: Visibility, Id:Id}),
-        }).then((response) => {
+        }).then((response) => { //NOSONAR
             if (response.ok) {
                 resolve(null);
             } else {

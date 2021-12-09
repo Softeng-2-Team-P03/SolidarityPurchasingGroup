@@ -1,7 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderList.css';
-import bookingApi from '../../api/booking-api';
-import { Button, Form, Table } from "react-bootstrap";
+import {Form,} from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 
 function Order(props) {
