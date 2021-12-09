@@ -12,8 +12,8 @@ const LocalStrategy = require('passport-local').Strategy; // username and passwo
 const session = require('express-session'); // enable sessions
 const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
-//const SPGcredentials = require('./credentials');
-import './credentials';
+const gmailcredentials = require('./credentials');
+//import { gmailcredentials } from './credentials.js';
 
 /* SETUP SECTION */
 
@@ -79,8 +79,8 @@ app.use(passport.session());
 let mailTransporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: GMAILUSER,
-        pass: GMAILPASSWORD
+        user: gmailcredentials.GMAILUSER,
+        pass: gmailcredentials.GMAILPASSWORD
     }
 });
 
