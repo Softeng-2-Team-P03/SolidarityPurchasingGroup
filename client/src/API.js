@@ -157,15 +157,15 @@ function updateProductState(State,Id) {
         }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
     });
 }
-function updateNotificationState(State,Id) {
-    // call: PUT /api/notification/:State/:Id
+function updateNotificationVisibility(Visibility,Id) {
+    // call: PUT /api/notification/:Visibility/:Id
     return new Promise((resolve, reject) => {
-        fetch(BASEURL + '/notification/' + State +'/' + Id, {
+        fetch(BASEURL + '/notification/' + Visibility +'/' + Id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({State: State, Id:Id}),
+            body: JSON.stringify({Visibility: Visibility, Id:Id}),
         }).then((response) => {
             if (response.ok) {
                 resolve(null);
@@ -202,5 +202,5 @@ function updateProductInfo(Quantity,Id,Name,Description,PricePerUnit,TypeId) {
 }
 
 
-const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,addImage,getAllClients,getProdFarmer,addProduct,updateProductState, updateProductInfo,updateNotificationState};
+const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,addImage,getAllClients,getProdFarmer,addProduct,updateProductState, updateProductInfo,updateNotificationVisibility};
 export default API;

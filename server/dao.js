@@ -34,11 +34,11 @@ exports.createClient = (client) => {
     }); 
   };
 
-  // update notification state
-exports.updateNotificationState = (State, Id) => {
+  // update notification Visibility
+exports.updateNotificationVisibility = (Visibility, Id) => {
   return new Promise((resolve, reject) => {
-      const sql = 'UPDATE Notifications SET Status=? WHERE NotificationId = ?';
-      db.run(sql, [State, Id], function (err) { //NOSONAR
+      const sql = 'UPDATE Notifications SET Visibility=? WHERE NotificationId = ?';
+      db.run(sql, [Visibility, Id], function (err) { //NOSONAR
           if (err) {
               reject(err);
               return;
