@@ -146,7 +146,7 @@ function ProductList(props) {
     const confirmOrder = () => {
         const booking = {
             userId: (location.state && location.state.userId) ? location.state.userId : undefined,
-            bookingStartDate: localStorage.getItem("virtualDateToString"),
+            bookingStartDate: localStorage.getItem("virtualDateToStringWithTime"),
             totalPrice: cartInfo.totalPrice,
             pickupTime: undefined,
             deliveryTime: undefined,

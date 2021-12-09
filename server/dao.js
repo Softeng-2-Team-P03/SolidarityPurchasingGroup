@@ -33,3 +33,17 @@ exports.createClient = (client) => {
       });
     }); 
   };
+
+  // update notification Visibility
+exports.updateNotificationVisibility = (Visibility, Id) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'UPDATE Notifications SET Visibility=? WHERE NotificationId = ?';
+      db.run(sql, [Visibility, Id], function (err) { //NOSONAR
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve();
+      });
+  });
+};

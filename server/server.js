@@ -388,7 +388,17 @@ app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
         await productDao.updateProductState(req.params.State, req.params.Id);
         res.status(200).end();
     } catch (err) {
-        res.status(503).json({ error: `Database error during the update of Survey.` });
+        res.status(503).json({ error: `Database error during the update of Products.` });
+    }
+
+});
+
+app.put('/api/notification/:Visibility/:Id', /* isLoggedIn, */ async (req, res) => {
+    try {
+        await Dao.updateNotificationVisibility(req.params.Visibility, req.params.Id);
+        res.status(200).end();
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the update of Notifications.` });
     }
 
 });
@@ -442,7 +452,6 @@ app.get('/api/bookings', isLoggedIn, async (req, res) => {
 
 /*** Post Booking  ***/
 app.post('/api/booking', isLoggedIn, [
-    check('bookingStartDate').isDate({ format: 'YYYY-MM-DD', strictMode: true }),
     check('totalPrice').isDecimal(),
     check('state').isInt()
 ], async (req, res) => {
@@ -451,11 +460,19 @@ app.post('/api/booking', isLoggedIn, [
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
     }
 
-
     const errors = validationResult(req);
+
+    //Can't check if date with time is valid with express-validator(it only supports YYYY-MM-DD)
+    //Hence this check. Only problem: if date is without time it will be considered correct (because it's still a date)
+    //Possible fix to that issue: create a regex
+    if(isNaN(Date.parse(req.body.bookingStartDate))){
+        errors.errors = [...errors.errors, ({value: req.body.bookingStartDate, msg: "Invalid value", param: "bookingStartDate", location: "body"})];
+    }
+
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
     }
+
     const booking = {
         bookingStartDate: req.body.bookingStartDate,
         totalPrice: req.body.totalPrice,
@@ -606,6 +623,57 @@ app.get('/api/users/:id/bookings', async (req, res) => {
 
 });
 
+// After Update Available Product We Call This Url Wit Product Id
+//localhost:3001/api/confirmBookingProduct/{ProductId}'
+app.get('/api/confirmBookingProduct/:id', async (req, res) => {
+    var productId = req.params.id;
+    var farmerId = 0;
+    var bookingId = 0;
+    var quantity = 0;
+    var pricePerUnit = 0;
+    var userId = 0;
+    var productName = "Title";
+    try {
+        const product  = await orderDao.GetProductInfoForConfirmation(productId);
+        if (product.error)
+            res.status(404).json(product);
+        else
+        {
+            farmerId= product.FarmerId;
+            productName= product.ProductName;
+            pricePerUnit= product.PricePerUnit;
+            quantity=product.Quantity;
+            const bookingAndProducts  = await orderDao.GetBookingProductsByProduct(productId);
+
+            if (bookingAndProducts.length > 0) {
+                bookingAndProducts.forEach(element => {
+                    console.log (element)
+                    userId = element.UserId;
+                    bookingId = element.BookingId;
+                    if (element.Quantity <= quantity) {
+                        quantity = quantity - element.Quantity;
+                      }
+                      else {
+                        console.log("notification insert");
+                        element.Quantity = quantity
+                        quantity = 0;
+                        var header="Change Booking#" + bookingId;
+                        var body= "The quantity of " + productName + " has changed by Farmer to " + element.Quantity;
+                        const insertNotification  =  orderDao.InsertNotification(userId,header,body);
+
+                      }
+                       orderDao.UpdateBookingProduct(quantity==null?0:element.Quantity,pricePerUnit,bookingId,productId);
+                      orderDao.UpdateBookingPaid(element.Quantity*pricePerUnit,bookingId);
+
+                });
+            };
+            res.json(product);
+        }
+    } catch (err) {
+        res.status(500).end();
+    }
+
+});
 // Activate the server
 // Comment this app.listen function when testing
 
