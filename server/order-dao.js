@@ -14,7 +14,7 @@ exports.createBooking = (booking, userId) => {
       booking.deliveryTime], function (err) {
         if (err) {
           reject(err);
-         
+
         }
         resolve(this.lastID);
       });
@@ -31,7 +31,7 @@ exports.createBookingAndProduct = (bookingProduct, userId) => {
       bookingProduct.price], function (err) {//NOSONAR
         if (err) {
           reject(err);
-         
+
         }
         resolve(this.lastID);
       });
@@ -44,7 +44,7 @@ exports.updateProductQuantity = (quantity, id) => {
     db.run(sql, [quantity, id], function (err) {//NOSONAR
       if (err) {
         reject(err);
-       
+
       }
       resolve(this.lastID);
     });
@@ -65,18 +65,18 @@ exports.updateBookingState = (state, id) => {
 
 
 exports.getOrders = () => {
-    return new Promise((resolve, reject) => {
-      const sql = 'SELECT Bookings.*, bookings.Id AS BookingId, Users.* FROM Bookings,Users where Bookings.UserId=Users.Id ';
-        db.all(sql, [], (err, rows) => {
-            if (err) {
-                reject(err);
-              
-            }
-            const orders = rows.map((e) => ({Email: e.Email, PhoneNumber : e.PhoneNumber, Wallet : e.Wallet, BookingId : e.BookingId, UserName:e.Name, UserSurname:e.Surname, BookingStartDate : e.BookingStartDate, UserId : e.UserId, TotalPrice : e.TotalPrice, State:e.State, PickupTime : e.PickupTime, DeliveryTime : e.DeliveryTime}));
-            resolve(orders);
-        });
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT Bookings.*, bookings.Id AS BookingId, Users.* FROM Bookings,Users where Bookings.UserId=Users.Id ';
+    db.all(sql, [], (err, rows) => {
+      if (err) {
+        reject(err);
+
+      }
+      const orders = rows.map((e) => ({ Email: e.Email, PhoneNumber: e.PhoneNumber, Wallet: e.Wallet, BookingId: e.BookingId, UserName: e.Name, UserSurname: e.Surname, BookingStartDate: e.BookingStartDate, UserId: e.UserId, TotalPrice: e.TotalPrice, State: e.State, PickupTime: e.PickupTime, DeliveryTime: e.DeliveryTime }));
+      resolve(orders);
     });
-  };
+  });
+};
 
 
 
@@ -86,7 +86,7 @@ exports.getOrdersByUserId = (userId) => {
     db.all(sql, [userId], (err, rows) => { //NOSONAR
       if (err) {
         reject(err);
-      
+
       }
       const orders = rows.map((e) => ({ BookingId: e.Id, UserName: e.Name, UserSurname: e.Surname, BookingStartDate: e.BookingStartDate, UserId: e.UserId, TotalPrice: e.TotalPrice, State: e.State, PickupTime: e.PickupTime, DeliveryTime: e.DeliveryTime }));
       resolve(orders);
@@ -101,7 +101,7 @@ exports.deleteOrder = (id) => {
     db.all(sql, [id], (err, rows) => {
       if (err) {
         reject(err);
-        
+
       }
       const productAndQuantity = rows.map((e) => (
         { productId: e.ProductId, productQuantity: e.Quantity }
@@ -111,7 +111,7 @@ exports.deleteOrder = (id) => {
         db.run(sqlAdd, [productAndQuantity.productQuantity, productAndQuantity.productId], function (err) {//NOSONAR
           if (err) {
             reject(err);
-            
+
           } else
             resolve(null);
         })
@@ -121,7 +121,7 @@ exports.deleteOrder = (id) => {
       db.run(sqlDelete, [id], (err) => {
         if (err) {
           reject(err);
-          
+
         } else
           resolve(null);
       });
@@ -129,7 +129,7 @@ exports.deleteOrder = (id) => {
       db.run(sqlDelete1, [id], (err) => {
         if (err) {
           reject(err);
-          
+
         } else
           resolve(null);
       });
@@ -146,81 +146,86 @@ exports.GetProductInfoForConfirmation = (productId) => {
     db.all(sqlProduct, [productId], (err, rows) => {
       if (err) {
         reject(err);
-      
+
       }
-     var Product= ({ ProductName: rows[0].Name, Quantity: rows[0].Quantity, FarmerId:rows[0].FarmerId, PricePerUnit: rows[0].PricePerUnit});
+      var Product = ({ ProductName: rows[0].Name, Quantity: rows[0].Quantity, FarmerId: rows[0].FarmerId, PricePerUnit: rows[0].PricePerUnit });
       resolve(Product);
     });
-  });}
+  });
+}
 
-  exports.GetBookingProductsByProduct = (productId) => {
-    return new Promise((resolve, reject) => {
-      const sqlBookingAndProduct = "SELECT Bookings.UserId as UserId ,BookingAndProducts.* FROM BookingAndProducts ,Bookings WHERE BookingAndProducts.ProductId=?  AND Bookings.State=0 And BookingAndProducts.BookingId=Bookings.Id And BookingAndProducts.State=0";
-      db.all(sqlBookingAndProduct, [productId], (err, BookingProducts) => {
+exports.GetBookingProductsByProduct = (productId) => {
+  return new Promise((resolve, reject) => {
+    const sqlBookingAndProduct = "SELECT Bookings.UserId as UserId ,BookingAndProducts.* FROM BookingAndProducts ,Bookings WHERE BookingAndProducts.ProductId=?  AND Bookings.State=0 And BookingAndProducts.BookingId=Bookings.Id And BookingAndProducts.State=0";
+    db.all(sqlBookingAndProduct, [productId], (err, BookingProducts) => {
+      if (err) {
+        reject(err);
+
+      }
+      console.log(BookingProducts)
+      const Products = BookingProducts.map((e) => ({ BookingId: e.BookingId, UserId: e.UserId, ProductId: e.ProductId, Quantity: e.Quantity, Price: e.Price, State: e.State }));
+      resolve(Products);
+    });
+  });
+}
+
+exports.InsertNotification = (userId, header, body) => {
+  return new Promise((resolve, reject) => {
+    const sql1 = 'INSERT INTO Notifications( UserId, NotificationHeader, NotificationBody, Status, Visibility, NotificationType) VALUES(?,?,?,?,?,?)';
+    db.run(sql1, [
+      userId,
+      header,
+      body,
+      0,
+      0,
+      1], function (err) {
         if (err) {
-          reject(err);
-         
-        }
-        console.log(BookingProducts)
-       const Products=   BookingProducts.map((e) => ({ BookingId: e.BookingId, UserId: e.UserId, ProductId: e.ProductId, Quantity: e.Quantity, Price: e.Price, State: e.State }));
-        resolve(Products);
-      });
-    });}
-    
-  exports.InsertNotification = (userId,header,body) => {
-    return new Promise((resolve, reject) => {
-      const sql1 = 'INSERT INTO Notifications( UserId, NotificationHeader, NotificationBody, Status, Visibility, NotificationType) VALUES(?,?,?,?,?,?)';
-      db.run(sql1, [
-        userId,
-        header,
-        body,
-        1,
-        0,
-        1], function (err) {
-          if (err) {
           console.log(err);
 
-exports.deleteBooking = (id) => {
+          exports.deleteBooking = (id) => {
+            return new Promise((resolve, reject) => {
+              const sql = 'DELETE from Bookings WHERE id = ?';
+              db.run(sql, [id], function (err) {//NOSONAR
+                if (err) {
+                  reject(err);
+                }
+                resolve(this.lastID);
+              });
+            });
+          };
+
+          reject(err);
+        }
+      });
+    resolve(this.lastID);
+  });
+}
+
+exports.UpdateBookingProduct = (quantity, pricePerUnit, bookingId, productId) => {
   return new Promise((resolve, reject) => {
-    const sql = 'DELETE from Bookings WHERE id = ?';
-    db.run(sql, [id], function (err) {//NOSONAR
+    const sqlUpdateBookingProduct = 'UPDATE BookingAndProducts SET Quantity=?, State=?,Price=?   WHERE  BookingId=? AND ProductId=?';
+    db.run(sqlUpdateBookingProduct, [quantity, 1, quantity * pricePerUnit, bookingId, productId], function (err) {//NOSONAR
       if (err) {
+        console.log(err)
         reject(err);
       }
       resolve(this.lastID);
     });
+  })
+}
+exports.UpdateBookingPaid = (paid, BookingId) => {
+  console.log("paid" + paid)
+  console.log("BookingId" + BookingId)
+  return new Promise((resolve, reject) => {
+    const sqlUpdateBooking = 'UPDATE Bookings SET Paid=Paid+?   WHERE  Id=?';
+    db.run(sqlUpdateBooking, [paid, BookingId], function (err) {//NOSONAR
+      if (err) {
+        console.log(err)
+        reject(err);
+      }
+
+    });
+    resolve(this.lastID);
   });
-};
+}
 
-            reject(err);
-          }
-        });
-        resolve(this.lastID);
-    });}
-
-    exports.UpdateBookingProduct = (quantity,pricePerUnit,bookingId,productId) => {
-      return new Promise((resolve, reject) => {
-        const sqlUpdateBookingProduct = 'UPDATE BookingAndProducts SET Quantity=?, State=?,Price=?   WHERE  BookingId=? AND ProductId=?';
-        db.run(sqlUpdateBookingProduct, [quantity,1, quantity * pricePerUnit, bookingId, productId], function (err) {//NOSONAR
-          if (err) {
-            console.log(err)
-            reject(err);
-          }
-          resolve(this.lastID);
-      });})
-    }
-    exports.UpdateBookingPaid = (paid,BookingId) => {
-      console.log("paid"+paid)
-      console.log("BookingId"+BookingId)
-      return new Promise((resolve, reject) => {
-        const sqlUpdateBooking = 'UPDATE Bookings SET Paid=Paid+?   WHERE  Id=?';
-        db.run(sqlUpdateBooking, [paid, BookingId], function (err) {//NOSONAR
-          if (err) {
-            console.log(err)
-            reject(err);
-          }
-
-      });
-          resolve(this.lastID);
-      });}
-      
