@@ -1,6 +1,6 @@
 import NavBar from "../NavBar/NavBar";
 import {useState} from "react";
-import {Offcanvas} from "react-bootstrap";
+import {Alert, Button, Offcanvas} from "react-bootstrap";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Notifications.css'
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
@@ -13,7 +13,7 @@ const theme = createTheme({
     palette: {
         primary: {
             light: '#ff7961',
-            main: '#ff0000',
+            main: '#FF6071',
             dark: '#ba000d',
             contrastText: '#fff',
         },
@@ -23,7 +23,7 @@ const theme = createTheme({
 function Notifications({ name, ...props }) {
 
     const [show, setShow] = useState(false);
-    const [countNoti, setCountNoti] = useState(100);
+    const [countNoti, setCountNoti] = useState(10);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -44,7 +44,7 @@ function Notifications({ name, ...props }) {
                 <ThemeProvider theme={theme}>
                     <IconButton aria-label={notificationsLabel(countNoti)} onClick={handleShow}>
                         <Badge badgeContent={countNoti} color="primary">
-                            <NotificationsActiveIcon fontSize={"large"} sx={{color: yellow[500]}}/>
+                            <NotificationsActiveIcon fontSize={"large"} sx={{color: '#ffc404'}}/>
                         </Badge>
                     </IconButton>
                 </ThemeProvider>
@@ -52,7 +52,7 @@ function Notifications({ name, ...props }) {
                 <ThemeProvider theme={theme}>
                     <IconButton onClick={handleShow}>
                         <Badge color="primary">
-                            <NotificationsIcon fontSize={"large"} sx={{color: yellow[500]}}/>
+                            <NotificationsIcon fontSize={"large"} sx={{color: '#ffc404'}}/>
                         </Badge>
                     </IconButton>
                 </ThemeProvider>
@@ -60,14 +60,31 @@ function Notifications({ name, ...props }) {
             }
 
 
-            <Offcanvas show={show} onHide={handleClose} {...props}>
+            <Offcanvas className="offC" show={show} onHide={handleClose} {...props}>
                 <Offcanvas.Header closeButton>
-                    <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+                    <Offcanvas.Title>Notification</Offcanvas.Title>
                 </Offcanvas.Header>
-                <Offcanvas.Body>
-                    Some text as placeholder. In real life you can have the elements you
-                    have chosen. Like, text, images, lists, etc.
-                </Offcanvas.Body>
+
+                    {countNoti!==0 ?
+                        <Offcanvas.Body>
+                    <Alert variant="warning">
+                        <Alert.Heading>Attenzione notifica</Alert.Heading>
+                        <p>
+                           Questa è una notifica da prendere in considerazione
+                        </p>
+                        <hr />
+                        <div className="d-flex justify-content-end">
+                            <button type="button" className="btn btn-warning">Dismiss</button>
+                        </div>
+                    </Alert>
+                        </Offcanvas.Body>
+
+                        :
+                        <Offcanvas.Body className="noNoty">
+                            Notifications will appear here
+                        </Offcanvas.Body>
+                    }
+
             </Offcanvas>
         </>
     );
