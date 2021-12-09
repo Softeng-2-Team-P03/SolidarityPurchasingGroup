@@ -539,7 +539,7 @@ app.put('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
     const id = req.params.id;
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
-        await orderDao.deleteBooking(id);
+        await orderDao.deleteOrder(id);
         res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the deletion of booking ${req.params.id}.` });
