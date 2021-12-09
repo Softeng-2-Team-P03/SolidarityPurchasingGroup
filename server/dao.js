@@ -33,3 +33,17 @@ exports.createClient = (client) => {
       });
     }); 
   };
+
+  // update notification state
+exports.updateNotificationState = (State, Id) => {
+  return new Promise((resolve, reject) => {
+      const sql = 'UPDATE Notifications SET Status=? WHERE NotificationId = ?';
+      db.run(sql, [State, Id], function (err) { //NOSONAR
+          if (err) {
+              reject(err);
+              return;
+          }
+          resolve();
+      });
+  });
+};

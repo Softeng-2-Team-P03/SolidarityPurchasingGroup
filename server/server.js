@@ -377,7 +377,17 @@ app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
         await productDao.updateProductState(req.params.State, req.params.Id);
         res.status(200).end();
     } catch (err) {
-        res.status(503).json({ error: `Database error during the update of Survey.` });
+        res.status(503).json({ error: `Database error during the update of Products.` });
+    }
+
+});
+
+app.put('/api/notification/:State/:Id', /* isLoggedIn, */ async (req, res) => {
+    try {
+        await Dao.updateNotificationState(req.params.State, req.params.Id);
+        res.status(200).end();
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the update of Notifications.` });
     }
 
 });

@@ -157,7 +157,27 @@ function updateProductState(State,Id) {
         }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
     });
 }
-
+function updateNotificationState(State,Id) {
+    // call: PUT /api/notification/:State/:Id
+    return new Promise((resolve, reject) => {
+        fetch(BASEURL + '/notification/' + State +'/' + Id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({State: State, Id:Id}),
+        }).then((response) => {
+            if (response.ok) {
+                resolve(null);
+            } else {
+                // analyze the cause of error
+                response.json()
+                    .then((obj) => { reject(obj); }) // error message in the response body
+                    .catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+            }
+        }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+    });
+}
 
 function updateProductInfo(Quantity,Id,Name,Description,PricePerUnit,TypeId) {
     // call: PUT /api/product/:Id
@@ -182,5 +202,5 @@ function updateProductInfo(Quantity,Id,Name,Description,PricePerUnit,TypeId) {
 }
 
 
-const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,addImage,getAllClients,getProdFarmer,addProduct,updateProductState, updateProductInfo};
+const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,addImage,getAllClients,getProdFarmer,addProduct,updateProductState, updateProductInfo,updateNotificationState};
 export default API;
