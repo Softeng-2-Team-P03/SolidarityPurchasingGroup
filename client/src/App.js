@@ -6,6 +6,7 @@ import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
 import OrderSuccess from './Components/SuccessPage/OrderSuccess';
 import FarmerHome from './Components/FarmerHome/FarmerHome';
+import { WareHouseHome } from './Components/WareHouseHome/WareHouseHome';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { React, useState, useEffect } from "react";
 import API from './API';
@@ -150,6 +151,9 @@ function App() {
           } />
           <Route path='/farmerHome' render={() =>
             <FarmerHome></FarmerHome>
+          } />
+           <Route path='/WareHouseHome' render={() =>
+            <WareHouseHome></WareHouseHome>
           } />
           <Route render={() =>
             <Redirect to='/' />
