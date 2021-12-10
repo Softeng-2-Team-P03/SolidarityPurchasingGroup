@@ -50,6 +50,7 @@ passport.deserializeUser((id, done) => {
 
 // init express
 const app = express();
+app.disable("x-powered-by");
 const port = 3001;
 
 // set-up the middlewares
