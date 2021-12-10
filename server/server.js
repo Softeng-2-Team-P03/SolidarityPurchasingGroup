@@ -228,7 +228,7 @@ app.get('/api/clients/riquredCharge', isLoggedIn, async (req, res) => {
 //**** Get Get Wallet Balance For A booking with booking Id ****//
 app.get('/api/clients/getRequiredChargeByBookingId', isLoggedIn, async (req, res) => {
     try {
-        const result = await userDao.getRequiredChargeByBookingId(req.user.id,req.query.bookingId);
+        const result = await userDao.getRequiredChargeByBookingId(req.user.id, req.query.bookingId);
         if (result.error)
             res.status(404).json(result);
         else
@@ -248,7 +248,7 @@ app.put('/api/topup/:userId/:amount', isLoggedIn, async (req, res) => {
             return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
         }
 
-        await userDao.topUpWallet(req.params.userId,req.params.amount);
+        await userDao.topUpWallet(req.params.userId, req.params.amount);
         res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of Survey.` });
@@ -464,9 +464,14 @@ app.post('/api/booking', isLoggedIn, [
     }
 
     const errors = validationResult(req);
+    const fields = req.body.bookingStartDate.split(' ');
+    const date = fields[0].split('-');
+    const year = parseInt(date[0]);
+    const month = parseInt(date[1]);
+    const day = parseInt(date[2]);
 
-    if(!dateRegexp.test(req.body.bookingStartDate)){
-        errors.errors = [...errors.errors, ({value: req.body.bookingStartDate, msg: "Invalid value", param: "bookingStartDate", location: "body"})];
+    if (!dateRegexp.test(req.body.bookingStartDate) || (month === 2 && year % 4 !== 0 && day === 29)) {
+        errors.errors = [...errors.errors, ({ value: req.body.bookingStartDate, msg: "Invalid value", param: "bookingStartDate", location: "body" })];
     }
 
     if (!errors.isEmpty()) {
@@ -566,7 +571,7 @@ app.put('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
 
 app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) => {
     try {
-        await productDao.updateAvailbeleDate(req.body.availableDate,req.body.Quantity, req.params.Id);
+        await productDao.updateAvailbeleDate(req.body.availableDate, req.body.Quantity, req.params.Id);
         res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of Available Product.` });
@@ -574,17 +579,17 @@ app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) =
 
 });
 
-app.delete('/api/deletebooking/:id',isLoggedIn, async (req, res) => {
+app.delete('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
     try {
-         if (![1, 2, 3].includes(req.user.accessType)) { //Manager, Employee and Client
+        if (![1, 2, 3].includes(req.user.accessType)) { //Manager, Employee and Client
             return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
-        }     
+        }
         await orderDao.deleteOrder(req.params.id);
         res.status(204).end();
-    } catch(err) {
-      res.status(503).json({ error: `Database error during the deletion of order.`});
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the deletion of order.` });
     }
-  });
+});
 
 //****************************************************** */
 //                ProductImages API
@@ -690,7 +695,7 @@ app.get('/api/notifications', isLoggedIn, async (req, res) => {
 
 //We have to set this Url in Cron Docker
 app.get('/api/send-mail-notifications', async (req, res) => {
-   
+
     const notifications = await notificationDao.getNotificationForChangedBooking();
     var createdMail = [];
     notifications.forEach(async element => {
