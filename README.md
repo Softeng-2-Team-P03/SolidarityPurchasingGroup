@@ -528,6 +528,7 @@ Provide a short description for API with the required parameters, follow the pro
 | "NotificationBody"  TEXT, | |
 | "Visibility" INTEGER | 0-visible, 1-not visible|
 | "NotificationType" INTEGER | 1- Booking Notification |
+| "Status" INTEGER | 0-not sent , 1-sent|
 | PRIMARY KEY("NotificationId") | |
 
 ### Database Structure
