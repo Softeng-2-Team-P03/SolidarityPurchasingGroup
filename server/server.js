@@ -12,9 +12,10 @@ const LocalStrategy = require('passport-local').Strategy; // username and passwo
 const session = require('express-session'); // enable sessions
 const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
-const gmailcredentials = require('./credentials');
+const credentials = require('./credentials');
 //import { gmailcredentials } from './credentials.js';
 const notificationDao = require('./notification-dao.js');
+const dateRegexp = new RegExp(/^(([1]|[2])\d{3})-((0[13578]|1[02])-(0[0-9]|[1-2][0-9]|3[0-1])|(0[469]|11)-(0[0-9]|[1-2][0-9]|30)|(02)-(0[0-9]|[1-2][0-9]))([ ])([01][1-9]|2[0-3])(\:)([0-5][0-9])(\:)([0-5][0-9])$/);
 /* SETUP SECTION */
 
 /* Set up Passport **
@@ -79,8 +80,8 @@ app.use(passport.session());
 let mailTransporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: gmailcredentials.GMAILUSER,
-        pass: gmailcredentials.GMAILPASSWORD
+        user: credentials.gmailcredentials.GMAILUSER,
+        pass: credentials.gmailcredentials.GMAILPASSWORD
     }
 });
 
@@ -464,10 +465,7 @@ app.post('/api/booking', isLoggedIn, [
 
     const errors = validationResult(req);
 
-    //Can't check if date with time is valid with express-validator(it only supports YYYY-MM-DD)
-    //Hence this check. Only problem: if date is without time it will be considered correct (because it's still a date)
-    //Possible fix to that issue: create a regex
-    if(isNaN(Date.parse(req.body.bookingStartDate))){
+    if(!dateRegexp.test(req.body.bookingStartDate)){
         errors.errors = [...errors.errors, ({value: req.body.bookingStartDate, msg: "Invalid value", param: "bookingStartDate", location: "body"})];
     }
 
@@ -680,6 +678,15 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
 
 });
 
+app.get('/api/notifications', isLoggedIn, async (req, res) => {
+    try {
+        const result = await notificationDao.getNotificationsByUser(req.user.id);
+        res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+})
+
 
 //We have to set this Url in Cron Docker
 app.get('/api/send-mail-notifications', async (req, res) => {
@@ -713,10 +720,10 @@ app.get('/api/send-mail-notifications', async (req, res) => {
     // return;
     res.json({ status: "Ok" });
 });
-// }
+
+
 // Activate the server
 // Comment this app.listen function when testing
-
 app.listen(port, () => {
     console.log(`react-score-server listening at http://localhost:${port}`);
 });
