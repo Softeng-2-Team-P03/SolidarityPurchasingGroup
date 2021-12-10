@@ -131,7 +131,7 @@ function OrderList(props) {
         })
 
         setSearchOrders(c);
-    };
+    }
 
     return (
         <>

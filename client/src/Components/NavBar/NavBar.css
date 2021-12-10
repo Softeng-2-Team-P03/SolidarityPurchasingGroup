@@ -1,6 +1,6 @@
  .nav{
     /* margin-bottom: 1%;
-    position: -webkit-sticky; /* Safari 
+    position: -webkit-sticky; /* Safari
     position: sticky;
     top: 0;
     z-index: 100;
@@ -45,7 +45,7 @@
 }
 .timer .nav{    justify-content: center;}
 .bg-primary{
-  background-color: #070707 !important;
+  background-color: #000000 !important;
 }
 .clockWrapper {
   margin-top: 1%;
@@ -55,8 +55,8 @@
   min-width: 45%;
   text-align: center;
   justify-content: center;
-  border-collapse: collapse; 
-  
+  border-collapse: collapse;
+
 }
 .day-name {display: none !important;}
 .clockWrapper tr{
@@ -92,7 +92,7 @@
 }
 
 @media screen and (max-width:1200px){
-  .clockWrapper{  
+  .clockWrapper{
   /* margin-left: 40%; */
   margin: auto;
     min-width: 30%;
@@ -100,7 +100,7 @@
 }
 
 @media screen and (max-width:1000px){
-  .clockWrapper{  
+  .clockWrapper{
      /* margin-left: 40%; */
   margin: auto;
     min-width: 40%;
@@ -111,7 +111,7 @@
   .navbar-dark .navbar-nav .nav-link{
     margin-left: 10px;
   }
-  .clockWrapper{  
+  .clockWrapper{
      /* margin-left: 40%; */
   margin: auto;
     min-width: 60%;

@@ -17,7 +17,7 @@
     margin-top: 20%;
   }
 .footer{
-    background-color: #292929;   
+    background-color: #000000;
     height: 100px;
     color: #fff;
     align-items: center;
@@ -30,7 +30,7 @@
     border: 10px solid #d6d6d6;
     float: left;
   }
-  
+
   .circle-1 img {
     width: 100%;
     border-radius: 50%;
@@ -40,10 +40,10 @@
   }
   .circle-1:hover img {
    transform: scale(1.1);
-  -ms-transform: scale(1.1); 
+  -ms-transform: scale(1.1);
   -webkit-transform: scale(1.1);
     box-shadow: 2px 2px 2px #4b4b4b;
-    
+
   }
 .partSection {
     display: flex;
@@ -95,7 +95,7 @@
 
 .selection ul li{
     list-style-type:none;
-  
+
 }
 .selection ul li a img {
     width: 30px;
@@ -178,10 +178,10 @@
 }
 
 .toast-fixed {
-    position:fixed; 
-    top: 25%; 
-    left: 35%; 
+    position:fixed;
+    top: 25%;
+    left: 35%;
     width: 30%;
-    z-index:9999; 
+    z-index:9999;
     border-radius:0px
   }

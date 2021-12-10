@@ -526,9 +526,9 @@ Provide a short description for API with the required parameters, follow the pro
 | "UserId"  INTEGER NOT NULL, | |
 | "NotificationHeader"  TEXT, | |
 | "NotificationBody"  TEXT, | |
-| "Status" INTEGER | 0-to read, 1-read|
 | "Visibility" INTEGER | 0-visible, 1-not visible|
-| "NotificationType" INTEGER | |
+| "NotificationType" INTEGER | 1- Booking Notification |
+| "Status" INTEGER | 0-not sent , 1-sent|
 | PRIMARY KEY("NotificationId") | |
 
 ### Database Structure

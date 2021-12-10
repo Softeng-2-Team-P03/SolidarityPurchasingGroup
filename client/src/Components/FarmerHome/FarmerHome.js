@@ -1,9 +1,8 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {Fragment, useEffect, useState} from 'react';
-import {ListGroup, Table, Button, Row, Col, Modal, Form, Dropdown, Image, Alert} from "react-bootstrap";
+import {ListGroup, Button, Row, Col, Modal, Form, Alert} from "react-bootstrap";
 import {Redirect} from "react-router-dom";
-import {AddClientForm} from "../ClientList/AddClient";
-import {Client} from "../Client";
+
 import './FarmerHome.css'
 import API from "../../API";
 import axios from "axios";
@@ -217,7 +216,6 @@ function AddProductForm(props) {
     const [type, setType] = useState('');
     const [pricePerUnit, setPricePerUnit] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const [submitted, setSubmitted] = useState(false);
     const [typeName, setTypeName] = useState('Select product type');
     let typeNameArray = ['Fruits and Vegetables', 'Dairy', 'Meat and salumi', 'Sea products', 'Baker and sweets', 'Beverages'  ]
     const [numProd,setNumProd] = useState(0);

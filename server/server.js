@@ -12,7 +12,9 @@ const LocalStrategy = require('passport-local').Strategy; // username and passwo
 const session = require('express-session'); // enable sessions
 const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
-
+const gmailcredentials = require('./credentials');
+//import { gmailcredentials } from './credentials.js';
+const notificationDao = require('./notification-dao.js');
 /* SETUP SECTION */
 
 /* Set up Passport **
@@ -77,8 +79,8 @@ app.use(passport.session());
 let mailTransporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: 'solidaritypurchasinggroup@gmail.com',
-        pass: 'marcotorchiano'
+        user: gmailcredentials.GMAILUSER,
+        pass: gmailcredentials.GMAILPASSWORD
     }
 });
 
@@ -623,6 +625,11 @@ app.get('/api/users/:id/bookings', async (req, res) => {
 
 });
 
+/******************************************************
+               BookingProducts Confimation
+****************************************************** */
+// After Update Available Product We Call This Url Wit Product Id
+//localhost:3001/api/confirmBookingProduct/{ProductId}'
 // After Update Available Product We Call This Url Wit Product Id
 //localhost:3001/api/confirmBookingProduct/{ProductId}'
 app.get('/api/confirmBookingProduct/:id', async (req, res) => {
@@ -634,46 +641,80 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
     var userId = 0;
     var productName = "Title";
     try {
-        const product  = await orderDao.GetProductInfoForConfirmation(productId);
+        const product = await orderDao.GetProductInfoForConfirmation(productId);
         if (product.error)
             res.status(404).json(product);
-        else
-        {
-            farmerId= product.FarmerId;
-            productName= product.ProductName;
-            pricePerUnit= product.PricePerUnit;
-            quantity=product.Quantity;
-            const bookingAndProducts  = await orderDao.GetBookingProductsByProduct(productId);
-
+        else {
+            farmerId = product.FarmerId;
+            productName = product.ProductName;
+            pricePerUnit = product.PricePerUnit;
+            quantity = product.Quantity;
+            const bookingAndProducts = await orderDao.GetBookingProductsByProduct(productId);
             if (bookingAndProducts.length > 0) {
-                bookingAndProducts.forEach(element => {
-                    console.log (element)
+                bookingAndProducts.forEach(async element => {
+                    console.log(element)
                     userId = element.UserId;
                     bookingId = element.BookingId;
                     if (element.Quantity <= quantity) {
                         quantity = quantity - element.Quantity;
-                      }
-                      else {
+                    }
+                    else {
                         console.log("notification insert");
-                        element.Quantity = quantity
+                        var prevQuantity = element.Quantity;
+                        element.Quantity = quantity;
                         quantity = 0;
-                        var header="Change Booking#" + bookingId;
-                        var body= "The quantity of " + productName + " has changed by Farmer to " + element.Quantity;
-                        const insertNotification  =  orderDao.InsertNotification(userId,header,body);
-
-                      }
-                       orderDao.UpdateBookingProduct(quantity==null?0:element.Quantity,pricePerUnit,bookingId,productId);
-                      orderDao.UpdateBookingPaid(element.Quantity*pricePerUnit,bookingId);
-
+                        var header = "Change Booking#" + bookingId;
+                        var body = "The quantity of " + productName + " has changed by Farmer from " + prevQuantity + " to " + element.Quantity;
+                        const insertNotification = await orderDao.InsertNotification(userId, header, body);
+                    }
+                    await orderDao.UpdateBookingProduct(quantity == null ? 0 : element.Quantity, pricePerUnit, bookingId, productId);
+                    await orderDao.UpdateBookingPaid(element.Quantity * pricePerUnit, bookingId);
                 });
+                // await sendEmailForChangeingBooking()
             };
-            res.json(product);
+            res.json({ status: "Ok" });
         }
     } catch (err) {
         res.status(500).end();
     }
 
 });
+
+
+//We have to set this Url in Cron Docker
+app.get('/api/send-mail-notifications', async (req, res) => {
+    // async function sendEmailForChangeingBooking()
+    // {
+    const notifications = await notificationDao.getNotificationForChangedBooking();
+    var createdMail = [];
+    notifications.forEach(async element => {
+        var filter = createdMail.filter(p => p.UserId == element.UserId);
+        if (filter.length > 0) {
+            filter[0].body = filter[0].body + "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
+                "<h3>" + element.NotificationHeader + "</h3><p>" + element.NotificationBody + "</p></div>";
+        }
+        else
+            createdMail.push({
+                UserId: element.UserId, Email: element.Email, body: "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
+                    "<p><h3>" + element.NotificationHeader + "</h3>" + element.NotificationBody + "</p></div>"
+            })
+        await notificationDao.UpdateNotificaton(element.NotificationId);
+    });
+    console.log(createdMail);
+    createdMail.forEach(async element => {
+        let info = await mailTransporter.sendMail({
+            from: 'SPG P3 ES2<solidaritypurchasinggroup@gmail.com>', // sender address
+            to: element.Email, // list of receivers
+            subject: "Changed Order", // Subject line
+            text: "Dear Client, Youre bookings have changed By", // plain text body
+            html: "<h2>Dear Client, Your bookings have changed by farmers</h2>" + element.body
+        });
+        console.log("Message sent: %s", info.messageId);
+    });
+    // return;
+    res.json({ status: "Ok" });
+});
+// }
 // Activate the server
 // Comment this app.listen function when testing
 
