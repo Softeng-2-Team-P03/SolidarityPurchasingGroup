@@ -77,8 +77,8 @@ exports.getOrders = () => {
             resolve(orders);
         });
     });
-  });
 };
+
 
 
 exports.getOrdersByUserId = (userId) => {
