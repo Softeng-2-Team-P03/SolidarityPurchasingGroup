@@ -54,25 +54,8 @@ function ProductList(props) {
             }
         }
     }
-    // function to create the right date format 
-    const createDate = (time) => {
-        const day = time.getDate();
-        const month = time.getMonth() + 1;
-        const year = time.getFullYear();
-        let date = year.toString() + "-";
-        if (month > 9) {
-            date += month.toString() + "-";
-        } else {
-            date += "0" + month.toString() + "-";
-        }
-        if (day > 9) {
-            date += day.toString();
-        } else {
-            date += "0" + day.toString();
-        }
-        return date;
-    }
-
+    
+    
     useEffect(() => {
         if (props.loggedIn && props.user !== undefined) {
             if (location.state && location.state.userId) {

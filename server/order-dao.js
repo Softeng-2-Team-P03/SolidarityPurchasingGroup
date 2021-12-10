@@ -67,7 +67,7 @@ exports.updateBookingState = (state, id) => {
 exports.getOrders = () => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT Bookings.*, bookings.Id AS BookingId, Users.* FROM Bookings,Users where Bookings.UserId=Users.Id ';
-    db.all(sql, [], (err, rows) => {
+    db.all(sql, [], (err, rows) => { //NOSONAR
       if (err) {
         reject(err);
 
@@ -98,7 +98,7 @@ exports.deleteOrder = (id) => {
   return new Promise((resolve, reject) => {
 
     const sql = 'SELECT ProductId, Quantity FROM BookingAndProducts WHERE BookingId = ?';
-    db.all(sql, [id], (err, rows) => {
+    db.all(sql, [id], (err, rows) => { //NOSONAR
       if (err) {
         reject(err);
 
@@ -118,7 +118,7 @@ exports.deleteOrder = (id) => {
       });
 
       const sqlDelete = 'DELETE FROM Bookings WHERE Id = ?';
-      db.run(sqlDelete, [id], (err) => {
+      db.run(sqlDelete, [id], (err) => { //NOSONAR
         if (err) {
           reject(err);
 
@@ -126,7 +126,7 @@ exports.deleteOrder = (id) => {
           resolve(null);
       });
       const sqlDelete1 = 'DELETE FROM BookingAndProducts WHERE BookingId = ?';
-      db.run(sqlDelete1, [id], (err) => {
+      db.run(sqlDelete1, [id], (err) => { //NOSONAR
         if (err) {
           reject(err);
 
@@ -143,7 +143,7 @@ For This Function, After Change And Update Product Available By Farmer We Use th
 exports.GetProductInfoForConfirmation = (productId) => {
   return new Promise((resolve, reject) => {
     const sqlProduct = 'SELECT Name,Quantity , FarmerId,PricePerUnit FROM Products WHERE Id=? ';
-    db.all(sqlProduct, [productId], (err, rows) => {
+    db.all(sqlProduct, [productId], (err, rows) => { //NOSONAR
       if (err) {
         reject(err);
 
@@ -155,7 +155,7 @@ exports.GetProductInfoForConfirmation = (productId) => {
 }
 
 exports.GetBookingProductsByProduct = (productId) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => { //NOSONAR
     const sqlBookingAndProduct = "SELECT Bookings.UserId as UserId ,BookingAndProducts.* FROM BookingAndProducts ,Bookings WHERE BookingAndProducts.ProductId=?  AND Bookings.State=0 And BookingAndProducts.BookingId=Bookings.Id And BookingAndProducts.State=0";
     db.all(sqlBookingAndProduct, [productId], (err, BookingProducts) => {
       if (err) {

@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
-import { Nav, Navbar, Table, Col, Dropdown, Container } from "react-bootstrap";
+import { Nav, Navbar, Table, Col} from "react-bootstrap";
 import { showTime } from './clock.js'
 import Notifications from "../Notifications/Notifications";
 import 'bootstrap-icons/font/bootstrap-icons.css';

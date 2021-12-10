@@ -1,8 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderSuccess.css';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 import { Table, Image, Button,Alert } from "react-bootstrap";
-import { Redirect, useLocation } from 'react-router-dom';
 
 
 function OrderSuccess() {

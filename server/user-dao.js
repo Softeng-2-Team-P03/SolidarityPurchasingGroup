@@ -161,7 +161,7 @@ exports.getRequiredCharge = (id) => {
 exports.getRequiredChargeByBookingId = (userId,id) => {
   return new Promise(async (resolve, reject) => {
       var sqlQuery = 'select (Users.Wallet - Bookings.TotalPrice)as TotalPrice from Bookings,Users where Bookings.UserId=? and Bookings.Id=? AND Users.Id=?';
-      db.all(sqlQuery, [userId,id,userId], (err, rows) => {
+      db.all(sqlQuery, [userId,id,userId], (err, rows) => { //NOSONAR
           if (err) {
               reject(err);
               return;

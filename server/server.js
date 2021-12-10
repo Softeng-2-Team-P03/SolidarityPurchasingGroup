@@ -671,7 +671,7 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
                     await orderDao.UpdateBookingPaid(element.Quantity * pricePerUnit, bookingId);
                 });
                 // await sendEmailForChangeingBooking()
-            };
+            }
             res.json({ status: "Ok" });
         }
     } catch (err) {
@@ -683,8 +683,7 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
 
 //We have to set this Url in Cron Docker
 app.get('/api/send-mail-notifications', async (req, res) => {
-    // async function sendEmailForChangeingBooking()
-    // {
+   
     const notifications = await notificationDao.getNotificationForChangedBooking();
     var createdMail = [];
     notifications.forEach(async element => {

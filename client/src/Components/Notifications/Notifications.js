@@ -1,12 +1,11 @@
-import NavBar from "../NavBar/NavBar";
+
 import {useState} from "react";
-import {Alert, Button, Offcanvas} from "react-bootstrap";
+import {Alert, Offcanvas} from "react-bootstrap";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './Notifications.css'
 import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
 import {Badge, IconButton} from "@mui/material";
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import {yellow} from "@mui/material/colors";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
