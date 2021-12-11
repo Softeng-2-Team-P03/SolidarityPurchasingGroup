@@ -220,3 +220,19 @@ exports.updateProduct = (Quantity, Id, Name, Description, PricePerUnit, TypeId) 
         });
     });
 };
+
+
+exports.getProductPriceUnit = (id) => {
+    return new Promise((resolve, reject) => {
+        const sqlImage = 'SELECT PricePerUnit FROM Products WHERE Id = ?';
+        db.all(sqlImage, [id], (err, rows) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            console.log(rows[0].PricePerUnit);
+            resolve( rows[0].PricePerUnit);
+        });
+    });
+};
+// Get Types
