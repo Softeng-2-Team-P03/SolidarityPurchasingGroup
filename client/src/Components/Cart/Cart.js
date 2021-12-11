@@ -2,13 +2,51 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Cart.css';
 import { Col, Row, Image, Button, Modal, Alert, Form, CloseButton, Spinner } from "react-bootstrap";
 import cartIcon from "../Icons/cart-icon.png";
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import DateTimePicker from '@mui/lab/DateTimePicker';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import itLocale from 'date-fns/locale/it';
+
 
 function Cart(props) {
     const [show, setShow] = useState(false);
+    const [value, setValue] = useState(new Date());
+    const [dateMin, setDateMin] = useState('');
+    const [dateMax, setDateMax] = useState('');
+    const [choiceSelect, setChoiceSelect] = useState('0');
 
     const close = () => setShow(false);
     const open = () => setShow(true);
+
+    useEffect(() => {
+        let t = new Date(localStorage.getItem('virtualDate'));
+
+        if(t.getDay()===0 || t.getDay()===6) {
+
+        let minDate = new Date(localStorage.getItem('virtualDate'));
+        let maxDate = new Date(localStorage.getItem('virtualDate'));
+
+            if(t.getDay()===0){
+                minDate.setDate(t.getDate() + 3);
+                maxDate.setDate(t.getDate() + 5);
+            }else{
+                minDate.setDate(t.getDate() + 4);
+                maxDate.setDate(t.getDate() + 6);
+            }
+
+        minDate.setHours(9);
+        maxDate.setHours(23);
+
+
+        setDateMin(minDate);
+        setDateMax(maxDate);
+
+    }
+
+    },[]);
 
 
     return (<>
@@ -32,16 +70,40 @@ function Cart(props) {
                         </Col>
                     </Row>
                     <br />
-                    <Form.Select disabled>
-                        <option value="1">No Schedule</option>
-                        <option value="2">Pick-up date</option>
-                        <option value="3">Delivery at home</option>
+                    <Form.Select disabled={props.cart.length === 0 || props.loadingConfirm} onChange={e => setChoiceSelect(e.target.value)}>
+                        <option value='0'>No Schedule</option>
+                        <option value='1'>Pick-up date</option>
+                        <option value='2'>Delivery at home</option>
                     </Form.Select>
                     <br />
-                    <Button variant="success" disabled={props.cart.length === 0 || props.loadingConfirm}
+
+                    {choiceSelect==='0' ? <></>
+                        :
+                        <LocalizationProvider dateAdapter={AdapterDateFns} locale={itLocale}>
+                            <Stack spacing={3}>
+                                <DateTimePicker
+                                    type="datetime-local"
+                                    renderInput={(params) => <TextField {...params} />}
+                                    label="Select date and time"
+                                    value={dateMin}
+                                    onChange={(newValue) => {
+                                        setValue(newValue);
+                                    }}
+                                    minDateTime={dateMin}
+                                    maxDateTime={dateMax}
+
+                                    minTime={dateMin}
+                                    maxTime={dateMax}
+                                />
+                            </Stack>
+                        </LocalizationProvider>
+                    }
+<div className="butn">
+                    <Button  variant="success" disabled={props.cart.length === 0 || props.loadingConfirm}
                         onClick={() => props.confirmOrder()}>
                         {props.loadingConfirm ? <>Submitting order <Spinner animation="border" size="sm" /></> : "Confirm Order"}
                     </Button>
+</div>
                     <br />
                     {props.errorConfirm.length > 0 ?
                         <Alert key={2233} variant="danger"  >
@@ -80,7 +142,7 @@ function CartProduct(props) {
                             disabled={props.product.selectedQuantity === 0} onClick={() => props.modifyProductInCart(props.product.id, -1, 1)}>-</Button>
                     </Col>
                     <Col>
-                        <input className="quantity-text " type="number" min={0} onChange={e => props.modifyProductInCart(props.product.id, !e.target.value ? 0 : e.target.value, 2)} 
+                        <input className="quantity-text " type="number" min={0} onChange={e => props.modifyProductInCart(props.product.id, !e.target.value ? 0 : e.target.value, 2)}
                         value={Number(props.product.selectedQuantity).toString()} >
                         </input>
                     </Col>

@@ -40,7 +40,7 @@ input::-webkit-inner-spin-button {
   padding: 10px;
   border-radius: 10px;
   margin: 5px;
-  padding-top: "5%"; 
+  padding-top: "5%";
   padding-bottom: "5%";
 }
 .cart-item-image{
@@ -61,4 +61,8 @@ input::-webkit-inner-spin-button {
 
 .delete{
   border-radius: 5px;
+}
+
+.butn{
+  padding-top: 5%;
 }
