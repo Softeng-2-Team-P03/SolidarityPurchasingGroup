@@ -726,7 +726,50 @@ app.get('/api/send-mail-notifications', async (req, res) => {
     // return;
     res.json({ status: "Ok" });
 });
+/***********************************************
+**------ Request Put For Update Booking By Client
+Body : 
+{
+    "bookingId":7,
+    "deliveryTime":"2021-11-12",
+    "products":[
+        {
+            "productId":1,
+            "quantity":3
 
+        }
+    ]
+}
+1- Get and mathch userId for cheking order is for current user or not
+2- Get price unit for all BookingAndProduct and update all
+3- Update booking
+*/
+app.put('/api/bookingUpdateByClient/:id', isLoggedIn, async (req, res) => {
+    try {
+        var bookingId=req.body.bookingId;
+        var deliveryTime=req.body.deliveryTime;
+        var totalSum=0;
+        var userId=getOrderUserId(bookingId)
+        if (req.user.id==userId)
+        {
+        req.body.products.forEach(async element => {
+          var productId=element.productId;
+          var pricePerUnit=  await productDao.getProductPriceUnit(productId);
+          var quantity=element.quantity;
+          totalSum +=(quantity*pricePerUnit);
+          await orderDao.UpdateBookingProduct(quantity,pricePerUnit,bookingId,productId);
+        });
+        var lastUpdate= await orderDao.UpdateBookingByClient(bookingId,deliveryTime,totalSum);
+        res.json(lastUpdate);
+    }
+    else
+        res.status(503).json({ error: `This order is not match for you` });
+
+    } catch (err) {
+        res.status(500).end();
+    }
+    
+})
 
 // Activate the server
 // Comment this app.listen function when testing
