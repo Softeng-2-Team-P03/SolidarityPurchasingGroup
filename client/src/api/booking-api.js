@@ -77,7 +77,20 @@ async function getWalletBalance() {
   } else {
     throw walletBalance;  // an object with the error coming from the server
   }
+
 }
+
+async function confirmBookingProduct(productId) {
+  // call: GET /api/orders
+  const response = await fetch(BASEURL + '/confirmBookingProduct/'+ productId);
+  const ordersJson = await response.json();
+  if (response.ok) {
+    return ordersJson;
+  } else {
+    throw ordersJson;  // an object with the error coming from the server
+  }
+}
+
 async function getOrdersByUserId(userId) {
   // call: GET /api/orders
   const response = await fetch(BASEURL + '/users/'+userId+'/bookings');
@@ -98,5 +111,5 @@ async function deleteBooking(id) {
     } else return { 'err': 'DELETE error' };
 }
 
-const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId,deleteBooking};
+const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId,deleteBooking, confirmBookingProduct};
 export default bookingApi;

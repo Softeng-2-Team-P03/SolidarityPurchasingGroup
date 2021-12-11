@@ -352,10 +352,19 @@ app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
 });
 
 // POST /api/product
-app.post('/api/product', isLoggedIn, async (req, res) => {
+app.post('/api/product',
+    isLoggedIn, [
+    check('Quantity').isInt({ min: 0, max: 10000 }),
+    check('PricePerUnit').isFloat({ min: 0, max: 10000 })
+], async (req, res) => {
 
     if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+    }
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
     }
 
     const product = {
@@ -547,6 +556,10 @@ app.put('/api/bookings/:id', [
 
 });
 
+app.put('/api/product/:Id', isLoggedIn, [
+    check('Quantity').isInt({ min: 0, max: 10000 }),
+    check('PricePerUnit').isFloat({ min: 0, max: 10000 })
+], async (req, res) => {
 
 /*** Delete booking specified by the Id ***/
 
@@ -575,6 +588,28 @@ app.put('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
 app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) => {
     try {
         await productDao.updateAvailbeleDate(req.body.availableDate, req.body.Quantity, req.params.Id);
+        res.status(200).end();
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the update of Available Product.` });
+    }
+
+});
+
+app.put('/api/productQuantity/:Id', isLoggedIn, [
+    check('Quantity').isInt({ min: 0, max: 10000 }),
+], async (req, res) => {
+
+    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+    }
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+
+    try {
+        await productDao.updateProductQuantity(req.body.Quantity, req.body.Id);
         res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of Available Product.` });
@@ -680,10 +715,46 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
             }
             res.json({ status: "Ok" });
         }
-    } catch (err) {
-        res.status(500).end();
+    }
+     catch (err) {
+      res.status(500).end();
     }
 
+});
+
+
+//We have to set this Url in Cron Docker
+app.get('/api/send-mail-notifications', async (req, res) => {
+    // async function sendEmailForChangeingBooking()
+    // {
+    const notifications = await notificationDao.getNotificationForChangedBooking();
+    var createdMail = [];
+    notifications.forEach(async element => {
+        var filter = createdMail.filter(p => p.UserId == element.UserId);
+        if (filter.length > 0) {
+            filter[0].body = filter[0].body + "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
+                "<h3>" + element.NotificationHeader + "</h3><p>" + element.NotificationBody + "</p></div>";
+        }
+        else
+            createdMail.push({
+                UserId: element.UserId, Email: element.Email, body: "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
+                    "<p><h3>" + element.NotificationHeader + "</h3>" + element.NotificationBody + "</p></div>"
+            })
+        await notificationDao.UpdateNotificaton(element.NotificationId);
+    });
+    console.log(createdMail);
+    createdMail.forEach(async element => {
+        let info = await mailTransporter.sendMail({
+            from: 'SPG P3 ES2<solidaritypurchasinggroup@gmail.com>', // sender address
+            to: element.Email, // list of receivers
+            subject: "Changed Order", // Subject line
+            text: "Dear Client, Youre bookings have changed By", // plain text body
+            html: "<h2>Dear Client, Your bookings have changed by farmers</h2>" + element.body
+        });
+        console.log("Message sent: %s", info.messageId);
+    });
+    // return;
+    res.json({ status: "Ok" });
 });
 
 app.get('/api/notifications', isLoggedIn, async (req, res) => {
@@ -779,4 +850,3 @@ app.listen(port, () => {
     console.log(`react-score-server listening at http://localhost:${port}`);
 });
 
-module.exports = app
