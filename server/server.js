@@ -535,6 +535,29 @@ app.put('/api/product/:Id', isLoggedIn, [
 
 });
 
+app.put('/api/productQuantity/:Id', isLoggedIn, [
+    check('Quantity').isInt({ min: 0, max: 10000 }),
+], async (req, res) => {
+
+    if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
+        return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
+    }
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+
+    try {
+        await productDao.updateProductQuantity(req.body.Quantity, req.body.TypeId);
+        console.log("server");
+        res.status(200).end();
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the update of Available Product.` });
+    }
+
+});
+
 app.delete('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
     try {
         if (![1, 2, 3].includes(req.user.accessType)) { //Manager, Employee and Client

@@ -209,9 +209,10 @@ function ProductListItem(props) {
 
                                     <Form>
                                       <InputGroup className='buttonConfirm'>
-                                      <Form.Control placeholder="Specify quantity" type="number"/>
+                                      <Form.Control placeholder="Specify quantity" type="number" onChange={(ev)=>setConfirmedQuantity(ev.value)}/>
                                         <Button  type="submit" variant="success" onClick={() => {
                                             API.updateProductState(1, props.product.Id).catch(err => console.log(err));
+                                            API.updateProductQuantity(confirmedQuantity, props.product.id)
                                             props.setConfirm(false);
                                         }}>Confirm</Button>
                                         </InputGroup>  

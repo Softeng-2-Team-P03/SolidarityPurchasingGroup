@@ -181,6 +181,28 @@ function updateProductInfo(Quantity,Id,Name,Description,PricePerUnit,TypeId) {
     });
 }
 
+function updateProductQuantity(Quantity,Id) {
+    // call: PUT /api/product/:Id
+    return new Promise((resolve, reject) => {
+        fetch(BASEURL + '/product/' + Id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({Quantity: Quantity, Id:Id}),
+        }).then((response) => {
+            if (response.ok) {
+                console.log("api");
+                resolve(null);
+            } else {
+                // analyze the cause of error
+                response.json()
+                    .then((obj) => { reject(obj); }) // error message in the response body
+                    .catch(() => { reject({ error: "Cannot parse server response." }) }); // something else
+            }
+        }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
+    });
+}
 
-const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,addImage,getAllClients,getProdFarmer,addProduct,updateProductState, updateProductInfo};
+const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,addImage,getAllClients,getProdFarmer,addProduct,updateProductState, updateProductInfo, updateProductQuantity};
 export default API;
