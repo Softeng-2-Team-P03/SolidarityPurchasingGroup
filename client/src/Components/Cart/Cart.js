@@ -13,9 +13,10 @@ import itLocale from 'date-fns/locale/it';
 
 function Cart(props) {
     const [show, setShow] = useState(false);
-    const [value, setValue] = useState(new Date());
+    const [value, setValue] = useState(localStorage.getItem('virtualDate'));
     const [dateMin, setDateMin] = useState('');
     const [dateMax, setDateMax] = useState('');
+    let currentDate = localStorage.getItem('virtualDate')
     const [choiceSelect, setChoiceSelect] = useState('0');
 
     const close = () => setShow(false);
@@ -77,15 +78,14 @@ function Cart(props) {
                     </Form.Select>
                     <br />
 
-                    {choiceSelect==='0' ? <></>
-                        :
+                    {choiceSelect !=='0' ?
                         <LocalizationProvider dateAdapter={AdapterDateFns} locale={itLocale}>
                             <Stack spacing={3}>
                                 <DateTimePicker
                                     type="datetime-local"
                                     renderInput={(params) => <TextField {...params} />}
                                     label="Select date and time"
-                                    value={dateMin}
+                                    value={value}
                                     onChange={(newValue) => {
                                         setValue(newValue);
                                     }}
@@ -97,6 +97,8 @@ function Cart(props) {
                                 />
                             </Stack>
                         </LocalizationProvider>
+                        :
+                        <></>
                     }
 <div className="butn">
                     <Button  variant="success" disabled={props.cart.length === 0 || props.loadingConfirm}
