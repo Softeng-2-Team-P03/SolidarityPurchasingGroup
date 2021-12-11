@@ -483,7 +483,9 @@ app.post('/api/booking', isLoggedIn, [
         bookingStartDate: req.body.bookingStartDate,
         totalPrice: req.body.totalPrice,
         state: req.body.state,
-        userId: req.body.userId ? req.body.userId : req.user.id
+        userId: req.body.userId ? req.body.userId : req.user.id,
+        pickupTime: req.body.pickupTime,
+        deliveryTime: req.body.deliveryTime
     };
     var productsJson = req.body.products;
     JSON.stringify(productsJson);

@@ -9,6 +9,7 @@ import DateTimePicker from '@mui/lab/DateTimePicker';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import itLocale from 'date-fns/locale/it';
+import { formatDateWithoutSeconds } from '../NavBar/clock';
 
 
 function Cart(props) {

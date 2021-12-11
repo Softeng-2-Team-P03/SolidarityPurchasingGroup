@@ -31,6 +31,13 @@ function formatDateWithTime(date) {
 	return datePart.join('-') + ' ' + timePart.join(':');
 }
 
+function formatDateWithoutSeconds(date) {
+	var datePart = [date.getFullYear(), date.getMonth() + 1, date.getDate()].map(datePadding);
+	var timePart = [date.getHours(), date.getMinutes()].map(datePadding);
+
+	return datePart.join('-') + ' ' + timePart.join(':');
+}
+
 function formatDate(date) {
 	var datePart = [date.getFullYear(), date.getMonth() + 1, date.getDate()].map(datePadding);
 
@@ -42,4 +49,4 @@ function dayOfWeek(date) {
 	return days[date.getDay()];
 }
 
-export { showTime };
+export { showTime, formatDateWithoutSeconds };
