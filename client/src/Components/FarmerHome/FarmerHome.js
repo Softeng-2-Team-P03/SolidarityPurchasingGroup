@@ -9,6 +9,7 @@ import API from "../../API";
 import axios from "axios";
 import Message from "../FileUpload/Message";
 import Progress from "../FileUpload/Progress";
+import bookingApi from '../../api/booking-api';
 
 function FarmerHome() {
 
@@ -209,14 +210,15 @@ function ProductListItem(props) {
 
                                     <Form>
                                       <InputGroup className='buttonConfirm'>
-                                      <Form.Control placeholder="Specify quantity" type="number" onChange={(ev)=>setConfirmedQuantity(ev.value)}/>
+                                      <Form.Control placeholder="Specify quantity" type="number" onChange={(ev)=>{setConfirmedQuantity(ev.target.value)
+                                    console.log(ev.target.value)}}/>
                                         <Button  type="submit" variant="success" onClick={() => {
-                                            API.updateProductState(1, props.product.Id).catch(err => console.log(err));
-                                            API.updateProductQuantity(confirmedQuantity, props.product.id)
+                                            API.updateProductQuantity(confirmedQuantity, props.product.Id).then(
+                                                API.updateProductState(1, props.product.Id).catch(err => console.log(err)).then(
+                                                    bookingApi.confirmBookingProduct(props.product.Id).catch(err => console.log(err))));   
                                             props.setConfirm(false);
                                         }}>Confirm</Button>
                                         </InputGroup>  
-
                                     </Form>
 
 

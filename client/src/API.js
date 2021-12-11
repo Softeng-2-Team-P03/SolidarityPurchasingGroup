@@ -184,7 +184,7 @@ function updateProductInfo(Quantity,Id,Name,Description,PricePerUnit,TypeId) {
 function updateProductQuantity(Quantity,Id) {
     // call: PUT /api/product/:Id
     return new Promise((resolve, reject) => {
-        fetch(BASEURL + '/product/' + Id, {
+        fetch(BASEURL + '/productQuantity/' + Id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

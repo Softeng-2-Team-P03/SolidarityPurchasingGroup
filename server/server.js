@@ -549,8 +549,7 @@ app.put('/api/productQuantity/:Id', isLoggedIn, [
     }
 
     try {
-        await productDao.updateProductQuantity(req.body.Quantity, req.body.TypeId);
-        console.log("server");
+        await productDao.updateProductQuantity(req.body.Quantity, req.body.Id);
         res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of Available Product.` });
@@ -622,6 +621,7 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
         if (product.error)
             res.status(404).json(product);
         else {
+            console.log(productId)
             farmerId = product.FarmerId;
             productName = product.ProductName;
             pricePerUnit = product.PricePerUnit;

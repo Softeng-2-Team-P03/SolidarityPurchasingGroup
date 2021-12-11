@@ -229,7 +229,6 @@ exports.updateProductQuantity = (Quantity, Id) => {
                 reject(err);
                 return;
             }
-            console.log(db);
             resolve();
         });
     });
