@@ -1389,15 +1389,13 @@ describe('PUT /api/topup/:userId/:amount', () => {
     })
     
 })
-/* 
+ 
 describe('POST /api/image', () => {
     beforeAll(() => logoutUser());
     
     const image = {
-        Id: 53,
-        ProductId:53,
-        IsDefault:1,
-        Path: "p1-1.jpg"
+        id: 53,
+        path: "p1-1.jpg"
     };
 
     it('should not be able to post a image if not logged in', function (done) {
@@ -1454,8 +1452,8 @@ describe('POST /api/image', () => {
                 server
                     .post('/api/image')
                     .send({
-                        Id: 54,
-                        Path: "p1-1.jpg"
+                        id: 54,
+                        path: "p1-1.jpg"
                     })
                     .expect(201)
                     .then(() => done())
@@ -1470,8 +1468,8 @@ describe('POST /api/image', () => {
                 server
                     .post('/api/image')
                     .send({
-                        Id: 563,
-                        Path: "p1-1.jpg"
+                        id: 56,
+                        path: "p1-1.jpg"
                     })
                     .expect(201)
                     .then(() => done())
@@ -1483,40 +1481,23 @@ describe('POST /api/image', () => {
     it('Id empty in parameters', function (done) {
         server
             .post('/api/image')
-            .send({ ProductId:52,
-                IsDefault:1,
-                Path: 'p1-1.jpg', Id: undefined })
+            .send({Path: 'p1-1.jpg', Id: undefined })
             .expect(503)
             .then((response) => {
                 done();
             })
             .catch(err => done(err))
     });
-
-    it('ProductId empty in parameters', function (done) {
-        server
-            .post('/api/image')
-            .send({ Id:55,
-                IsDefault:1,
-                Path: 'p1-1.jpg', ProductId: undefined })
-            .expect(503)
-            .then((response) => {
-                done();
-            })
-            .catch(err => done(err))
-    });
-
-    
+  
     it('Path empty in parameters', function (done) {
         server
             .post('/api/image')
             .send({ Id:54,
-                IsDefault:1,
-                Path: undefined, ProductId: 50 })
+                Path: undefined})
             .expect(503)
             .then((response) => {
                 done();
             })
             .catch(err => done(err))
     });
-}) */
+}) 
