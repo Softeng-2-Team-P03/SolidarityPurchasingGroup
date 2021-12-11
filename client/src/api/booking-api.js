@@ -82,7 +82,7 @@ async function getWalletBalance() {
 
 async function confirmBookingProduct(productId) {
   // call: GET /api/orders
-  const response = await fetch(BASEURL + '/api/confirmBookingProduct/'+ productId);
+  const response = await fetch(BASEURL + '/confirmBookingProduct/'+ productId);
   const ordersJson = await response.json();
   if (response.ok) {
     return ordersJson;

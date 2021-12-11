@@ -616,12 +616,13 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
     var pricePerUnit = 0;
     var userId = 0;
     var productName = "Title";
-    try {
+    console.log(productId)
+    //try  {
         const product = await orderDao.GetProductInfoForConfirmation(productId);
         if (product.error)
             res.status(404).json(product);
         else {
-            console.log(productId)
+            
             farmerId = product.FarmerId;
             productName = product.ProductName;
             pricePerUnit = product.PricePerUnit;
@@ -651,9 +652,10 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
             };
             res.json({ status: "Ok" });
         }
-    } catch (err) {
-        res.status(500).end();
-    }
+    //}
+    // catch (err) {
+    //  res.status(500).end();
+    //}
 
 });
 
