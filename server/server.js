@@ -555,11 +555,7 @@ app.put('/api/bookings/:id', [
     }
 
 });
-
-app.put('/api/product/:Id', isLoggedIn, [
-    check('Quantity').isInt({ min: 0, max: 10000 }),
-    check('PricePerUnit').isFloat({ min: 0, max: 10000 })
-], async (req, res) => {
+    
 
 /*** Delete booking specified by the Id ***/
 
@@ -681,7 +677,8 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
     var pricePerUnit = 0;
     var userId = 0;
     var productName = "Title";
-    try {
+    console.log(productId)
+    //try {
         const product = await orderDao.GetProductInfoForConfirmation(productId);
         if (product.error)
             res.status(404).json(product);
@@ -715,10 +712,10 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
             }
             res.json({ status: "Ok" });
         }
-    }
+    /* }
      catch (err) {
       res.status(500).end();
-    }
+    } */
 
 });
 
