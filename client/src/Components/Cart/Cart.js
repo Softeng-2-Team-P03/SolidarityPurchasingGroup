@@ -90,11 +90,13 @@ function Cart(props) {
                                     onChange={(newValue) => {
                                         setValue(newValue);
                                     }}
-                                    minDateTime={dateMin}
-                                    maxDateTime={dateMax}
+                                    minDate={dateMin}
+                                    maxDate={dateMax}
 
                                     minTime={dateMin}
                                     maxTime={dateMax}
+
+                                    minutesStep={30}
                                 />
                             </Stack>
                         </LocalizationProvider>
