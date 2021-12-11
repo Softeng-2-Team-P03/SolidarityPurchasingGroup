@@ -80,7 +80,7 @@ function ClientNavbar() {
       <Nav.Link href='/products'>Browse Shop</Nav.Link>
       <Nav.Link href='/myOrders'>My Orders</Nav.Link>
       <Nav.Link>My Wallet</Nav.Link>
-      <Notifications placement={'end'} ></Notifications>
+      <Notifications placement={'end'}  ></Notifications>
     </Nav>
   );
 }

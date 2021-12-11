@@ -75,9 +75,8 @@ exports.getOrders = () => {
       const orders = rows.map((e) => ({ Email: e.Email, PhoneNumber: e.PhoneNumber, Wallet: e.Wallet, BookingId: e.BookingId, UserName: e.Name, UserSurname: e.Surname, BookingStartDate: e.BookingStartDate, UserId: e.UserId, TotalPrice: e.TotalPrice, State: e.State, PickupTime: e.PickupTime, DeliveryTime: e.DeliveryTime }));
       resolve(orders);
     });
-};
-
-
+  });
+}
 
 exports.getOrdersByUserId = (userId) => {
   return new Promise((resolve, reject) => {
@@ -91,7 +90,7 @@ exports.getOrdersByUserId = (userId) => {
       resolve(orders);
     });
   });
-};
+}
 
 exports.deleteOrder = (id) => {
   return new Promise((resolve, reject) => {
@@ -212,6 +211,7 @@ exports.UpdateBookingProduct = (quantity, pricePerUnit, bookingId, productId) =>
     });
   })
 }
+
 exports.UpdateBookingPaid = (paid, BookingId) => {
   console.log("paid" + paid)
   console.log("BookingId" + BookingId)
