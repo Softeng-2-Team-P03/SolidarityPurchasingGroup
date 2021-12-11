@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './Cart.css';
 import { Col, Row, Image, Button, Modal, Alert, Form, CloseButton, Spinner } from "react-bootstrap";
 import cartIcon from "../Icons/cart-icon.png";
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import DateTimePicker from '@mui/lab/DateTimePicker';
@@ -25,29 +25,29 @@ function Cart(props) {
     useEffect(() => {
         let t = new Date(localStorage.getItem('virtualDate'));
 
-        if(t.getDay()===0 || t.getDay()===6) {
+        if (t.getDay() === 0 || t.getDay() === 6) {
 
-        let minDate = new Date(localStorage.getItem('virtualDate'));
-        let maxDate = new Date(localStorage.getItem('virtualDate'));
+            let minDate = new Date(localStorage.getItem('virtualDate'));
+            let maxDate = new Date(localStorage.getItem('virtualDate'));
 
-            if(t.getDay()===0){
+            if (t.getDay() === 0) {
                 minDate.setDate(t.getDate() + 3);
                 maxDate.setDate(t.getDate() + 5);
-            }else{
+            } else {
                 minDate.setDate(t.getDate() + 4);
                 maxDate.setDate(t.getDate() + 6);
             }
 
-        minDate.setHours(9);
-        maxDate.setHours(23);
+            minDate.setHours(9);
+            maxDate.setHours(23);
 
 
-        setDateMin(minDate);
-        setDateMax(maxDate);
+            setDateMin(minDate);
+            setDateMax(maxDate);
 
-    }
+        }
 
-    },[]);
+    }, []);
 
 
     return (<>
@@ -72,13 +72,13 @@ function Cart(props) {
                     </Row>
                     <br />
                     <Form.Select disabled={props.cart.length === 0 || props.loadingConfirm} onChange={e => setChoiceSelect(e.target.value)}>
-                        <option value='0'>No Schedule</option>
+                        <option value='0' disabled selected>Select a delivery option...</option>
                         <option value='1'>Pick-up date</option>
                         <option value='2'>Delivery at home</option>
                     </Form.Select>
                     <br />
 
-                    {choiceSelect !=='0' ?
+                    {choiceSelect !== '0' ?
                         <LocalizationProvider dateAdapter={AdapterDateFns} locale={itLocale}>
                             <Stack spacing={3}>
                                 <DateTimePicker
@@ -100,12 +100,13 @@ function Cart(props) {
                         :
                         <></>
                     }
-<div className="butn">
-                    <Button  variant="success" disabled={props.cart.length === 0 || props.loadingConfirm}
-                        onClick={() => props.confirmOrder()}>
-                        {props.loadingConfirm ? <>Submitting order <Spinner animation="border" size="sm" /></> : "Confirm Order"}
-                    </Button>
-</div>
+                    <div className="butn">
+                        <Button variant="success" disabled={props.cart.length === 0 || props.loadingConfirm || choiceSelect === '0'}
+                            onClick={() => props.confirmOrder()}>
+                            {props.loadingConfirm ? <>Submitting order <Spinner animation="border" size="sm" /></> : "Confirm Order"}
+                        </Button>
+                    </div>
+                    <small>Remember to choose a delivery option</small>
                     <br />
                     {props.errorConfirm.length > 0 ?
                         <Alert key={2233} variant="danger"  >
@@ -145,7 +146,7 @@ function CartProduct(props) {
                     </Col>
                     <Col>
                         <input className="quantity-text " type="number" min={0} onChange={e => props.modifyProductInCart(props.product.id, !e.target.value ? 0 : e.target.value, 2)}
-                        value={Number(props.product.selectedQuantity).toString()} >
+                            value={Number(props.product.selectedQuantity).toString()} >
                         </input>
                     </Col>
                     <Col style={{ padding: "0px" }}>
