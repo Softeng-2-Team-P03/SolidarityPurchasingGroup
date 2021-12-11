@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
-import {Nav, Navbar, Table, Col } from "react-bootstrap";
+import { Nav, Navbar, Table, Col} from "react-bootstrap";
 import { showTime } from './clock.js'
 import Notifications from "../Notifications/Notifications";
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -31,9 +31,8 @@ function NavBar(props) {
     return <></>;
   }
 
-  return (
-    <div>
-
+  return (    
+     
       <Navbar bg="primary" variant="dark" expand="lg">
         <Col xs="2">
           <Navbar.Brand href="/" className="col-md-2">
@@ -48,19 +47,19 @@ function NavBar(props) {
 
         </Col>
 
-        <Col xs="7">
+        <Col xs="6">
 
           <ShowClock className="me-auto timer" />
 
 
         </Col>
-        <Col xs="3">
+        <Col xs="4">
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            
+
             <Nav className="me-auto " />
             {props.loggedIn && props.user !== undefined && chooseNavbar(props.user.accessType)}
-            <Nav>
+            <Nav className="log">
               {props.loggedIn ?
                 <Nav.Link onClick={() => { window.location.href = 'http://localhost:3000/'; props.userLogoutCallback() }}>Logout</Nav.Link> :
                 <Nav.Link href='/login'>Login</Nav.Link>
@@ -69,8 +68,8 @@ function NavBar(props) {
           </Navbar.Collapse>
         </Col>
       </Navbar>
-
-    </div>
+      
+  
   );
 }
 
@@ -100,11 +99,12 @@ function EmployeeNavbar() {
 //TO DO:
 function ManagerNavbar() {
   return (
-    <Nav>
+    <Nav className="navMan">
       <Nav.Link href='/products'>Browse Shop</Nav.Link>
-      <Nav.Link href='/clients'>Clients</Nav.Link>
+      <Nav.Link className="navMan"href='/clients'>Clients</Nav.Link>
       <Nav.Link href='/orders'>Orders</Nav.Link>
-      <Nav.Link>Join Requests</Nav.Link>
+      <Nav.Link href='/WareHouseHome'>WareHouse</Nav.Link>
+      
     </Nav>
   );
 }
@@ -200,7 +200,7 @@ function ShowClock() {
 
   return (
     <div className="clockWrapper glow">
-      <Table responsive borderless size="sm">
+      <Table className ="tableTim"responsive borderless size="sm">
         <thead>
           <th></th>
           <th></th>

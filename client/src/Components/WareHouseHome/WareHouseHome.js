@@ -17,7 +17,7 @@ function WareHouseHome() {
 
 
         const getAllProducts = async () => {
-            const products = await API.getAllProducts();
+            const products = await API.getAllProducts(); //NOSONAR
            
             setProducts(products);
             setSearchProducts(products);

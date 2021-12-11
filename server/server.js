@@ -12,9 +12,10 @@ const LocalStrategy = require('passport-local').Strategy; // username and passwo
 const session = require('express-session'); // enable sessions
 const fileUpload = require('express-fileupload');
 const nodemailer = require('nodemailer');
-const gmailcredentials = require('./credentials');
+const credentials = require('./credentials');
 //import { gmailcredentials } from './credentials.js';
 const notificationDao = require('./notification-dao.js');
+const dateRegexp = new RegExp(/^(([1]|[2])\d{3})-((0[13578]|1[02])-(0[0-9]|[1-2][0-9]|3[0-1])|(0[469]|11)-(0[0-9]|[1-2][0-9]|30)|(02)-(0[0-9]|[1-2][0-9]))([ ])([01][1-9]|2[0-3])(\:)([0-5][0-9])(\:)([0-5][0-9])$/);
 /* SETUP SECTION */
 
 /* Set up Passport **
@@ -49,6 +50,7 @@ passport.deserializeUser((id, done) => {
 
 // init express
 const app = express();
+app.disable("x-powered-by");
 const port = 3001;
 
 // set-up the middlewares
@@ -79,8 +81,8 @@ app.use(passport.session());
 let mailTransporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-        user: gmailcredentials.GMAILUSER,
-        pass: gmailcredentials.GMAILPASSWORD
+        user: credentials.gmailcredentials.GMAILUSER,
+        pass: credentials.gmailcredentials.GMAILPASSWORD
     }
 });
 
@@ -227,7 +229,7 @@ app.get('/api/clients/riquredCharge', isLoggedIn, async (req, res) => {
 //**** Get Get Wallet Balance For A booking with booking Id ****//
 app.get('/api/clients/getRequiredChargeByBookingId', isLoggedIn, async (req, res) => {
     try {
-        const result = await userDao.getRequiredChargeByBookingId(req.user.id,req.query.bookingId);
+        const result = await userDao.getRequiredChargeByBookingId(req.user.id, req.query.bookingId);
         if (result.error)
             res.status(404).json(result);
         else
@@ -247,7 +249,7 @@ app.put('/api/topup/:userId/:amount', isLoggedIn, async (req, res) => {
             return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
         }
 
-        await userDao.topUpWallet(req.params.userId,req.params.amount);
+        await userDao.topUpWallet(req.params.userId, req.params.amount);
         res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of Survey.` });
@@ -463,12 +465,14 @@ app.post('/api/booking', isLoggedIn, [
     }
 
     const errors = validationResult(req);
+    const fields = req.body.bookingStartDate.split(' ');
+    const date = fields[0].split('-');
+    const year = parseInt(date[0]);
+    const month = parseInt(date[1]);
+    const day = parseInt(date[2]);
 
-    //Can't check if date with time is valid with express-validator(it only supports YYYY-MM-DD)
-    //Hence this check. Only problem: if date is without time it will be considered correct (because it's still a date)
-    //Possible fix to that issue: create a regex
-    if(isNaN(Date.parse(req.body.bookingStartDate))){
-        errors.errors = [...errors.errors, ({value: req.body.bookingStartDate, msg: "Invalid value", param: "bookingStartDate", location: "body"})];
+    if (!dateRegexp.test(req.body.bookingStartDate) || (month === 2 && year % 4 !== 0 && day === 29)) {
+        errors.errors = [...errors.errors, ({ value: req.body.bookingStartDate, msg: "Invalid value", param: "bookingStartDate", location: "body" })];
     }
 
     if (!errors.isEmpty()) {
@@ -568,7 +572,7 @@ app.put('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
 
 app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) => {
     try {
-        await productDao.updateAvailbeleDate(req.body.availableDate,req.body.Quantity, req.params.Id);
+        await productDao.updateAvailbeleDate(req.body.availableDate, req.body.Quantity, req.params.Id);
         res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of Available Product.` });
@@ -576,17 +580,17 @@ app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) =
 
 });
 
-app.delete('/api/deletebooking/:id',isLoggedIn, async (req, res) => {
+app.delete('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
     try {
-         if (![1, 2, 3].includes(req.user.accessType)) { //Manager, Employee and Client
+        if (![1, 2, 3].includes(req.user.accessType)) { //Manager, Employee and Client
             return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
-        }     
+        }
         await orderDao.deleteOrder(req.params.id);
         res.status(204).end();
-    } catch(err) {
-      res.status(503).json({ error: `Database error during the deletion of order.`});
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the deletion of order.` });
     }
-  });
+});
 
 //****************************************************** */
 //                ProductImages API
@@ -671,7 +675,7 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
                     await orderDao.UpdateBookingPaid(element.Quantity * pricePerUnit, bookingId);
                 });
                 // await sendEmailForChangeingBooking()
-            };
+            }
             res.json({ status: "Ok" });
         }
     } catch (err) {
@@ -680,11 +684,19 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
 
 });
 
+app.get('/api/notifications', isLoggedIn, async (req, res) => {
+    try {
+        const result = await notificationDao.getNotificationsByUser(req.user.id);
+        res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+})
+
 
 //We have to set this Url in Cron Docker
 app.get('/api/send-mail-notifications', async (req, res) => {
-    // async function sendEmailForChangeingBooking()
-    // {
+
     const notifications = await notificationDao.getNotificationForChangedBooking();
     var createdMail = [];
     notifications.forEach(async element => {
@@ -714,10 +726,10 @@ app.get('/api/send-mail-notifications', async (req, res) => {
     // return;
     res.json({ status: "Ok" });
 });
-// }
+
+
 // Activate the server
 // Comment this app.listen function when testing
-
 app.listen(port, () => {
     console.log(`react-score-server listening at http://localhost:${port}`);
 });

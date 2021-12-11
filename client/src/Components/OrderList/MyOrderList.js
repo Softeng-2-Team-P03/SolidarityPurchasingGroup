@@ -56,7 +56,7 @@ function MyOrderList(props) {
 
         const getOrdersByUserId = async () => {
             if(props.loggedIn && dirty) {                
-            const myOrders = await bookingApi.getOrdersByUserId(props.user.id);           
+            const myOrders = await bookingApi.getOrdersByUserId(props.user.id);  //NOSONAR         
             setMyOrders(myOrders);
             console.log(myOrders);
             }           
@@ -140,7 +140,7 @@ function MyOrder(props){
                 <td>{props.order.BookingStartDate}</td>
                 <td>{props.state}</td>
                 {props.order.PickupTime ? <td> {props.order.PickupTime} </td> : <td> {props.order.DeliveryTime} </td>}
-                <td>{props.order.TotalPrice}</td>
+                <td>{props.order.TotalPrice} €</td>
                 <td><Button onClick={() => props.deleteBooking(props.order.BookingId)} >Delete Booking</Button></td>
                {props.timeEnabled ? 
                 <td><Button onClick={() => props.updateBooking(props.order.BookingId)} >Update Booking</Button></td> :<td></td>

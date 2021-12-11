@@ -1,30 +1,9 @@
-PUT http://localhost:3001/api/topup/1/10 HTTP/1.1
-
-PUT http://localhost:3001/api/bookings/2 HTTP/1.1
+###Login as manager
+POST http://localhost:3001/api/sessions
 Content-Type: application/json
 
-{
-    "state": 2
-}
-
-PUT http://localhost:3001/api/bookings/1 HTTP/1.1
-Content-Type: application/json
-
-{
-    "state": 2
-}
+{"username": "luca@spg.com", "password": "FgKECe4w"}
 
 
-GET http://localhost:3001/api/products/2021-12-03 HTTP/1.1
-
-GET  http://localhost:3001/api/bookings HTTP/1.1
-
-
-PUT http://localhost:3001/api/updatewallet HTTP/1.1
-Content-Type: application/json
-
-{
-    "amount":56,
-    "userId": 1
-}
-
+###GET NOTIFICATIONS
+GET http://localhost:3001/api/notifications
