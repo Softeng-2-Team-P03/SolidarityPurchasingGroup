@@ -228,3 +228,29 @@ exports.UpdateBookingPaid = (paid, BookingId) => {
   });
 }
 
+exports.UpdateBookingByClient = (Id, deliveryTime,totalPrice) => {
+  return new Promise((resolve, reject) => {
+    const sqlUpdateBooking = 'UPDATE Bookings SET DeliveryTime=?, TotalPrice=?   WHERE  Id=?';
+    db.run(sqlUpdateBooking, [deliveryTime, totalPrice, Id], function (err) {//NOSONAR
+      if (err) {
+        console.log(err)
+        reject(err);
+      }
+      resolve(this.lastID);
+    });
+  })
+}
+
+exports.getOrderUserId = (bookingId) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT UserId From Bookings where Id=? ';
+    db.all(sql, [bookingId], (err, rows) => { //NOSONAR
+      if (err) {
+        reject(err);
+
+      }
+      const userId = rows[0].UserId;
+      resolve(userId);
+    });
+  });
+}
