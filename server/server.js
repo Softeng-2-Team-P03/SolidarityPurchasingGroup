@@ -701,12 +701,29 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
                         var prevQuantity = element.Quantity;
                         element.Quantity = quantity;
                         quantity = 0;
-                        var header = "Change Booking#" + bookingId;
-                        var body = "The quantity of " + productName + " has changed by Farmer from " + prevQuantity + " to " + element.Quantity;
-                        const insertNotification = await orderDao.InsertNotification(userId, header, body);
+                        let header = "Change Booking#" + bookingId;
+                        let body = "The quantity of " + productName + " has changed by Farmer from " + prevQuantity + " to " + element.Quantity;
+                        await orderDao.InsertNotification(userId, header, body, 1);
+                        var priceDiff = (prevQuantity - element.Quantity)*pricePerUnit;
+                        await orderDao.UpdateBookingTotalPrice(priceDiff, bookingId);
                     }
                     await orderDao.UpdateBookingProduct(quantity == null ? 0 : element.Quantity, pricePerUnit, bookingId, productId);
-                    await orderDao.UpdateBookingPaid(element.Quantity * pricePerUnit, bookingId);
+                    
+                    //handling payment  for a booking from here
+                    /*const user = await orderDao.GetUserById(userId);
+                    const booking = await orderDao.GetBookingById(bookingId);
+                    if( user.Wallet < booking.Paid + (element.Quantity * pricePerUnit) ){
+                        //if user wallet as enough money, i get the payment and update paid field of booking
+                        await userDao.decreaseWallet( user.Id, element.Quantity * pricePerUnit);
+                        await orderDao.UpdateBookingPaid(element.Quantity * pricePerUnit, bookingId);
+                    }
+                    else{
+                        //if wallet doesn't contain enough credits i must put order into state 1="pending for cancelation" and notify the user
+                        await orderDao.updateBookingState(1, bookingId);
+                        let header = "Not enough credits" + bookingId;
+                        let body = "The credit in your wallet is insuficient to pay for: " + element.Quantity + productName + ". Please top up your wallet before Monday at 23.59 ";
+                        await orderDao.InsertNotification(userId, header, body, 1);
+                    }*/
                 });
                 // await sendEmailForChangeingBooking()
             }
@@ -717,6 +734,60 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
     catch (err) {
       res.status(500).end();
     } 
+});
+
+/** confirmAllBookings: at 9am of monday a cronjob calls this api to receive payments for each booking having state = 0 = issued
+ * if a booking with state 0 = "issued" is linked to a client having a
+ *   wallet with credits > TotalPrice then decreases the wallet value and sets the booking state to 2 = "paid"
+ * else if wallet with credits < "paid" then it sets the booking state to 1 = "pending cancelation"
+ * (@todo change "paid" field in "toPay" into the Database)
+ **/
+app.get('/api/confirmAllBookings', async (req, res) => {
+    
+    try{
+
+        let userBookings = await orderDao.getIssuedBookingsAndUsers();
+        if (userBookings.length <= 0) { 
+            console.log("no products with state 0=issued found in the db");
+            res.status(404).end(); 
+        }
+
+        userBookings.forEach(async ub => {
+            console.log("user "+ ub.UserId + ", booking "+ ub.BookingId);
+            let wallet = ub.Wallet
+            if(ub.TotalPrice <= ub.Wallet ){
+                
+                console.log("TotalPrice "+ ub.TotalPrice + ", Wallet = "+ wallet + "is enough");
+                console.log("Removing "+ ub.TotalPrice + ", from Wallet");
+                await userDao.decreaseWallet( ub.UserId, ub.TotalPrice );
+
+                console.log("Update booking state to 2 = paid");
+                await orderDao.updateBookingState(1, ub.BookingId);
+
+                wallet = await userDao.getWalletBalance(ub.UserId);
+                console.log("Wallet is now: " + wallet);
+
+            }
+            else{
+
+                console.log("TotalPrice "+ ub.TotalPrice + ", Wallet = "+ wallet + "is NOT enough");
+
+                console.log("Update booking state to 1 = pending cancelation");
+                await orderDao.updateBookingState(1, ub.BookingId);
+                
+                console.log("Insert pending cancelation notification");
+                let header = "Not enough credits";
+                let body = "The credit in your wallet is insufficient to pay for your order #" + ub.BookingId + ". Please top up your wallet before Monday at 23.59 ";
+                await orderDao.InsertNotification(ub.UserId, header, body, 1);
+
+            }
+        });
+
+        res.status(200).end();
+    }
+    catch (err) {
+        res.status(500).end();
+    }
 });
 
 
