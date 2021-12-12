@@ -809,7 +809,7 @@ app.get('/api/confirmAllBookings', async (req, res) => {
  * else if wallet with credits < "paid" then it sets the booking state to 4 = "canceled"
  * (@todo change "paid" field in "toPay" into the Database)
  **/
- app.get('/api/confirmAllBookings', async (req, res) => {
+ app.get('/api/confirmAllBookingsPendingCancelation', async (req, res) => {
     
     try{
 
