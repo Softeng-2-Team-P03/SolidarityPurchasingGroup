@@ -216,7 +216,7 @@ function DeleteOrder(props) {
     return (
         <>
             <span onClick={handleShow}>
-                <Button className="d-none d-sm-block mx-auto" variant="danger" >
+                <Button className="d-none d-sm-block mx-auto" variant="primary" >
                     Delete Order
                 </Button>
             </span>
@@ -231,7 +231,7 @@ function DeleteOrder(props) {
 
                     <Row>
                         <Col xs="8">
-                            <Button variant="danger" onClick={() => { handleSubmit(); handleClose();}}>
+                            <Button variant="primary" onClick={() => { handleSubmit(); handleClose();}}>
                                 Delete Order
                             </Button>
                         </Col>

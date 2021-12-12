@@ -105,7 +105,7 @@ function Cart(props) {
                     }
                     <div className="butn">
                         <Button variant="success" disabled={props.cart.length === 0 || props.loadingConfirm || choiceSelect === '0'}
-                            onClick={() => props.confirmOrder()}>
+                            onClick={() => props.confirmOrder(value, choiceSelect)}>
                             {props.loadingConfirm ? <>Submitting order <Spinner animation="border" size="sm" /></> : "Confirm Order"}
                         </Button>
                     </div>

@@ -126,7 +126,8 @@ function ProductList(props) {
         }
     }, [dirtyInfo])
 
-    const confirmOrder = () => {
+    const confirmOrder = (value, choice) => {
+
         const booking = {
             userId: (location.state && location.state.userId) ? location.state.userId : undefined,
             bookingStartDate: localStorage.getItem("virtualDateToStringWithTime"),
@@ -139,6 +140,12 @@ function ProductList(props) {
                 productId: product.id, quantity: product.selectedQuantity,
                 price: (product.selectedQuantity * product.pricePerUnit).toFixed(2)
             }))
+        }
+
+        if(choice==="Pick-up date") {
+            booking.pickupTime=value;
+        } else {
+            booking.deliveryTime=value;
         }
 
         bookingApi.getWalletBalance()
