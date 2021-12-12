@@ -183,14 +183,14 @@ exports.GetBookingProductsByProduct = (productId) => {
 
 exports.GetProductsFromBookingId = (bookingId) => {
   return new Promise((resolve, reject) => { //NOSONAR
-    const sqlProductsFromBooking = "SELECT * FROM BookingAndProducts JOIN Products ON BookingAndProducts.ProductId = Products.Id  WHERE BookingAndProducts.BookingId=?  AND BookingAndProducts.State=0";
+    const sqlProductsFromBooking = "SELECT *,  BookingAndProducts.Quantity as Qty  FROM BookingAndProducts JOIN Products ON BookingAndProducts.ProductId = Products.Id JOIN ProductImages  ON Products.Id = ProductImages.ProductId  WHERE BookingAndProducts.BookingId=?";
     db.all(sqlProductsFromBooking, [bookingId], (err, ProductsFromBooking) => {
       if (err) {
         reject(err);
 
       }
-      console.log(ProductsFromBooking)
-      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, ProductId: e.ProductId, Quantity: e.Quantity, Price: e.Price, State: e.State }));
+      
+      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name : e.Name, ProductId: e.ProductId, Qty: e.Qty, Quantity: e.Quantity, Price: e.Price, State: e.State, ImagePath : e.Path , PricePerUnit: e.PricePerUnit}));
       resolve(Products);
     });
   });

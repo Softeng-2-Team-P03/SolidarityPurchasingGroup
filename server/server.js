@@ -868,16 +868,16 @@ Body :
 */
 app.put('/api/bookingUpdateByClient/:id', isLoggedIn, async (req, res) => {
     try {
-        var bookingId=req.body.bookingId;
-        var deliveryTime=req.body.deliveryTime;
+        var bookingId=req.body.BookingId;       
+        var deliveryTime=req.body.DeliveryTime;       
         var totalSum=0;
-        var userId=getOrderUserId(bookingId)
-        if (req.user.id==userId)
-        {
-        req.body.products.forEach(async element => {
-          var productId=element.productId;
-          var pricePerUnit=  await productDao.getProductPriceUnit(productId);
-          var quantity=element.quantity;
+        var userId=req.body.UserId;        
+        const products= await orderDao.GetProductsFromBookingId(bookingId);       
+        if (req.user.id==userId){
+        products.forEach(async element => {
+          var productId=element.ProductId;
+          var pricePerUnit= element.PricePerUnit;
+          var quantity=element.Qty;
           totalSum +=(quantity*pricePerUnit);
           await orderDao.UpdateBookingProduct(quantity,pricePerUnit,bookingId,productId);
         });
