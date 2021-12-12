@@ -678,7 +678,7 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
     var userId = 0;
     var productName = "Title";
     console.log(productId)
-    //try {
+    try {
         const product = await orderDao.GetProductInfoForConfirmation(productId);
         if (product.error)
             res.status(404).json(product);
@@ -710,13 +710,13 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
                 });
                 // await sendEmailForChangeingBooking()
             }
-            res.json({ status: "Ok" });
+            res.status(200).end();
+            //res.json({ status: "Ok" });
         }
-    /* }
-     catch (err) {
+    }
+    catch (err) {
       res.status(500).end();
-    } */
-
+    } 
 });
 
 
@@ -751,7 +751,8 @@ app.get('/api/send-mail-notifications', async (req, res) => {
         console.log("Message sent: %s", info.messageId);
     });
     // return;
-    res.json({ status: "Ok" });
+    res.status(200).end();
+    //res.json({ status: "Ok" });
 });
 
 app.get('/api/notifications', isLoggedIn, async (req, res) => {
@@ -763,39 +764,6 @@ app.get('/api/notifications', isLoggedIn, async (req, res) => {
     }
 })
 
-
-//We have to set this Url in Cron Docker
-app.get('/api/send-mail-notifications', async (req, res) => {
-
-    const notifications = await notificationDao.getNotificationForChangedBooking();
-    var createdMail = [];
-    notifications.forEach(async element => {
-        var filter = createdMail.filter(p => p.UserId == element.UserId);
-        if (filter.length > 0) {
-            filter[0].body = filter[0].body + "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
-                "<h3>" + element.NotificationHeader + "</h3><p>" + element.NotificationBody + "</p></div>";
-        }
-        else
-            createdMail.push({
-                UserId: element.UserId, Email: element.Email, body: "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
-                    "<p><h3>" + element.NotificationHeader + "</h3>" + element.NotificationBody + "</p></div>"
-            })
-        await notificationDao.UpdateNotificaton(element.NotificationId);
-    });
-    console.log(createdMail);
-    createdMail.forEach(async element => {
-        let info = await mailTransporter.sendMail({
-            from: 'SPG P3 ES2<solidaritypurchasinggroup@gmail.com>', // sender address
-            to: element.Email, // list of receivers
-            subject: "Changed Order", // Subject line
-            text: "Dear Client, Youre bookings have changed By", // plain text body
-            html: "<h2>Dear Client, Your bookings have changed by farmers</h2>" + element.body
-        });
-        console.log("Message sent: %s", info.messageId);
-    });
-    // return;
-    res.json({ status: "Ok" });
-});
 /***********************************************
 **------ Request Put For Update Booking By Client
 Body : 
