@@ -80,7 +80,7 @@ exports.getOrders = () => {
 
 exports.getIssuedBookingsAndUsers = () => {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT Bookings.*, Users.* FROM Bookings,Users where Bookings.UserId=Users.Id AND Bookings.State=0';
+    const sql = 'SELECT Bookings.*, Bookings.Id as BookingId, Users.* FROM Bookings,Users where Bookings.UserId=Users.Id AND Bookings.State=0';
     db.all(sql, [], (err, rows) => { //NOSONAR
       if (err) {
         reject(err);
@@ -94,7 +94,7 @@ exports.getIssuedBookingsAndUsers = () => {
 
 exports.getPendingCancelationBookingsAndUsers = () => {
   return new Promise((resolve, reject) => {
-    const sql = 'SELECT Bookings.*, Users.* FROM Bookings,Users where Bookings.UserId=Users.Id AND Bookings.State=1';
+    const sql = 'SELECT Bookings.*, Bookings.Id as BookingId, Users.* FROM Bookings,Users where Bookings.UserId=Users.Id AND Bookings.State=1';
     db.all(sql, [], (err, rows) => { //NOSONAR
       if (err) {
         reject(err);
