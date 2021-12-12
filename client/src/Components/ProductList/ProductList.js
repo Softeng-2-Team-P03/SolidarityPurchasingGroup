@@ -17,7 +17,7 @@ function ProductList(props) {
     const [searchProducts, setSearchProducts] = useState([]); //Products shown through filters
     const [types, setTypes] = useState([]); //Types of products retrieved from server
     const [cart, setCart] = useState([]); //Products in cart
-    const [cartInfo, setCartInfo] = useState({ numItems: 0, totalPrice: 0 }); //Cart info
+    const [cartInfo, setCartInfo] = useState({ numItems: 0, fee: 0, totalPrice: 0 }); //Cart info
     const [dirtyInfo, setDirtyInfo] = useState(false); //If cart info needs to be recalculated
     const [category, setCategory] = useState(0); //Current typeId filter
     const [canSeeCart, setCanSeeCart] = useState(false);
@@ -50,12 +50,12 @@ function ProductList(props) {
             setTimeEnabled(false);
             if (cart !== []) {
                 setCart([]);
-                setCartInfo({ numItems: 0, totalPrice: 0 });
+                setCartInfo({ numItems: 0, fee: 0, totalPrice: 0 });
             }
         }
     }
-    
-    
+
+
     useEffect(() => {
         if (props.loggedIn && props.user !== undefined) {
             if (location.state && location.state.userId) {
@@ -121,7 +121,7 @@ function ProductList(props) {
                 }
             }
 
-            setCartInfo({ numItems: num, totalPrice: price.toFixed(2) })
+            setCartInfo({ ...cartInfo, numItems: num, totalPrice: (price + cartInfo.fee).toFixed(2) })
             setDirtyInfo(false);
         }
     }, [dirtyInfo])
@@ -142,10 +142,10 @@ function ProductList(props) {
             }))
         }
 
-        if(choice==="Pick-up date") {
-            booking.pickupTime=value;
+        if (choice === "1") {
+            booking.pickupTime = value;
         } else {
-            booking.deliveryTime=value;
+            booking.deliveryTime = value;
         }
 
         bookingApi.getWalletBalance()
@@ -171,7 +171,7 @@ function ProductList(props) {
             .then((orderId) => {
                 setLoadingConfirm(false);
                 setCart([]);
-                setCartInfo({ numItems: 0, totalPrice: 0 });
+                setCartInfo({ numItems: 0, fee: 0, totalPrice: 0, });
                 setOrderConfirmed({ orderId: orderId, booking: booking, errorWallet: error });
             }).catch(err => {
                 setErrorConfirm('Error during the confirmation of the order')
@@ -239,6 +239,16 @@ function ProductList(props) {
         setCategory(value);
     }
 
+    const setFee = (choice) => {
+        if (choice === '2') {
+            setCartInfo({ ...cartInfo, fee: 3 });
+        }
+        else {
+            setCartInfo({ ...cartInfo, fee: 0 });
+        }
+        setDirtyInfo(true);
+    }
+
     return (
         <>
             {orderConfirmed !== undefined && <Redirect to={{ pathname: '/success', state: orderConfirmed }} />}
@@ -269,7 +279,7 @@ function ProductList(props) {
             {(timeEnabled && canSeeCart) ?
                 <Cart cart={cart} cartInfo={cartInfo} deleteProductFromCart={deleteProductFromCart} changeQuantityFromInput={changeQuantityFromInput}
                     modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
-                    errorConfirm={errorConfirm} userName={location.state && location.state.userName} />
+                    errorConfirm={errorConfirm} userName={location.state && location.state.userName} setFee={setFee} />
                 : <></>}
         </>
     );

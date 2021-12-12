@@ -1,27 +1,35 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderSuccess.css';
 import { Link, Redirect, useLocation } from 'react-router-dom';
-import { Table, Image, Button,Alert } from "react-bootstrap";
+import { Table, Image, Button, Alert } from "react-bootstrap";
+import { formatDateEuropean } from '../NavBar/clock';
+
 
 
 function OrderSuccess() {
     const location = useLocation();
     console.log(location.state);
     const allOk = (location.state && location.state.orderId && location.state.booking && location.state.booking.products);
+
     return (
         <>
             {!allOk && <Redirect to='/' />}
             <div className="containerSuccess">
                 <section className="confirmation">
-                    <h1>Booking #{allOk && location.state.orderId} received</h1>
-                    {location.state.errorWallet.length>0? 
-                    <Alert key={2233} variant="danger"  >
-                         {location.state.errorWallet}
-                    </Alert>
-                    :""
-                    } 
-                    <p>Info for scheduled pickup/delivery will be added here...</p>
-                    <Link to = '/' >
+                    <h1>Booking #{allOk && location.state.orderId} has been received</h1>
+                    {location.state.errorWallet.length > 0 ?
+                        <Alert key={2233} variant="danger"  >
+                            {location.state.errorWallet}
+                        </Alert>
+                        : ""
+                    }
+                    <br/>
+                    <h4>
+                        {location.state.booking.pickupTime !== undefined && <>Pick-up info: {formatDateEuropean(location.state.booking.pickupTime)}</>}
+                        {location.state.booking.deliveryTime !== undefined && <>Delivery info: {formatDateEuropean(location.state.booking.deliveryTime)}</>}
+                    </h4>
+                    <br />
+                    <Link to='/' >
                         <Button>Go to Homepage</Button>
                     </Link>
                     <br />
@@ -39,6 +47,13 @@ function OrderSuccess() {
                                     <Product key={product.productId} product={product} />)
                                     : <></>
                             }
+                            {allOk && location.state.booking.deliveryTime !== undefined && <>
+                                <tr>
+                                    <td>Delivery</td>
+                                    <td>1</td>
+                                    <td>€ 3.00</td>
+                                </tr>
+                            </>}
                             <td></td>
                             <td></td>
                             <td>Total: € {allOk && location.state.booking.totalPrice}</td>

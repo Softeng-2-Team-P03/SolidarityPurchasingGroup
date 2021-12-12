@@ -662,6 +662,19 @@ app.get('/api/users/:id/bookings', async (req, res) => {
 
 });
 
+app.get('/api/bookings/:id/products', async (req, res) => {
+    try {
+        const result = await orderDao.GetProductsFromBookingId(req.params.id);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+
+});
+
 /******************************************************
                BookingProducts Confimation
 ****************************************************** */

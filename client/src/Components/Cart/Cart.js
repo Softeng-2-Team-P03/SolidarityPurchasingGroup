@@ -50,6 +50,10 @@ function Cart(props) {
 
     }, []);
 
+    const updateChoice = (choice) => {
+        setChoiceSelect(choice);
+        props.setFee(choice);
+    }
 
     return (<>
         <Button data-testid="cartButton" className="showCartButton" onClick={open}>
@@ -66,16 +70,17 @@ function Cart(props) {
                                 <small>Cart ({props.cartInfo.numItems} items) {props.userName ? `for ${props.userName}` : ""}</small> <br />
                                 <b>Subtotal: € {props.cartInfo.totalPrice}</b>
                             </h3>
+                            {props.cartInfo.fee !== 0 && "Delivery fees included"}
                         </Col>
                         <Col xs={3} md={1}>
                             <CloseButton onClick={close} />
                         </Col>
                     </Row>
                     <br />
-                    <Form.Select disabled={props.cart.length === 0 || props.loadingConfirm} onChange={e => setChoiceSelect(e.target.value)}>
+                    <Form.Select disabled={props.cart.length === 0 || props.loadingConfirm} onChange={e => updateChoice(e.target.value)}>
                         <option value='0' disabled selected>Select a delivery option...</option>
                         <option value='1'>Pick-up date</option>
-                        <option value='2'>Delivery at home</option>
+                        <option value='2'>Delivery at home (€ 3.00)</option>
                     </Form.Select>
                     <br />
 
@@ -105,11 +110,11 @@ function Cart(props) {
                     }
                     <div className="butn">
                         <Button variant="success" disabled={props.cart.length === 0 || props.loadingConfirm || choiceSelect === '0'}
-                            onClick={() => props.confirmOrder(value, choiceSelect)}>
+                            onClick={() => props.confirmOrder(formatDateWithoutSeconds(value), choiceSelect)}>
                             {props.loadingConfirm ? <>Submitting order <Spinner animation="border" size="sm" /></> : "Confirm Order"}
                         </Button>
                     </div>
-                    <small>Remember to choose a delivery option</small>
+                    <small>Remember to choose a delivery option.<br/> Additional fees required if you choose delivery at home.</small>
                     <br />
                     {props.errorConfirm.length > 0 ?
                         <Alert key={2233} variant="danger"  >
