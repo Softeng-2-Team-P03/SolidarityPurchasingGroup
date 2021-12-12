@@ -78,6 +78,20 @@ exports.getOrders = () => {
   });
 }
 
+exports.getIssuedOrdersAndUsers = () => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT Bookings.*, Users.* FROM Bookings,Users where Bookings.UserId=Users.Id AND Bookings.State=0';
+    db.all(sql, [], (err, rows) => { //NOSONAR
+      if (err) {
+        reject(err);
+
+      }
+      const orders = rows.map((e) => ({ Email: e.Email, PhoneNumber: e.PhoneNumber, Wallet: e.Wallet, BookingId: e.BookingId, UserName: e.Name, UserSurname: e.Surname, BookingStartDate: e.BookingStartDate, UserId: e.UserId, TotalPrice: e.TotalPrice, State: e.State, PickupTime: e.PickupTime, DeliveryTime: e.DeliveryTime }));
+      resolve(orders);
+    });
+  });
+}
+
 exports.getOrdersByUserId = (userId) => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT Bookings.*, Users.Name, Users.Surname FROM Bookings,Users Where UserId=? And Bookings.UserId=Users.Id';
