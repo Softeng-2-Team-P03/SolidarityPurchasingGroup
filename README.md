@@ -310,7 +310,7 @@ Provide a short description for API with the required parameters, follow the pro
 
 ### Update Booking State
 - HTTP Method: `PUT` URL: `/api/bookings/{id}`
-- Description: Update the status of a booking 
+- Description: Update the status of a booking ( 0=issued, 1=pending for cancelation, 2=paid, 3=handed out )
 - Request body: 
 ```
 { 
