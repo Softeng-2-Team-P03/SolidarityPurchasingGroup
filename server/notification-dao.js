@@ -2,6 +2,26 @@
 const e = require('express');
 const db = require('./db');
 
+exports.InsertNotification = (userId, header, body, notificationType) => {
+  return new Promise((resolve, reject) => {
+    const sql1 = 'INSERT INTO Notifications( UserId, NotificationHeader, NotificationBody, Status, Visibility, NotificationType) VALUES(?,?,?,?,?,?)';
+    db.run(sql1, [
+      userId,
+      header,
+      body,
+      0,
+      0,
+      notificationType], function (err) {
+        if (err) {
+          console.log(err);
+          reject(err);
+        }
+      });
+    resolve(this.lastID);
+  });
+}
+
+
 exports.getNotificationForChangedBooking = () => {
   return new Promise((resolve, reject) => {
     const notificationsSql = 'SELECT Notifications.*,Users.Email from Notifications, Users  where  NotificationType=1 And  Visibility=0 And Users.Id=UserId And Status=0';

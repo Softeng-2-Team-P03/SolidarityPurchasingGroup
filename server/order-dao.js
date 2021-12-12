@@ -167,37 +167,17 @@ exports.GetBookingProductsByProduct = (productId) => {
   });
 }
 
-exports.InsertNotification = (userId, header, body) => {
+exports.deleteBooking = (id) => {
   return new Promise((resolve, reject) => {
-    const sql1 = 'INSERT INTO Notifications( UserId, NotificationHeader, NotificationBody, Status, Visibility, NotificationType) VALUES(?,?,?,?,?,?)';
-    db.run(sql1, [
-      userId,
-      header,
-      body,
-      0,
-      0,
-      1], function (err) {
-        if (err) {
-          console.log(err);
-
-          exports.deleteBooking = (id) => {
-            return new Promise((resolve, reject) => {
-              const sql = 'DELETE from Bookings WHERE id = ?';
-              db.run(sql, [id], function (err) {//NOSONAR
-                if (err) {
-                  reject(err);
-                }
-                resolve(this.lastID);
-              });
-            });
-          };
-
-          reject(err);
-        }
-      });
-    resolve(this.lastID);
+    const sql = 'DELETE from Bookings WHERE id = ?';
+    db.run(sql, [id], function (err) {//NOSONAR
+      if (err) {
+        reject(err);
+      }
+      resolve(this.lastID);
+    });
   });
-}
+};
 
 exports.UpdateBookingProduct = (quantity, pricePerUnit, bookingId, productId) => {
   return new Promise((resolve, reject) => {
@@ -218,6 +198,22 @@ exports.UpdateBookingPaid = (paid, BookingId) => {
   return new Promise((resolve, reject) => {
     const sqlUpdateBooking = 'UPDATE Bookings SET Paid=Paid+?   WHERE  Id=?';
     db.run(sqlUpdateBooking, [paid, BookingId], function (err) {//NOSONAR
+      if (err) {
+        console.log(err)
+        reject(err);
+      }
+
+    });
+    resolve(this.lastID);
+  });
+}
+
+exports.UpdateBookingTotalPrice = (diff, BookingId) => {
+  console.log("total price difference: " + diff)
+  console.log("BookingId" + BookingId)
+  return new Promise((resolve, reject) => {
+    const sqlUpdateBooking = 'UPDATE Bookings SET TotalPrice=TotalPrice-?   WHERE  Id=?';
+    db.run(sqlUpdateBooking, [diff, BookingId], function (err) {//NOSONAR
       if (err) {
         console.log(err)
         reject(err);
@@ -251,6 +247,34 @@ exports.getOrderUserId = (bookingId) => {
       }
       const userId = rows[0].UserId;
       resolve(userId);
+    });
+  });
+}
+
+exports.GetUserById = (userId) => {
+  return new Promise((resolve, reject) => {
+    const sqlUser = 'SELECT * FROM Users WHERE Id=? ';
+    db.all(sqlUser, [userId], (err, rows) => { //NOSONAR
+      if (err) {
+        reject(err);
+
+      }
+      var User = ({ Id:rows[0].Id, Name: rows[0].Name, Surname: rows[0].Surname, Email: rows[0].Email, PhoneNumber: rows[0].PhoneNumber, AccessType: rows[0].AccessType, Wallet: rows[0].Wallet, Address: rows[0].Address });
+      resolve(User);
+    });
+  });
+}
+
+exports.GetBookingById = (bookingId) => {
+  return new Promise((resolve, reject) => {
+    const sqlBooking = 'SELECT * FROM Bookings WHERE Id=? ';
+    db.all(sqlBooking, [bookingId], (err, rows) => { //NOSONAR
+      if (err) {
+        reject(err);
+
+      }
+      var Booking = ({ Id: rows[0].Id, BookingStartDate: rows[0].BookingStartDate, UserId: rows[0].UserId, TotalPrice: rows[0].TotalPrice, State: rows[0].State, PickupTime: rows[0].PickupTime, DeliveryTime: rows[0].DeliveryTime, Paid: rows[0].Paid });
+      resolve(Booking);
     });
   });
 }
