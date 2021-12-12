@@ -123,16 +123,15 @@ async function deleteBooking(id) {
     } else return { 'err': 'DELETE error' };
 }
 
-function updateBooking(booking) {
-  return getJson(
-    fetch(BASEURL + "/bookingUpdateByClient/" + booking.BookingId, {
+async function updateBooking(booking) {
+  const response = await fetch(BASEURL + "/bookingUpdateByClient/" + booking.BookingId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({...booking})
     })
-  )
+  
 }
 
 
