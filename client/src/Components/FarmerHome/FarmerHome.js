@@ -177,7 +177,7 @@ function FarmerHome() {
                 }
 
             </Alert>
-            {timeAddEdit ? <Button className="addP" variant="primary" onClick={() => setShow(true)}>Add product</Button> : <></>}
+            {timeAddEdit ? <Button className="addP" data-testid="addP" variant="primary" onClick={() => setShow(true)}>Add product</Button> : <></>}
         </>
 
     )

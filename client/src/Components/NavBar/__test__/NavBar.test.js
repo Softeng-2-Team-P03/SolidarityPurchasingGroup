@@ -93,7 +93,7 @@ test("renders the NavBar when logged in as client", () => {
     //Client Navbar
     expect(getByRole('link', { name: /browse shop/i })).not.toBeNull();
     //These two will become link after implementing
-    expect(getByRole('button', { name: /my orders/i })).not.toBeNull();
+    expect(getByRole('link', { name: /my orders/i })).not.toBeNull();
     expect(getByRole('button', { name: /my wallet/i })).not.toBeNull();
 
     expect(getByRole('button', { name: /logout/i })).not.toBeNull();
