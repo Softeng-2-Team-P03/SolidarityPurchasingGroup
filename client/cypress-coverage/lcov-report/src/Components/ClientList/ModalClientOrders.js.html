@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/20</span>
+                <span class='fraction'>0/20</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/8</span>
+                <span class='fraction'>0/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">82.35% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>14/17</span>
+                <span class='fraction'>0/17</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -146,27 +146,27 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">38x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -222,28 +222,28 @@ import { Button, Table ,Modal} from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 import Order from '../OrderList/Order';
 &nbsp;
-function ModalClientOrders(props) {
-const [show, setShow] = useState(false);
-  const handleClose = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShow(false);</span>
-  const handleShow = <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShow(true);</span>
-  const [orders, setOrders] = useState([]);
-  const [loadingProducts, setLoadingProducts] = useState(true);
-  const [errorLoading, setErrorLoading] = useState(''); //Error in loading orders
+function <span class="fstat-no" title="function not covered" >ModalClientOrders(</span>props) {
+const [show, setShow] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+  const handleClose = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShow(false);</span></span>
+  const handleShow = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShow(true);</span></span>
+  const [orders, setOrders] = <span class="cstat-no" title="statement not covered" >useState([]);</span>
+  const [loadingProducts, setLoadingProducts] = <span class="cstat-no" title="statement not covered" >useState(true);</span>
+  const [errorLoading, setErrorLoading] = <span class="cstat-no" title="statement not covered" >useState('');</span> //Error in loading orders
 &nbsp;
-  useEffect(() =&gt; {
+<span class="cstat-no" title="statement not covered" >  useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 &nbsp;
-    bookingApi.getOrdersByUserId(props.client.id).then((orders) =&gt; {
-              console.log("orders:");
-              console.log(orders);
-              console.log(".............");
-                setOrders(orders.map(order =&gt; ({ ...order})));
-                setLoadingProducts(false);
+<span class="cstat-no" title="statement not covered" >    bookingApi.getOrdersByUserId(props.client.id).then(<span class="fstat-no" title="function not covered" >(o</span>rders) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >              console.log("orders:");</span>
+<span class="cstat-no" title="statement not covered" >              console.log(orders);</span>
+<span class="cstat-no" title="statement not covered" >              console.log(".............");</span>
+<span class="cstat-no" title="statement not covered" >                setOrders(orders.map(<span class="fstat-no" title="function not covered" >or</span>der =&gt; (<span class="cstat-no" title="statement not covered" >{ ...order})</span>));</span>
+<span class="cstat-no" title="statement not covered" >                setLoadingProducts(false);</span>
             }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
 <span class="cstat-no" title="statement not covered" >                setErrorLoading('Error during the loading of the orders')</span>
 <span class="cstat-no" title="statement not covered" >                console.error(err);</span>
             });
         }, []);
-  return (
+<span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
       &lt;Button variant="primary" onClick={handleShow}&gt;
         Show Orders
@@ -301,7 +301,7 @@ const [show, setShow] = useState(false);
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
-                at Mon Dec 06 2021 09:15:46 GMT+0100 (Ora standard dell’Europa centrale)
+                at Sun Dec 12 2021 18:03:14 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
