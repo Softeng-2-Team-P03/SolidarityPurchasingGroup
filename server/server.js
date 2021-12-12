@@ -775,7 +775,7 @@ app.get('/api/confirmAllBookings', async (req, res) => {
                 await userDao.decreaseWallet( ub.UserId, ub.TotalPrice );
 
                 console.log("Update booking state to 2 = paid");
-                await orderDao.updateBookingState(1, ub.BookingId);
+                await orderDao.updateBookingState(2, ub.BookingId);
 
                 wallet = await userDao.getWalletBalance(ub.UserId);
                 console.log("Wallet is now: " + wallet);
@@ -803,6 +803,59 @@ app.get('/api/confirmAllBookings', async (req, res) => {
     }
 });
 
+/** confirmAllBookingsPendingCancelation: at 23.59am of monday a cronjob calls this api to process each booking having state = 1 = "pending cancelation"
+ * if a booking with state 1 = "pending cancelation" is linked to a client having a
+ *   wallet with credits > TotalPrice then decreases the wallet value and sets the booking state to 2 = "paid"
+ * else if wallet with credits < "paid" then it sets the booking state to 4 = "canceled"
+ * (@todo change "paid" field in "toPay" into the Database)
+ **/
+ app.get('/api/confirmAllBookings', async (req, res) => {
+    
+    try{
+
+        let userBookings = await orderDao.getPendingCancelationBookingsAndUsers();
+        if (userBookings.length <= 0) { 
+            console.log("no products with state 1 = pending cancelation found in the db");
+            res.status(404).end(); 
+        }
+
+        userBookings.forEach(async ub => {
+            console.log("user "+ ub.UserId + ", booking "+ ub.BookingId);
+            let wallet = ub.Wallet
+            if(ub.TotalPrice <= ub.Wallet ){
+                
+                console.log("TotalPrice "+ ub.TotalPrice + ", Wallet = "+ wallet + "is enough");
+                console.log("Removing "+ ub.TotalPrice + ", from Wallet");
+                await userDao.decreaseWallet( ub.UserId, ub.TotalPrice );
+
+                console.log("Update booking state to 2 = paid");
+                await orderDao.updateBookingState(2, ub.BookingId);
+
+                wallet = await userDao.getWalletBalance(ub.UserId);
+                console.log("Wallet is now: " + wallet);
+
+            }
+            else{
+
+                console.log("TotalPrice "+ ub.TotalPrice + ", Wallet = "+ wallet + "is NOT enough");
+
+                console.log("Update booking state to 4 = canceled");
+                await orderDao.updateBookingState(4, ub.BookingId);
+                
+                console.log("Insert canceled order notfications");
+                let header = "Order canceled";
+                let body = "The credit in your wallet is insufficient to pay for your order #" + ub.BookingId + ". The order has been canceled. ";
+                await orderDao.InsertNotification(ub.UserId, header, body, 1);
+
+            }
+        });
+
+        res.status(200).end();
+    }
+    catch (err) {
+        res.status(500).end();
+    }
+});
 
 //We have to set this Url in Cron Docker
 app.get('/api/send-mail-notifications', async (req, res) => {
