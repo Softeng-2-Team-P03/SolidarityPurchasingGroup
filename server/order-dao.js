@@ -167,6 +167,21 @@ exports.GetBookingProductsByProduct = (productId) => {
   });
 }
 
+exports.GetProductsFromBookingId = (bookingId) => {
+  return new Promise((resolve, reject) => { //NOSONAR
+    const sqlProductsFromBooking = "SELECT * FROM BookingAndProducts JOIN Products ON BookingAndProducts.ProductId = Products.Id  WHERE BookingAndProducts.BookingId=?  AND BookingAndProducts.State=0";
+    db.all(sqlProductsFromBooking, [bookingId], (err, ProductsFromBooking) => {
+      if (err) {
+        reject(err);
+
+      }
+      console.log(ProductsFromBooking)
+      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, ProductId: e.ProductId, Quantity: e.Quantity, Price: e.Price, State: e.State }));
+      resolve(Products);
+    });
+  });
+}
+
 exports.InsertNotification = (userId, header, body) => {
   return new Promise((resolve, reject) => {
     const sql1 = 'INSERT INTO Notifications( UserId, NotificationHeader, NotificationBody, Status, Visibility, NotificationType) VALUES(?,?,?,?,?,?)';

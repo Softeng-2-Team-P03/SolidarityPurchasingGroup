@@ -102,6 +102,18 @@ async function getOrdersByUserId(userId) {
   }
 }
 
+
+async function getProductsFromBooking(bookingId) {
+  // call: GET /api/orders
+  const response = await fetch(BASEURL + '/bookings/'+bookingId+'/products');
+  const ordersJson = await response.json();
+  if (response.ok) {
+    return ordersJson;
+  } else {
+    throw ordersJson;  // an object with the error coming from the server
+  }
+}
+
 async function deleteBooking(id) {
     const response = await fetch(BASEURL+'/deletebooking/'+id, {
         method: 'DELETE'
@@ -111,5 +123,18 @@ async function deleteBooking(id) {
     } else return { 'err': 'DELETE error' };
 }
 
-const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId,deleteBooking, confirmBookingProduct};
+function updateBooking(booking) {
+  return getJson(
+    fetch(BASEURL + "/bookingUpdateByClient/" + booking.BookingId, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({...booking})
+    })
+  )
+}
+
+
+const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId,deleteBooking, confirmBookingProduct, getProductsFromBooking, updateBooking};
 export default bookingApi;
