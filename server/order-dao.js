@@ -78,7 +78,7 @@ exports.getOrders = () => {
   });
 }
 
-exports.getIssuedOrdersAndUsers = () => {
+exports.getIssuedBookingsAndUsers = () => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT Bookings.*, Users.* FROM Bookings,Users where Bookings.UserId=Users.Id AND Bookings.State=0';
     db.all(sql, [], (err, rows) => { //NOSONAR
