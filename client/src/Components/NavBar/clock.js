@@ -49,7 +49,7 @@ function dayOfWeek(date) {
 	return days[date.getDay()];
 }
 
-//Takes in input a string like 'YYYY-MM-DD [timePart]' into 'DD-MM-YYYY [timePart]'
+//Takes in input a string like 'YYYY-MM-DD [timePart]' into 'DD/MM/YYYY [timePart]'
 function formatDateEuropean(date) {
 	const fields = date.split(' ');
 	const datePart = fields[0].split('-');
