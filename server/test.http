@@ -7,3 +7,10 @@ Content-Type: application/json
 
 ###GET NOTIFICATIONS
 GET http://localhost:3001/api/notifications
+
+### asdds
+PUT http://localhost:3001/api/topup/3/10
+Content-Type: application/json
+
+###GET PAYMENTS OOO
+GET http://localhost:3001/api/confirmAllBookings
