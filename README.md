@@ -1,5 +1,35 @@
 # SolidarityPurchasingGroup
 
+- [SolidarityPurchasingGroup](#solidaritypurchasinggroup)
+  - [Team: P03](#team-p03)
+  - [React Client Application Routes](#react-client-application-routes)
+  - [Login samples to test the App](#login-samples-to-test-the-app)
+    - [Employee](#employee)
+    - [Client](#client)
+    - [Manager](#manager)
+    - [Farmer](#farmer)
+    - [Deliverer](#deliverer)
+  - [List of APIs offered by the server](#list-of-apis-offered-by-the-server)
+    - [Log in](#log-in)
+    - [Register new Client](#register-new-client)
+    - [Get All Users](#get-all-users)
+    - [Get List Of Products](#get-list-of-products)
+    - [Filter Products By TypeId](#filter-products-by-typeid)
+    - [Get List Of Types](#get-list-of-types)
+    - [Booking order](#booking-order)
+    - [Update Booking State](#update-booking-state)
+    - [Delete a Task](#delete-a-task)
+    - [Check for "enough credits" For a special Booking](#check-for-enough-credits-for-a-special-booking)
+    - [get Wallet Balance](#get-wallet-balance)
+    - [Send Available Product](#send-available-product)
+    - [Update Product State](#update-product-state)
+    - [get Orders](#get-orders)
+    - [get Orders filter by a special user](#get-orders-filter-by-a-special-user)
+    - [Add new product by farmer](#add-new-product-by-farmer)
+  - [Database Tables](#database-tables)
+    - [Database Structure](#database-structure)
+
+
 ## Team: P03
 
 Team members:
@@ -10,8 +40,6 @@ Team members:
 * 279240 Colangelo Maria Letizia
 * 289587 Banouie Alireza
 * 292457 De Florio Giovanni
-
-
 ## React Client Application Routes
 
 - Route `/`: list of published surveys to wich unauthenticated users can reply
@@ -291,7 +319,7 @@ Provide a short description for API with the required parameters, follow the pro
 - Response body: authenticated user
 - Error responses: `503 Internal Server Error` (generic error), `Database error during the update Booking state.`
 
-### __Delete a Task__
+### Delete a Task
 
 * DELETE `/api/deletebooking/:id`
 * Description: Delete an existing order, identified by its code (passed by parameter).
