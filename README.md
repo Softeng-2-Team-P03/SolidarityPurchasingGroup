@@ -1,33 +1,35 @@
 # SolidarityPurchasingGroup
 
-- [SolidarityPurchasingGroup](#solidaritypurchasinggroup)
-  - [Team: P03](#team-p03)
-  - [React Client Application Routes](#react-client-application-routes)
-  - [Login samples to test the App](#login-samples-to-test-the-app)
-    - [Employee](#employee)
-    - [Client](#client)
-    - [Manager](#manager)
-    - [Farmer](#farmer)
-    - [Deliverer](#deliverer)
-  - [List of APIs offered by the server](#list-of-apis-offered-by-the-server)
-    - [Log in](#log-in)
-    - [Register new Client](#register-new-client)
-    - [Get All Users](#get-all-users)
-    - [Get List Of Products](#get-list-of-products)
-    - [Filter Products By TypeId](#filter-products-by-typeid)
-    - [Get List Of Types](#get-list-of-types)
-    - [Booking order](#booking-order)
-    - [Update Booking State](#update-booking-state)
-    - [Delete a Task](#delete-a-task)
-    - [Check for "enough credits" For a special Booking](#check-for-enough-credits-for-a-special-booking)
-    - [get Wallet Balance](#get-wallet-balance)
-    - [Send Available Product](#send-available-product)
-    - [Update Product State](#update-product-state)
-    - [get Orders](#get-orders)
-    - [get Orders filter by a special user](#get-orders-filter-by-a-special-user)
-    - [Add new product by farmer](#add-new-product-by-farmer)
-  - [Database Tables](#database-tables)
-    - [Database Structure](#database-structure)
+1. [SolidarityPurchasingGroup](#solidaritypurchasinggroup)
+   1. [Team: P03](#team-p03)
+   2. [React Client Application Routes](#react-client-application-routes)
+   3. [Login samples to test the App](#login-samples-to-test-the-app)
+      1. [Employee](#employee)
+      2. [Client](#client)
+      3. [Manager](#manager)
+      4. [Farmer](#farmer)
+      5. [Deliverer](#deliverer)
+   4. [List of APIs offered by the server](#list-of-apis-offered-by-the-server)
+      1. [Log in](#log-in)
+      2. [Register new Client](#register-new-client)
+      3. [Get All Users](#get-all-users)
+      4. [Get List Of Products](#get-list-of-products)
+      5. [Filter Products By TypeId](#filter-products-by-typeid)
+      6. [Get List Of Types](#get-list-of-types)
+      7. [Booking order](#booking-order)
+      8. [Update Booking State](#update-booking-state)
+      9. [Delete a Task](#delete-a-task)
+      10. [Check for "enough credits" For a special Booking](#check-for-enough-credits-for-a-special-booking)
+      11. [get Wallet Balance](#get-wallet-balance)
+      12. [Send Available Product](#send-available-product)
+      13. [Update Product State](#update-product-state)
+      14. [get Orders](#get-orders)
+      15. [get Orders filter by a special user](#get-orders-filter-by-a-special-user)
+      16. [Add new product by farmer](#add-new-product-by-farmer)
+      17. [Confirm Product Bookings](#confirm-product-bookings)
+      18. [Send notifications by emails](#send-notifications-by-emails)
+   5. [Database Tables](#database-tables)
+      1. [Database Structure](#database-structure)
 
 
 ## Team: P03
@@ -467,6 +469,21 @@ Provide a short description for API with the required parameters, follow the pro
 
 - Error responses: `500 Internal Server Error` (generic error), `Database error during the creation of client.`
 
+### Confirm Product Bookings 
+- HTTP Method: `GET` URL: `/api/confirmBookingProduct/:id`
+- Description: (after Farmer has confirmed available product quantity) iterates into the bookings in cronological order by bookingId and decreases the available quantity in the product table confirming and charging for payment each order one by one until eventually manages the case where there is not enough product quantity available to confirm a booking.<br/>
+If the confirmed quantity is not enough it gives all the remaining products to the booking in the confirmation process charging the client wallet only for the updated quantity and adds a notification in the notification table to let the user know about it.
+- Reponse: `200 OK` (success) or `404 Not Found`
+- Response body: *none*
+- Error responses: `500 Internal Server Error`
+
+
+### Send notifications by emails 
+- HTTP Method: `GET` URL: `/api/send-mail-notifications`
+- Description: When the server cronjob matches monday at 9am this api is called to search all notifications logged in the notification table and send an email to each user having one or more notifications. for each sent notification, sets the status=1 (sent) in the database
+- Reponse: `200 OK` (success)
+- Response body: *none*
+- Error responses: *none*
 
 
 ## Database Tables
