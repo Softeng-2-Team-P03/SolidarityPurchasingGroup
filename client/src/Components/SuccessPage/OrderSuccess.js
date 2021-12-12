@@ -2,22 +2,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderSuccess.css';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 import { Table, Image, Button, Alert } from "react-bootstrap";
+import { formatDateEuropean } from '../NavBar/clock';
+
 
 
 function OrderSuccess() {
     const location = useLocation();
     console.log(location.state);
     const allOk = (location.state && location.state.orderId && location.state.booking && location.state.booking.products);
-
-    const formatData = (input) => {
-        const fields = input.split(' ');
-        const date = fields[0].split('-');
-        const time = fields[1];
-        const year = date[0]
-        const month = date[1];
-        const day = date[2];
-        return day + '/' + month + '/' + year + ' at ' + time;
-    }
 
     return (
         <>
@@ -33,8 +25,8 @@ function OrderSuccess() {
                     }
                     <br/>
                     <h4>
-                        {location.state.booking.pickupTime !== undefined && <>Pick-up info: {formatData(location.state.booking.pickupTime)}</>}
-                        {location.state.booking.deliveryTime !== undefined && <>Delivery info: {formatData(location.state.booking.deliveryTime)}</>}
+                        {location.state.booking.pickupTime !== undefined && <>Pick-up info: {formatDateEuropean(location.state.booking.pickupTime)}</>}
+                        {location.state.booking.deliveryTime !== undefined && <>Delivery info: {formatDateEuropean(location.state.booking.deliveryTime)}</>}
                     </h4>
                     <br />
                     <Link to='/' >

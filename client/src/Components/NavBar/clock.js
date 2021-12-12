@@ -49,4 +49,15 @@ function dayOfWeek(date) {
 	return days[date.getDay()];
 }
 
-export { showTime, formatDateWithoutSeconds };
+//Takes in input a string like 'YYYY-MM-DD [timePart]' into 'DD-MM-YYYY [timePart]'
+function formatDateEuropean(date) {
+	const fields = date.split(' ');
+	const datePart = fields[0].split('-');
+	const time = fields[1];
+	const year = datePart[0]
+	const month = datePart[1];
+	const day = datePart[2];
+	return day + '/' + month + '/' + year + ' ' + time;
+}
+
+export { showTime, formatDateWithoutSeconds, formatDateEuropean };
