@@ -10,6 +10,13 @@ import axios from "axios";
 import Message from "../FileUpload/Message";
 import Progress from "../FileUpload/Progress";
 import bookingApi from '../../api/booking-api';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DateTimePicker from '@mui/lab/DateTimePicker';
+import itLocale from 'date-fns/locale/it';
+import {DesktopDatePicker} from "@mui/lab";
 
 function FarmerHome() {
 
@@ -248,6 +255,7 @@ function AddProductForm(props) {
     const [message, setMessage] = useState('');
     const [uploadPercentage, setUploadPercentage] = useState(0);
     const [timeToString, setTimeToString] = useState(localStorage.getItem('virtualDateToString'));
+    const [expireD, setExpireD] = React.useState(new Date(localStorage.getItem('virtualDate')));
 
 
     useEffect(() => {
@@ -271,11 +279,11 @@ function AddProductForm(props) {
         };
     }, [numProd]);
 
-    const checkDate = () => {
-        let time = new Date(localStorage.getItem('virtualDate'));
-        setTimeToString(localStorage.getItem('virtualDateToString'));
 
-    }
+
+    const handleChange = (newValue) => {
+        setExpireD(newValue);
+    };
 
     function isInt(n) {
         return n % 1 === 0;
@@ -338,8 +346,6 @@ function AddProductForm(props) {
             let numImg = numProd + 1
             let nameImg = 'p' + numImg.toString() + '-1.jpg'
 
-            checkDate();
-
             API.addImage(numImg, nameImg);
 
             e.preventDefault();
@@ -376,8 +382,10 @@ function AddProductForm(props) {
 
                 setMessage('File Uploaded');
 
+                let expire = expireD.getFullYear()+'-'+expireD.getMonth().toString()+'-'+expireD.getDate().toString()
 
-                API.addProduct(props.idFarmer.id, name, description, quantity, 0, 1, pricePerUnit, '10-12-2021');
+                API.addProduct(props.idFarmer.id, name, description, quantity, 0, 1, pricePerUnit,
+                    expire);
                 props.handleClose();
 
                 if (props.dirty) props.setDirty(false);
@@ -445,6 +453,29 @@ function AddProductForm(props) {
                 <Form.Label>Description</Form.Label>
                 <Form.Control required type='text' value={description} onChange={ev => setDescription(ev.target.value)} />
             </Form.Group>
+
+
+            <Form.Group controlId="formDescription">
+                <Form.Label>Expiration</Form.Label>
+                <LocalizationProvider dateAdapter={AdapterDateFns} locale={itLocale}>
+                    <Stack spacing={3}>
+                        <LocalizationProvider dateAdapter={AdapterDateFns} locale={itLocale}>
+                            <Stack spacing={3}>
+                                <DesktopDatePicker
+                                    type="datetime-local"
+                                    renderInput={(params) => <TextField {...params} />}
+                                    label="Date"
+                                    value={expireD}
+                                    onChange={(newValue) => {
+                                        setExpireD(newValue);
+                                    }}
+                                />
+                            </Stack>
+                        </LocalizationProvider>
+                    </Stack>
+                </LocalizationProvider>
+            </Form.Group>
+
             <Form.Group controlId="formQuantity">
                 <Form.Label>Quantity</Form.Label>
                 <Form.Control required type='number' value={quantity} onChange={ev => setQuantity(ev.target.value)} />
