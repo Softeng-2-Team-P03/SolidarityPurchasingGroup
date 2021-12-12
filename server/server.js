@@ -715,7 +715,7 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
     var userId = 0;
     var productName = "Title";
     console.log(productId)
-    try {
+    /*try {*/
         const product = await orderDao.GetProductInfoForConfirmation(productId);
         if (product.error)
             res.status(404).json(product);
@@ -740,7 +740,7 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
                         quantity = 0;
                         let header = "Change Booking#" + bookingId;
                         let body = "The quantity of " + productName + " has changed by Farmer from " + prevQuantity + " to " + element.Quantity;
-                        await orderDao.InsertNotification(userId, header, body, 1);
+                        await notificationDao.InsertNotification(userId, header, body, 1);
                         var priceDiff = (prevQuantity - element.Quantity)*pricePerUnit;
                         await orderDao.UpdateBookingTotalPrice(priceDiff, bookingId);
                     }
@@ -767,10 +767,10 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
             res.status(200).end();
             //res.json({ status: "Ok" });
         }
-    }
+    /*}
     catch (err) {
       res.status(500).end();
-    } 
+    } */
 });
 
 /** confirmAllBookings: at 9am of monday a cronjob calls this api to receive payments for each booking having state = 0 = issued
@@ -815,7 +815,7 @@ app.get('/api/confirmAllBookings', async (req, res) => {
                 console.log("Insert pending cancelation notification");
                 let header = "Not enough credits";
                 let body = "The credit in your wallet is insufficient to pay for your order #" + ub.BookingId + ". Please top up your wallet before Monday at 23.59 ";
-                await orderDao.InsertNotification(ub.UserId, header, body, 1);
+                await notificationDao.InsertNotification(ub.UserId, header, body, 1);
 
             }
         });
@@ -869,7 +869,7 @@ app.get('/api/confirmAllBookings', async (req, res) => {
                 console.log("Insert canceled order notfications");
                 let header = "Order canceled";
                 let body = "The credit in your wallet is insufficient to pay for your order #" + ub.BookingId + ". The order has been canceled. ";
-                await orderDao.InsertNotification(ub.UserId, header, body, 1);
+                await notificationDao.InsertNotification(ub.UserId, header, body, 1);
 
             }
         });
