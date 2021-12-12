@@ -185,3 +185,16 @@ exports.topUpWallet = (userId, amount) => {
     });
   });
 };
+
+exports.decreaseWallet = (userId, amount) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'UPDATE Users SET wallet= wallet-? WHERE Id = ?';
+    db.run(sql, [amount, userId], function (err) {//NOSONAR
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+};
