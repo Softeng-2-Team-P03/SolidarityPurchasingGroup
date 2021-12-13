@@ -24,10 +24,14 @@ function Cart(props) {
     const close = () => {
         setShow(false);
         updateChoice('0');
+        setValue(localStorage.getItem('virtualDate'));
+        setDataSelect(0);
     }
     const open = () => {
         setShow(true);
         updateChoice('0');
+        setValue(localStorage.getItem('virtualDate'));
+        setDataSelect(0);
     }
 
     useEffect(() => {
@@ -45,10 +49,6 @@ function Cart(props) {
                 minDate.setDate(t.getDate() + 4);
                 maxDate.setDate(t.getDate() + 6);
             }
-
-            minDate.setHours(9);
-            maxDate.setHours(23);
-
 
             setDateMin(minDate);
             setDateMax(maxDate);
@@ -106,8 +106,8 @@ function Cart(props) {
                                     minDate={dateMin}
                                     maxDate={dateMax}
 
-                                    minTime={dateMin}
-                                    maxTime={dateMax}
+                                    minTime={new Date(0, 0, 0, 9)}
+                                    maxTime={new Date(0, 0, 0, 23, 1)}
 
                                     minutesStep={30}
                                 />

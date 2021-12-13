@@ -230,7 +230,7 @@ function ShowClock() {
               <div className="glow">
                 <span id='decrementDay' className="buttonArrow" onClick={setDayMinus}>〈</span>
                 <span className="timer-box">
-                  <span id="dayName" className="day-name" />
+                  <span id="dayName" />&nbsp;&nbsp;
                   <span id="day" />/<span id="month" />/<span id="year" />
                 </span>
                 <span id='incrementDay' className="buttonArrow" onClick={setDayPlus}>〉</span>

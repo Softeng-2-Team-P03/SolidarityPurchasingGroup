@@ -69,7 +69,6 @@ async function getNotifications() {
   const response = await fetch(BASEURL + '/notifications');
   const notifications = await response.json();
   if (response.ok) {
-    console.log(notifications);
     return notifications;
   }
   else {
