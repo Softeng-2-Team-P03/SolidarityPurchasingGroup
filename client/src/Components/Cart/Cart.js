@@ -21,8 +21,14 @@ function Cart(props) {
     const [choiceSelect, setChoiceSelect] = useState('0');
     const [dataSelect, setDataSelect] = useState(0);
 
-    const close = () => setShow(false);
-    const open = () => setShow(true);
+    const close = () => {
+        setShow(false);
+        updateChoice('0');
+    }
+    const open = () => {
+        setShow(true);
+        updateChoice('0');
+    }
 
     useEffect(() => {
         let t = new Date(localStorage.getItem('virtualDate'));
