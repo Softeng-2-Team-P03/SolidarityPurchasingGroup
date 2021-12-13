@@ -3,6 +3,7 @@ import './MyOrderList.css';
 import bookingApi from '../../api/booking-api';
 import { Button, Table, Col, Row, Image, Modal, Form, Stack, CloseButton} from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
+import {useLocation } from 'react-router-dom';
 import itLocale from 'date-fns/locale/it';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -18,17 +19,38 @@ function MyOrderList(props) {
     const [myOrders, setMyOrders] = useState([]);
     const [dirty, setDirty] = useState(true);
     const [timeEnabled, setTimeEnabled] = useState(false);
+    const location = useLocation(); //If employee makes order for client: {userId, userName}
 
     let state=null;
    
    
-    function updateBooking(booking, value, choice){
-       
-        if(choice==="Pick-up date") {
+    function updateBooking(booking, totalPrice, products, value, choice){
+
+        console.log(products);
+
+    
+        booking = {
+            userId: props.user.id,
+            BookingId : booking.BookingId,
+            totalPrice: totalPrice,
+            PickupTime: undefined,
+            DeliveryTime: undefined,
+            state: 0,
+            products: products.map(product => ({
+               
+                productId: product.ProductId, quantity: product.Qty,
+            }))
+        }
+        
+
+        console.log("Choice" +choice);
+
+        if(choice==="1") {
             booking.PickupTime=value;
         } else {
             booking.DeliveryTime=value;
         }
+
         bookingApi.updateBooking(booking)
         .then(() => {
             setDirty(true);
@@ -73,8 +95,7 @@ function MyOrderList(props) {
     }, [])
     
      
-    useEffect(() => {   
-        
+    useEffect(() => {          
 
 
         const getOrdersByUserId = async () => {
@@ -114,7 +135,7 @@ function MyOrderList(props) {
                     </tr>
                 </thead>
                 <tbody> {                    
-                    myOrders.map((or, index) => {                      
+                    myOrders.slice(0).reverse().map((or, index) => {                      
                         switch (or.State) {
                         case 0 :
                           state = 'Issued';
@@ -162,7 +183,7 @@ function MyOrder(props){
                 <td>{props.order.BookingId}</td>
                 <td>{props.order.BookingStartDate}</td>
                 <td>{props.state}</td>
-                {props.order.PickupTime ? <td> {props.order.PickupTime} </td> : <td> {props.order.DeliveryTime} </td>}
+                {props.order.PickupTime ? <td> PickupTime:  {props.order.PickupTime}  </td> : <td> DeliveryTime:{props.order.DeliveryTime} </td>}
                 <td>{props.order.TotalPrice} €</td>
                 <td><Button onClick={() => props.deleteBooking(props.order.BookingId)} >Delete Booking</Button></td>
                {props.timeEnabled ? 
@@ -180,16 +201,22 @@ function UpdateBooking(props) {
     const [dateMin, setDateMin] = useState('');
     const [dateMax, setDateMax] = useState('');
     let currentDate = localStorage.getItem('virtualDate')
-    const [choiceSelect, setChoiceSelect] = useState('1');
-    const [dirtyInfo,setDirtyInfo] = useState(true);
+    const [choiceSelect, setChoiceSelect] = useState(props.order.PickupTime ? '1' : '2');
+    const [dirtyInfo,setDirtyInfo] = useState(false);
     const [mounted,setMounted] = useState(true);
     const [show, setShow] = useState(false);
     const [products, setProducts] = useState([]);
-    const close = () => {setShow(false); setProducts([])}
+    
+    const [dataSelect, setDataSelect] = useState(0);
+    
+    const [cartTotalPrice, setCartTotalPrice] = useState({TotalPrice : props.order.TotalPrice, fee : props.order.PickupTime ? 0 :  3 });
+    const close = () => {setShow(false); setProducts([]); setCartTotalPrice(props.order.TotalPrice)}
     const open = () => {setShow(true); setMounted(true)};
 
-
-
+    const updateChoice = (choice) => {
+        setChoiceSelect(choice);
+        setFee(choice);
+    }
  
     useEffect(() => {      
 
@@ -215,7 +242,15 @@ function UpdateBooking(props) {
     }, [mounted]);
 
    
-
+    const setFee = (choice) => {
+        if (choice === '2') {
+            setCartTotalPrice({ ...cartTotalPrice, fee: 3 });
+        }
+        else {
+            setCartTotalPrice({ ...cartTotalPrice, fee: 0 });
+        }
+        setDirtyInfo(true);
+    }
 
 
     const deleteProductFromCart = (removeId) => {
@@ -250,6 +285,27 @@ function UpdateBooking(props) {
         }
         setDirtyInfo(true);
     }
+
+    
+    useEffect(() => {
+        if (dirtyInfo === true) {           
+            let price = 0;
+
+            if (products.length !== 0) {
+                for (const product of products) {
+                    console.log(product);
+                    price += product.Qty * product.PricePerUnit;
+                    
+                }
+            }
+
+           console.log(price);
+
+            setCartTotalPrice({...cartTotalPrice, TotalPrice: (price + cartTotalPrice.fee).toFixed(2)});
+           
+            setDirtyInfo(false);
+        }
+    }, [dirtyInfo])
 
 
     
@@ -293,15 +349,16 @@ function UpdateBooking(props) {
                         <Col xs={15} md={11}>
                             <h3>
                                
-                                <b>Subtotal: € {props.order.TotalPrice}</b>
+                                <b>Subtotal: € {cartTotalPrice.TotalPrice}</b>
                             </h3>
+                            {cartTotalPrice.fee !== 0 && "Delivery fees included"}
                         </Col>
                         <Col xs={3} md={1}>
                             <CloseButton onClick={close} />
                         </Col>
                     </Row>
                     <br />
-                    <Form.Select disabled={props.order.Qty === 0 } onChange={e => setChoiceSelect(e.target.value)}>                        
+                    <Form.Select disabled={props.order.Qty === 0 } onChange={e => updateChoice(e.target.value)}>                        
                         <option value='1' selected = {props.order.PickupTime}>Pick-up date</option>
                         <option value='2' selected = {props.order.DeliveryTime}>Delivery at home (€ 3.00)</option>
                     </Form.Select>
@@ -317,6 +374,7 @@ function UpdateBooking(props) {
                                     value={value}
                                     onChange={(newValue) => {
                                         setValue(newValue);
+                                        setDataSelect(1);
                                     }}
                                     minDate={dateMin}
                                     maxDate={dateMax}
@@ -332,8 +390,8 @@ function UpdateBooking(props) {
                         <></>
                     }
                     <div className="butn">
-                        <Button variant="success" disabled={props.order.Qty === 0 || choiceSelect === '0'}
-                            onClick={ () => {props.updateBooking(props.order, formatDateWithoutSeconds(value), choiceSelect); close()}}> Update
+                        <Button variant="success" disabled={props.order.Qty === 0 || choiceSelect === '0' }
+                            onClick={ () => {props.updateBooking(props.order, cartTotalPrice.TotalPrice, products,formatDateWithoutSeconds(value), choiceSelect); close()}}> Update
                         </Button>
                     </div>
                     <small>Remember to choose a delivery option</small>
