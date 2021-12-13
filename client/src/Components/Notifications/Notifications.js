@@ -35,7 +35,6 @@ function Notifications({ name, ...props }) {
         userApi.getNotifications().then(notifications => {
             setNotifications(notifications);
             setCountNoti(notifications.length);
-            setDirty(false);
         })
             .catch(err => {
                 console.error(err);
@@ -46,6 +45,7 @@ function Notifications({ name, ...props }) {
 
         if (dirty) {
             checkForNotifications();
+            setDirty(false);
         }
 
     }, [dirty]);
