@@ -142,8 +142,8 @@ exports.deleteOrder = (id) => {
             resolve(null);
         })
       });
-
-      const sqlDelete = 'DELETE FROM Bookings WHERE Id = ?';
+      
+      const sqlDelete = 'UPDATE Bookings SET State = 4 WHERE Id = ?';
       db.run(sqlDelete, [id], (err) => { //NOSONAR
         if (err) {
           reject(err);

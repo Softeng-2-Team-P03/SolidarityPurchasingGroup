@@ -11,8 +11,9 @@ it('Testing to see if Jest works', () => {
 
 
 function loginUser(accessType) {
-    let credentials = { username: "federico@spg.com", password: "26gKpQK9" } //default is client
-    if (accessType === 1) {
+     let credentials = { username: "federico@spg.com", password: "26gKpQK9" } //default is client
+     
+     if (accessType === 1) {
         credentials = { username: "luca@spg.com", password: "FgKECe4w" }
     }
     if (accessType === 2) {
@@ -1642,5 +1643,130 @@ describe('PUT /api/notification/:Visibility/:Id', () => {
     });
 
 
+    
+})
+
+describe('PUT /api/deletebooking/:id', () => {
+    beforeAll(() => logoutUser());
+
+    it('cannot delete booking as not logged in', function (done) {
+        server
+            .put('/api/deletebooking/1')
+            .expect(401)
+            .then(() => done())
+            .catch(err => done(err));
+    })
+
+    it('cannot delete booking as client', function (done) {
+        
+        loginUser(3)
+            .then(() => {
+                server
+                    .put('/api/deletebooking/1')
+                    .expect(403)
+                    .then(() => done())
+                    .catch(err => done(err))
+            })
+            .catch(err => done(err))
+    })
+    it('cannot delete booking as deliverer', function (done) {
+        loginUser(5)
+            .then(() => {
+                server
+                    .put('/api/deletebooking/1')
+                    .expect(403)
+                    .then(() => done())
+                    .catch(err => done(err))
+            })
+            .catch(err => done(err))
+    })
+
+    it('cannot delete booking as farmer', function (done) {
+        loginUser(4)
+            .then(() => {
+                server
+                    .put('/api/deletebooking/1')
+                    .expect(403)
+                    .then(() => done())
+                    .catch(err => done(err))
+            })
+            .catch(err => done(err))
+    })
+
+    it('delete booking as employee', function (done) {
+        loginUser(2)
+            .then(() => {
+                server
+                    .put('/api/deletebooking/7')
+                    .expect(200)
+                    .then(() => done())
+                    .catch(err => done(err))
+            })
+            .catch(err => done(err))
+    })
+
+    it('delete booking as manager', function (done) {
+        loginUser(1)
+            .then(() => {
+                server
+                    .put('/api/deletebooking/8')
+                    .expect(200)
+                    .then(() => done())
+                    .catch(err => done(err))
+            })
+            .catch(err => done(err))
+    })
+    
+})
+describe('PUT /api/bookingUpdateByClient/', () => {
+    beforeAll(() => logoutUser());
+    
+    it('update booking without login will fail', function (done) {
+                server
+                    .put('/api/bookingUpdateByClient/')
+                    .send({
+                        bookingId:7,
+                        deliveryTime: null,
+                        totalSum:22.5,
+                        pickupTime:"2021-11-12",
+                        userId:3,
+                        products:[
+                            {
+                                "productId":1,
+                                "quantity":2
+                    
+                            }
+                        ]
+                    })
+                    .expect(401)
+                    .then(() => done())
+                    .catch(err => done(err))
+    })
+
+    it('update booking', function (done) {
+        loginUser(3)
+            .then(() => {
+                server
+                    .put('/api/bookingUpdateByClient/')
+                    .send({
+                        bookingId:7,
+                        deliveryTime: null,
+                        totalSum:22.5,
+                        pickupTime:"2021-11-12",
+                        userId:3,
+                        products:[
+                            {
+                                "productId":1,
+                                "quantity":2
+                    
+                            }
+                        ]
+                    })
+                    .expect(200)
+                    .then(() => done())
+                    .catch(err => done(err))
+            })
+            .catch(err => done(err))
+    })
     
 })

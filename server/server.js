@@ -622,11 +622,11 @@ app.put('/api/bookings/:id', [
 
 /*** Delete booking specified by the Id ***/
 
-app.put('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
+app.put('/api/deletebooking/:id', isLoggedIn,  async (req, res) => {
 
-    if (![1, 2, 4].includes(req.user.accessType)) { //Manager, Employee and Farmer
+     if (![1, 2].includes(req.user.accessType)) { //Manager, Employee
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
-    }
+    } 
 
 
     const errors = validationResult(req);
@@ -977,7 +977,7 @@ Body :
 2- Get price unit for all BookingAndProduct and update all
 3- Update booking
 */
-app.put('/api/bookingUpdateByClient/:id', isLoggedIn, async (req, res) => {
+app.put('/api/bookingUpdateByClient/',  isLoggedIn,  async (req, res) => {
     try {
         var bookingId = req.body.BookingId;
         var deliveryTime = req.body.DeliveryTime;
