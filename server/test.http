@@ -16,4 +16,4 @@ Content-Type: application/json
 GET http://localhost:3001/api/confirmAllBookings
 
 ### PROCESS BOOKING PENDING CANCELATION TO CANCEL THEM OR TO GET PAYMENT
-GET http://localhost:3001/api/confirmAllBookings
+GET http://localhost:3001/api/confirmAllBookingsPendingCancelation
