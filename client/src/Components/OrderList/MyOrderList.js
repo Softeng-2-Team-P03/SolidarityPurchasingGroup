@@ -201,7 +201,7 @@ function MyOrder(props){
 
 
 function UpdateBooking(props) {
-    const [value, setValue] = useState(props.order.PickupTime ? props.order.PickupTime : props.order.DeliveryTime);
+    const [value, setValue] = useState(props.order.PickupTime ? (new Date(props.order.PickupTime)) : new Date(props.order.DeliveryTime));
     const [dateMin, setDateMin] = useState('');
     const [dateMax, setDateMax] = useState('');
     let currentDate = localStorage.getItem('virtualDate')
