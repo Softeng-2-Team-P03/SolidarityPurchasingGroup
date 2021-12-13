@@ -132,7 +132,7 @@ function App() {
             <OrderSuccess />
           } />
           <Route exact path="/" render={() =>
-            <HomePage loggedIn={loggedIn} userLogoutCallback={userLogoutCallback} />
+            <HomePage loggedIn={loggedIn} user={user} userLogoutCallback={userLogoutCallback} />
           } />
           <Route path='/farmerHome' render={() =>
             <FarmerHome></FarmerHome>

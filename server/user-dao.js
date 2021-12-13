@@ -133,6 +133,7 @@ exports.getWalletBalance = (id) => {
               reject(err);
               return;
           }
+          console.log(rows[0]);
           resolve(rows[0]["Wallet"]);
       });
 

@@ -22,7 +22,7 @@ function HomePage(prop) {
             userApi.getRequiredCharge()
                 .then((reqiuired) => {
                     required = reqiuired["TotalPrice"];
-                    userApi.getWalletBalance()
+                    userApi.getWalletBalance(prop.user.id)
                         .then((wallet) => {
                             //console.log("ddddddddddddd");
                             //console.log(wallet["Wallet"])

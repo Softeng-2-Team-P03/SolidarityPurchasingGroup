@@ -148,7 +148,7 @@ function ProductList(props) {
             booking.deliveryTime = value;
         }
 
-        bookingApi.getWalletBalance()
+        bookingApi.getWalletBalance(booking.userId)
             .then((wallet) => {
                 if (wallet < cartInfo.totalPrice) {
                     setErrorConfirm("Your booking will be registered but your wallet balance is not enough. Please, remember to top it up as soon as possible");
