@@ -235,6 +235,19 @@ exports.UpdateBookingProduct = (quantity, pricePerUnit, bookingId, productId) =>
   })
 }
 
+exports.DeleteBookingProduct = (bookingId) => {
+  return new Promise((resolve, reject) => {
+    const sqlUpdateBookingProduct = 'UPDATE BookingAndProducts SET Quantity=0 WHERE  BookingId=? ';
+    db.run(sqlUpdateBookingProduct, [bookingId], function (err) {//NOSONAR
+      if (err) {
+        console.log(err)
+        reject(err);
+      }
+      resolve(this.lastID);
+    });
+  })
+}
+
 exports.UpdateBookingPaid = (paid, BookingId) => {
   console.log("paid" + paid)
   console.log("BookingId" + BookingId)

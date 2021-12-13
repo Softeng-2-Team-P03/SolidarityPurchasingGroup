@@ -201,7 +201,7 @@ function MyOrder(props){
 
 
 function UpdateBooking(props) {
-    const [value, setValue] = useState(props.order.PickupTime ? (new Date(props.order.PickupTime)) : new Date(props.order.DeliveryTime));
+    const [value, setValue] = useState(props.order.PickupTime ? new Date(props.order.PickupTime) : new Date(props.order.DeliveryTime));
     const [dateMin, setDateMin] = useState('');
     const [dateMax, setDateMax] = useState('');
     let currentDate = localStorage.getItem('virtualDate')
@@ -414,8 +414,8 @@ function UpdateBooking(props) {
 }
 
 function ProductUpdate(props) {
-    return (
-        <Row style={{ borderBottom: "2px solid black", paddingTop: "5%", paddingBottom: "5%" }}>
+    return ( <>
+        {props.product.Qty != 0 ?<Row style={{ borderBottom: "2px solid black", paddingTop: "5%", paddingBottom: "5%" }}>
             <Button className="cartButtons delete" variant="danger" onClick={() => props.deleteProductFromCart(props.product.ProductId)}>X</Button>
             <Col>
                 <Image src={require('../../../public/ProductImages/' + props.product.ImagePath).default} fluid thumbnail />
@@ -446,7 +446,7 @@ function ProductUpdate(props) {
                 <br />
                 <div style={{ fontSize: "15px" }}>{props.product.Quantity} pieces available</div>
             </Col>
-        </Row>
+        </Row> : <></>} </>
     );
 }
 

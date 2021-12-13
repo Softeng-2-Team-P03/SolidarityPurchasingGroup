@@ -977,13 +977,17 @@ Body :
 2- Get price unit for all BookingAndProduct and update all
 3- Update booking
 */
-app.put('/api/bookingUpdateByClient/',  isLoggedIn,  async (req, res) => {
+app.put('/api/bookingUpdateByClient/:id',  isLoggedIn,  async (req, res) => {
     try {
         var bookingId = req.body.BookingId;
         var deliveryTime = req.body.DeliveryTime;
         var pickupTime = req.body.PickupTime;
         var totalSum = req.body.totalPrice;
         var userId = req.body.userId;
+        await orderDao.DeleteBookingProduct(bookingId);
+        const prova = orderDao.GetProductsFromBookingId(bookingId);
+        console.log(prova);
+
 
         if (req.user.id == userId) {
             req.body.products.forEach(async element => {
