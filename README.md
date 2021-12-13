@@ -508,7 +508,7 @@ If the confirmed quantity is not enough it gives all the remaining products to t
 | "UserId"  INTEGER NOT NULL, | |
 | "TotalPrice"  REAL, | |
 | "Paid"  REAL, | |
-| "State"  INTEGER NOT NULL, | 0=issued, 1=pending for cancelation, 2=paid, 3=handed out|
+| "State"  INTEGER NOT NULL, | 0=issued, 1=pending for cancelation, 2=paid, 3=handed out, 4=canceled|
 | "PickupTime"  TEXT, | format ISO 8601 ("yyyy-mm-dd hh:mm") |
 | "DeliveryTime"  TEXT, | format ISO 8601 ("yyyy-mm-dd hh:mm") |
 | FOREIGN KEY("UserId") REFERENCES "Users"("Id"), | |
