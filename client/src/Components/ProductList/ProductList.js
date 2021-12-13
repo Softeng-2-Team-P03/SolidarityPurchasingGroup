@@ -130,6 +130,7 @@ function ProductList(props) {
 
         const booking = {
             userId: (location.state && location.state.userId) ? location.state.userId : undefined,
+            userName: (location.state && location.state.userId) ? location.state.userName : undefined,
             bookingStartDate: localStorage.getItem("virtualDateToStringWithTime"),
             totalPrice: cartInfo.totalPrice,
             pickupTime: undefined,
@@ -148,11 +149,12 @@ function ProductList(props) {
             booking.deliveryTime = value;
         }
 
-        bookingApi.getWalletBalance()
+        bookingApi.getWalletBalance(booking.userId)
             .then((wallet) => {
-                if (wallet["Wallet"] < cartInfo.totalPrice) {
-                    setErrorConfirm("Your booking will be registered but your wallet balance is not enough. Please, remember to top it up as soon as possible");
-                    ConfirmForSucessPage(booking, "Your booking is registered in the system but your wallet balance is not enough. Please, remember to top it up as soon as possible")
+                if (wallet < cartInfo.totalPrice) {
+                    const msg = (booking.userName !== undefined) ? `${booking.userName}'s booking` : 'Your booking'
+                    setErrorConfirm(`${msg} will be registered but wallet balance is not enough. Please, remember to top it up as soon as possible`);
+                    ConfirmForSucessPage(booking, `${msg} is registered in the system but wallet balance is not enough. Please, remember to top it up as soon as possible`)
                 }
                 else {
                     ConfirmForSucessPage(booking, "")

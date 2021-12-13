@@ -67,10 +67,10 @@ function updateBookingState(id, state) {
   });
 }
 
-async function getWalletBalance() {
+async function getWalletBalance(userId) {
   console.log("getWalletBalance");
   // call: GET /api/orders
-  const response = await fetch(BASEURL + '/clients/getWallet');
+  const response = await fetch(BASEURL + '/clients/'+userId+'/getWallet');
   const walletBalance = await response.json();
   if (response.ok) {
     return walletBalance;

@@ -290,37 +290,6 @@ describe("Retrieving products and categories", () => {
             .catch(err => done(err))
     });
 
-    //THIS API SHOULD NOT EXIST! Delete test in the future
-    test("GET /api/products/1", (done) => {
-        //const post = await Post.create({ title: "Post 1", content: "Lorem ipsum" });
-
-        server.get("/api/products/1")
-            .expect(200)
-            .then((response) => {
-                // Check that is not an array since we only want the specified product
-                expect(Array.isArray(response.body)).not.toBeTruthy();
-
-                // Check data
-                expect(response.body.id).toBe(1);
-                expect(response.body.farmerId).toBe(4);
-                expect(response.body.name).toBe("Crimson Crisp Apple");
-                expect(response.body.description).toBe("1 kg");
-                expect(response.body.quantity).toBe(57);
-                expect(response.body.state).toBe(1);
-                expect(response.body.typeId).toBe(1);
-                expect(response.body.pricePerUnit).toBe(2.2);
-                expect(Array.isArray(response.body.images)).toBeTruthy();
-                expect(response.body.images[0].id).toBe(1)
-                expect(response.body.images[0].productId).toBe(1)
-                expect(response.body.images[0].isDefault).toBe(1)
-                expect(response.body.images[0].path).toBe("p1-1.jpg")
-                //expect(response.body.farmer.name).toBe("Paolo");
-                //expect(response.body.farmer.surname).toBe("Rossi");
-                done();
-            })
-            .catch(err => done(err))
-    });
-
     test('GET /api/types', function (done) {
         server
             .get('/api/types')
@@ -622,12 +591,12 @@ describe('PUT /api/bookings/:id', () => {
             .catch(err => done(err))
     });
 
-    it('check error if state > 2', function (done) {
+    it('check error if state > 3', function (done) {
         loginUser(4)
             .then(() =>
                 server
                     .put('/api/bookings/1')
-                    .send({ state: 3 })
+                    .send({ state: 4 })
                     .expect(422)
                     .then(() => done())
                     .catch(err => done(err)))
@@ -818,7 +787,7 @@ describe('POST /api/new_client', () => {
             .expect(422)
             .then((response) => {
                 expect(Array.isArray(response.body.errors)).toBeTruthy();
-                expect(response.body.errors.length).toEqual(8);
+                expect(response.body.errors.length).toEqual(7);
 
                 expect(response.body.errors[0].param).toBe("name");
                 expect(response.body.errors[1].param).toBe("surname");
@@ -826,8 +795,7 @@ describe('POST /api/new_client', () => {
                 expect(response.body.errors[3].param).toBe("password");
                 expect(response.body.errors[4].param).toBe("phoneNumber");
                 expect(response.body.errors[5].param).toBe("accessType");
-                expect(response.body.errors[6].param).toBe("wallet");
-                expect(response.body.errors[7].param).toBe("address");
+                expect(response.body.errors[6].param).toBe("address");
                 done();
             })
             .catch(err => done(err))
@@ -902,7 +870,7 @@ describe('GET /api/clients', () => {
                         expect(response.body[0].email).toBe("federico@spg.com");
                         expect(response.body[0].phoneNumber).toBe("03911657244");
                         expect(response.body[0].accessType).toBe(3);
-                        expect(response.body[0].wallet).toBe(0.0);
+                        expect(response.body[0].wallet).toBe(105043.0);
                         expect(response.body[0].address).toBe("Via Campi Flegrei 37");
                         done();
                     })
@@ -925,7 +893,7 @@ describe('GET /api/clients', () => {
                         expect(response.body[0].email).toBe("federico@spg.com");
                         expect(response.body[0].phoneNumber).toBe("03911657244");
                         expect(response.body[0].accessType).toBe(3);
-                        expect(response.body[0].wallet).toBe(0.0);
+                        expect(response.body[0].wallet).toBe(105043.0);
                         expect(response.body[0].address).toBe("Via Campi Flegrei 37");
                         done();
                     })
@@ -1020,15 +988,15 @@ describe('GET /api/products/:farmerId/:state', () => {
                         //expect(response.body.length).toEqual(1);
 
                         // Check data
-                        expect(response.body[0].Id).toBe(5);
+                        expect(response.body[0].Id).toBe(34);
                         expect(response.body[0].FarmerId).toBe(4);
-                        expect(response.body[0].Name).toBe("Garlic");
-                        expect(response.body[0].Description).toBe("300 g");
-                        expect(response.body[0].Quantity).toBe(20);
+                        expect(response.body[0].Name).toBe("Apricot Jam Tart");
+                        expect(response.body[0].Description).toBe("400 g");
+                        expect(response.body[0].Quantity).toBe(96);
                         expect(response.body[0].State).toBe(0);
 
-                        expect(response.body[0].TypeId).toBe(1);
-                        expect(response.body[0].PricePerUnit).toBe(2.0);
+                        expect(response.body[0].TypeId).toBe(5);
+                        expect(response.body[0].PricePerUnit).toBe(9.0);
 
                         done();
                     })

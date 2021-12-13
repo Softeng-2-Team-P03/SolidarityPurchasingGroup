@@ -144,6 +144,7 @@ app.post('/api/new_client', [
     check('email').notEmpty(),
     check('password').isLength({ min: 8, max: 30 }),
     check('phoneNumber').isLength({ min: 10, max: 10 }),
+    check('accessType').notEmpty(),
     check('address').notEmpty(),
 ], async (req, res) => {
     const errors = validationResult(req);
@@ -211,9 +212,9 @@ app.get('/api/client/:userId', isLoggedIn, async (req, res) => {
 
 
 //**** Get Get Wallet Balance ****//
-app.get('/api/clients/getWallet', isLoggedIn, async (req, res) => {
+app.get('/api/clients/:id/getWallet', isLoggedIn, async (req, res) => {
     try {
-        const result = await userDao.getWalletBalance(req.user.id);
+        const result = await userDao.getWalletBalance(req.params.id);
         if (result.error)
             res.status(404).json(result);
         else
@@ -334,7 +335,8 @@ app.get('/api/types', async (req, res) => {
 /*** Get products By TypeId ***/
 app.get('/api/products/type/:typeId/:date', async (req, res) => {
     try {
-
+        if(!isValidDate(req.params.date))
+            res.status(422).end();
         const result = await productDao.getProductsByType(req.params.typeId, req.params.date);
         if (result.error) {
             res.status(404).json(result);
@@ -350,11 +352,11 @@ app.get('/api/products/type/:typeId/:date', async (req, res) => {
 
 
 /*** Get products By State and FarmerId ***/
-app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
-
+app.get('/api/products/:farmerId/:state',  isLoggedIn, async (req, res) => {
+ 
     if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
-    }
+    } 
 
     productDao.listFarmerProd(req.params.farmerId, req.params.state)
         .then(products => res.json(products))
@@ -365,6 +367,11 @@ app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
 app.post('/api/product',
     isLoggedIn, [
     check('Quantity').isInt({ min: 0, max: 10000 }),
+    check('FarmerId').notEmpty(),
+    check('Name').notEmpty(),
+    check('Description').notEmpty(),
+    check('State').notEmpty(),
+    check('TypeId').notEmpty(),
     check('PricePerUnit').isFloat({ min: 0, max: 10000 })
 ], async (req, res) => {
 
