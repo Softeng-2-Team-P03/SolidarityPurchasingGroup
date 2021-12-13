@@ -485,6 +485,29 @@ If the confirmed quantity is not enough it gives all the remaining products to t
 - Response body: *none*
 - Error responses: *none*
 
+### Update Booking
+- HTTP Method: `PUT` URL: `/api/bookingUpdateByClient/`
+- Description: Update a booking made by a client 
+- Request body: 
+```
+{
+    "bookingId":7,
+    "deliveryTime": null,
+    "totalSum":22.5,
+    "pickupTime":"2021-11-12",
+    "userId":3,
+    "products":[
+        {
+            "productId":1,
+            "quantity":2
+
+        }
+    ]
+}
+``` 
+- Reponse: `200 OK` (success)
+- Response body: {"lastID" : 0}
+- Error responses: `503 Internal Server Error` (generic error),`500 Internal Server Error` (generic error), `401 Unauthorized User` (login failed)
 
 ## Database Tables
   
