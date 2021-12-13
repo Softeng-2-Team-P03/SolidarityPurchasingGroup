@@ -267,8 +267,8 @@ describe("Retrieving products and categories", () => {
                 expect(response.body[0].farmerId).toBe(4);
                 expect(response.body[0].name).toBe("Strawberry Compote");
                 expect(response.body[0].description).toBe("240 g");
-                expect(response.body[0].quantity).toBe(23);
-                expect(response.body[0].state).toBe(0);
+                expect(response.body[0].quantity).toBe(10);
+                expect(response.body[0].state).toBe(1);
 
                 expect(response.body[0].typeId).toBe(1);
                 expect(response.body[0].pricePerUnit).toBe(5.5);
