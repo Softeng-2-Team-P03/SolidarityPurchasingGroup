@@ -16,17 +16,18 @@ function OrderSuccess() {
             {!allOk && <Redirect to='/' />}
             <div className="containerSuccess">
                 <section className="confirmation">
-                    <h1>Booking #{allOk && location.state.orderId} has been received</h1>
+                    <h1>Booking #{allOk && location.state.orderId} {(allOk && location.state.booking.userName) ?
+                        `for ${location.state.booking.userName}` : <></>} has been received</h1>
                     {location.state.errorWallet.length > 0 ?
                         <Alert key={2233} variant="danger"  >
                             {location.state.errorWallet}
                         </Alert>
                         : ""
                     }
-                    <br/>
+                    <br />
                     <h4>
-                        {location.state.booking.pickupTime !== undefined && <>Pick-up info: {formatDateEuropean(location.state.booking.pickupTime)}</>}
-                        {location.state.booking.deliveryTime !== undefined && <>Delivery info: {formatDateEuropean(location.state.booking.deliveryTime)}</>}
+                        {allOk && location.state.booking.pickupTime !== undefined && <>Pick-up info: {formatDateEuropean(location.state.booking.pickupTime)}</>}
+                        {allOk && location.state.booking.deliveryTime !== undefined && <>Delivery info: {formatDateEuropean(location.state.booking.deliveryTime)}</>}
                     </h4>
                     <br />
                     <Link to='/' >
