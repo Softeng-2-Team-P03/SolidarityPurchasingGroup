@@ -19,7 +19,7 @@ function MyOrderList(props) {
     const [myOrders, setMyOrders] = useState([]);
     const [dirty, setDirty] = useState(true);
     const [timeEnabled, setTimeEnabled] = useState(false);
-    const location = useLocation(); //If employee makes order for client: {userId, userName}
+    //const location = useLocation(); //If employee makes order for client: {userId, userName}
 
     let state=null;
    
@@ -450,4 +450,4 @@ function ProductUpdate(props) {
     );
 }
 
-export {MyOrderList, MyOrder};
+export {MyOrderList, MyOrder, UpdateBooking, ProductUpdate};
