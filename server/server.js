@@ -448,17 +448,26 @@ app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
 });
 
 app.put('/api/notification/:Visibility/:Id', /* isLoggedIn, */ async (req, res) => {
+    if(isNaN(req.params.Visibility) || isNaN(req.params.Id))
+        res.status(503).end();
     try {
         await Dao.updateNotificationVisibility(req.params.Visibility, req.params.Id);
         res.status(200).end();
     } catch (err) {
         res.status(503).json({ error: `Database error during the update of Notifications.` });
     }
-
 });
 
 app.post('/api/notification', [
-    check('type').isInt({ min: 0, max: 2 })], async (req, res) => {
+    check ('userId').notEmpty().isInt(),
+    check('body').notEmpty(),
+    check('header').notEmpty(),
+    check('type').isInt({ min: 0, max: 2 })
+], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
         try {
             await notificationDao.InsertNotification(req.body.userId, req.body.header, req.body.body, req.body.type);
             res.status(200).end();

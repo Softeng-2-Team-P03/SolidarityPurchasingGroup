@@ -3,10 +3,12 @@ const app = require("../server");
 const supertest = require("supertest");
 const server = supertest.agent(app);
 
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 // This passes because 1 === 1
 it('Testing to see if Jest works', () => {
     expect(1).toBe(1)
 })
+
 
 function loginUser(accessType) {
     let credentials = { username: "federico@spg.com", password: "26gKpQK9" } //default is client
@@ -1518,4 +1520,127 @@ describe('GET /api/confirmAllBookingsPendingCancelation', () => {
                     .then(() => done())
                     .catch(err => done(err))
     })
+})
+
+describe('GET /api/send-mail-notifications', () => {
+    beforeAll(() => logoutUser());
+
+    it('working /api/send-mail-notifications', function (done) {
+                server
+                    .get('/api/send-mail-notifications')
+                    .expect(200)
+                    .then(() => done())
+                    .catch(err => done(err))
+    })
+})
+
+describe('POST /api/notification', () => {
+    beforeAll(() => logoutUser());
+
+    const notification = { userId: 4, header: "notification header", body: "notification body", type: 0 }
+
+    
+    it('userId empty in parameters', function (done) {
+        server
+            .post('/api/notification')
+            .send({ ...notification, userId: undefined })
+            .expect(422)
+            .then(() => done())
+            .catch(err => done(err))
+    });
+
+    it('header empty in parameters', function (done) {
+        server
+            .post('/api/notification')
+            .send({ ...notification, header: undefined })
+            .expect(422)
+            .then(() => done())
+            .catch(err => done(err))
+    });
+
+    it('body empty in parameters', function (done) {
+        server
+            .post('/api/notification')
+            .send({ ...notification, body: undefined })
+            .expect(422)
+            .then(() => done())
+            .catch(err => done(err))
+    });
+
+    it('type empty in parameters', function (done) {
+        server
+            .post('/api/notification')
+            .send({ ...notification, type: undefined })
+            .expect(422)
+            .then(() => done())
+            .catch(err => done(err))
+    });
+
+    it('type not a number in parameters', function (done) {
+        server
+            .post('/api/notification')
+            .send({ ...notification, type: "non un numero" })
+            .expect(422)
+            .then(() => done())
+            .catch(err => done(err))
+    });
+
+    it('userId not a number in parameters', function (done) {
+        server
+            .post('/api/notification')
+            .send({ ...notification, userId: "non un numero" })
+            .expect(422)
+            .then(() => done())
+            .catch(err => done(err))
+    });
+
+})
+
+describe('GET /api/notifications', () => {
+    beforeAll(() => logoutUser());
+    
+    it('not logged in should generate error', function (done) {
+        server
+            .get('/api/notifications')
+            .expect(401)
+            .then(() => done())
+            .catch(err => done(err))
+    })
+
+    /* GENERA ERRORE CAUSATO DAI CVERTIFICATI DI TERZE PARTI
+    it('logged in should work', function (done) {
+
+        loginUser(3)
+            .then(() =>
+                server
+                    .get('/api/notifications')
+                    .expect(200)
+                    .then(() => done())
+            )
+    }) */
+    
+
+})
+
+describe('PUT /api/notification/:Visibility/:Id', () => {
+    beforeAll(() => logoutUser());
+
+    it('parameters not valid should fail', function (done) {
+        server
+            .put('/api/notification/visibility/Id')
+            .expect(503)
+            .then(() => done())
+            .catch(err => done(err))
+    });
+
+    it('correct form', function (done) {
+        server
+            .put('/api/notification/0/1')
+            .expect(200)
+            .then(() => done())
+            .catch(err => done(err))
+    });
+
+
+    
 })
