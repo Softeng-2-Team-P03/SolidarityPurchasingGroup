@@ -15,74 +15,14 @@ import { LoginComponent } from './Components/LoginComponents/LoginComponent';
 import { ClientList } from './Components/ClientList/ClientList';
 import { ClientModal } from './Components/ClientList/AddClient';
 
-const fakeOrders = [
-  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "2021-21-11 10:30", deliveryTime: "" },
-  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "", deliveryTime: "2021-21-11 10:30" },
-  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "2021-21-11 10:30", deliveryTime: "" },
-  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "", deliveryTime: "2021-21-11 10:30" },
-  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "2021-21-11 10:30", deliveryTime: "" },
-  { orderID: 1, user: { userId: '1', name: "Mario", surname: "Rossi", email: "m@gmail.com" }, bookingStartDate: "2021-20-11", totalPrice: 30, state: "issued", pickupTime: "", deliveryTime: "2021-21-11 10:30" },
-
-];
-
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [message, setMessage] = useState('');
   const [user, setUser] = useState(undefined);
-
-
-  // useEffect(()=> {
-  //     let mounted = true;
-  //     let products = [];
-  //     const getAllProducts = async () => {
-  //         products = await productApi.getAllProducts({page:0});
-  //     };
-  //     getAllProducts().then(data => {
-  //         if (mounted){
-  //             console.log("prodotti")
-  //             console.log(products);
-
-  //         }
-  //     })
-  //         .catch(err => {
-  //             console.error(err);
-  //         });
-  //     return () => { mounted = false };
-  // }, []);
-
-
-
-  //   useEffect(()=> {
-  //     let mounted = true;
-  //     let order ;
-  //     let products = [];
-
-  //     products.push({productId:1,quantity:3,price:3});
-  //     products.push({productId:2,quantity:4,price:5});
-  //     const insertBooking = async () => {
-  //       let order = {
-  //         id:null,
-  //         bookingStartDate:"2021-11-11",
-  //         userId:null,
-  //         totalPrice:150,
-  //         pickupTime:"2021-12-11",
-  //         deliveryTime:"",
-  //         state:1,
-  //         products:products};
-  //        await bookingApi.addBooking(order);
-  //     };
-  //     insertBooking().then(data => {
-  //         if (mounted){
-  //             console.log("prodotti")
-
-
-  //         }
-  //     })
-  //         .catch(err => {
-  //             console.error(err);
-  //         });
-  //     return () => { mounted = false };
-  // }, []);
+  let confirmBookingsDone = false;
+  let dateDone;
+  let confirmBookingsPending = false;
+  let datePending;
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -121,7 +61,48 @@ function App() {
     API.addNewClient(newClient).catch(/*err => handleErrors(err) */);
   };
 
+  useEffect(() => {
+    const id1 = setInterval(checkConfirmBookings, 1000);
+    const id2 = setInterval(checkConfirmBookingsPending, 1000);
+    checkConfirmBookings();
+    checkConfirmBookingsPending();
+    return () => { clearInterval(id1); clearInterval(id2); }
+  }, [])
 
+  const checkConfirmBookings = () => {
+    let t = new Date(localStorage.getItem('virtualDate'));
+
+    if (confirmBookingsDone === true && t.getTime() > dateDone.getTime()) { //already called API
+      console.log("API to confirm bookings has been called!")
+      confirmBookingsDone = false;
+      return;
+    }
+    if (confirmBookingsDone === false && t.getDay() === 1 && t.getHours() === 9 && t.getMinutes() === 0 && t.getSeconds() <= 1) {
+      API.confirmAllBookings()
+        .catch(err => console.err(err));
+      console.log("Called API to confirm bookings!")
+      dateDone = new Date(t.getTime());
+      confirmBookingsDone = true;
+    }
+  }
+
+  const checkConfirmBookingsPending = () => {
+    let t = new Date(localStorage.getItem('virtualDate'));
+
+    if (confirmBookingsPending === true && t.getTime() > datePending.getTime()) { //already called API
+      console.log("API to check bookings in pending cancelation has been called!")
+      confirmBookingsPending = false;
+      return;
+    }
+    if (confirmBookingsPending === false && t.getDay() === 1 && t.getHours() === 23 && t.getMinutes() === 59 && t.getSeconds() <= 1) {
+      API.confirmAllBookingsPendingCancelation()
+        .catch(err => console.err(err));
+      console.log("Called API to check bookings in pending cancelation!")
+      datePending = new Date(t.getTime());
+      confirmBookingsPending = true;
+    }
+
+  }
 
 
   return (
@@ -142,7 +123,7 @@ function App() {
             <ProductList loggedIn={loggedIn} user={user} />
           } />
           <Route path='/orders' render={() =>
-            <OrderList orders={fakeOrders} ></OrderList>
+            <OrderList />
           } />
           <Route path='/myOrders' render={() =>
             <MyOrderList loggedIn={loggedIn} user={user} ></MyOrderList>
@@ -156,7 +137,7 @@ function App() {
           <Route path='/farmerHome' render={() =>
             <FarmerHome></FarmerHome>
           } />
-           <Route path='/WareHouseHome' render={() =>
+          <Route path='/WareHouseHome' render={() =>
             <WareHouseHome></WareHouseHome>
           } />
           <Route render={() =>

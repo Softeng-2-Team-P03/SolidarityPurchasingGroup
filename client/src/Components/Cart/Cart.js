@@ -24,10 +24,14 @@ function Cart(props) {
     const close = () => {
         setShow(false);
         updateChoice('0');
+        setValue(localStorage.getItem('virtualDate'));
+        setDataSelect(0);
     }
     const open = () => {
         setShow(true);
         updateChoice('0');
+        setValue(localStorage.getItem('virtualDate'));
+        setDataSelect(0);
     }
 
     useEffect(() => {
@@ -45,10 +49,6 @@ function Cart(props) {
                 minDate.setDate(t.getDate() + 4);
                 maxDate.setDate(t.getDate() + 6);
             }
-
-            minDate.setHours(9);
-            maxDate.setHours(23);
-
 
             setDateMin(minDate);
             setDateMax(maxDate);
@@ -100,16 +100,24 @@ function Cart(props) {
                                     label="Select date and time"
                                     value={value}
                                     onChange={(newValue) => {
+                                        console.log(newValue.getMinutes());
+                                        if(newValue.getMinutes() > 30){
+                                            newValue.setHours(newValue.getHours());
+                                            newValue.setMinutes(30);
+
+                                        } else {
+                                            newValue.setMinutes(0);
+                                        }
                                         setValue(newValue);
                                         setDataSelect(1);
                                     }}
                                     minDate={dateMin}
                                     maxDate={dateMax}
 
-                                    minTime={dateMin}
-                                    maxTime={dateMax}
+                                    minTime={new Date(0, 0, 0, 9)}
+                                    maxTime={new Date(0, 0, 0, 23, 1)}
 
-                                    minutesStep={30}
+                                   // minutesStep={30}
                                 />
                             </Stack>
                         </LocalizationProvider>

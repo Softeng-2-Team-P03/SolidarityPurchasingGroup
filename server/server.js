@@ -86,6 +86,15 @@ let mailTransporter = nodemailer.createTransport({
     }
 });
 
+function isValidDate(dateString) {
+    var regEx = /^\d{4}-\d{2}-\d{2}$/;
+    if(!dateString.match(regEx)) return false;  // Invalid format
+    var d = new Date(dateString);
+    var dNum = d.getTime();
+    if(!dNum && dNum !== 0) return false; // NaN value, Invalid date
+    return d.toISOString().slice(0,10) === dateString;
+  }
+
 /* API SECTION */
 
 // DELETE /sessions/current ->logout
@@ -281,7 +290,8 @@ app.get('/api/products/:date', async (req, res) => {
     try {
 
         let date = req.params.date;
-
+        if(!isValidDate(date))
+            res.status(422).end();
         const result = await productDao.getProducts(date);
         if (result.error) {
             res.status(404).json(result);
@@ -954,19 +964,19 @@ Body :
 app.put('/api/bookingUpdateByClient/:id', isLoggedIn, async (req, res) => {
     try {
         var bookingId=req.body.BookingId;       
-        var deliveryTime=req.body.DeliveryTime;       
-        var totalSum=0;
-        var userId=req.body.UserId;        
-        const products= await orderDao.GetProductsFromBookingId(bookingId);       
+        var deliveryTime=req.body.DeliveryTime; 
+        var pickupTime = req.body.PickupTime;
+        var totalSum = req.body.totalPrice;
+        var userId=req.body.userId ;      
+          
         if (req.user.id==userId){
-        products.forEach(async element => {
-          var productId=element.ProductId;
-          var pricePerUnit= element.PricePerUnit;
-          var quantity=element.Qty;
-          totalSum +=(quantity*pricePerUnit);
-          await orderDao.UpdateBookingProduct(quantity,pricePerUnit,bookingId,productId);
-        });
-        var lastUpdate= await orderDao.UpdateBookingByClient(bookingId,deliveryTime,totalSum);
+            req.body.products.forEach(async element => {
+                var productId=element.productId;
+                var pricePerUnit=  await productDao.getProductPriceUnit(productId);
+                var quantity=element.quantity;
+                await orderDao.UpdateBookingProduct(quantity,pricePerUnit,bookingId,productId);
+              });
+        var lastUpdate= await orderDao.UpdateBookingByClient(bookingId,deliveryTime,pickupTime, totalSum);
         res.json(lastUpdate);
     }
     else

@@ -31,20 +31,30 @@ function Notifications({ name, ...props }) {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
+    const checkForNotifications = () => {
+        userApi.getNotifications().then(notifications => {
+            setNotifications(notifications);
+            setCountNoti(notifications.length);
+            setDirty(false);
+        })
+            .catch(err => {
+                console.error(err);
+            });
+    }
+
     useEffect(() => {
 
         if (dirty) {
-            userApi.getNotifications().then(notifications => {
-                setNotifications(notifications);
-                setCountNoti(notifications.length);
-                setDirty(false);
-            })
-                .catch(err => {
-                    console.error(err);
-                });
+            checkForNotifications();
         }
 
     }, [dirty]);
+
+    useEffect(() => {
+        const id = setInterval(checkForNotifications, 10000);
+        checkForNotifications();
+        return () => clearInterval(id);
+    }, []);
 
 
     function notificationsLabel(count) {
@@ -66,7 +76,7 @@ function Notifications({ name, ...props }) {
     const dismissAll = () => {
         notifications.forEach((notification) => {
             api.updateNotificationVisibility(1, notification.notificationId)
-            .catch(err => console.error(err));
+                .catch(err => console.error(err));
         })
         setDirty(true);
     }

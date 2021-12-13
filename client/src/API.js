@@ -224,5 +224,24 @@ function updateProductQuantity(Quantity,Id) {
     });
 }
 
-const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,addImage,getAllClients,getProdFarmer,addProduct,updateProductState, updateProductInfo,updateProductQuantity, updateNotificationVisibility};
+async function confirmAllBookings(){
+    const response = await fetch(BASEURL + '/confirmAllBookings');
+    if (response.ok) {
+        return null;
+    } else {
+        throw {err: 'GET confirmAllBookings error'};  // an object with the error coming from the server
+    }
+}
+
+async function confirmAllBookingsPendingCancelation(){
+    const response = await fetch(BASEURL + '/confirmAllBookingsPendingCancelation');
+    if (response.ok) {
+        return null;
+    } else {
+        throw {err: 'GET confirmAllBookingsPendingCancelation error'};  // an object with the error coming from the server
+    }
+}
+
+const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,addImage,getAllClients,getProdFarmer,addProduct,updateProductState, updateProductInfo,updateProductQuantity, updateNotificationVisibility, 
+    confirmAllBookings, confirmAllBookingsPendingCancelation};
 export default API;
