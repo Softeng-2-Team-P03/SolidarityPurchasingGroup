@@ -83,7 +83,7 @@ function App() {
     }
     if (confirmBookingsDone === false && t.getDay() === 1 && t.getHours() === 9 && t.getMinutes() === 0 && t.getSeconds() <= 1) {
       API.confirmAllBookings()
-        .catch(err => console.err(err));
+        .catch(err => console.error(err));
       console.log("Called API to confirm bookings!")
       dateDone = new Date(t.getTime());
       confirmBookingsDone = true;
@@ -100,7 +100,7 @@ function App() {
     }
     if (confirmBookingsPending === false && t.getDay() === 1 && t.getHours() === 23 && t.getMinutes() === 59 && t.getSeconds() <= 1) {
       API.confirmAllBookingsPendingCancelation()
-        .catch(err => console.err(err));
+        .catch(err => console.error(err));
       console.log("Called API to check bookings in pending cancelation!")
       datePending = new Date(t.getTime());
       confirmBookingsPending = true;
@@ -117,7 +117,7 @@ function App() {
     }
     if (emailSent === false && t.getDay() === 1 && t.getHours() === 9 && t.getMinutes() === 0 && t.getSeconds() >= 10 && t.getSeconds() <= 11) {
       API.sendMailNotifications()
-        .catch(err => console.err(err));
+        .catch(err => console.error(err));
       console.log("Called API to send emails")
       dateEmail = new Date(t.getTime());
       emailSent = true;

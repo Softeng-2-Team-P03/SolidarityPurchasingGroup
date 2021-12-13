@@ -61,7 +61,7 @@ Password: `Mnbvcxz1234`
 
 ### Client
 
-Username: `federico@spg.com`
+Username: `federico.clientespg@gmail.com`
 
 Password: `26gKpQK9`
 
