@@ -101,9 +101,9 @@ function Cart(props) {
                                     value={value}
                                     onChange={(newValue) => {
                                         console.log(newValue.getMinutes());
-                                        if(newValue.getMinutes > 30){
-                                            newValue.setHours(newValue.getHours()+1);
-                                            newValue.setMinutes(0);
+                                        if(newValue.getMinutes() > 30){
+                                            newValue.setHours(newValue.getHours());
+                                            newValue.setMinutes(30);
 
                                         } else {
                                             newValue.setMinutes(0);
@@ -117,7 +117,7 @@ function Cart(props) {
                                     minTime={dateMin}
                                     maxTime={dateMax}
 
-                                    minutesStep={30}
+                                   // minutesStep={30}
                                 />
                             </Stack>
                         </LocalizationProvider>
