@@ -15,7 +15,7 @@ const nodemailer = require('nodemailer');
 const credentials = require('./credentials');
 //import { gmailcredentials } from './credentials.js';
 const notificationDao = require('./notification-dao.js');
-const dateRegexp = new RegExp(/^(([1]|[2])\d{3})-((0[13578]|1[02])-(0[0-9]|[1-2][0-9]|3[0-1])|(0[469]|11)-(0[0-9]|[1-2][0-9]|30)|(02)-(0[0-9]|[1-2][0-9]))([ ])([01][1-9]|2[0-3])(\:)([0-5][0-9])(\:)([0-5][0-9])$/);
+const dateRegexp = new RegExp(/^(([1]|[2])\d{3})-((0[13578]|1[02])-(0[0-9]|[1-2][0-9]|3[0-1])|(0[469]|11)-(0[0-9]|[1-2][0-9]|30)|(02)-(0[0-9]|[1-2][0-9]))([ ])([01][0-9]|2[0-3])(\:)([0-5][0-9])(\:)([0-5][0-9])$/);
 /* SETUP SECTION */
 
 /* Set up Passport **
@@ -509,6 +509,7 @@ app.post('/api/booking', isLoggedIn, [
     }
 
     if (!errors.isEmpty()) {
+        console.log({errors: errors.array()})
         return res.status(422).json({ errors: errors.array() });
     }
 
