@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
     <file path="C:\Users\luca_\Desktop\polito\softeng2\SolidarityPurchasingGroup\server\__test__\server.test.js">
-        <testCase name="Testing to see if Jest works" duration="2"/>
-        <testCase name="Logins and Logout login as manager" duration="77"/>
-        <testCase name="Logins and Logout check if manager still logged in" duration="7"/>
-        <testCase name="Logins and Logout login as employee" duration="60"/>
+        <testCase name="Testing to see if Jest works" duration="1"/>
+        <testCase name="Logins and Logout login as manager" duration="74"/>
+        <testCase name="Logins and Logout check if manager still logged in" duration="6"/>
+        <testCase name="Logins and Logout login as employee" duration="59"/>
         <testCase name="Logins and Logout check if employee still logged in" duration="5"/>
-        <testCase name="Logins and Logout login as client" duration="59"/>
-        <testCase name="Logins and Logout check if client still logged in" duration="4"/>
+        <testCase name="Logins and Logout login as client" duration="57"/>
+        <testCase name="Logins and Logout check if client still logged in" duration="5"/>
         <testCase name="Logins and Logout login as farmer" duration="58"/>
         <testCase name="Logins and Logout check if farmer still logged in" duration="5"/>
-        <testCase name="Logins and Logout login as deliverer" duration="58"/>
-        <testCase name="Logins and Logout check if deliverer still logged in" duration="4"/>
+        <testCase name="Logins and Logout login as deliverer" duration="57"/>
+        <testCase name="Logins and Logout check if deliverer still logged in" duration="5"/>
         <testCase name="Logins and Logout logout" duration="4"/>
         <testCase name="Logins and Logout check if user is not logged in" duration="4"/>
-        <testCase name="Logins and Logout wrong username" duration="5"/>
+        <testCase name="Logins and Logout wrong username" duration="4"/>
         <testCase name="Logins and Logout wrong password" duration="57"/>
         <testCase name="Logins and Logout wrong username and password" duration="4"/>
-        <testCase name="Retrieving products and categories GET /api/products" duration="6"/>
-        <testCase name="Retrieving products and categories GET /api/products/2021-11-29" duration="6"/>
-        <testCase name="Retrieving products and categories GET /api/products/NotADate NoDate check" duration="6"/>
+        <testCase name="Retrieving products and categories GET /api/products" duration="5"/>
+        <testCase name="Retrieving products and categories GET /api/products/2021-11-29" duration="5"/>
+        <testCase name="Retrieving products and categories GET /api/products/NotADate NoDate check" duration="5"/>
         <testCase name="Retrieving products and categories GET /api/types" duration="6"/>
         <testCase name="Retrieving products and categories GET /api/products/type/1/2021-12-01" duration="7"/>
         <testCase name="Retrieving products and categories GET /api/products/type/2/2021-11-25" duration="5"/>
         <testCase name="Retrieving products and categories GET /api/products/type/3/2021-12-01" duration="5"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/4/2021-11-28" duration="4"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/4/2021-11-28" duration="5"/>
         <testCase name="Retrieving products and categories GET /api/products/type/5/2021-11-28" duration="4"/>
         <testCase name="Retrieving products and categories GET /api/products/type/6/2021-12-04" duration="4"/>
         <testCase name="Retrieving products and categories GET /api/products/type/6/NotADate NoDate check" duration="3"/>
         <testCase name="GET /api/bookings bookings should NOT be visible if not loggedIn" duration="4"/>
-        <testCase name="GET /api/bookings login as manager then show bookings" duration="63"/>
-        <testCase name="GET /api/bookings login as employee then show bookings" duration="62"/>
+        <testCase name="GET /api/bookings login as manager then show bookings" duration="64"/>
+        <testCase name="GET /api/bookings login as employee then show bookings" duration="64"/>
         <testCase name="GET /api/bookings login as client then do NOT show booking" duration="61"/>
-        <testCase name="GET /api/bookings login as farmer then show bookings" duration="61"/>
+        <testCase name="GET /api/bookings login as farmer then show bookings" duration="62"/>
         <testCase name="GET /api/bookings login as deliverer then show bookings" duration="63"/>
-        <testCase name="PUT /api/bookings/:id booking should NOT be updated if not loggedIn" duration="9"/>
-        <testCase name="PUT /api/bookings/:id login as client then do NOT update booking" duration="61"/>
-        <testCase name="PUT /api/bookings/:id login as deliverer then do NOT update booking" duration="60"/>
-        <testCase name="PUT /api/bookings/:id login as manager then update booking" duration="65"/>
-        <testCase name="PUT /api/bookings/:id login as employee then update booking" duration="62"/>
+        <testCase name="PUT /api/bookings/:id booking should NOT be updated if not loggedIn" duration="7"/>
+        <testCase name="PUT /api/bookings/:id login as client then do NOT update booking" duration="63"/>
+        <testCase name="PUT /api/bookings/:id login as deliverer then do NOT update booking" duration="62"/>
+        <testCase name="PUT /api/bookings/:id login as manager then update booking" duration="67"/>
+        <testCase name="PUT /api/bookings/:id login as employee then update booking" duration="60"/>
         <testCase name="PUT /api/bookings/:id login as farmer then update booking" duration="66"/>
-        <testCase name="PUT /api/bookings/:id check error if state &lt; 0" duration="62"/>
-        <testCase name="PUT /api/bookings/:id check error if state &gt; 3" duration="61"/>
-        <testCase name="POST /api/new_client name empty in parameters" duration="6"/>
-        <testCase name="POST /api/new_client surname empty in parameters" duration="5"/>
+        <testCase name="PUT /api/bookings/:id check error if state &lt; 0" duration="61"/>
+        <testCase name="PUT /api/bookings/:id check error if state &gt; 3" duration="60"/>
+        <testCase name="POST /api/new_client name empty in parameters" duration="4"/>
+        <testCase name="POST /api/new_client surname empty in parameters" duration="4"/>
         <testCase name="POST /api/new_client email empty in parameters" duration="4"/>
-        <testCase name="POST /api/new_client password empty in parameters" duration="4"/>
-        <testCase name="POST /api/new_client password shorter than 8 in parameters" duration="5"/>
+        <testCase name="POST /api/new_client password empty in parameters" duration="5"/>
+        <testCase name="POST /api/new_client password shorter than 8 in parameters" duration="4"/>
         <testCase name="POST /api/new_client password longer than 30 in parameters" duration="4"/>
         <testCase name="POST /api/new_client phoneNumber shorter than 10 in parameters" duration="4"/>
         <testCase name="POST /api/new_client phoneNumber greater than 10 in parameters" duration="4"/>
@@ -54,50 +54,55 @@
         <testCase name="POST /api/new_client address empty in parameters" duration="5"/>
         <testCase name="POST /api/new_client all parameters wrong" duration="4"/>
         <testCase name="POST /api/new_client create new user" duration="62"/>
-        <testCase name="GET /api/clients should NOT see clients as not logged in" duration="5"/>
+        <testCase name="GET /api/clients should NOT see clients as not logged in" duration="3"/>
         <testCase name="GET /api/clients login as client then do NOT show clients" duration="62"/>
-        <testCase name="GET /api/clients login as farmer then do NOT show clients" duration="61"/>
+        <testCase name="GET /api/clients login as farmer then do NOT show clients" duration="64"/>
         <testCase name="GET /api/clients login as deliverer then do NOT show clients" duration="60"/>
-        <testCase name="GET /api/clients login as manager then show clients" duration="61"/>
-        <testCase name="GET /api/clients login as employee then show clients" duration="60"/>
-        <testCase name="GET /api/products/:farmerId/:state should not be able to see those products as NOT logged in" duration="4"/>
+        <testCase name="GET /api/clients login as manager then show clients" duration="62"/>
+        <testCase name="GET /api/clients login as employee then show clients" duration="62"/>
+        <testCase name="GET /api/products/:farmerId/:state should not be able to see those products as NOT logged in" duration="3"/>
         <testCase name="GET /api/products/:farmerId/:state login as employee then do NOT show products" duration="61"/>
         <testCase name="GET /api/products/:farmerId/:state login as client then do NOT show products" duration="60"/>
-        <testCase name="GET /api/products/:farmerId/:state login as deliverer then do NOT show products" duration="61"/>
-        <testCase name="GET /api/products/:farmerId/:state login as manager then show products in state 1" duration="62"/>
-        <testCase name="GET /api/products/:farmerId/:state login as farmer then show products in state 0" duration="62"/>
-        <testCase name="POST /api/product should not be able to create a product if not logged in" duration="4"/>
+        <testCase name="GET /api/products/:farmerId/:state login as deliverer then do NOT show products" duration="60"/>
+        <testCase name="GET /api/products/:farmerId/:state login as manager then show products in state 1" duration="61"/>
+        <testCase name="GET /api/products/:farmerId/:state login as farmer then show products in state 0" duration="61"/>
+        <testCase name="POST /api/product should not be able to create a product if not logged in" duration="3"/>
         <testCase name="POST /api/product login as employee then do NOT create product" duration="62"/>
-        <testCase name="POST /api/product login as client then do NOT create product" duration="62"/>
+        <testCase name="POST /api/product login as client then do NOT create product" duration="61"/>
         <testCase name="POST /api/product login as deliverer then do NOT create product" duration="61"/>
-        <testCase name="POST /api/product login as farmer then create product" duration="66"/>
+        <testCase name="POST /api/product login as farmer then create product" duration="65"/>
         <testCase name="POST /api/product login as manager then create product" duration="65"/>
         <testCase name="POST /api/product FarmerId empty in parameters" duration="5"/>
-        <testCase name="POST /api/product Name empty in parameters" duration="5"/>
-        <testCase name="POST /api/product Description empty in parameters" duration="5"/>
+        <testCase name="POST /api/product Name empty in parameters" duration="4"/>
+        <testCase name="POST /api/product Description empty in parameters" duration="4"/>
         <testCase name="POST /api/product Quantity empty in parameters" duration="7"/>
         <testCase name="POST /api/product State empty in parameters" duration="5"/>
         <testCase name="POST /api/product TypeId empty in parameters" duration="4"/>
-        <testCase name="POST /api/product PricePerUnit empty in parameters" duration="4"/>
-        <testCase name="PUT /api/product/:State/:Id cannot update product state as not logged in" duration="4"/>
-        <testCase name="PUT /api/product/:State/:Id cannot update product state as employee" duration="59"/>
-        <testCase name="PUT /api/product/:State/:Id cannot update product state as client" duration="59"/>
-        <testCase name="PUT /api/product/:State/:Id cannot update product state as deliverer" duration="60"/>
-        <testCase name="PUT /api/product/:State/:Id update product state as manager" duration="65"/>
+        <testCase name="POST /api/product PricePerUnit empty in parameters" duration="5"/>
+        <testCase name="PUT /api/product/:State/:Id cannot update product state as not logged in" duration="3"/>
+        <testCase name="PUT /api/product/:State/:Id cannot update product state as employee" duration="60"/>
+        <testCase name="PUT /api/product/:State/:Id cannot update product state as client" duration="61"/>
+        <testCase name="PUT /api/product/:State/:Id cannot update product state as deliverer" duration="61"/>
+        <testCase name="PUT /api/product/:State/:Id update product state as manager" duration="66"/>
         <testCase name="PUT /api/product/:State/:Id update product state as farmer" duration="66"/>
         <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as not logged in" duration="4"/>
-        <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as client" duration="68"/>
-        <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as deliverer" duration="62"/>
+        <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as client" duration="61"/>
+        <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as deliverer" duration="60"/>
         <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as farmer" duration="60"/>
-        <testCase name="PUT /api/topup/:userId/:amount update wallet state as employee" duration="65"/>
+        <testCase name="PUT /api/topup/:userId/:amount update wallet state as employee" duration="64"/>
         <testCase name="PUT /api/topup/:userId/:amount update wallet state as manager" duration="60"/>
         <testCase name="POST /api/image should not be able to post a image if not logged in" duration="4"/>
-        <testCase name="POST /api/image login as employee then do NOT add image" duration="60"/>
+        <testCase name="POST /api/image login as employee then do NOT add image" duration="61"/>
         <testCase name="POST /api/image login as client then do NOT add image" duration="60"/>
-        <testCase name="POST /api/image login as deliverer then do NOT add image" duration="61"/>
-        <testCase name="POST /api/image login as farmer then add image" duration="67"/>
-        <testCase name="POST /api/image login as manager then add image" duration="69"/>
+        <testCase name="POST /api/image login as deliverer then do NOT add image" duration="62"/>
+        <testCase name="POST /api/image login as farmer then add image" duration="65"/>
+        <testCase name="POST /api/image login as manager then add image" duration="66"/>
         <testCase name="POST /api/image Id empty in parameters" duration="4"/>
         <testCase name="POST /api/image Path empty in parameters" duration="3"/>
+        <testCase name="GET /api/confirmBookingProduct/:id should NOT work without parameter" duration="4"/>
+        <testCase name="GET /api/confirmBookingProduct/:id should NOT work if id is not a number" duration="4"/>
+        <testCase name="GET /api/confirmBookingProduct/:id confirm booking product id 1" duration="130"/>
+        <testCase name="GET /api/confirmAllBookings working /api/confirmAllBookings" duration="482"/>
+        <testCase name="GET /api/confirmAllBookingsPendingCancelation working /api/confirmAllBookingsPendingCancelation" duration="655"/>
     </file>
 </testExecutions>

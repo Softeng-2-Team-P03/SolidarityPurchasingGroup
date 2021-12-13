@@ -100,15 +100,17 @@ function OrderList(props) {
             orders.forEach((order) => {
                 // modify numeric status with relative description
                 switch (order.State) {
-                    case 0: order.State = "issued";
+                    case 0: order.State = "Issued";
                         break;
-                    case 1: order.State = "pending for cancelation";
+                    case 1: order.State = "Pending for cancelation";
                         break;
-                    case 2: order.State = "paid";
+                    case 2: order.State = "Paid";
                         break;
-                    case 3: order.State = "handed out";
+                    case 3: order.State = "Handed out";
                         break;
-                    default: order.State = "created";
+                    case 4: order.State = "Canceled";
+                        break;
+                    default: order.State = "Created";
                 }
 
                 setOrders(orders.map(order => ({ ...order })));

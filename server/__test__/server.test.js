@@ -1005,8 +1005,6 @@ describe('GET /api/products/:farmerId/:state', () => {
             .catch(err => done(err))
     })
 
-
-
 })
 
 describe('POST /api/product', () => {
@@ -1469,3 +1467,55 @@ describe('POST /api/image', () => {
             .catch(err => done(err))
     });
 }) 
+
+describe('GET /api/confirmBookingProduct/:id', () => {
+    beforeAll(() => logoutUser());
+
+    it('should NOT work without parameter', function (done) {
+        server
+            .get('/api/confirmBookingProduct/')
+            .expect(404)
+            .then(() => done())
+            .catch(err => done(err))
+    })
+
+    it('should NOT work if id is not a number', function (done) {
+        server
+            .get('/api/confirmBookingProduct/numero')
+            .expect(422)
+            .then(() => done())
+            .catch(err => done(err))
+    })
+
+    it('confirm booking product id 1', function (done) {
+                server
+                    .get('/api/confirmBookingProduct/1')
+                    .expect(200)
+                    .then(() => done())
+                    .catch(err => done(err))
+    })
+})
+
+describe('GET /api/confirmAllBookings', () => {
+    beforeAll(() => logoutUser());
+
+    it('working /api/confirmAllBookings', function (done) {
+                server
+                    .get('/api/confirmAllBookings')
+                    .expect(200)
+                    .then(() => done())
+                    .catch(err => done(err))
+    })
+})
+
+describe('GET /api/confirmAllBookingsPendingCancelation', () => {
+    beforeAll(() => logoutUser());
+
+    it('working /api/confirmAllBookingsPendingCancelation', function (done) {
+                server
+                    .get('/api/confirmAllBookingsPendingCancelation')
+                    .expect(200)
+                    .then(() => done())
+                    .catch(err => done(err))
+    })
+})
