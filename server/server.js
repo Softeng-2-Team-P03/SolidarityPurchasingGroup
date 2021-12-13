@@ -737,6 +737,9 @@ app.get('/api/bookings/:id/products', async (req, res) => {
 // After Update Available Product We Call This Url Wit Product Id
 //localhost:3001/api/confirmBookingProduct/{ProductId}'
 app.get('/api/confirmBookingProduct/:id', async (req, res) => {
+    if(isNaN(req.params.id))
+        return res.status(422).end();
+
     var productId = req.params.id;
     var farmerId = 0;
     var bookingId = 0;
@@ -746,54 +749,39 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
     var productName = "Title";
     console.log(productId)
     /*try {*/
-    const product = await orderDao.GetProductInfoForConfirmation(productId);
-    if (product.error)
-        res.status(404).json(product);
-    else {
-        farmerId = product.FarmerId;
-        productName = product.ProductName;
-        pricePerUnit = product.PricePerUnit;
-        quantity = product.Quantity;
-        const bookingAndProducts = await orderDao.GetBookingProductsByProduct(productId);
-        if (bookingAndProducts.length > 0) {
-            //bookingAndProducts.forEach(async element => {
-            for (const element of bookingAndProducts) {
-                console.log(element)
-                userId = element.UserId;
-                bookingId = element.BookingId;
-                if (element.Quantity <= quantity) {
-                    quantity = quantity - element.Quantity;
+        const product = await orderDao.GetProductInfoForConfirmation(productId);
+        if (product.error)
+            res.status(404).json(product);
+        else {
+            farmerId = product.FarmerId;
+            productName = product.ProductName;
+            pricePerUnit = product.PricePerUnit;
+            quantity = product.Quantity;
+            const bookingAndProducts = await orderDao.GetBookingProductsByProduct(productId);
+            if (bookingAndProducts.length > 0) {
+                //bookingAndProducts.forEach(async element => {
+                for( const element of bookingAndProducts){
+                    console.log(element)
+                    userId = element.UserId;
+                    bookingId = element.BookingId;
+                    if (element.Quantity <= quantity) {
+                        quantity = quantity - element.Quantity;
+                    }
+                    else {
+                        console.log("notification insert");
+                        var prevQuantity = element.Quantity;
+                        element.Quantity = quantity;
+                        quantity = 0;
+                        let header = "Change Booking#" + bookingId;
+                        let body = "The quantity of " + productName + " has changed by Farmer from " + prevQuantity + " to " + element.Quantity;
+                        await notificationDao.InsertNotification(userId, header, body, 1);
+                        var priceDiff = (prevQuantity - element.Quantity)*pricePerUnit;
+                        await orderDao.UpdateBookingTotalPrice(priceDiff, bookingId);
+                    }
+                    await orderDao.UpdateBookingProduct(quantity == null ? 0 : element.Quantity, pricePerUnit, bookingId, productId);
                 }
-                else {
-                    console.log("notification insert");
-                    var prevQuantity = element.Quantity;
-                    element.Quantity = quantity;
-                    quantity = 0;
-                    let header = "Change Booking#" + bookingId;
-                    let body = "The quantity of " + productName + " has changed by Farmer from " + prevQuantity + " to " + element.Quantity;
-                    await notificationDao.InsertNotification(userId, header, body, 1);
-                    var priceDiff = (prevQuantity - element.Quantity) * pricePerUnit;
-                    await orderDao.UpdateBookingTotalPrice(priceDiff, bookingId);
-                }
-                await orderDao.UpdateBookingProduct(quantity == null ? 0 : element.Quantity, pricePerUnit, bookingId, productId);
-
-                //handling payment  for a booking from here
-                /*const user = await orderDao.GetUserById(userId);
-                const booking = await orderDao.GetBookingById(bookingId);
-                if( user.Wallet < booking.Paid + (element.Quantity * pricePerUnit) ){
-                    //if user wallet as enough money, i get the payment and update paid field of booking
-                    await userDao.decreaseWallet( user.Id, element.Quantity * pricePerUnit);
-                    await orderDao.UpdateBookingPaid(element.Quantity * pricePerUnit, bookingId);
-                }
-                else{
-                    //if wallet doesn't contain enough credits i must put order into state 1="pending for cancelation" and notify the user
-                    await orderDao.updateBookingState(1, bookingId);
-                    let header = "Not enough credits" + bookingId;
-                    let body = "The credit in your wallet is insuficient to pay for: " + element.Quantity + productName + ". Please top up your wallet before Monday at 23.59 ";
-                    await orderDao.InsertNotification(userId, header, body, 1);
-                }*/
             }
-            // await sendEmailForChangeingBooking()
+            res.status(200).end();
         }
         res.status(200).end();
         //res.json({ status: "Ok" });

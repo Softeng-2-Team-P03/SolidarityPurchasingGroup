@@ -47,6 +47,7 @@ function MyOrderList(props) {
 
         if(choice==="1") {
             booking.PickupTime=value;
+
         } else {
             booking.DeliveryTime=value;
         }
@@ -148,6 +149,9 @@ function MyOrderList(props) {
                           break;
                           case 3:
                             state = 'Handed out';
+                           break;
+                        case 4:
+                            state = 'Canceled';
                            break;
                         default:
                             state = '';
