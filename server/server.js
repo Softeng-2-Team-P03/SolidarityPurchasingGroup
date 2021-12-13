@@ -958,9 +958,10 @@ app.put('/api/bookingUpdateByClient/:id', isLoggedIn, async (req, res) => {
     try {
         var bookingId=req.body.BookingId;       
         var deliveryTime=req.body.DeliveryTime; 
+        var pickupTime = req.body.PickupTime;
         var totalSum = req.body.totalPrice;
-        var userId=req.body.userId ; 
-        console.log("USER "+userId);         
+        var userId=req.body.userId ;      
+          
         if (req.user.id==userId){
             req.body.products.forEach(async element => {
                 var productId=element.productId;
@@ -968,7 +969,7 @@ app.put('/api/bookingUpdateByClient/:id', isLoggedIn, async (req, res) => {
                 var quantity=element.quantity;
                 await orderDao.UpdateBookingProduct(quantity,pricePerUnit,bookingId,productId);
               });
-        var lastUpdate= await orderDao.UpdateBookingByClient(bookingId,deliveryTime,totalSum);
+        var lastUpdate= await orderDao.UpdateBookingByClient(bookingId,deliveryTime,pickupTime, totalSum);
         res.json(lastUpdate);
     }
     else

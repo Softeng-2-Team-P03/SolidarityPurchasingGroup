@@ -267,10 +267,10 @@ exports.UpdateBookingTotalPrice = (diff, BookingId) => {
   });
 }
 
-exports.UpdateBookingByClient = (Id, deliveryTime,totalPrice) => {
+exports.UpdateBookingByClient = (Id, deliveryTime,pickupTime, totalPrice) => {
   return new Promise((resolve, reject) => {
-    const sqlUpdateBooking = 'UPDATE Bookings SET DeliveryTime=?, TotalPrice=?   WHERE  Id=?';
-    db.run(sqlUpdateBooking, [deliveryTime, totalPrice, Id], function (err) {//NOSONAR
+    const sqlUpdateBooking = 'UPDATE Bookings SET DeliveryTime=?, PickupTime=?,  TotalPrice=?   WHERE  Id=?';
+    db.run(sqlUpdateBooking, [deliveryTime, pickupTime, totalPrice, Id], function (err) {//NOSONAR
       if (err) {
         console.log(err)
         reject(err);
