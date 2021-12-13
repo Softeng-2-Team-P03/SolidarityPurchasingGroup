@@ -727,7 +727,8 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
             quantity = product.Quantity;
             const bookingAndProducts = await orderDao.GetBookingProductsByProduct(productId);
             if (bookingAndProducts.length > 0) {
-                bookingAndProducts.forEach(async element => {
+                //bookingAndProducts.forEach(async element => {
+                for( const element of bookingAndProducts){
                     console.log(element)
                     userId = element.UserId;
                     bookingId = element.BookingId;
@@ -762,7 +763,7 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
                         let body = "The credit in your wallet is insuficient to pay for: " + element.Quantity + productName + ". Please top up your wallet before Monday at 23.59 ";
                         await orderDao.InsertNotification(userId, header, body, 1);
                     }*/
-                });
+                }
                 // await sendEmailForChangeingBooking()
             }
             res.status(200).end();
@@ -789,21 +790,24 @@ app.get('/api/confirmAllBookings', async (req, res) => {
             console.log("no products with state 0=issued found in the db");
             res.status(404).end(); 
         }
-
-        userBookings.forEach(async ub => {
+        
+        //userBookings.forEach(async ub => {
+        for( const ub of userBookings){
             console.log("user "+ ub.UserId + ", booking "+ ub.BookingId);
-            let wallet = ub.Wallet
-            if(ub.TotalPrice <= ub.Wallet ){
+            let wallet = await userDao.getWalletBalance(ub.UserId);
+            console.log("user wallet is:  "+ wallet);
+            //let wallet = ub.Wallet;
+            if(ub.TotalPrice <= wallet ){
                 
                 console.log("TotalPrice "+ ub.TotalPrice + ", Wallet = "+ wallet + "is enough");
                 console.log("Removing "+ ub.TotalPrice + ", from Wallet");
                 await userDao.decreaseWallet( ub.UserId, ub.TotalPrice );
+                wallet = wallet - ub.TotalPrice;
+                //wallet = await userDao.getWalletBalance(ub.UserId);
+                console.log("Wallet is now: " + wallet);
 
                 console.log("Update booking state to 2 = paid");
                 await orderDao.updateBookingState(2, ub.BookingId);
-
-                wallet = await userDao.getWalletBalance(ub.UserId);
-                console.log("Wallet is now: " + wallet);
 
             }
             else{
@@ -819,7 +823,7 @@ app.get('/api/confirmAllBookings', async (req, res) => {
                 await notificationDao.InsertNotification(ub.UserId, header, body, 1);
 
             }
-        });
+        }
 
         res.status(200).end();
     }
@@ -844,20 +848,23 @@ app.get('/api/confirmAllBookings', async (req, res) => {
             res.status(404).end(); 
         }
 
-        userBookings.forEach(async ub => {
+        //userBookings.forEach(async ub => {
+        
+        for( const ub of userBookings){
             console.log("user "+ ub.UserId + ", booking "+ ub.BookingId);
-            let wallet = ub.Wallet
-            if(ub.TotalPrice <= ub.Wallet ){
+            let wallet = await userDao.getWalletBalance(ub.UserId);
+            console.log("user wallet is:  "+ wallet);
+            if(ub.TotalPrice <= wallet ){
                 
                 console.log("TotalPrice "+ ub.TotalPrice + ", Wallet = "+ wallet + "is enough");
                 console.log("Removing "+ ub.TotalPrice + ", from Wallet");
                 await userDao.decreaseWallet( ub.UserId, ub.TotalPrice );
+                wallet = wallet - ub.TotalPrice;
+                //wallet = await userDao.getWalletBalance(ub.UserId);
+                console.log("Wallet is now: " + wallet);
 
                 console.log("Update booking state to 2 = paid");
                 await orderDao.updateBookingState(2, ub.BookingId);
-
-                wallet = await userDao.getWalletBalance(ub.UserId);
-                console.log("Wallet is now: " + wallet);
 
             }
             else{
@@ -873,7 +880,7 @@ app.get('/api/confirmAllBookings', async (req, res) => {
                 await notificationDao.InsertNotification(ub.UserId, header, body, 1);
 
             }
-        });
+        };
 
         res.status(200).end();
     }
