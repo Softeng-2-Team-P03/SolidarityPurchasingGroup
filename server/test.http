@@ -12,5 +12,8 @@ GET http://localhost:3001/api/notifications
 PUT http://localhost:3001/api/topup/3/10
 Content-Type: application/json
 
-###GET PAYMENTS OOO
+###GET PAYMENT FROM BOOKINGS IN STATE ISSUED OR PUT THEM IN STATE PENDING CANCELATION
+GET http://localhost:3001/api/confirmAllBookings
+
+### PROCESS BOOKING PENDING CANCELATION TO CANCEL THEM OR TO GET PAYMENT
 GET http://localhost:3001/api/confirmAllBookings
