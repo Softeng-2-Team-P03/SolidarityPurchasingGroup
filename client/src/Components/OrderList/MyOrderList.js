@@ -214,8 +214,8 @@ function UpdateBooking(props) {
     const [dataSelect, setDataSelect] = useState(0);
     
     const [cartTotalPrice, setCartTotalPrice] = useState({TotalPrice : props.order.TotalPrice, fee : props.order.PickupTime ? 0 :  3 });
-    const close = () => {setShow(false); setProducts([]); setCartTotalPrice(props.order.TotalPrice)}
-    const open = () => {setShow(true); setMounted(true)};
+    const close = () => {setShow(false); setProducts([]); setCartTotalPrice({TotalPrice : props.order.TotalPrice, fee : props.order.PickupTime ? 0 :  3 })}
+    const open = () => {setShow(true); setMounted(true); setCartTotalPrice({TotalPrice : props.order.TotalPrice, fee : props.order.PickupTime ? 0 :  3 })};
 
     const updateChoice = (choice) => {
         setChoiceSelect(choice);
