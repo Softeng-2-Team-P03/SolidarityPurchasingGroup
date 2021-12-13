@@ -14,10 +14,27 @@ const [show, setShow] = useState(false);
   useEffect(() => {
 
     bookingApi.getOrdersByUserId(props.client.id).then((orders) => {
+      orders.forEach((order) => {
+        // modify numeric status with relative description
+        switch (order.State) {
+            case 0: order.State = "Issued";
+                break;
+            case 1: order.State = "Pending for cancelation";
+                break;
+            case 2: order.State = "Paid";
+                break;
+            case 3: order.State = "Handed out";
+                break;
+            case 4: order.State = 'Canceled';
+                break;
+            default: order.State = "Created";
+
+        }
               console.log("orders:");
               console.log(orders);
               console.log(".............");
                 setOrders(orders.map(order => ({ ...order})));
+              })
                 setLoadingProducts(false);
             }).catch(err => {
                 setErrorLoading('Error during the loading of the orders')
@@ -57,10 +74,12 @@ const [show, setShow] = useState(false);
                     </tr>
                 </thead>
                 <tbody> {
-                    orders.map((or) =>
+                    orders.map((or) =>{
+                      
+                      return (
                         <Order key={or.BookingID}
                             order={or}
-                        />)
+                        />)})
                 }
                 </tbody>
             </Table>

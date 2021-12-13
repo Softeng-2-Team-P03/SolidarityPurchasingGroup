@@ -5,6 +5,7 @@ import SideBar from "../SideBar/SideBar";
 import Cart from "../Cart/Cart"
 import productApi from '../../api/product-api';
 import bookingApi from '../../api/booking-api';
+import userApi from '../../api/user-api';
 import { Redirect, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from "react";
 
@@ -149,7 +150,7 @@ function ProductList(props) {
             booking.deliveryTime = value;
         }
 
-        bookingApi.getWalletBalance(booking.userId)
+        bookingApi.getWalletBalance(booking.userId !== undefined ? booking.userId : props.user.id)
             .then((wallet) => {
                 if (wallet < cartInfo.totalPrice) {
                     const msg = (booking.userName !== undefined) ? `${booking.userName}'s booking` : 'Your booking'
@@ -171,6 +172,17 @@ function ProductList(props) {
         setLoadingConfirm(true);
         bookingApi.addBooking(booking)
             .then((orderId) => {
+                if (error.length > 0) {
+                    const notification = {
+                        userId: booking.userId ? booking.userId : props.user.id,
+                        header: `Not enough credits for order #${orderId}`,
+                        body: `The credit in your wallet is insufficient to pay for your order #${orderId}. Please top up your wallet before Monday at 9.00 or the order will go in pending cancelation.`,
+                        type: 0
+                    }
+                    console.log(notification);
+                    userApi.addNotification(notification)
+                        .catch(err => console.err(err));
+                }
                 setLoadingConfirm(false);
                 setCart([]);
                 setCartInfo({ numItems: 0, fee: 0, totalPrice: 0, });

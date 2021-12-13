@@ -88,12 +88,12 @@ let mailTransporter = nodemailer.createTransport({
 
 function isValidDate(dateString) {
     var regEx = /^\d{4}-\d{2}-\d{2}$/;
-    if(!dateString.match(regEx)) return false;  // Invalid format
+    if (!dateString.match(regEx)) return false;  // Invalid format
     var d = new Date(dateString);
     var dNum = d.getTime();
-    if(!dNum && dNum !== 0) return false; // NaN value, Invalid date
-    return d.toISOString().slice(0,10) === dateString;
-  }
+    if (!dNum && dNum !== 0) return false; // NaN value, Invalid date
+    return d.toISOString().slice(0, 10) === dateString;
+}
 
 /* API SECTION */
 
@@ -291,7 +291,7 @@ app.get('/api/products/:date', async (req, res) => {
     try {
 
         let date = req.params.date;
-        if(!isValidDate(date))
+        if (!isValidDate(date))
             res.status(422).end();
         const result = await productDao.getProducts(date);
         if (result.error) {
@@ -335,7 +335,7 @@ app.get('/api/types', async (req, res) => {
 /*** Get products By TypeId ***/
 app.get('/api/products/type/:typeId/:date', async (req, res) => {
     try {
-        if(!isValidDate(req.params.date))
+        if (!isValidDate(req.params.date))
             res.status(422).end();
         const result = await productDao.getProductsByType(req.params.typeId, req.params.date);
         if (result.error) {
@@ -352,11 +352,11 @@ app.get('/api/products/type/:typeId/:date', async (req, res) => {
 
 
 /*** Get products By State and FarmerId ***/
-app.get('/api/products/:farmerId/:state',  isLoggedIn, async (req, res) => {
- 
+app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
+
     if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
-    } 
+    }
 
     productDao.listFarmerProd(req.params.farmerId, req.params.state)
         .then(products => res.json(products))
@@ -405,7 +405,7 @@ app.post('/api/product',
 });
 
 
-app.put('/api/product/:Id', isLoggedIn,[
+app.put('/api/product/:Id', isLoggedIn, [
     check('Quantity').isInt({ min: 0, max: 10000 }),
     check('PricePerUnit').isFloat({ min: 0, max: 10000 })
 ], async (req, res) => {
@@ -422,7 +422,7 @@ app.put('/api/product/:Id', isLoggedIn,[
     try {
         await productDao.updateProduct(req.body.Quantity, req.params.Id, req.body.Name, req.body.Description, req.body.PricePerUnit, req.body.TypeId);
         res.status(200).end();
-    }catch (err) {
+    } catch (err) {
         res.status(503).json({ error: `Database error during the update of Products.` });
     }
 
@@ -456,6 +456,17 @@ app.put('/api/notification/:Visibility/:Id', /* isLoggedIn, */ async (req, res) 
     }
 
 });
+
+app.post('/api/notification', [
+    check('type').isInt({ min: 0, max: 2 })], async (req, res) => {
+        try {
+            await notificationDao.InsertNotification(req.body.userId, req.body.header, req.body.body, req.body.type);
+            res.status(200).end();
+        } catch (err) {
+            res.status(503).json({ error: `Database error during the update of Products.` });
+        }
+
+    })
 
 // Upload Endpoint
 app.post('/upload', isLoggedIn, (req, res) => {
@@ -526,7 +537,7 @@ app.post('/api/booking', isLoggedIn, [
     }
 
     if (!errors.isEmpty()) {
-        console.log({errors: errors.array()})
+        console.log({ errors: errors.array() })
         return res.status(422).json({ errors: errors.array() });
     }
 
@@ -553,6 +564,7 @@ app.post('/api/booking', isLoggedIn, [
         }
 
     } catch (err) {
+        console.log(err);
         return res.status(503).json({ error: `Database error during the creation of Booking.` });
     }
 });
@@ -597,7 +609,7 @@ app.put('/api/bookings/:id', [
     }
 
 });
-    
+
 
 /*** Delete booking specified by the Id ***/
 
@@ -725,7 +737,7 @@ app.get('/api/bookings/:id/products', async (req, res) => {
 // After Update Available Product We Call This Url Wit Product Id
 //localhost:3001/api/confirmBookingProduct/{ProductId}'
 app.get('/api/confirmBookingProduct/:id', async (req, res) => {
-    if(isNaN(req.params.id))
+    if (isNaN(req.params.id))
         return res.status(422).end();
 
     var productId = req.params.id;
@@ -737,45 +749,48 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
     var productName = "Title";
     console.log(productId)
     /*try {*/
-        const product = await orderDao.GetProductInfoForConfirmation(productId);
-        if (product.error)
-            res.status(404).json(product);
-        else {
-            farmerId = product.FarmerId;
-            productName = product.ProductName;
-            pricePerUnit = product.PricePerUnit;
-            quantity = product.Quantity;
-            const bookingAndProducts = await orderDao.GetBookingProductsByProduct(productId);
-            if (bookingAndProducts.length > 0) {
-                //bookingAndProducts.forEach(async element => {
-                for( const element of bookingAndProducts){
-                    console.log(element)
-                    userId = element.UserId;
-                    bookingId = element.BookingId;
-                    if (element.Quantity <= quantity) {
-                        quantity = quantity - element.Quantity;
-                    }
-                    else {
-                        console.log("notification insert");
-                        var prevQuantity = element.Quantity;
-                        element.Quantity = quantity;
-                        quantity = 0;
-                        let header = "Change Booking#" + bookingId;
-                        let body = "The quantity of " + productName + " has changed by Farmer from " + prevQuantity + " to " + element.Quantity;
-                        await notificationDao.InsertNotification(userId, header, body, 1);
-                        var priceDiff = (prevQuantity - element.Quantity)*pricePerUnit;
-                        await orderDao.UpdateBookingTotalPrice(priceDiff, bookingId);
-                    }
-                    await orderDao.UpdateBookingProduct(quantity == null ? 0 : element.Quantity, pricePerUnit, bookingId, productId);
+    const product = await orderDao.GetProductInfoForConfirmation(productId);
+    if (product.error)
+        res.status(404).json(product);
+    else {
+        farmerId = product.FarmerId;
+        productName = product.ProductName;
+        pricePerUnit = product.PricePerUnit;
+        quantity = product.Quantity;
+        const bookingAndProducts = await orderDao.GetBookingProductsByProduct(productId);
+        if (bookingAndProducts.length > 0) {
+            //bookingAndProducts.forEach(async element => {
+            for (const element of bookingAndProducts) {
+                console.log(element)
+                userId = element.UserId;
+                bookingId = element.BookingId;
+                if (element.Quantity <= quantity) {
+                    quantity = quantity - element.Quantity;
                 }
+                else {
+                    console.log("notification insert");
+                    var prevQuantity = element.Quantity;
+                    element.Quantity = quantity;
+                    quantity = 0;
+                    let header = "Change Booking#" + bookingId;
+                    let body = "The quantity of " + productName + " has changed by Farmer from " + prevQuantity + " to " + element.Quantity;
+                    await notificationDao.InsertNotification(userId, header, body, 1);
+                    var priceDiff = (prevQuantity - element.Quantity) * pricePerUnit;
+                    await orderDao.UpdateBookingTotalPrice(priceDiff, bookingId);
+                }
+                await orderDao.UpdateBookingProduct(quantity == null ? 0 : element.Quantity, pricePerUnit, bookingId, productId);
             }
-            res.status(200).end();
         }
+        res.status(200).end();
+    }
+    res.status(200).end();
+    //res.json({ status: "Ok" });
+}
     /*}
     catch (err) {
       res.status(500).end();
     } */
-});
+);
 
 /** confirmAllBookings: at 9am of monday a cronjob calls this api to receive payments for each booking having state = 0 = issued
  * if a booking with state 0 = "issued" is linked to a client having a
@@ -784,26 +799,26 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
  * (@todo change "paid" field in "toPay" into the Database)
  **/
 app.get('/api/confirmAllBookings', async (req, res) => {
-    
-    try{
+
+    try {
 
         let userBookings = await orderDao.getIssuedBookingsAndUsers();
-        if (userBookings.length <= 0) { 
+        if (userBookings.length <= 0) {
             console.log("no products with state 0=issued found in the db");
-            res.status(404).end(); 
+            res.status(404).end();
         }
-        
+
         //userBookings.forEach(async ub => {
-        for( const ub of userBookings){
-            console.log("user "+ ub.UserId + ", booking "+ ub.BookingId);
+        for (const ub of userBookings) {
+            console.log("user " + ub.UserId + ", booking " + ub.BookingId);
             let wallet = await userDao.getWalletBalance(ub.UserId);
-            console.log("user wallet is:  "+ wallet);
+            console.log("user wallet is:  " + wallet);
             //let wallet = ub.Wallet;
-            if(ub.TotalPrice <= wallet ){
-                
-                console.log("TotalPrice "+ ub.TotalPrice + ", Wallet = "+ wallet + "is enough");
-                console.log("Removing "+ ub.TotalPrice + ", from Wallet");
-                await userDao.decreaseWallet( ub.UserId, ub.TotalPrice );
+            if (ub.TotalPrice <= wallet) {
+
+                console.log("TotalPrice " + ub.TotalPrice + ", Wallet = " + wallet + "is enough");
+                console.log("Removing " + ub.TotalPrice + ", from Wallet");
+                await userDao.decreaseWallet(ub.UserId, ub.TotalPrice);
                 wallet = wallet - ub.TotalPrice;
                 //wallet = await userDao.getWalletBalance(ub.UserId);
                 console.log("Wallet is now: " + wallet);
@@ -812,13 +827,13 @@ app.get('/api/confirmAllBookings', async (req, res) => {
                 await orderDao.updateBookingState(2, ub.BookingId);
 
             }
-            else{
+            else {
 
-                console.log("TotalPrice "+ ub.TotalPrice + ", Wallet = "+ wallet + "is NOT enough");
+                console.log("TotalPrice " + ub.TotalPrice + ", Wallet = " + wallet + "is NOT enough");
 
                 console.log("Update booking state to 1 = pending cancelation");
                 await orderDao.updateBookingState(1, ub.BookingId);
-                
+
                 console.log("Insert pending cancelation notification");
                 let header = "Not enough credits";
                 let body = "The credit in your wallet is insufficient to pay for your order #" + ub.BookingId + ". Please top up your wallet before Monday at 23.59 ";
@@ -840,27 +855,27 @@ app.get('/api/confirmAllBookings', async (req, res) => {
  * else if wallet with credits < "paid" then it sets the booking state to 4 = "canceled"
  * (@todo change "paid" field in "toPay" into the Database)
  **/
- app.get('/api/confirmAllBookingsPendingCancelation', async (req, res) => {
-    
-    try{
+app.get('/api/confirmAllBookingsPendingCancelation', async (req, res) => {
+
+    try {
 
         let userBookings = await orderDao.getPendingCancelationBookingsAndUsers();
-        if (userBookings.length <= 0) { 
+        if (userBookings.length <= 0) {
             console.log("no products with state 1 = pending cancelation found in the db");
-            res.status(404).end(); 
+            res.status(404).end();
         }
 
         //userBookings.forEach(async ub => {
-        
-        for( const ub of userBookings){
-            console.log("user "+ ub.UserId + ", booking "+ ub.BookingId);
+
+        for (const ub of userBookings) {
+            console.log("user " + ub.UserId + ", booking " + ub.BookingId);
             let wallet = await userDao.getWalletBalance(ub.UserId);
-            console.log("user wallet is:  "+ wallet);
-            if(ub.TotalPrice <= wallet ){
-                
-                console.log("TotalPrice "+ ub.TotalPrice + ", Wallet = "+ wallet + "is enough");
-                console.log("Removing "+ ub.TotalPrice + ", from Wallet");
-                await userDao.decreaseWallet( ub.UserId, ub.TotalPrice );
+            console.log("user wallet is:  " + wallet);
+            if (ub.TotalPrice <= wallet) {
+
+                console.log("TotalPrice " + ub.TotalPrice + ", Wallet = " + wallet + "is enough");
+                console.log("Removing " + ub.TotalPrice + ", from Wallet");
+                await userDao.decreaseWallet(ub.UserId, ub.TotalPrice);
                 wallet = wallet - ub.TotalPrice;
                 //wallet = await userDao.getWalletBalance(ub.UserId);
                 console.log("Wallet is now: " + wallet);
@@ -869,13 +884,13 @@ app.get('/api/confirmAllBookings', async (req, res) => {
                 await orderDao.updateBookingState(2, ub.BookingId);
 
             }
-            else{
+            else {
 
-                console.log("TotalPrice "+ ub.TotalPrice + ", Wallet = "+ wallet + "is NOT enough");
+                console.log("TotalPrice " + ub.TotalPrice + ", Wallet = " + wallet + "is NOT enough");
 
                 console.log("Update booking state to 4 = canceled");
                 await orderDao.updateBookingState(4, ub.BookingId);
-                
+
                 console.log("Insert canceled order notfications");
                 let header = "Order canceled";
                 let body = "The credit in your wallet is insufficient to pay for your order #" + ub.BookingId + ". The order has been canceled. ";
@@ -955,29 +970,29 @@ Body :
 */
 app.put('/api/bookingUpdateByClient/:id', isLoggedIn, async (req, res) => {
     try {
-        var bookingId=req.body.BookingId;       
-        var deliveryTime=req.body.DeliveryTime; 
+        var bookingId = req.body.BookingId;
+        var deliveryTime = req.body.DeliveryTime;
         var pickupTime = req.body.PickupTime;
         var totalSum = req.body.totalPrice;
-        var userId=req.body.userId ;      
-          
-        if (req.user.id==userId){
+        var userId = req.body.userId;
+
+        if (req.user.id == userId) {
             req.body.products.forEach(async element => {
-                var productId=element.productId;
-                var pricePerUnit=  await productDao.getProductPriceUnit(productId);
-                var quantity=element.quantity;
-                await orderDao.UpdateBookingProduct(quantity,pricePerUnit,bookingId,productId);
-              });
-        var lastUpdate= await orderDao.UpdateBookingByClient(bookingId,deliveryTime,pickupTime, totalSum);
-        res.json(lastUpdate);
-    }
-    else
-        res.status(503).json({ error: `This order is not match for you` });
+                var productId = element.productId;
+                var pricePerUnit = await productDao.getProductPriceUnit(productId);
+                var quantity = element.quantity;
+                await orderDao.UpdateBookingProduct(quantity, pricePerUnit, bookingId, productId);
+            });
+            var lastUpdate = await orderDao.UpdateBookingByClient(bookingId, deliveryTime, pickupTime, totalSum);
+            res.json(lastUpdate);
+        }
+        else
+            res.status(503).json({ error: `This order is not match for you` });
 
     } catch (err) {
         res.status(500).end();
     }
-    
+
 })
 
 // Activate the server
