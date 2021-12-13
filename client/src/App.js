@@ -23,6 +23,8 @@ function App() {
   let dateDone;
   let confirmBookingsPending = false;
   let datePending;
+  let emailSent = false;
+  let dateEmail;
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -64,9 +66,11 @@ function App() {
   useEffect(() => {
     const id1 = setInterval(checkConfirmBookings, 1000);
     const id2 = setInterval(checkConfirmBookingsPending, 1000);
+    const id3 = setInterval(sendMails, 1000);
     checkConfirmBookings();
     checkConfirmBookingsPending();
-    return () => { clearInterval(id1); clearInterval(id2); }
+    sendMails();
+    return () => { clearInterval(id1); clearInterval(id2); clearInterval(id3) }
   }, [])
 
   const checkConfirmBookings = () => {
@@ -101,9 +105,24 @@ function App() {
       datePending = new Date(t.getTime());
       confirmBookingsPending = true;
     }
-
   }
 
+  const sendMails = () => {
+    let t = new Date(localStorage.getItem('virtualDate'));
+
+    if (emailSent === true && t.getTime() > dateEmail.getTime()) { //already called API
+      console.log("API to send emails has been called!")
+      emailSent = false;
+      return;
+    }
+    if (emailSent === false && t.getDay() === 1 && t.getHours() === 9 && t.getMinutes() === 0 && t.getSeconds() >= 10 && t.getSeconds() <= 11) {
+      API.sendMailNotifications()
+        .catch(err => console.err(err));
+      console.log("Called API to send emails")
+      dateEmail = new Date(t.getTime());
+      emailSent = true;
+    }
+  }
 
   return (
     <>

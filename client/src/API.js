@@ -15,9 +15,9 @@ async function getAllProducts() {
     }
 }
 
-async function getProductsByDate(day,month,year) {
+async function getProductsByDate(day, month, year) {
     // call: GET /api/products
-    const response = await fetch(BASEURL + '/products/' + day +'/' + month +'/'+ year);
+    const response = await fetch(BASEURL + '/products/' + day + '/' + month + '/' + year);
     const productsJson = await response.json();
     console.log(productsJson);
     if (response.ok) {
@@ -27,7 +27,7 @@ async function getProductsByDate(day,month,year) {
     }
 }
 
-function addImage(id,path) {
+function addImage(id, path) {
     // call: POST /api/image
     return new Promise((resolve, reject) => {
         fetch(BASEURL + '/image', {
@@ -35,7 +35,7 @@ function addImage(id,path) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({id: id, path: path}),
+            body: JSON.stringify({ id: id, path: path }),
         }).then((response) => {
             if (response.ok) {
                 resolve(null);
@@ -49,9 +49,9 @@ function addImage(id,path) {
     });
 }
 
-async function getProdFarmer(farmerId,state) {
+async function getProdFarmer(farmerId, state) {
     // call: GET /api/products/farmerId/state/
-    const response = await fetch(BASEURL + '/products/' + farmerId +'/' + state);
+    const response = await fetch(BASEURL + '/products/' + farmerId + '/' + state);
     const prodJson = await response.json();
     if (response.ok) {
         return prodJson;
@@ -61,10 +61,10 @@ async function getProdFarmer(farmerId,state) {
 }
 
 async function addNewClient(client) {
-    const response = await fetch('/api/new_client',  {
+    const response = await fetch('/api/new_client', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...client})
+        body: JSON.stringify({ ...client })
     });
     if (response.ok) {
         return null;
@@ -113,7 +113,7 @@ async function getAllClients() {
     }
 }
 
-function addProduct(FarmerId, Name, Description,Quantity,State,TypeId,PricePerUnit,ExpiringDate) {
+function addProduct(FarmerId, Name, Description, Quantity, State, TypeId, PricePerUnit, ExpiringDate) {
     // call: POST /api/product
     return new Promise((resolve, reject) => {
         fetch(BASEURL + '/product', {
@@ -121,8 +121,10 @@ function addProduct(FarmerId, Name, Description,Quantity,State,TypeId,PricePerUn
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({FarmerId: FarmerId, Name: Name,Description:Description,
-                Quantity:Quantity,State:State,TypeId:TypeId,PricePerUnit:PricePerUnit,ExpiringDate:ExpiringDate}),
+            body: JSON.stringify({
+                FarmerId: FarmerId, Name: Name, Description: Description,
+                Quantity: Quantity, State: State, TypeId: TypeId, PricePerUnit: PricePerUnit, ExpiringDate: ExpiringDate
+            }),
         }).then((response) => {//NOSONAR
             if (response.ok) {
                 resolve(null);
@@ -136,15 +138,15 @@ function addProduct(FarmerId, Name, Description,Quantity,State,TypeId,PricePerUn
     });
 }
 
-function updateProductState(State,Id) {
+function updateProductState(State, Id) {
     // call: PUT /api/product/:State/:Id
     return new Promise((resolve, reject) => {
-        fetch(BASEURL + '/product/' + State +'/' + Id, {
+        fetch(BASEURL + '/product/' + State + '/' + Id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({State: State, Id:Id}),
+            body: JSON.stringify({ State: State, Id: Id }),
         }).then((response) => {
             if (response.ok) {
                 resolve(null);
@@ -157,15 +159,15 @@ function updateProductState(State,Id) {
         }).catch(() => { reject({ error: "Cannot communicate with the server." }) }); // connection errors
     });
 }
-function updateNotificationVisibility(Visibility,Id) {
+function updateNotificationVisibility(Visibility, Id) {
     // call: PUT /api/notification/:Visibility/:Id
     return new Promise((resolve, reject) => {
-        fetch(BASEURL + '/notification/' + Visibility +'/' + Id, {
+        fetch(BASEURL + '/notification/' + Visibility + '/' + Id, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({Visibility: Visibility, Id:Id}),
+            body: JSON.stringify({ Visibility: Visibility, Id: Id }),
         }).then((response) => { //NOSONAR
             if (response.ok) {
                 resolve(null);
@@ -179,7 +181,7 @@ function updateNotificationVisibility(Visibility,Id) {
     });
 }
 
-function updateProductInfo(Quantity,Id,Name,Description,PricePerUnit,TypeId) {
+function updateProductInfo(Quantity, Id, Name, Description, PricePerUnit, TypeId) {
     // call: PUT /api/product/:Id
     return new Promise((resolve, reject) => {
         fetch(BASEURL + '/product/' + Id, {
@@ -187,7 +189,7 @@ function updateProductInfo(Quantity,Id,Name,Description,PricePerUnit,TypeId) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({Quantity: Quantity, Id:Id, Name:Name, Description:Description, PricePerUnit:PricePerUnit,TypeId:TypeId}),
+            body: JSON.stringify({ Quantity: Quantity, Id: Id, Name: Name, Description: Description, PricePerUnit: PricePerUnit, TypeId: TypeId }),
         }).then((response) => {
             if (response.ok) {
                 resolve(null);
@@ -201,7 +203,7 @@ function updateProductInfo(Quantity,Id,Name,Description,PricePerUnit,TypeId) {
     });
 }
 
-function updateProductQuantity(Quantity,Id) {
+function updateProductQuantity(Quantity, Id) {
     // call: PUT /api/product/:Id
     return new Promise((resolve, reject) => {
         fetch(BASEURL + '/productQuantity/' + Id, {
@@ -209,7 +211,7 @@ function updateProductQuantity(Quantity,Id) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({Quantity: Quantity, Id:Id}),
+            body: JSON.stringify({ Quantity: Quantity, Id: Id }),
         }).then((response) => {
             if (response.ok) {
                 console.log("api");
@@ -224,24 +226,35 @@ function updateProductQuantity(Quantity,Id) {
     });
 }
 
-async function confirmAllBookings(){
+async function confirmAllBookings() {
     const response = await fetch(BASEURL + '/confirmAllBookings');
     if (response.ok) {
         return null;
     } else {
-        throw {err: 'GET confirmAllBookings error'};  // an object with the error coming from the server
+        throw { err: 'GET confirmAllBookings error' };  // an object with the error coming from the server
     }
 }
 
-async function confirmAllBookingsPendingCancelation(){
+async function confirmAllBookingsPendingCancelation() {
     const response = await fetch(BASEURL + '/confirmAllBookingsPendingCancelation');
     if (response.ok) {
         return null;
     } else {
-        throw {err: 'GET confirmAllBookingsPendingCancelation error'};  // an object with the error coming from the server
+        throw { err: 'GET confirmAllBookingsPendingCancelation error' };  // an object with the error coming from the server
     }
 }
 
-const API = { logIn, logOut, getUserInfo,addNewClient,getAllProducts,getProductsByDate,addImage,getAllClients,getProdFarmer,addProduct,updateProductState, updateProductInfo,updateProductQuantity, updateNotificationVisibility, 
-    confirmAllBookings, confirmAllBookingsPendingCancelation};
+async function sendMailNotifications() {
+    const response = await fetch(BASEURL + '/send-mail-notifications');
+    if (response.ok) {
+        return null;
+    } else {
+        throw { err: 'GET send-mail-notification error' };
+    }
+}
+
+const API = {
+    logIn, logOut, getUserInfo, addNewClient, getAllProducts, getProductsByDate, addImage, getAllClients, getProdFarmer, addProduct, updateProductState, updateProductInfo, updateProductQuantity, updateNotificationVisibility,
+    confirmAllBookings, confirmAllBookingsPendingCancelation, sendMailNotifications
+};
 export default API;
