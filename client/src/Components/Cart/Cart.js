@@ -19,6 +19,7 @@ function Cart(props) {
     const [dateMax, setDateMax] = useState('');
     let currentDate = localStorage.getItem('virtualDate')
     const [choiceSelect, setChoiceSelect] = useState('0');
+    const [dataSelect, setDataSelect] = useState(0);
 
     const close = () => setShow(false);
     const open = () => setShow(true);
@@ -94,6 +95,7 @@ function Cart(props) {
                                     value={value}
                                     onChange={(newValue) => {
                                         setValue(newValue);
+                                        setDataSelect(1);
                                     }}
                                     minDate={dateMin}
                                     maxDate={dateMax}
@@ -109,10 +111,23 @@ function Cart(props) {
                         <></>
                     }
                     <div className="butn">
-                        <Button variant="success" disabled={props.cart.length === 0 || props.loadingConfirm || choiceSelect === '0'}
-                            onClick={() => props.confirmOrder(formatDateWithoutSeconds(value), choiceSelect)}>
-                            {props.loadingConfirm ? <>Submitting order <Spinner animation="border" size="sm" /></> : "Confirm Order"}
-                        </Button>
+                        { dataSelect===1 ?
+                            <Button variant="success"
+                                    disabled={props.cart.length === 0 || props.loadingConfirm || choiceSelect === '0'}
+                                    onClick={() => props.confirmOrder(formatDateWithoutSeconds(value), choiceSelect)}>
+                                {props.loadingConfirm ? <>Submitting order <Spinner animation="border"
+                                                                                    size="sm"/></> : "Confirm Order"}
+                            </Button>
+                            :
+                            <Button variant="success"
+                                    disabled={1}
+                                    onClick={() => props.confirmOrder(formatDateWithoutSeconds(value), choiceSelect)}>
+                                {props.loadingConfirm ? <>Submitting order <Spinner animation="border"
+                                                                                    size="sm"/></> : "Confirm Order"}
+                            </Button>
+
+                        }
+
                     </div>
                     <small>Remember to choose a delivery option.<br/> Additional fees required if you choose delivery at home.</small>
                     <br />
