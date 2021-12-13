@@ -6,7 +6,7 @@ import NavBar from './Components/NavBar/NavBar';
 import HomePage from './Components/HomePage/HomePage';
 import OrderSuccess from './Components/SuccessPage/OrderSuccess';
 import { MyOrderList } from './Components/OrderList/MyOrderList';
-import FarmerHome from './Components/FarmerHome/FarmerHome';
+import { FarmerHome } from './Components/FarmerHome/FarmerHome';
 import { WareHouseHome } from './Components/WareHouseHome/WareHouseHome';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { React, useState, useEffect } from "react";

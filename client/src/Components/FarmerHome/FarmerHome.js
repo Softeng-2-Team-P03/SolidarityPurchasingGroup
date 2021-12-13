@@ -636,4 +636,4 @@ function EditProductForm(props) {
 }
 
 
-export default FarmerHome;
+export {FarmerHome, ProductListItem, AddProductForm, EditProductForm};
