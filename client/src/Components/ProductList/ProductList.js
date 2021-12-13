@@ -150,7 +150,7 @@ function ProductList(props) {
 
         bookingApi.getWalletBalance()
             .then((wallet) => {
-                if (wallet["Wallet"] < cartInfo.totalPrice) {
+                if (wallet < cartInfo.totalPrice) {
                     setErrorConfirm("Your booking will be registered but your wallet balance is not enough. Please, remember to top it up as soon as possible");
                     ConfirmForSucessPage(booking, "Your booking is registered in the system but your wallet balance is not enough. Please, remember to top it up as soon as possible")
                 }

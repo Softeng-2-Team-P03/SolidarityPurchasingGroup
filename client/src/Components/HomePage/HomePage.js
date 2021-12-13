@@ -24,11 +24,11 @@ function HomePage(prop) {
                     required = reqiuired["TotalPrice"];
                     userApi.getWalletBalance()
                         .then((wallet) => {
-                            console.log("ddddddddddddd");
-                            console.log(wallet["Wallet"])
-                            console.log("required"+required)
+                            //console.log("ddddddddddddd");
+                            //console.log(wallet["Wallet"])
+                            //console.log("required"+required)
 
-                            if (wallet["Wallet"] < required) {
+                            if (wallet < required) {
                                 setShowModal(true);
                             }
                         })

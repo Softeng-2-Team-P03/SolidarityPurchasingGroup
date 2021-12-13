@@ -34,7 +34,7 @@ function NavBar(props) {
   return (    
      
       <Navbar bg="primary" variant="dark" expand="lg">
-        <Col xs="2">
+        <Col>
           <Navbar.Brand href="/" className="col-md-2">
             <img
               src={spg}
@@ -47,13 +47,13 @@ function NavBar(props) {
 
         </Col>
 
-        <Col xs="6">
+        <Col xs="7">
 
           <ShowClock className="me-auto timer" />
 
 
         </Col>
-        <Col xs="4">
+        <Col xs="3">
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
 
