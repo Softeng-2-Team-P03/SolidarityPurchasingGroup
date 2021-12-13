@@ -75,7 +75,7 @@ function Order(props) {
                     disabled
                 /> </td>}
                 <td>
-                    <Row>{props.order.State === "pending for cancelation" ?  <Col xs= "4"><ContactUser order={props.order} /></Col> : ""} <Col xs="8"><DeleteOrder order={props.order} setConfirmationMessage={props.setConfirmationMessage} setMessage={props.setMessage}/></Col> </Row>
+                    <Row>{props.order.State === "Pending for cancelation" ?  <Col xs= "4"><ContactUser order={props.order} /></Col> : ""} <Col xs="8"><DeleteOrder order={props.order} setConfirmationMessage={props.setConfirmationMessage} setMessage={props.setMessage}/></Col> </Row>
                 </td>
             </tr>
         </>
