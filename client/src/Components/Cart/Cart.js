@@ -114,8 +114,8 @@ function Cart(props) {
                                     minDate={dateMin}
                                     maxDate={dateMax}
 
-                                    minTime={dateMin}
-                                    maxTime={dateMax}
+                                    minTime={new Date(0,0,0,9)}
+                                    maxTime={new Date(0,0,0,23,1)}
 
                                    // minutesStep={30}
                                 />
