@@ -15,7 +15,7 @@ async function getRequiredCharge() {
 
 async function getWalletBalance(userId) {
   // call: GET /api/orders
-  const response = await fetch(BASEURL + '/clients/getWallet/' + userId);
+  const response = await fetch(BASEURL + '/clients/'+userId+'/getWallet');
   const walletBalance = await response.json();
   if (response.ok) {
     return walletBalance;

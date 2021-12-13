@@ -212,9 +212,9 @@ app.get('/api/client/:userId', isLoggedIn, async (req, res) => {
 
 
 //**** Get Get Wallet Balance ****//
-app.get('/api/clients/getWallet', isLoggedIn, async (req, res) => {
+app.get('/api/clients/:id/getWallet', isLoggedIn, async (req, res) => {
     try {
-        const result = await userDao.getWalletBalance(req.user.id);
+        const result = await userDao.getWalletBalance(req.params.id);
         if (result.error)
             res.status(404).json(result);
         else
