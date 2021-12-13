@@ -100,6 +100,14 @@ function Cart(props) {
                                     label="Select date and time"
                                     value={value}
                                     onChange={(newValue) => {
+                                        console.log(newValue.getMinutes());
+                                        if(newValue.getMinutes > 30){
+                                            newValue.setHours(newValue.getHours()+1);
+                                            newValue.setMinutes(0);
+
+                                        } else {
+                                            newValue.setMinutes(0);
+                                        }
                                         setValue(newValue);
                                         setDataSelect(1);
                                     }}
