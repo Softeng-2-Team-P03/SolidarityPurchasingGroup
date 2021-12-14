@@ -377,6 +377,13 @@ function UpdateBooking(props) {
                                     label="Select date and time"
                                     value={value}
                                     onChange={(newValue) => {
+                                        if(newValue.getMinutes() > 30){
+                                            newValue.setHours(newValue.getHours());
+                                            newValue.setMinutes(30);
+
+                                        } else {
+                                            newValue.setMinutes(0);
+                                        }
                                         setValue(newValue);
                                         setDataSelect(1);
                                     }}
@@ -386,7 +393,10 @@ function UpdateBooking(props) {
                                     minTime={dateMin}
                                     maxTime={dateMax}
 
-                                    minutesStep={30}
+                                    minTime={new Date(0, 0, 0, 9)}
+                                    maxTime={new Date(0, 0, 0, 23, 1)}
+
+                                   // minutesStep={30}
                                 />
                             </Stack>
                         </LocalizationProvider>

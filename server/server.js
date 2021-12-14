@@ -985,8 +985,7 @@ app.put('/api/bookingUpdateByClient/:id',  isLoggedIn,  async (req, res) => {
         var totalSum = req.body.totalPrice;
         var userId = req.body.userId;
         await orderDao.DeleteBookingProduct(bookingId);
-        const prova = orderDao.GetProductsFromBookingId(bookingId);
-        console.log(prova);
+        
 
 
         if (req.user.id == userId) {
