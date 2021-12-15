@@ -1,9 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
-import { ListGroup, Table, Button, Row, Col, Modal, Form, Dropdown, Image, Alert, InputGroup, FormControl } from "react-bootstrap";
+import { ListGroup, Button, Row, Col, Modal, Form, Alert, InputGroup } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
-import { AddClientForm } from "../ClientList/AddClient";
-import { Client } from "../Client";
 import './FarmerHome.css'
 import API from "../../API";
 import axios from "axios";
@@ -14,7 +12,6 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DateTimePicker from '@mui/lab/DateTimePicker';
 import itLocale from 'date-fns/locale/it';
 import { DesktopDatePicker } from "@mui/lab";
 
