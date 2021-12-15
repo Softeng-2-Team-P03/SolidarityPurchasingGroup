@@ -190,7 +190,7 @@ function MyOrder(props){
                 {props.order.PickupTime ? <td> PickupTime:  {props.order.PickupTime}  </td> : <td> DeliveryTime:{props.order.DeliveryTime} </td>}
                 <td>{props.order.TotalPrice} €</td>
                 <td><Button onClick={() => props.deleteBooking(props.order.BookingId)} >Delete Booking</Button></td>
-               {props.timeEnabled ? 
+               {(props.timeEnabled && props.state === 'Issued') ? 
                 <td><UpdateBooking order={props.order} updateBooking={props.updateBooking} >Update Booking</UpdateBooking></td> :<td></td>
 }
                </tr>

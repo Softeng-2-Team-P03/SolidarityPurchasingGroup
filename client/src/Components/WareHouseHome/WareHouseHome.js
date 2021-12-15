@@ -102,7 +102,7 @@ function RowData(props) {
                         type="switch"
                         id="custom-switch"
                         label="Delivered"    
-                        checked={props.product.state}                   
+                        checked={props.product.state == 2}                    
                         onClick={() => props.updateProductState(props.product.id)}
                     />
 
