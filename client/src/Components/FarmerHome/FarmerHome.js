@@ -1,5 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ListGroup, Table, Button, Row, Col, Modal, Form, Dropdown, Image, Alert, InputGroup, FormControl } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import { AddClientForm } from "../ClientList/AddClient";
@@ -16,7 +16,7 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import itLocale from 'date-fns/locale/it';
-import {DesktopDatePicker} from "@mui/lab";
+import { DesktopDatePicker } from "@mui/lab";
 
 function FarmerHome() {
 
@@ -255,7 +255,7 @@ function AddProductForm(props) {
     const [message, setMessage] = useState('');
     const [uploadPercentage, setUploadPercentage] = useState(0);
     const [timeToString, setTimeToString] = useState(localStorage.getItem('virtualDateToString'));
-    const [expireD, setExpireD] = React.useState(new Date(localStorage.getItem('virtualDate')));
+    const [expireD, setExpireD] = useState(new Date(localStorage.getItem('virtualDate')));
 
 
     useEffect(() => {
@@ -382,7 +382,7 @@ function AddProductForm(props) {
 
                 setMessage('File Uploaded');
 
-                let expire = expireD.getFullYear()+'-'+expireD.getMonth().toString()+'-'+expireD.getDate().toString()
+                let expire = expireD.getFullYear() + '-' + expireD.getMonth().toString() + '-' + expireD.getDate().toString()
 
                 API.addProduct(props.idFarmer.id, name, description, quantity, 0, 1, pricePerUnit,
                     expire);
@@ -416,7 +416,7 @@ function AddProductForm(props) {
         <Form.Label>Image</Form.Label>
 
 
-        <Fragment>
+        <>
             {message ? <Message msg={message} /> : null}
 
             {uploadedFile ? (
@@ -441,7 +441,7 @@ function AddProductForm(props) {
                 <Progress percentage={uploadPercentage} />
             </form>
 
-        </Fragment>
+        </>
 
 
         <Form>
@@ -636,4 +636,4 @@ function EditProductForm(props) {
 }
 
 
-export {FarmerHome, ProductListItem, AddProductForm, EditProductForm};
+export { FarmerHome, ProductListItem, AddProductForm, EditProductForm };
