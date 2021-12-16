@@ -31,16 +31,15 @@ sections:
 
 | Story | # Tasks | Points | Hours est. | Hours actual |
 | ----- | ------- | ------ | ---------- | ------------ |
-| _#0_  | 15      | -      | 48h 50m    | 54h 20m      |
-| _#2_  | 3       | 5      | 4h 30m     | 3h 10m       |
-| _#4_  | 5       | 2      | 7h 30m     | 10h          |
-| _#5_  | 3       | 3      | 5h         | 3h           |
-| _#6_  | 1       | 5      | 1h         | 1h           |
-| _#7_  | 5       | 8      | 6h 30m     | 4h 30m       |
-| _#8_  | 6       | 3      | 9h 30m     | 8h 30m       |
-| _#9_  | 12      | 13     | 19h        | 21h 30m      |
-| _#10_ | 7       | 5      | 9h 30m     | 1h 30m       |
-| _#11_ | 4       | 8      | 5h 30m     | 5h           |
+| _#0_  | 7       | -      | 17h 30m    | 17h 30m      |
+| _#5_  | 1       | 3      | 1h         | 1h           |
+| _#9_  | 3       | 13     | 5h 30m     | 5h 30m       |
+| _#10_ | 6       | 5      | 8h 30m     | 10h          |
+| _#12_ | 3       | 3      | 4h 30m     | 4h 30m       |
+| _#13_ | 3       | 3      | 3h         | 1h 40m       |
+| _#17_ | 18      | 5      | 35h 30m    | 33h 30m      |
+| _#15_ | 4       | 3      | 6h         | 5h           |
+| _#16_ | 9       | 13     | 15h        | 15h          |
 
 > place technical tasks corresponding to story `#0` and leave out story points (not applicable in this case)
 
