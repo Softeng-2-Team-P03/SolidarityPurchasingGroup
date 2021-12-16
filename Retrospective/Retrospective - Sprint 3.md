@@ -34,7 +34,7 @@ sections:
 | _#0_  | 7       | -      | 17h 30m    | 17h 30m      |
 | _#5_  | 1       | 3      | 1h         | 1h           |
 | _#9_  | 3       | 13     | 5h 30m     | 5h 30m       |
-| _#10_ | 6       | 5      | 8h 30m     | 10h          |
+| _#10_ | 6       | 5      | 9h 30m     | 10h          |
 | _#12_ | 3       | 3      | 4h 30m     | 4h 30m       |
 | _#13_ | 3       | 3      | 3h         | 1h 40m       |
 | _#17_ | 18      | 5      | 35h 30m    | 33h 30m      |
@@ -44,9 +44,9 @@ sections:
 > place technical tasks corresponding to story `#0` and leave out story points (not applicable in this case)
 
 - Hours per task (average, standard deviation):
-  - Average: 2.49, Standard Deviation: 6.21 (In this calculation is included the sprint planning which took 14h)
-  - Average: 2.08, Standard Deviation: 3.32 (Sprint planning not included, we had a single big task for technical debt)
-- Total task estimation error ratio: sum of total hours estimation / sum of total hours spent from previous table: 116h 50m / 112h 30m = 1.04
+  - Average: 1.9, Standard Deviation: 1.89 (In this calculation is included the sprint planning which took 14h)
+  - Average: 1.70, Standard Deviation: 1.07 (Sprint planning not included, we had a single big task for technical debt)
+- Total task estimation error ratio: sum of total hours estimation / sum of total hours spent from previous table: 97h 30m / 93h 40m = 1.04
 
   
 ## QUALITY MEASURES 
