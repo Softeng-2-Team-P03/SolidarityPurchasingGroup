@@ -48,8 +48,10 @@ sections:
   - Average: 1.70, Standard Deviation: 1.07 (Sprint planning not included, we had a single big task for technical debt)
 - Total task estimation error ratio: sum of total hours estimation / sum of total hours spent from previous table: 97h 30m / 93h 40m = 1.04
 
+Please, notice that the total sum of the hours estimated and spent are different than those declared in the macro statistics because here i amconsidering only the measures relative to the table, leaving out non-technical tasks of story 0 such as scrum meetings, sprint planning and the task allocated to prepare the presentation for the demo.
+
   
-## QUALITY MEASURES 
+## QUALITY MEASURES
 
 - Unit Testing:
   - Total hours estimated: 17h 30m
