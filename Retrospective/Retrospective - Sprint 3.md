@@ -15,7 +15,7 @@ sections:
 - Number of stories committed vs done: 8 committed vs 8 done
 - Total points committed vs done: 48 vs 48
 - Nr of hours planned vs spent (as a team): 
-  - Hours planned: 112h 30m 114h 20m
+  - Hours planned: 114h 20m
   - Hours spent as a team: 112h 30m
 
 **Remember**  a story is done ONLY if it fits the Definition of Done:
