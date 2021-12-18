@@ -16,6 +16,9 @@ const credentials = require('./credentials');
 //import { gmailcredentials } from './credentials.js';
 const notificationDao = require('./notification-dao.js');
 
+/* import for cronjobs */
+var cron = require('node-cron');
+
 const bodyParser = require('body-parser')
 //---------------------------------------------------
 //    import For Telegram 
@@ -23,7 +26,7 @@ const bodyParser = require('body-parser')
 require('dotenv').config()
 const telegramDao = require('./telegram/dao.js');
 const axios = require('axios')
-const { Telegraf, Markup,Telegram } = require('telegraf');
+const { Telegraf, Markup, Telegram } = require('telegraf');
 const { TOKEN, SERVER_URL } = process.env
 const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`
 const URI = `/webhook/${TOKEN}`
@@ -120,7 +123,10 @@ function isValidDate(dateString) {
     return d.toISOString().slice(0, 10) === dateString;
 }
 
-/* API SECTION */
+
+/*---------------------------------- */
+/*           API SECTION             */
+/*---------------------------------- */
 
 // DELETE /sessions/current ->logout
 app.delete('/api/sessions/current', (req, res) => {
@@ -473,7 +479,7 @@ app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
 });
 
 app.put('/api/notification/:Visibility/:Id', /* isLoggedIn, */ async (req, res) => {
-    if(isNaN(req.params.Visibility) || isNaN(req.params.Id))
+    if (isNaN(req.params.Visibility) || isNaN(req.params.Id))
         res.status(503).end();
     try {
         await Dao.updateNotificationVisibility(req.params.Visibility, req.params.Id);
@@ -484,7 +490,7 @@ app.put('/api/notification/:Visibility/:Id', /* isLoggedIn, */ async (req, res) 
 });
 
 app.post('/api/notification', [
-    check ('userId').notEmpty().isInt(),
+    check('userId').notEmpty().isInt(),
     check('body').notEmpty(),
     check('header').notEmpty(),
     check('type').isInt({ min: 0, max: 2 })
@@ -493,14 +499,14 @@ app.post('/api/notification', [
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
     }
-        try {
-            await notificationDao.InsertNotification(req.body.userId, req.body.header, req.body.body, req.body.type);
-            res.status(200).end();
-        } catch (err) {
-            res.status(503).json({ error: `Database error during the update of Products.` });
-        }
+    try {
+        await notificationDao.InsertNotification(req.body.userId, req.body.header, req.body.body, req.body.type);
+        res.status(200).end();
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the update of Products.` });
+    }
 
-    })
+})
 
 // Upload Endpoint
 app.post('/upload', isLoggedIn, (req, res) => {
@@ -647,11 +653,11 @@ app.put('/api/bookings/:id', [
 
 /*** Delete booking specified by the Id ***/
 
-app.put('/api/deletebooking/:id', isLoggedIn,  async (req, res) => {
+app.put('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
 
-     if (![1, 2].includes(req.user.accessType)) { //Manager, Employee
+    if (![1, 2].includes(req.user.accessType)) { //Manager, Employee
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
-    } 
+    }
 
 
     const errors = validationResult(req);
@@ -883,6 +889,64 @@ app.get('/api/confirmAllBookings', async (req, res) => {
     }
 });
 
+/** CRONJOB OF confirmAllBookings **/
+cron.schedule('0 9 * * 1', async () => {
+    console.log('Running the confirmAllBookings cronjob on Monday at 09:00 at Europe/Rome timezone');
+    
+    try {
+
+        let userBookings = await orderDao.getIssuedBookingsAndUsers();
+        if (userBookings.length <= 0) {
+            console.log("no products with state 0=issued found in the db");
+            console.log("The cronjob confirmAllBookingsPendingCancelation ended with status 404 - Not Found");
+        }
+
+        //userBookings.forEach(async ub => {
+        for (const ub of userBookings) {
+            console.log("user " + ub.UserId + ", booking " + ub.BookingId);
+            let wallet = await userDao.getWalletBalance(ub.UserId);
+            console.log("user wallet is:  " + wallet);
+            //let wallet = ub.Wallet;
+            if (ub.TotalPrice <= wallet) {
+
+                console.log("TotalPrice " + ub.TotalPrice + ", Wallet = " + wallet + "is enough");
+                console.log("Removing " + ub.TotalPrice + ", from Wallet");
+                await userDao.decreaseWallet(ub.UserId, ub.TotalPrice);
+                wallet = wallet - ub.TotalPrice;
+                //wallet = await userDao.getWalletBalance(ub.UserId);
+                console.log("Wallet is now: " + wallet);
+
+                console.log("Update booking state to 2 = paid");
+                await orderDao.updateBookingState(2, ub.BookingId);
+
+            }
+            else {
+
+                console.log("TotalPrice " + ub.TotalPrice + ", Wallet = " + wallet + "is NOT enough");
+
+                console.log("Update booking state to 1 = pending cancelation");
+                await orderDao.updateBookingState(1, ub.BookingId);
+
+                console.log("Insert pending cancelation notification");
+                let header = "Not enough credits";
+                let body = "The credit in your wallet is insufficient to pay for your order #" + ub.BookingId + ". Please top up your wallet before Monday at 23.59 ";
+                await notificationDao.InsertNotification(ub.UserId, header, body, 1);
+
+            }
+        }
+        console.log("The cronjob confirmAllBookings ended with status 200 - OK");
+        //res.status(200).end();
+    }
+    catch (err) {
+        console.log("The cronjob confirmAllBookings ended with status 500 - Internal server error");
+        //res.status(500).end();
+    }
+    
+}, {
+    scheduled: true,
+    timezone: "Europe/Rome"
+});
+
 /** confirmAllBookingsPendingCancelation: at 23.59am of monday a cronjob calls this api to process each booking having state = 1 = "pending cancelation"
  * if a booking with state 1 = "pending cancelation" is linked to a client having a
  *   wallet with credits > TotalPrice then decreases the wallet value and sets the booking state to 2 = "paid"
@@ -940,6 +1004,66 @@ app.get('/api/confirmAllBookingsPendingCancelation', async (req, res) => {
     }
 });
 
+
+/** CRONJOB OF confirmAllBookingsPendingCancelation **/
+cron.schedule('59 23 * * 1', async () => {
+    console.log('Running the confirmAllBookingsPendingCancelation cronjob on Monday at 23:59 at Europe/Rome timezone');
+    try {
+
+        let userBookings = await orderDao.getPendingCancelationBookingsAndUsers();
+        if (userBookings.length <= 0) {
+            console.log("no products with state 1 = pending cancelation found in the db");
+            //res.status(404).end();
+            console.log("The cronjob confirmAllBookingsPendingCancelation ended with status 404 - Not Found");
+        }
+
+        //userBookings.forEach(async ub => {
+
+        for (const ub of userBookings) {
+            console.log("user " + ub.UserId + ", booking " + ub.BookingId);
+            let wallet = await userDao.getWalletBalance(ub.UserId);
+            console.log("user wallet is:  " + wallet);
+            if (ub.TotalPrice <= wallet) {
+
+                console.log("TotalPrice " + ub.TotalPrice + ", Wallet = " + wallet + "is enough");
+                console.log("Removing " + ub.TotalPrice + ", from Wallet");
+                await userDao.decreaseWallet(ub.UserId, ub.TotalPrice);
+                wallet = wallet - ub.TotalPrice;
+                //wallet = await userDao.getWalletBalance(ub.UserId);
+                console.log("Wallet is now: " + wallet);
+
+                console.log("Update booking state to 2 = paid");
+                await orderDao.updateBookingState(2, ub.BookingId);
+
+            }
+            else {
+
+                console.log("TotalPrice " + ub.TotalPrice + ", Wallet = " + wallet + "is NOT enough");
+
+                console.log("Update booking state to 4 = canceled");
+                await orderDao.updateBookingState(4, ub.BookingId);
+
+                console.log("Insert canceled order notfications");
+                let header = "Order canceled";
+                let body = "The credit in your wallet is insufficient to pay for your order #" + ub.BookingId + ". The order has been canceled. ";
+                await notificationDao.InsertNotification(ub.UserId, header, body, 1);
+
+            }
+        };
+        
+        console.log("The cronjob confirmAllBookingsPendingCancelation ended with status 200 - OK");
+        //res.status(200).end();
+    }
+    catch (err) {
+        console.log("The cronjob confirmAllBookings ended with status 500 - Internal server error");
+        //res.status(500).end();
+    }
+}, {
+    scheduled: true,
+    timezone: "Europe/Rome"
+});
+
+
 //We have to set this Url in Cron Docker
 app.get('/api/send-mail-notifications', async (req, res) => {
     // async function sendEmailForChangeingBooking()
@@ -975,6 +1099,50 @@ app.get('/api/send-mail-notifications', async (req, res) => {
     //res.json({ status: "Ok" });
 });
 
+/** CRONJOB OF send-mail-notifications **/
+cron.schedule('5 9 * * 1', async () => {
+    console.log('Running the send-mail-notifications cronjob on Monday at 09:05 at Europe/Rome timezone');
+    try{
+    const notifications = await notificationDao.getNotificationForChangedBooking();
+    var createdMail = [];
+    notifications.forEach(async element => {
+        var filter = createdMail.filter(p => p.UserId == element.UserId);
+        if (filter.length > 0) {
+            filter[0].body = filter[0].body + "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
+                "<h3>" + element.NotificationHeader + "</h3><p>" + element.NotificationBody + "</p></div>";
+        }
+        else
+            createdMail.push({
+                UserId: element.UserId, Email: element.Email, body: "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
+                    "<p><h3>" + element.NotificationHeader + "</h3>" + element.NotificationBody + "</p></div>"
+            })
+        await notificationDao.UpdateNotificaton(element.NotificationId);
+    });
+    console.log(createdMail);
+    createdMail.forEach(async element => {
+        let info = await mailTransporter.sendMail({
+            from: 'SPG P3 ES2<solidaritypurchasinggroup@gmail.com>', // sender address
+            to: element.Email, // list of receivers
+            subject: "Changed Order", // Subject line
+            text: "Dear Client, Youre bookings have changed By", // plain text body
+            html: "<h2>Dear Client, Your bookings have changed by farmers</h2>" + element.body
+        });
+        console.log("Message sent: %s", info.messageId);
+    });
+    // return;
+    console.log("The cronjob confirmAllBookingsPendingCancelation ended with status 200 - OK");
+    //res.status(200).end();
+}
+catch (err) {
+    console.log("The cronjob confirmAllBookings ended with status 500 - Internal server error");
+    //res.status(500).end();
+}
+}, {
+    scheduled: true,
+    timezone: "Europe/Rome"
+});
+
+
 app.get('/api/notifications', isLoggedIn, async (req, res) => {
     try {
         const result = await notificationDao.getNotificationsByUser(req.user.id);
@@ -1002,7 +1170,7 @@ Body :
 2- Get price unit for all BookingAndProduct and update all
 3- Update booking
 */
-app.put('/api/bookingUpdateByClient/:id',  isLoggedIn,  async (req, res) => {
+app.put('/api/bookingUpdateByClient/:id', isLoggedIn, async (req, res) => {
     try {
         var bookingId = req.body.BookingId;
         var deliveryTime = req.body.DeliveryTime;
@@ -1010,7 +1178,7 @@ app.put('/api/bookingUpdateByClient/:id',  isLoggedIn,  async (req, res) => {
         var totalSum = req.body.totalPrice;
         var userId = req.body.userId;
         await orderDao.DeleteBookingProduct(bookingId);
-        
+
 
 
         if (req.user.id == userId) {
@@ -1037,11 +1205,11 @@ app.put('/api/bookingUpdateByClient/:id',  isLoggedIn,  async (req, res) => {
 //------------------------------------------------------------
 /* Table Telegram
 CREATE TABLE "Telegram" (
-	"ChatId"	TEXT,
-	"Mobile"	TEXT,
-	"HashedPassword"	TEXT,
-	"Username"	TEXT,
-	"SuccessLogin"	REAL DEFAULT 0
+    "ChatId"	TEXT,
+    "Mobile"	TEXT,
+    "HashedPassword"	TEXT,
+    "Username"	TEXT,
+    "SuccessLogin"	REAL DEFAULT 0
 );
 Notifications:
 Add Column
@@ -1075,40 +1243,36 @@ bot.command('wallet', async (ctx) => {
 })
 
 // Send All Notification With Command: /notifications 
-bot.command('notifications',async (ctx) => {
-    if (checkAuthBot(ctx.message.chat.id))
-    {
+bot.command('notifications', async (ctx) => {
+    if (checkAuthBot(ctx.message.chat.id)) {
         var mobile = await telegramDao.getMobile(ctx.message.chat.id);
         if (mobile != null) {
-        var results=await telegramDao.listOfNotifications(mobile);
-        if (results.length>0)
-        {
-            for (var x=0;x<results.length;x++)
-            {
-                ctx.reply(results[x].NotificationBody);
-                await telegramDao.UpdateNotificatonStatusForTelgram(results[x].NotificationId);
-            } 
-        }
-        else
-            ctx.reply("Notification not found ");
+            var results = await telegramDao.listOfNotifications(mobile);
+            if (results.length > 0) {
+                for (var x = 0; x < results.length; x++) {
+                    ctx.reply(results[x].NotificationBody);
+                    await telegramDao.UpdateNotificatonStatusForTelgram(results[x].NotificationId);
+                }
+            }
+            else
+                ctx.reply("Notification not found ");
         }
     }
-    else 
+    else
         ctx.reply(`Authentication Faild!!!`)
     return
 
 })
 //API Send All Notification Of All User To Set In Docker 
 app.get('/api/SendNotificationForUsers', async (req, res) => {
-    const telegramx = new Telegram(process.env.TOKEN );
-    var results= await telegramDao.getAllNotifications();
+    const telegramx = new Telegram(process.env.TOKEN);
+    var results = await telegramDao.getAllNotifications();
     console.log(results);
-    for (var x=0;x<results.length;x++)
-    {
+    for (var x = 0; x < results.length; x++) {
         telegramx.sendMessage(
             results[x].ChatId,
             results[x].NotificationBody
-            );
+        );
         await telegramDao.UpdateNotificatonStatusForTelgram(results[x].NotificationId);
     }
     res.status(200).end();
@@ -1116,15 +1280,14 @@ app.get('/api/SendNotificationForUsers', async (req, res) => {
 
 //API Send All Notification For Availabe Products  For Set in Docker
 app.get('/api/SNForAvailableProducts', async (req, res) => {
-    const telegramx = new Telegram(process.env.TOKEN );
-    var results= await telegramDao.getAllChatId();
+    const telegramx = new Telegram(process.env.TOKEN);
+    var results = await telegramDao.getAllChatId();
     console.log(results)
-    for (var x=0;x<results.length;x++)
-    {
+    for (var x = 0; x < results.length; x++) {
         telegramx.sendMessage(
             results[x].ChatId,
             "There are new products that you can see on the site\n"
-            );
+        );
     }
     telegramx.close();
     res.status(200).end();
@@ -1135,14 +1298,14 @@ bot.on('text', async (ctx) => {
     if (ctx.message.text.length == 10) {
         var x = await telegramDao.updateMobile(ctx.message.text, ctx.message.chat.id)
         ctx.reply(`Your number is saved, For change it you can send phone number again in the chat`);
-        ctx.replyWithHTML(`Now You can change or send your password for connect to SOlidary,attention: send your password with this template For Example:\n`+
-        `my password: mnbvcxz`);
+        ctx.replyWithHTML(`Now You can change or send your password for connect to SOlidary,attention: send your password with this template For Example:\n` +
+            `my password: mnbvcxz`);
         return
     }
 
     if (ctx.message.text.split(":")[0] === "my password") {
         var mobile = await telegramDao.getMobile(ctx.message.chat.id);
-        if (mobile != null ) {
+        if (mobile != null) {
             var resualt = await telegramDao.updateSuccessLogin(mobile, ctx.message.text.split(": ")[1]);
             if (!resualt)
                 ctx.reply(`The password was wrong! Please try again`);
@@ -1150,13 +1313,12 @@ bot.on('text', async (ctx) => {
                 ctx.reply(`The login was successful`);
             return x;
         }
-        else
-            {
-                ctx.reply(`📲 Please First send your phone number!`)
-                return
-            }
+        else {
+            ctx.reply(`📲 Please First send your phone number!`)
+            return
         }
-        ctx.reply(`The Command is worng Please Use The  Command Botton`)
+    }
+    ctx.reply(`The Command is worng Please Use The  Command Botton`)
 })
 
 //Control user login ws successfull
