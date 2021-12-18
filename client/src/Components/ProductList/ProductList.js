@@ -269,14 +269,14 @@ function ProductList(props) {
             <Row className="searchProd">
                 <Form.Control type="text" placeholder="Search product" onChange={x => changeSearchText(x.target.value)} />
             </Row>
-            <Row>
+            <Row className='no-margin'>
                 <Col xs={2} md={2}>
                     <SideBar loadingTypes={loadingTypes} changeCategory={changeCategory} types={types} category={category} />
                 </Col>
                 <Col xs={10} md={10} className="main">
                     {loadingProducts ?
                         <h1 style={{ textAlign: "center" }}>Loading products... <Spinner animation="border" /></h1> :
-                        <Row xs={2} md={5} className="g-4">
+                        <Row xs={2} md={4} className="g-4">
                             {searchProducts.map((x) =>
                                 // 
                                 <Product key={x.id} canShop={timeEnabled && canSeeCart}
