@@ -1035,6 +1035,18 @@ app.put('/api/bookingUpdateByClient/:id',  isLoggedIn,  async (req, res) => {
 //------------------------------------------------------------
 //   Telegram Part
 //------------------------------------------------------------
+/* Table Telegram
+CREATE TABLE "Telegram" (
+	"ChatId"	TEXT,
+	"Mobile"	TEXT,
+	"HashedPassword"	TEXT,
+	"Username"	TEXT,
+	"SuccessLogin"	REAL DEFAULT 0
+);
+Notifications:
+Add Column
+"TelegramStatus"	INTEGER DEFAULT 0,
+*/
 bot.command('quit', (ctx) => {
     ctx.telegram.leaveChat(ctx.message.chat.id)
     ctx.leaveChat()
@@ -1108,8 +1120,8 @@ bot.on('text', async (ctx) => {
     if (ctx.message.text.length == 10) {
         var x = await telegramDao.updateMobile(ctx.message.text, ctx.message.chat.id)
         ctx.reply(`Your number is saved, For change it you can send phone number again in the chat`);
-        ctx.replyWithHTML(`Now You can change or send your password for connect to SOlidary,attention: send your password with this template For Example:`);
-        ctx.reply(`my password: mnbvcxz`);
+        ctx.replyWithHTML(`Now You can change or send your password for connect to SOlidary,attention: send your password with this template For Example:\n`+
+        `my password: mnbvcxz`);
         return
     }
 
