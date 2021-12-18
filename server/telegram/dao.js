@@ -2,9 +2,7 @@
 
 const axios = require('axios')
 const db = require('./../db');
-
 const bcrypt = require('bcrypt');
-
 
 
 
@@ -27,6 +25,23 @@ exports.getMobile = (chatId) => {
 };
 
 
+exports.getChatIdWitMobile = (mobile) => {
+  return new Promise((resolve, reject) => {
+    let id = -1;
+    const id_sql = 'SELECT ChatId  FROM Telegram Where Mobile=?';
+    db.get(id_sql,[mobile], (err, row) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      if (row!=null)
+      resolve(row.ChatId);
+      else
+      resolve();
+
+    });
+  }); 
+};
 exports.checkAuth = (chatId) => {
   return new Promise((resolve, reject) => {
     let id = -1;
@@ -46,6 +61,72 @@ exports.checkAuth = (chatId) => {
 
 
 
+
+exports.getWalletBalance = (mobile) => {
+  return new Promise((resolve, reject) => {
+    // select from notifications
+      resolve("Youre Wallet Balance Is Insufficent");
+  }); 
+};
+
+exports.SendAllNotifications = (mobile) => {
+  return new Promise((resolve, reject) => {
+      const notificationsSql = '  SELECT Notifications.*,Telegram.ChatId,Users.PhoneNumber as Mobile From Notifications,Telegram,Users WHERE Notifications.UserId=Users.Id  AND Notifications.TelegramStatus=0 And Telegram.SuccessLogin=1 AND Telegram.Mobile=Users.PhoneNumber';
+    db.all(notificationsSql, function (err, rows) {//NOSONAR
+      if (err) {
+        reject(err);
+        return;
+      }
+      const notifications = rows.map((e) => ({
+        NotificationId: e.NotificationId,
+        NotificationHeader: e.NotificationHeader,
+        NotificationBody: e.NotificationBody,
+        ChatId: e.ChatId,
+        Mobile: e.Mobile
+      }));
+      resolve(notifications);
+  }); 
+
+  }); 
+};
+
+exports.listOfNotifications = (mobile) => {
+  return new Promise((resolve, reject) => {
+      const notificationsSql = '  SELECT Notifications.*,Telegram.ChatId,Users.PhoneNumber as Mobile From Notifications,Telegram,Users WHERE Notifications.UserId=Users.Id AND Telegram.Mobile=Users.PhoneNumber AND Notifications.TelegramStatus=0  AND Telegram.Mobile=?';
+    db.all(notificationsSql,[mobile], function (err, rows) {//NOSONAR
+      if (err) {
+        reject(err);
+        return;
+      }
+      const notifications = rows.map((e) => ({
+        NotificationId: e.NotificationId,
+        NotificationHeader: e.NotificationHeader,
+        NotificationBody: e.NotificationBody,
+        ChatId: e.ChatId,
+        Mobile: e.Mobile
+      }));
+      resolve(notifications);
+  }); 
+
+  }); 
+};
+
+
+
+
+exports.UpdateNotificatonStatusForTelgram = (notificationId) => {
+  return new Promise((resolve, reject) => {
+    const sqlUpdateBookingProduct = 'UPDATE Notifications SET TelegramStatus=1   WHERE  NotificationId=? ';
+    db.run(sqlUpdateBookingProduct, [notificationId], function (err) {//NOSONAR
+      if (err) {
+        console.log(err)
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  })
+}
 
 
 exports.updateSuccessLogin = (mobile,password) => {
@@ -71,7 +152,6 @@ exports.updateSuccessLogin = (mobile,password) => {
               return
             });
         });
-      
     }
       else
       {resolve(false);

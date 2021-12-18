@@ -23,14 +23,15 @@ const bodyParser = require('body-parser')
 require('dotenv').config()
 const telegramDao = require('./telegram/dao.js');
 const axios = require('axios')
-const { Telegraf, Markup } = require('telegraf');
+const { Telegraf, Markup,Telegram } = require('telegraf');
 const { TOKEN, SERVER_URL } = process.env
 const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`
 const URI = `/webhook/${TOKEN}`
 const WEBHOOK_URL = SERVER_URL + URI
 const bot = new Telegraf(TOKEN);
 const bcrypt = require('bcrypt');
-const telegram = require('./telegram/index');
+// const telegram = require('./telegram/index');
+
 //--------------------------------------------------
 
 
@@ -1039,24 +1040,20 @@ bot.command('quit', (ctx) => {
     ctx.leaveChat()
 })
 
-
+// Start Bot Initialize Mobile
 bot.start(async (ctx) => {
     await telegramDao.InsertChatId(ctx.message.chat.id, ctx.message.from.username);
-    console.log(ctx.message.chat.id);
     ctx.reply(`Dear ${ctx.message.from.username} Welcome to Solidary Shopings`)
     ctx.reply(`📲 Please send your phone number`)
-
 })
-
+// Start Command Reset Bot 
 bot.command('start', async (ctx) => {
     await telegramDao.InsertChatId(ctx.message.chat.id, ctx.message.from.username);
-    console.log(ctx.message.chat.id);
     ctx.reply(`Dear ${ctx.message.from.username} Welcome to Solidary Shopings`)
     ctx.reply(`📲 Please send your phone number`)
-
 })
 
-
+// Check Wallet Balance (non è  Cpompletto)
 bot.command('wallet', async (ctx) => {
     if (await checkAuthBot(ctx.message.chat.id)) {
         ctx.reply(`OK`)
@@ -1065,44 +1062,81 @@ bot.command('wallet', async (ctx) => {
         ctx.reply(`Authentication Faild!!!`)
 })
 
-bot.command('notifications', (ctx) => {
-    console.log("you can see your wallet");
-    ctx.reply(`you can see your wallet`)
-})
+// Send All Notification With Command: /notifications 
+bot.command('notifications',async (ctx) => {
+    if (checkAuthBot(chatId))
+    {
+        var mobile = await telegramDao.getMobile(ctx.message.chat.id);
+        if (mobile != null) {
+        var results=await telegramDao.listOfNotifications(mobile);
+        if (results.length>0)
+        {
+            for (var x=0;x<results.length;x++)
+            {
+                ctx.reply(results[x].NotificationBody);
+                await telegramDao.UpdateNotificatonStatusForTelgram(results[x].NotificationId);
+            } 
+        }
+        else
+            ctx.reply("Notification not found ");
+        }
+    }
+    else 
+        ctx.reply(`Authentication Faild!!!`)
+    return
 
+})
+//API Send All Notification Of All User To Set In Docker 
+app.get('/api/SendNotificationForUsers', async (req, res) => {
+    const telegramx = new Telegram(process.env.TOKEN );
+    var results= await telegramDao.SendAllNotifications();
+    console.log(results);
+    for (var x=0;x<results.length;x++)
+    {
+        telegramx.sendMessage(
+            results[x].ChatId,
+            results[x].NotificationBody
+            );
+        await telegramDao.UpdateNotificatonStatusForTelgram(results[x].NotificationId);
+    }
+    res.status(200).end();
+});
+
+//Check And Controll The Other Command Send From Telegram
 bot.on('text', async (ctx) => {
     console.log(ctx.message.text)
     if (ctx.message.text.length == 10) {
         var x = await telegramDao.updateMobile(ctx.message.text, ctx.message.chat.id)
-        ctx.reply(`Your Number is Saved, For Change it you can send phone number again in the chat`);
-        ctx.replyWithHTML(`Now You can change or send your password,attention: send your password with this template For Example:`);
+        ctx.reply(`Your number is saved, For change it you can send phone number again in the chat`);
+        ctx.replyWithHTML(`Now You can change or send your password for connect to SOlidary,attention: send your password with this template For Example:`);
         ctx.reply(`my password: mnbvcxz`);
         return
     }
 
-    if (ctx.message.text.split(": ")[0] === "my password") {
-
+    if (ctx.message.text.split(":")[0] === "my password") {
         var mobile = await telegramDao.getMobile(ctx.message.chat.id);
-        if (mobile != null && mobile.lenght>0) {
+        if (mobile != null ) {
             var resualt = await telegramDao.updateSuccessLogin(mobile, ctx.message.text.split(": ")[1]);
             if (!resualt)
-                ctx.reply(`The password was Wrong! Please try again`);
+                ctx.reply(`The password was wrong! Please try again`);
             else
-                ctx.reply(`Loged in was Success`);
+                ctx.reply(`The login was successful`);
             return x;
         }
         else
-            {ctx.reply(`📲 Please First send your phone number!`)
-            return
-    }
-    }
-    ctx.reply(`The Command is worng Please Use From Command To Help You`)
+            {
+                ctx.reply(`📲 Please First send your phone number!`)
+                return
+            }
+        }
+        ctx.reply(`The Command is worng Please Use The  Command Botton`)
 })
 
+//Control user login ws successfull
 async function checkAuthBot(chatId) {
     {
         var mobile = await telegramDao.getMobile(chatId);
-        if (mobile != null && mobile.lenght>0) {
+        if (mobile != null) {
             var info = await telegramDao.checkAuth(chatId);
             return info == 1 ? true : false;
         }
@@ -1110,8 +1144,7 @@ async function checkAuthBot(chatId) {
             return false;
     }
 }
-
-app.post('/api/telegramLogin', async (req, res) => {
+app.post('/api/telegnotification', async (req, res) => {
     console.log("login telegram");
     await telegrmDao.authenticateTelegramBot(req.body.mobile, req.body.pass);
 });
