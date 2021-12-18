@@ -4,8 +4,6 @@ const axios = require('axios')
 const db = require('./../db');
 const bcrypt = require('bcrypt');
 
-
-
 exports.getMobile = (chatId) => {
   return new Promise((resolve, reject) => {
     let id = -1;
@@ -24,7 +22,6 @@ exports.getMobile = (chatId) => {
   }); 
 };
 
-
 exports.getChatIdWitMobile = (mobile) => {
   return new Promise((resolve, reject) => {
     let id = -1;
@@ -42,6 +39,7 @@ exports.getChatIdWitMobile = (mobile) => {
     });
   }); 
 };
+
 exports.checkAuth = (chatId) => {
   return new Promise((resolve, reject) => {
     let id = -1;
@@ -58,9 +56,6 @@ exports.checkAuth = (chatId) => {
     });
   }); 
 };
-
-
-
 
 exports.getWalletBalance = (mobile) => {
   return new Promise((resolve, reject) => {
@@ -86,7 +81,6 @@ exports.SendAllNotifications = (mobile) => {
       }));
       resolve(notifications);
   }); 
-
   }); 
 };
 
@@ -107,19 +101,14 @@ exports.listOfNotifications = (mobile) => {
       }));
       resolve(notifications);
   }); 
-
   }); 
 };
-
-
-
 
 exports.UpdateNotificatonStatusForTelgram = (notificationId) => {
   return new Promise((resolve, reject) => {
     const sqlUpdateBookingProduct = 'UPDATE Notifications SET TelegramStatus=1   WHERE  NotificationId=? ';
     db.run(sqlUpdateBookingProduct, [notificationId], function (err) {//NOSONAR
       if (err) {
-        console.log(err)
         reject(err);
         return;
       }
@@ -127,7 +116,6 @@ exports.UpdateNotificatonStatusForTelgram = (notificationId) => {
     });
   })
 }
-
 
 exports.updateSuccessLogin = (mobile,password) => {
   return new Promise((resolve, reject) => {
@@ -145,7 +133,6 @@ exports.updateSuccessLogin = (mobile,password) => {
             const sql = 'Update Telegram  set SuccessLogin='+c+'  Where mobile=?';
             db.run(sql, [mobile], function (err1) {
               if (err1) {
-                console.log(err1)
                 reject(err1);
               }
               resolve(result);
@@ -161,7 +148,6 @@ exports.updateSuccessLogin = (mobile,password) => {
   }); 
 };
 
-
 exports.InsertChatId = (chatId,userName) => {
     return new Promise((resolve, reject) => {
       let id = -1;
@@ -171,7 +157,6 @@ exports.InsertChatId = (chatId,userName) => {
           reject(err);
           return;
         }
-        console.log(row);
         if (row==null) {
         // let pass= bcrypt.hashSync(clientpassword.,10);
         const sql = 'INSERT INTO Telegram (ChatId,UserName) VALUES(?,?)';
@@ -182,9 +167,7 @@ exports.InsertChatId = (chatId,userName) => {
           }
           resolve("OK");
         });
-
         resolve("OK");
-
         }
         resolve("OK");
 
@@ -193,13 +176,11 @@ exports.InsertChatId = (chatId,userName) => {
   };
 
 exports.updateMobile = (mobile,chatId) => {
-    console.log("update Mobile");
     return new Promise((resolve, reject) => {
         // let pass= bcrypt.hashSync(clientpassword.,10);
         const sql = 'Update Telegram  set Mobile=? Where ChatId=?';
         db.run(sql, [ mobile,chatId], function (err1) {
           if (err1) {
-            console.log(err1)
             reject(err1);
             return;
           }
