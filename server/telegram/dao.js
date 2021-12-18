@@ -1,0 +1,130 @@
+'use strict';
+
+const axios = require('axios')
+const db = require('./../db');
+
+const bcrypt = require('bcrypt');
+
+
+
+
+exports.getMobile = (chatId) => {
+  return new Promise((resolve, reject) => {
+    let id = -1;
+    const id_sql = 'SELECT Mobile  FROM Telegram Where ChatId=?';
+    db.get(id_sql,[chatId], (err, row) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      if (row!=null)
+      resolve(row.Mobile);
+      else
+      resolve();
+
+    });
+  }); 
+};
+
+
+exports.checkAuth = (chatId) => {
+  return new Promise((resolve, reject) => {
+    let id = -1;
+    const id_sql = 'SELECT SuccessLogin  FROM Telegram Where ChatId=? ';
+    db.get(id_sql,[chatId], (err, row) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      if (row!=null)
+      resolve(row.SuccessLogin);
+      else
+      resolve();
+    });
+  }); 
+};
+
+
+
+
+
+exports.updateSuccessLogin = (mobile,password) => {
+  return new Promise((resolve, reject) => {
+    let id = -1;
+    const id_sql = 'SELECT Id,Password  FROM Users Where PhoneNumber=? ';
+    db.get(id_sql,[mobile], (err, row) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      if (row!=null)
+      {
+        bcrypt.compare(password, row.Password).then((result) => {
+          var c= result==true ?1:0;
+            const sql = 'Update Telegram  set SuccessLogin='+c+'  Where mobile=?';
+            db.run(sql, [mobile], function (err1) {
+              if (err1) {
+                console.log(err1)
+                reject(err1);
+              }
+              resolve(result);
+              return
+            });
+        });
+      
+    }
+      else
+      {resolve(false);
+      return
+      }
+    });
+  }); 
+};
+
+
+exports.InsertChatId = (chatId,userName) => {
+    return new Promise((resolve, reject) => {
+      let id = -1;
+      const id_sql = 'SELECT ChatId  FROM Telegram Where ChatId=?';
+      db.get(id_sql,[chatId], (err, row) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        console.log(row);
+        if (row==null) {
+        // let pass= bcrypt.hashSync(clientpassword.,10);
+        const sql = 'INSERT INTO Telegram (ChatId,UserName) VALUES(?,?)';
+        db.run(sql, [ chatId,userName], function (err1) {
+          if (err1) {
+            reject(err1);
+            return;
+          }
+          resolve("OK");
+        });
+
+        resolve("OK");
+
+        }
+        resolve("OK");
+
+      });
+    }); 
+  };
+
+exports.updateMobile = (mobile,chatId) => {
+    console.log("update Mobile");
+    return new Promise((resolve, reject) => {
+        // let pass= bcrypt.hashSync(clientpassword.,10);
+        const sql = 'Update Telegram  set Mobile=? Where ChatId=?';
+        db.run(sql, [ mobile,chatId], function (err1) {
+          if (err1) {
+            console.log(err1)
+            reject(err1);
+            return;
+          }
+        });
+        resolve("OK");
+    }); 
+  };
+

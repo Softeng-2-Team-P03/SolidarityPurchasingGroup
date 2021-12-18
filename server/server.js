@@ -15,6 +15,25 @@ const nodemailer = require('nodemailer');
 const credentials = require('./credentials');
 //import { gmailcredentials } from './credentials.js';
 const notificationDao = require('./notification-dao.js');
+
+const bodyParser = require('body-parser')
+//---------------------------------------------------
+//    import For Telegram 
+// --------------------------------------------------
+require('dotenv').config()
+const telegramDao = require('./telegram/dao.js');
+const axios = require('axios')
+const { Telegraf, Markup } = require('telegraf');
+const { TOKEN, SERVER_URL } = process.env
+const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`
+const URI = `/webhook/${TOKEN}`
+const WEBHOOK_URL = SERVER_URL + URI
+const bot = new Telegraf(TOKEN);
+const bcrypt = require('bcrypt');
+const telegram = require('./telegram/index');
+//--------------------------------------------------
+
+
 const dateRegexp = new RegExp(/^(([1]|[2])\d{3})-((0[13578]|1[02])-(0[0-9]|[1-2][0-9]|3[0-1])|(0[469]|11)-(0[0-9]|[1-2][0-9]|30)|(02)-(0[0-9]|[1-2][0-9]))([ ])([01][0-9]|2[0-3])(\:)([0-5][0-9])(\:)([0-5][0-9])$/);
 /* SETUP SECTION */
 
@@ -52,12 +71,17 @@ passport.deserializeUser((id, done) => {
 const app = express();
 app.disable("x-powered-by");
 const port = 3001;
+app.use(bodyParser.json())
 
 // set-up the middlewares
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(fileUpload());
-
+// Telegram
+const init = async () => {
+    const res = await axios.get(`${TELEGRAM_API}/setWebhook?url=${WEBHOOK_URL}`)
+    console.log(res.data)
+}
 // custom middleware: check if a given request is coming from an authenticated user
 const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated())
@@ -1006,6 +1030,97 @@ app.put('/api/bookingUpdateByClient/:id',  isLoggedIn,  async (req, res) => {
     }
 
 })
+
+//------------------------------------------------------------
+//   Telegram Part
+//------------------------------------------------------------
+bot.command('quit', (ctx) => {
+    ctx.telegram.leaveChat(ctx.message.chat.id)
+    ctx.leaveChat()
+})
+
+
+bot.start(async (ctx) => {
+    await telegramDao.InsertChatId(ctx.message.chat.id, ctx.message.from.username);
+    console.log(ctx.message.chat.id);
+    ctx.reply(`Dear ${ctx.message.from.username} Welcome to Solidary Shopings`)
+    ctx.reply(`📲 Please send your phone number`)
+
+})
+
+bot.command('start', async (ctx) => {
+    await telegramDao.InsertChatId(ctx.message.chat.id, ctx.message.from.username);
+    console.log(ctx.message.chat.id);
+    ctx.reply(`Dear ${ctx.message.from.username} Welcome to Solidary Shopings`)
+    ctx.reply(`📲 Please send your phone number`)
+
+})
+
+
+bot.command('wallet', async (ctx) => {
+    if (await checkAuthBot(ctx.message.chat.id)) {
+        ctx.reply(`OK`)
+    }
+    else
+        ctx.reply(`Authentication Faild!!!`)
+})
+
+bot.command('notifications', (ctx) => {
+    console.log("you can see your wallet");
+    ctx.reply(`you can see your wallet`)
+})
+
+bot.on('text', async (ctx) => {
+    console.log(ctx.message.text)
+    if (ctx.message.text.length == 10) {
+        var x = await telegramDao.updateMobile(ctx.message.text, ctx.message.chat.id)
+        ctx.reply(`Your Number is Saved, For Change it you can send phone number again in the chat`);
+        ctx.replyWithHTML(`Now You can change or send your password,attention: send your password with this template For Example:`);
+        ctx.reply(`my password: mnbvcxz`);
+        return
+    }
+
+    if (ctx.message.text.split(": ")[0] === "my password") {
+
+        var mobile = await telegramDao.getMobile(ctx.message.chat.id);
+        if (mobile != null && mobile.lenght>0) {
+            var resualt = await telegramDao.updateSuccessLogin(mobile, ctx.message.text.split(": ")[1]);
+            if (!resualt)
+                ctx.reply(`The password was Wrong! Please try again`);
+            else
+                ctx.reply(`Loged in was Success`);
+            return x;
+        }
+        else
+            {ctx.reply(`📲 Please First send your phone number!`)
+            return
+    }
+    }
+    ctx.reply(`The Command is worng Please Use From Command To Help You`)
+})
+
+async function checkAuthBot(chatId) {
+    {
+        var mobile = await telegramDao.getMobile(chatId);
+        if (mobile != null && mobile.lenght>0) {
+            var info = await telegramDao.checkAuth(chatId);
+            return info == 1 ? true : false;
+        }
+        else
+            return false;
+    }
+}
+
+app.post('/api/telegramLogin', async (req, res) => {
+    console.log("login telegram");
+    await telegrmDao.authenticateTelegramBot(req.body.mobile, req.body.pass);
+});
+
+bot.launch()
+// Enable graceful stop
+process.once('SIGINT', () => bot.stop('SIGINT'))
+process.once('SIGTERM', () => bot.stop('SIGTERM'))
+
 
 // Activate the server
 // Comment this app.listen function when testing
