@@ -40,6 +40,21 @@ exports.getChatIdWitMobile = (mobile) => {
   }); 
 };
 
+exports.getAllChatId = () => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT ChatId  FROM Telegram';
+    db.all(sql, function (err, rows)  {
+      if (err) {
+        reject(err);
+        return;
+      }
+      if (rows!=null)
+      resolve(rows);
+      else
+      resolve();
+    });
+  }); 
+};
 exports.checkAuth = (chatId) => {
   return new Promise((resolve, reject) => {
     let id = -1;
@@ -64,7 +79,7 @@ exports.getWalletBalance = (mobile) => {
   }); 
 };
 
-exports.SendAllNotifications = (mobile) => {
+exports.getAllNotifications = (mobile) => {
   return new Promise((resolve, reject) => {
       const notificationsSql = '  SELECT Notifications.*,Telegram.ChatId,Users.PhoneNumber as Mobile From Notifications,Telegram,Users WHERE Notifications.UserId=Users.Id  AND Notifications.TelegramStatus=0 And Telegram.SuccessLogin=1 AND Telegram.Mobile=Users.PhoneNumber';
     db.all(notificationsSql, function (err, rows) {//NOSONAR

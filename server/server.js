@@ -1076,7 +1076,7 @@ bot.command('wallet', async (ctx) => {
 
 // Send All Notification With Command: /notifications 
 bot.command('notifications',async (ctx) => {
-    if (checkAuthBot(chatId))
+    if (checkAuthBot(ctx.message.chat.id))
     {
         var mobile = await telegramDao.getMobile(ctx.message.chat.id);
         if (mobile != null) {
@@ -1101,7 +1101,7 @@ bot.command('notifications',async (ctx) => {
 //API Send All Notification Of All User To Set In Docker 
 app.get('/api/SendNotificationForUsers', async (req, res) => {
     const telegramx = new Telegram(process.env.TOKEN );
-    var results= await telegramDao.SendAllNotifications();
+    var results= await telegramDao.getAllNotifications();
     console.log(results);
     for (var x=0;x<results.length;x++)
     {
@@ -1114,6 +1114,21 @@ app.get('/api/SendNotificationForUsers', async (req, res) => {
     res.status(200).end();
 });
 
+//API Send All Notification For Availabe Products  For Set in Docker
+app.get('/api/SNForAvailableProducts', async (req, res) => {
+    const telegramx = new Telegram(process.env.TOKEN );
+    var results= await telegramDao.getAllChatId();
+    console.log(results)
+    for (var x=0;x<results.length;x++)
+    {
+        telegramx.sendMessage(
+            results[x].ChatId,
+            "There are new products that you can see on the site\n"
+            );
+    }
+    telegramx.close();
+    res.status(200).end();
+});
 //Check And Controll The Other Command Send From Telegram
 bot.on('text', async (ctx) => {
     console.log(ctx.message.text)
