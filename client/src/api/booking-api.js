@@ -114,24 +114,45 @@ async function getProductsFromBooking(bookingId) {
   }
 }
 
-async function deleteBooking(id) {
-    const response = await fetch(BASEURL+'/deletebooking/'+id, {
-        method: 'DELETE'
-    });
-    if (response.ok) {
-        return null;
-    } else return { 'err': 'DELETE error' };
+
+function deleteBooking(id) {
+  return new Promise((resolve, reject) => {
+    fetch(BASEURL + '/deletebooking/' + id, {
+      method: 'DELETE',
+    }).then((response) => {
+      if (response.ok) {
+        resolve(null);
+      } else {
+        // analyze the cause of error
+        response.json()
+          .then((obj) => { reject(obj); }) // error msg in the response body
+          .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
+        }
+    }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
+  });
 }
 
-async function updateBooking(booking) {
-  const response = await fetch(BASEURL + "/bookingUpdateByClient/" + booking.BookingId, {
+
+
+function updateBooking(booking) {
+  return new Promise((resolve, reject) => {
+    fetch(BASEURL + '/bookingUpdateByClient/' + booking.BookingId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({...booking})
-    })
-  
+        body: JSON.stringify({...booking}),
+    }).then((response) => {
+      if (response.ok) {
+        resolve(null);
+      } else {
+        // analyze the cause of error
+        response.json()
+          .then((obj) => { reject(obj); }) // error msg in the response body
+          .catch((err) => { reject({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
+      }
+    }).catch((err) => { reject({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
+  });
 }
 
 

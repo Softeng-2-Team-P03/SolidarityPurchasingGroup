@@ -2,7 +2,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './OrderList.css';
 import bookingApi from '../../api/booking-api';
-import userApi from '../../api/user-api'
 import { Button, Form, Table, Modal, Row, Col, Alert } from "react-bootstrap";
 
 import React, { useEffect, useState } from 'react';
@@ -90,7 +89,6 @@ function OrderList(props) {
     const [searchOrders, setSearchOrders] = useState([]);
     const [show, setShow] = useState(false);
 
-    const [errorLoading, setErrorLoading] = useState(''); //Error in loading orders
     const [confirmationMessage, setConfirmationMessage] = useState('');
 
     useEffect(() => {
@@ -120,7 +118,6 @@ function OrderList(props) {
 
             })
         }).catch(err => {
-            setErrorLoading('Error during the loading of the orders')
             console.error(err);
         });
 
@@ -202,7 +199,6 @@ function ContactUser(props) {
 }
 
 function DeleteOrder(props) {
-    const [amountTopUp, setAmountTopUp] = useState(0);
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);

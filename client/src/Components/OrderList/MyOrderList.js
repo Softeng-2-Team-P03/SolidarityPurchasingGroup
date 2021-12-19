@@ -3,7 +3,6 @@ import './MyOrderList.css';
 import bookingApi from '../../api/booking-api';
 import { Button, Table, Col, Row, Image, Modal, Form, Stack, CloseButton} from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
-import {useLocation } from 'react-router-dom';
 import itLocale from 'date-fns/locale/it';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -19,7 +18,6 @@ function MyOrderList(props) {
     const [myOrders, setMyOrders] = useState([]);
     const [dirty, setDirty] = useState(true);
     const [timeEnabled, setTimeEnabled] = useState(false);
-    //const location = useLocation(); //If employee makes order for client: {userId, userName}
 
     let state=null;
    
@@ -207,7 +205,6 @@ function UpdateBooking(props) {
     const [value, setValue] = useState(props.order.PickupTime ? new Date(props.order.PickupTime) : new Date(props.order.DeliveryTime));
     const [dateMin, setDateMin] = useState('');
     const [dateMax, setDateMax] = useState('');
-    let currentDate = localStorage.getItem('virtualDate')
     const [choiceSelect, setChoiceSelect] = useState(props.order.PickupTime ? '1' : '2');
     const [dirtyInfo,setDirtyInfo] = useState(false);
     const [mounted,setMounted] = useState(true);

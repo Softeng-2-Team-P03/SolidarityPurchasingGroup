@@ -1,5 +1,4 @@
 import { Modal,Button} from "react-bootstrap"; 
-import React, { useState, useEffect } from "react";
 
 function ModalError(props) {
     return (
