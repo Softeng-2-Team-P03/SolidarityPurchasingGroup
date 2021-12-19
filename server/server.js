@@ -222,7 +222,11 @@ app.get('/api/clients', isLoggedIn, async (req, res) => {
 });
 
 //**** Get User by UserID  ****//
-app.get('/api/client/:userId', isLoggedIn, async (req, res) => {
+app.get('/api/client/:userId', isLoggedIn, [ check('userId').isInt() ], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
     try {
 
         if (![1, 2].includes(req.user.accessType)) { //Manager and Employee
@@ -243,7 +247,11 @@ app.get('/api/client/:userId', isLoggedIn, async (req, res) => {
 
 
 //**** Get Get Wallet Balance ****//
-app.get('/api/clients/:id/getWallet', isLoggedIn, async (req, res) => {
+app.get('/api/clients/:id/getWallet', isLoggedIn, [ check('id').isInt() ], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
     try {
         const result = await userDao.getWalletBalance(req.params.id);
         if (result.error)
@@ -281,7 +289,11 @@ app.get('/api/clients/getRequiredChargeByBookingId', isLoggedIn, async (req, res
 });
 
 //**** Put to update the wallet */
-app.put('/api/topup/:userId/:amount', isLoggedIn, async (req, res) => {
+app.put('/api/topup/:userId/:amount', isLoggedIn, [ check('userId').isInt(), check('amount').isFloat()], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
 
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
@@ -318,7 +330,7 @@ app.get('/api/products', async (req, res) => {
 });
 
 /*** Get products By EpiringDate ***/
-app.get('/api/products/:date', async (req, res) => {
+app.get('/api/products/:date',  async (req, res) => {
     try {
 
         let date = req.params.date;
@@ -338,7 +350,11 @@ app.get('/api/products/:date', async (req, res) => {
 })
 
 //**** Get A Product By Id ****//
-app.get('/api/products/:id', async (req, res) => {
+app.get('/api/products/:id', [ check('id').isInt()],async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
     try {
         const result = await productDao.getProduct(req.params.id);
         if (result.error)
@@ -364,7 +380,11 @@ app.get('/api/types', async (req, res) => {
     }
 });
 /*** Get products By TypeId ***/
-app.get('/api/products/type/:typeId/:date', async (req, res) => {
+app.get('/api/products/type/:typeId/:date', [ check('typeId').isInt()],async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
     try {
         if (!isValidDate(req.params.date))
             res.status(422).end();
@@ -383,7 +403,11 @@ app.get('/api/products/type/:typeId/:date', async (req, res) => {
 
 
 /*** Get products By State and FarmerId ***/
-app.get('/api/products/:farmerId/:state', isLoggedIn, async (req, res) => {
+app.get('/api/products/:farmerId/:state', isLoggedIn, [ check('farmerId').isInt(), check('state').isInt({min:0, max:2})],async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
 
     if (![1, 4].includes(req.user.accessType)) { //Manager and Farmer
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
@@ -437,6 +461,7 @@ app.post('/api/product',
 
 
 app.put('/api/product/:Id', isLoggedIn, [
+    check(['Id']).isInt(), 
     check('Quantity').isInt({ min: 0, max: 10000 }),
     check('PricePerUnit').isFloat({ min: 0, max: 10000 })
 ], async (req, res) => {
@@ -461,7 +486,11 @@ app.put('/api/product/:Id', isLoggedIn, [
 
 
 // PUT /api/product/<State>/<Id>
-app.put('/api/product/:State/:Id', isLoggedIn, async (req, res) => {
+app.put('/api/product/:State/:Id', isLoggedIn, [check('State').isInt({min:0, max:2}), check(['Id']).isInt()], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
 
     // you can also check here if the code passed in the URL matches with the code in req.body
     try {
@@ -627,6 +656,7 @@ async function updateProductQUantity(quantity, productId) {
 
 /*** Update Booking state With ID ***/
 app.put('/api/bookings/:id', [
+    check('id').isInt(),
     check('state').isInt({ min: 0, max: 3 }),
 ], isLoggedIn, async (req, res) => {
 
@@ -653,7 +683,7 @@ app.put('/api/bookings/:id', [
 
 /*** Delete booking specified by the Id ***/
 
-app.put('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
+app.put('/api/deletebooking/:id', isLoggedIn,  [check(['id']).isInt()], async (req, res) => {
 
     if (![1, 2].includes(req.user.accessType)) { //Manager, Employee
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
@@ -675,7 +705,11 @@ app.put('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
 
 });
 
-app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) => {
+app.put('/api/product/change-available-date/:Id', isLoggedIn,[check(['Id']).isInt()], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
     try {
         await productDao.updateAvailbeleDate(req.body.availableDate, req.body.Quantity, req.params.Id);
         res.status(200).end();
@@ -686,6 +720,7 @@ app.put('/api/product/change-available-date/:Id', isLoggedIn, async (req, res) =
 });
 
 app.put('/api/productQuantity/:Id', isLoggedIn, [
+    check(['Id']).isInt(),
     check('Quantity').isInt({ min: 0, max: 10000 }),
 ], async (req, res) => {
 
@@ -707,7 +742,11 @@ app.put('/api/productQuantity/:Id', isLoggedIn, [
 
 });
 
-app.delete('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
+app.delete('/api/deletebooking/:id', isLoggedIn, [check(['id']).isInt()], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
     try {
         if (![1, 2, 3].includes(req.user.accessType)) { //Manager, Employee and Client
             return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
@@ -724,7 +763,11 @@ app.delete('/api/deletebooking/:id', isLoggedIn, async (req, res) => {
 //****************************************************** */
 
 // POST /api/image
-app.post('/api/image', isLoggedIn, async (req, res) => {
+app.post('/api/image', isLoggedIn,  [check(['id']).isInt(), check('path').notEmpty()], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
     const image = {
         id: req.body.id,
         path: req.body.path,
@@ -743,7 +786,11 @@ app.post('/api/image', isLoggedIn, async (req, res) => {
 });
 
 
-app.get('/api/users/:id/bookings', async (req, res) => {
+app.get('/api/users/:id/bookings',  [check(['id']).isInt()],  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
     try {
         const result = await orderDao.getOrdersByUserId(req.params.id);
         if (result.error)
@@ -756,7 +803,11 @@ app.get('/api/users/:id/bookings', async (req, res) => {
 
 });
 
-app.get('/api/bookings/:id/products', async (req, res) => {
+app.get('/api/bookings/:id/products', [check(['id']).isInt()],  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
     try {
         const result = await orderDao.GetProductsFromBookingId(req.params.id);
         if (result.error)
@@ -1172,7 +1223,11 @@ Body :
 2- Get price unit for all BookingAndProduct and update all
 3- Update booking
 */
-app.put('/api/bookingUpdateByClient/:id', isLoggedIn, async (req, res) => {
+app.put('/api/bookingUpdateByClient/:id', isLoggedIn, [check('id').isInt()], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
     try {
         var bookingId = req.body.BookingId;
         var deliveryTime = req.body.DeliveryTime;
