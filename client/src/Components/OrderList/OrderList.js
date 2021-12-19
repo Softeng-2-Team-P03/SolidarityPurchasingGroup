@@ -110,6 +110,8 @@ function OrderList(props) {
                         break;
                     case 4: order.State = "Canceled";
                         break;
+                    case 5: order.State = 'Unretrieved';
+                        break;
                     default: order.State = "Created";
                 }
 

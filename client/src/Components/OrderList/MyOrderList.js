@@ -153,6 +153,9 @@ function MyOrderList(props) {
                         case 4:
                             state = 'Canceled';
                            break;
+                        case 5:
+                            state = 'Unretrieved';
+                           break;
                         default:
                             state = '';
                           break;
