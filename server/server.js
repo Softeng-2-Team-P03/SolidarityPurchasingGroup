@@ -1152,6 +1152,8 @@ app.get('/api/notifications', isLoggedIn, async (req, res) => {
     }
 })
 
+
+
 /***********************************************
 **------ Request Put For Update Booking By Client
 Body : 
@@ -1199,6 +1201,37 @@ app.put('/api/bookingUpdateByClient/:id', isLoggedIn, async (req, res) => {
     }
 
 })
+
+
+// POST /api/image
+app.post('/api/unretrievedfood', check('date').isDate({format: 'YYYY-MM-DD', strictMode: true}), async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()){
+        return res.status(422).json({errors: errors.array()})
+    
+    };    
+    try {
+        const result = await orderDao.GetUnretrievedBookings();
+        if (result.error)
+        res.status(404).json(result);
+        else {
+            result.forEach(async product => {
+                var ProductId = product.ProductId;
+                var ProductQty = product.ProductQty;
+                var TypeId = product.TypeId;
+                await orderDao.createUnretrieved(req.body.date, ProductId, ProductQty, TypeId);
+
+
+            })
+
+            res.status(201).end();
+
+        }
+       
+    } catch (err) {
+        res.status(503).json({ error: `Database error during the creation of unretrieved food.` });
+    }
+});
 
 //------------------------------------------------------------
 //   Telegram Part

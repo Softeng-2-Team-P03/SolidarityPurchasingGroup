@@ -92,6 +92,9 @@ exports.getIssuedBookingsAndUsers = () => {
   });
 }
 
+
+
+
 exports.getPendingCancelationBookingsAndUsers = () => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT Bookings.*, Bookings.Id as BookingId, Users.* FROM Bookings,Users where Bookings.UserId=Users.Id AND Bookings.State=1';
@@ -209,6 +212,34 @@ exports.GetProductsFromBookingId = (bookingId) => {
     });
   });
 }
+
+exports.GetUnretrievedBookings = () => {
+  return new Promise((resolve, reject) => { //NOSONAR
+    const sqlUnretrievedBookings = "SELECT *,  BookingAndProducts.Quantity as ProductQty  FROM Bookings JOIN BookingAndProducts ON BookingAndProducts.BookingId = Bookings.Id JOIN Products  ON Products.Id = BookingAndProducts.ProductId  WHERE Bookings.State=5";
+    db.all(sqlUnretrievedBookings, [], (err, ProductsFromBooking) => {
+      if (err) {
+        reject(err);
+
+      }
+      
+      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name : e.Name, ProductId: e.ProductId, ProductQty: e.ProductQty, Quantity: e.Quantity, Price: e.Price, State: e.State, TypeId: e.TypeId}));
+      resolve(Products);
+    });
+  });
+}
+
+exports.createUnretrieved = (date, productId, unretrievedQty, typeId) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'INSERT INTO UnretrievedFood(Date, ProductId, UnretrievedQuantity, ProductType) VALUES(?,?,?,?)';
+    db.run(sql, [date,productId,unretrievedQty,typeId], function (err) {//NOSONAR
+        if (err) {
+          reject(err);
+
+        }
+        resolve(this.lastID);
+      });
+  });
+};
 
 exports.deleteBooking = (id) => {
   return new Promise((resolve, reject) => {
