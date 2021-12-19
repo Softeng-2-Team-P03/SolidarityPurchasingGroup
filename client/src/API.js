@@ -190,7 +190,7 @@ function updateProductInfo(Quantity, Id, Name, Description, PricePerUnit, TypeId
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ Quantity: Quantity, Id: Id, Name: Name, Description: Description, PricePerUnit: PricePerUnit, TypeId: TypeId }),
-        }).then((response) => {
+        }).then((response) => { //NOSONAR
             if (response.ok) {
                 resolve(null);
             } else {
@@ -212,7 +212,7 @@ function updateProductQuantity(Quantity, Id) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ Quantity: Quantity, Id: Id }),
-        }).then((response) => {
+        }).then((response) => { //NOSONAR
             if (response.ok) {
                 console.log("api");
                 resolve(null);

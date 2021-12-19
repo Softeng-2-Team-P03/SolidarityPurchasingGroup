@@ -8,8 +8,6 @@ const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [orders, setOrders] = useState([]);
-  const [loadingProducts, setLoadingProducts] = useState(true);
-  const [errorLoading, setErrorLoading] = useState(''); //Error in loading orders
 
   useEffect(() => {
 
@@ -37,9 +35,8 @@ const [show, setShow] = useState(false);
               console.log(".............");
                 setOrders(orders.map(order => ({ ...order})));
               })
-                setLoadingProducts(false);
+               
             }).catch(err => {
-                setErrorLoading('Error during the loading of the orders')
                 console.error(err);
             });
         }, []);
