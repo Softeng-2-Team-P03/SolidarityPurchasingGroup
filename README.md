@@ -600,6 +600,14 @@ If the confirmed quantity is not enough it gives all the remaining products to t
 | "Status" INTEGER | 0-not sent , 1-sent|
 | PRIMARY KEY("NotificationId") | |
 
+| Table `UnretrievedFood` - contains | |
+| ------ | --- |
+| "Date"  TEXT, | |
+| "ProductId"  INTEGER, | |
+| "UnretrievedQuantity"  INTEGER, | |
+| "ProductType"  INTEGER, | |
+| PRIMARY KEY("Date", "ProductId") | |
+
 ### Database Structure
 
 <img src="/assets/DBDesign_final.png" alt="SPGDatabase"/>
