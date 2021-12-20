@@ -101,7 +101,7 @@
  }
 
  .dayName{
-     position: fixed;
+     position: absolute;
      height: 19px;
      color: white;
      font-size: 24px;
