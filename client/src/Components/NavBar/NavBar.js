@@ -51,7 +51,8 @@ function NavBar(props) {
 
 
             {props.loggedIn && props.user !== undefined && chooseNavbar(props.user.accessType)}
-            <Nav>
+
+            <Nav className="log">
               {props.loggedIn ?
                 <Nav.Link onClick={() => { window.location.href = 'http://localhost:3000/'; props.userLogoutCallback() }}>Logout</Nav.Link> :
                 <Nav.Link href='/login'>Login</Nav.Link>
