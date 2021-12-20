@@ -1,8 +1,6 @@
 function showTime() {
 	//Check if someone deletes localstorage variables or they are not yet stored. Like the reset function
 	if (!isValidDate(new Date(localStorage.getItem('virtualDate')))) {
-		console.log(localStorage.getItem('virtualDate'));
-		console.log(isValidDate(localStorage.getItem('virtualDate')))
 		localStorage.setItem('hourMultiplier', '0');
 		localStorage.setItem('dayMultiplier', '0');
 		localStorage.setItem('monthMultiplier', '0');
