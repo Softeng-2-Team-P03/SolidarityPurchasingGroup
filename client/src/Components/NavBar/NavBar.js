@@ -228,30 +228,36 @@ function ShowClock() {
 
   const handleDayChange = (value) => {
     let str=value.toString()
-
+    if(str.length===0)
+      localStorage.setItem('dayMultiplier', '0');
+    else {
       let vD = new Date();
       let day = value - vD.getDate();
       localStorage.setItem('dayMultiplier', day);
-
+    }
   }
 
   const handleMonthChange = (value) => {
     let str=value.toString()
-
-    let vD = new Date();
-    let month = value - vD.getMonth()-1;
-    localStorage.setItem('monthMultiplier', month);
-
+    if(str.length===0)
+      localStorage.setItem('monthMultiplier', '0');
+    else {
+      let vD = new Date();
+      let month = value - vD.getMonth() - 1;
+      localStorage.setItem('monthMultiplier', month);
+    }
   }
 
   const handleYearChange = (value) => {
     let str=value.toString()
-
-    let vD = new Date();
-    let year = value - vD.getFullYear();
-    console.log(vD.getFullYear());
-    localStorage.setItem('yearMultiplier', year);
-
+    if(str.length===0)
+      localStorage.setItem('yearMultiplier', '0');
+    else {
+      let vD = new Date();
+      let year = value - vD.getFullYear();
+      console.log(vD.getFullYear());
+      localStorage.setItem('yearMultiplier', year);
+    }
   }
 
 
