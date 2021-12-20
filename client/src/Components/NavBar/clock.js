@@ -1,6 +1,8 @@
 function showTime() {
 	//Check if someone deletes localstorage variables or they are not yet stored. Like the reset function
-	if (!isValidDate(localStorage.getItem('virtualDate'))) {
+	if (!isValidDate(new Date(localStorage.getItem('virtualDate')))) {
+		console.log(localStorage.getItem('virtualDate'));
+		console.log(isValidDate(localStorage.getItem('virtualDate')))
 		localStorage.setItem('hourMultiplier', '0');
 		localStorage.setItem('dayMultiplier', '0');
 		localStorage.setItem('monthMultiplier', '0');
@@ -70,7 +72,7 @@ function formatDateEuropean(date) {
 }
 
 function isValidDate(d) {
-	return d instanceof Date && !isNaN.getTime(d);
+	return d instanceof Date && !isNaN(d.getTime());
 }
 
 export { showTime, formatDateWithoutSeconds, formatDateEuropean };
