@@ -35,40 +35,30 @@ function NavBar(props) {
 
   return (
 
-      <Navbar bg="primary" variant="dark" expand="lg">
-        <Col>
-          <Navbar.Brand href="/" className="col-md-2">
+      <Navbar bg="primary" variant="dark">
+
+
+          <Navbar.Brand href="/" className="logoName">
             <img
               src={spg}
-              width="60"
-              height="60"
-              className="d-inline-block align-top"
               alt="SPG"
-            /> <h3>SPG</h3>
+            /> <h5 className="logoName">SPG</h5>
           </Navbar.Brand>
 
-        </Col>
 
-        <Col xs="7">
 
           <ShowClock className="me-auto timer" />
 
 
-        </Col>
-        <Col xs="3">
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-
-            <Nav className="me-auto " />
             {props.loggedIn && props.user !== undefined && chooseNavbar(props.user.accessType)}
-            <Nav className="log">
+            <Nav>
               {props.loggedIn ?
                 <Nav.Link onClick={() => { window.location.href = 'http://localhost:3000/'; props.userLogoutCallback() }}>Logout</Nav.Link> :
                 <Nav.Link href='/login'>Login</Nav.Link>
               }
             </Nav>
-          </Navbar.Collapse>
-        </Col>
+
+
       </Navbar>
 
 
