@@ -40,7 +40,7 @@ exports.createBookingAndProduct = (bookingProduct, userId) => {
 
 exports.updateProductQuantity = (quantity, id) => {
   return new Promise((resolve, reject) => {
-    const sql = 'UPDATE Products SET Quantity=Quantity - ?   WHERE  Id=?';
+    const sql = 'UPDATE Products SET EstimatedQuantity=EstimatedQuantity - ?   WHERE  Id=?';
     db.run(sql, [quantity, id], function (err) {//NOSONAR
       if (err) {
         reject(err);
@@ -136,7 +136,7 @@ exports.deleteOrder = (id) => {
         { productId: e.ProductId, productQuantity: e.Quantity }
       ));
       productAndQuantity.map((productAndQuantity) => {
-        const sqlAdd = 'UPDATE Products SET Quantity=Quantity + ?   WHERE  Id=?';
+        const sqlAdd = 'UPDATE Products SET EstimatedQuantity=EstimatedQuantity + ?   WHERE  Id=?';
         db.run(sqlAdd, [productAndQuantity.productQuantity, productAndQuantity.productId], function (err) {//NOSONAR
           if (err) {
             reject(err);
@@ -171,13 +171,13 @@ For This Function, After Change And Update Product Available By Farmer We Use th
 */
 exports.GetProductInfoForConfirmation = (productId) => {
   return new Promise((resolve, reject) => {
-    const sqlProduct = 'SELECT Name,Quantity , FarmerId,PricePerUnit FROM Products WHERE Id=? ';
+    const sqlProduct = 'SELECT Name, AvailableQuantity , FarmerId,PricePerUnit FROM Products WHERE Id=? ';
     db.all(sqlProduct, [productId], (err, rows) => { //NOSONAR
       if (err) {
         reject(err);
 
       }
-      var Product = ({ ProductName: rows[0].Name, Quantity: rows[0].Quantity, FarmerId: rows[0].FarmerId, PricePerUnit: rows[0].PricePerUnit });
+      var Product = ({ ProductName: rows[0].Name, Quantity: rows[0].AvailableQuantity, FarmerId: rows[0].FarmerId, PricePerUnit: rows[0].PricePerUnit });
       resolve(Product);
     });
   });
@@ -207,7 +207,7 @@ exports.GetProductsFromBookingId = (bookingId) => {
 
       }
       
-      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name : e.Name, ProductId: e.ProductId, Qty: e.Qty, Quantity: e.Quantity, Price: e.Price, State: e.State, ImagePath : e.Path , PricePerUnit: e.PricePerUnit}));
+      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name : e.Name, ProductId: e.ProductId, Qty: e.Qty, Quantity: e.EstimatedQuantity, Price: e.Price, State: e.State, ImagePath : e.Path , PricePerUnit: e.PricePerUnit}));
       resolve(Products);
     });
   });
@@ -222,7 +222,7 @@ exports.GetUnretrievedBookings = () => {
 
       }
       
-      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name : e.Name, ProductId: e.ProductId, ProductQty: e.ProductQty, Quantity: e.Quantity, Price: e.Price, State: e.State, TypeId: e.TypeId}));
+      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name : e.Name, ProductId: e.ProductId, ProductQty: e.ProductQty, Quantity: e.AvailableQuantity, Price: e.Price, State: e.State, TypeId: e.TypeId}));
       resolve(Products);
     });
   });

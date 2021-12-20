@@ -12,7 +12,7 @@ function productsReturned(rows){
         farmerId: row.FarmerId,
         name: row.Name,
         description: row.Description,
-        quantity: row.Quantity,
+        quantity: row.EstimatedQuantity,
         state: row.State,
         typeId: row.TypeId,
         pricePerUnit: row.PricePerUnit,
@@ -21,7 +21,8 @@ function productsReturned(rows){
             name: row.FarmerName,
             surname: row.Surname,
         },
-        ExpiringDate: row.ExpiringDate
+        ExpiringDate: row.ExpiringDate,
+        AvailableQuantity: row.AvailableQuantity
     })
     );
 }
@@ -69,7 +70,7 @@ exports.getProducts1 = () => {
                 reject(err);
                 return;
             }
-            const products = rows.map((e) => ({ Id: e.Id, FarmerId: e.FarmerId, Name: e.Name, Description: e.Description, Quantity: e.Quantity, State: e.State, TypeId: e.TypeId, PricePerUnit: e.PricePerUnit }));
+            const products = rows.map((e) => ({ Id: e.Id, FarmerId: e.FarmerId, Name: e.Name, Description: e.Description, Quantity: e.EstimatedQuantity, AvailableQuantity: e.AvailableQuantity, State: e.State, TypeId: e.TypeId, PricePerUnit: e.PricePerUnit }));
             resolve(products);
         });
     });
@@ -105,7 +106,8 @@ exports.getProduct = (id) => {
                     farmerId: row.FarmerId,
                     name: row.Name,
                     description: row.Description,
-                    quantity: row.Quantity,
+                    quantity: row.EstimatedQuantity,
+                    availableQuantity: row.AvailableQuantity,
                     state: row.State,
                     typeId: row.TypeId,
                     pricePerUnit: row.PricePerUnit,
@@ -161,7 +163,7 @@ exports.listFarmerProd = (farmerId, state) => {
                 return;
             }
 
-            const products = rows.map((e) => ({Id:e.Id, FarmerId: e.FarmerId, Name: e.Name, Description: e.Description,Quantity: e.Quantity,State:e.State,TypeId:e.TypeId,PricePerUnit:e.PricePerUnit}));
+            const products = rows.map((e) => ({Id:e.Id, FarmerId: e.FarmerId, Name: e.Name, Description: e.Description,Quantity: e.EstimatedQuantity, AvailableQuantity: e.AvailableQuantity , State:e.State,TypeId:e.TypeId,PricePerUnit:e.PricePerUnit}));
 
             resolve(products);
         });
@@ -170,8 +172,8 @@ exports.listFarmerProd = (farmerId, state) => {
 
 exports.createProduct = (product) => {
     return new Promise((resolve, reject) => {
-        const sql = 'INSERT INTO Products(FarmerId, Name, Description,Quantity,State,TypeId,PricePerUnit,ExpiringDate) VALUES(?,?,?,?,?,?,?,?)';
-        db.run(sql, [product.FarmerId, product.Name, product.Description,product.Quantity,product.State,product.TypeId,product.PricePerUnit,product.ExpiringDate], function (err) {
+        const sql = 'INSERT INTO Products(FarmerId, Name, Description, EstimatedQuantity, State, TypeId, PricePerUnit, ExpiringDate, AvailableQuantity) VALUES(?,?,?,?,?,?,?,?)';
+        db.run(sql, [product.FarmerId, product.Name, product.Description,product.Quantity,product.State,product.TypeId,product.PricePerUnit,product.ExpiringDate, product.Quantity], function (err) {
             if (err) {
                 reject(err);
                 return;
@@ -210,8 +212,8 @@ exports.createImage = (image) => {
 };
 exports.updateProduct = (Quantity, Id, Name, Description, PricePerUnit, TypeId) => {
     return new Promise((resolve, reject) => {
-        const sql = 'UPDATE Products SET Quantity=?, Name=?, Description=?, PricePerUnit=?, TypeId=? WHERE Id =? ';
-        db.run(sql, [Quantity, Name, Description, PricePerUnit, TypeId, Id], function (err) { //NOSONAR
+        const sql = 'UPDATE Products SET EstimatedQuantity=?, Name=?, Description=?, PricePerUnit=?, TypeId=?, AvailableQuantity=? WHERE Id =? ';
+        db.run(sql, [Quantity, Name, Description, PricePerUnit, TypeId, Quantity, Id], function (err) { //NOSONAR
             if (err) {
                 reject(err);
                 return;
@@ -235,7 +237,7 @@ exports.getProductPriceUnit = (id) => {
 
 exports.updateProductQuantity = (Quantity, Id) => {
     return new Promise((resolve, reject) => {
-        const sql = 'UPDATE Products SET Quantity=? WHERE Id =? ';
+        const sql = 'UPDATE Products SET AvailableQuantity=? WHERE Id =? ';
         db.run(sql, [Quantity, Id], function (err) { //NOSONAR
             if (err) {
                 reject(err);

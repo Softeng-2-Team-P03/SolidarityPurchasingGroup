@@ -147,7 +147,7 @@ function FarmerHome() {
                                         src={require('../../../public/ProductImages/' + "p" + x.Id.toString() + "-1.jpg").default} />
                                 </Col>
                                 <Col md="2"><h4 className="textP">{x.Name}</h4></Col>
-                                <Col md="2"><h4 className="textP">QTY:{x.Quantity}</h4></Col>
+                                <Col md="2"><h4 className="textP">QTY:{x.AvailableQuantity}</h4></Col>
                                 <Col md="2"><h6 className="Conf">confirmed</h6></Col>
 
                                 <hr className="rowDiv" />
