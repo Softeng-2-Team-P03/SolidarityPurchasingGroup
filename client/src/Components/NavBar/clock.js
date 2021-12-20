@@ -17,8 +17,6 @@ function showTime() {
 	localStorage.setItem("virtualDate", virtualDate);
 	localStorage.setItem("virtualDateToStringWithTime", formatDateWithTime(virtualDate));
 	localStorage.setItem("virtualDateToString", formatDate(virtualDate));
-
-	console.log(virtualDate);
 }
 
 function datePadding(value) {

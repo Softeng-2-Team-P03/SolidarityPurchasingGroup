@@ -19,12 +19,6 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [message, setMessage] = useState('');
   const [user, setUser] = useState(undefined);
-  let confirmBookingsDone = false;
-  let dateDone;
-  let confirmBookingsPending = false;
-  let datePending;
-  let emailSent = false;
-  let dateEmail;
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -64,63 +58,65 @@ function App() {
   };
 
   useEffect(() => {
-    const id1 = setInterval(checkConfirmBookings, 1000);
-    const id2 = setInterval(checkConfirmBookingsPending, 1000);
-    const id3 = setInterval(sendMails, 1000);
-    checkConfirmBookings();
-    checkConfirmBookingsPending();
-    sendMails();
-    return () => { clearInterval(id1); clearInterval(id2); clearInterval(id3) }
+    const id1 = setInterval(checkDate, 1000);
+    checkDate();
+    return () => clearInterval(id1)
   }, [])
 
-  const checkConfirmBookings = () => {
+  const checkDate = () => {
     let t = new Date(localStorage.getItem('virtualDate'));
+    checkConfirmBookings(t);
+    sendMails(t);
+    checkConfirmBookingsPending(t);
+    checkUnretrievedFood(t);
+    sendTelegramNotification(t);
+  }
 
-    if (confirmBookingsDone === true && t.getTime() > dateDone.getTime()) { //already called API
-      console.log("API to confirm bookings has been called!")
-      confirmBookingsDone = false;
-      return;
-    }
-    if (confirmBookingsDone === false && t.getDay() === 1 && t.getHours() === 9 && t.getMinutes() === 0 && t.getSeconds() <= 1) {
+  const checkConfirmBookings = (t) => {
+    //Monday at 9:00:00
+    if (t.getDay() === 1 && t.getHours() === 9 && t.getMinutes() === 0 && t.getSeconds() === 0) {
+      console.log("Calling API to confirm bookings!")
       API.confirmAllBookings()
         .catch(err => console.error(err));
-      console.log("Called API to confirm bookings!")
-      dateDone = new Date(t.getTime());
-      confirmBookingsDone = true;
+      console.log("API to confirm bookings has been called!")
     }
   }
 
-  const checkConfirmBookingsPending = () => {
-    let t = new Date(localStorage.getItem('virtualDate'));
-
-    if (confirmBookingsPending === true && t.getTime() > datePending.getTime()) { //already called API
-      console.log("API to check bookings in pending cancelation has been called!")
-      confirmBookingsPending = false;
-      return;
-    }
-    if (confirmBookingsPending === false && t.getDay() === 1 && t.getHours() === 23 && t.getMinutes() === 59 && t.getSeconds() <= 1) {
-      API.confirmAllBookingsPendingCancelation()
-        .catch(err => console.error(err));
-      console.log("Called API to check bookings in pending cancelation!")
-      datePending = new Date(t.getTime());
-      confirmBookingsPending = true;
-    }
-  }
-
-  const sendMails = () => {
-    let t = new Date(localStorage.getItem('virtualDate'));
-
-    if (emailSent === true && t.getTime() > dateEmail.getTime()) { //already called API
-      console.log("API to send emails has been called!")
-      emailSent = false;
-      return;
-    }
-    if (emailSent === false && t.getDay() === 1 && t.getHours() === 9 && t.getMinutes() === 0 && t.getSeconds() >= 10 && t.getSeconds() <= 11) {
+  const sendMails = (t) => {
+    //Monday at 9:00:05
+    if (t.getDay() === 1 && t.getHours() === 9 && t.getMinutes() === 0 && t.getSeconds() === 5) {
+      console.log("Calling API to send emails")
       API.sendMailNotifications()
         .catch(err => console.error(err));
-      console.log("Called API to send emails")
-      dateEmail = new Date(t.getTime());
-      emailSent = true;
+      console.log("API to send emails has been called!")
+    }
+  }
+
+  const checkConfirmBookingsPending = (t) => {
+    //Monday at 23:59:00
+    if (t.getDay() === 1 && t.getHours() === 23 && t.getMinutes() === 59 && t.getSeconds() === 0) {
+      console.log("Calling API to check bookings in pending cancelation!")
+      API.confirmAllBookingsPendingCancelation()
+        .catch(err => console.error(err));
+      console.log("API to check bookings in pending cancelation has been called!")
+    }
+  }
+
+  const checkUnretrievedFood = (t) => {
+    //Saturday at 9:00:00
+    if (t.getDay() === 6 && t.getHours() === 9 && t.getMinutes() === 0 && t.getSeconds() === 0) {
+      console.log("Calling API to send check for unretrieved food")
+      // to add API
+      console.log("API to check for unretrieved food has been called!")
+    }
+  }
+
+  const sendTelegramNotification = (t) => {
+    //Saturday at 9:00:00
+    if (t.getDay() === 6 && t.getHours() === 9 && t.getMinutes() === 0 && t.getSeconds() === 0) {
+      console.log("Calling API to send telegram notifications")
+      // to add API
+      console.log("API to send telegram notifications has been called!")
     }
   }
 
