@@ -23,93 +23,33 @@
   font-weight: bold;
   font-size: 20px;
 }
-#incrementDay , #decrementDay {
-  width: 80px;
-  height: 80px;
-  padding: 10px;
-  margin: 2px;
-  /* background-color: #ffffff1f; */
-  color: #fff;
-  border-radius: 5px;
-}
 
-.log{
-  margin-top: 0%;
-}
-
-.glow{
-  width:20%;
-  margin-left: 5%;
-}
-
-.tableTim{
-  width:40%;
-
-}
 
 .nav-clock{text-align: center;}
-.timer-box{
-  width: 80px;
-  height: 80px;
-  margin: 5px;
-  margin-left: -3%;
-  margin-right: -3%;
-  /* background-color: #ffffff1f; */
-  color: #fff;
-  border-radius: 5px;
-}
-.timer{
-  background-color: #070707 !important;
 
-}
 
-.navMan{
-  margin-left: 0%;
-}
-.timer .nav{    justify-content: center;}
+
 .bg-primary{
   background-color: #000000 !important;
 }
-.clockWrapper {
-  margin-top: 1%;
-  margin-left: 25%;
-  margin-right: 25%;
-  /* margin-left: 40%; */
-  min-width: 45%;
-  text-align: center;
-  justify-content: center;
-  border-collapse: collapse;
 
-}
-.day-name {display: none !important;}
-.clockWrapper tr{
-  line-height: 15px;
+.buttonArrowM {
+    margin-left: 45px;
+  cursor: pointer;
+    width: 10px;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-.clockWrapper td{
-  line-height: 15px;
-  padding: -1%;
-  padding-left: -10%;
-}
-
-.clockWrapper span{
-  font-size: 25px;
-  color: rgba(255, 255, 255, 0.87);
-  font-weight: bold;
-  margin-left: -5%;
-}
-
-.clockWrapper div{
-  font-size: 15px;
-  color: #fff;
-  font-weight: bold;
-  margin-right: -30%;
-}
-
-.buttonArrow:hover {
-  cursor: pointer
-
-}
+ .buttonArrowH {
+     margin-left: 339px;
+     cursor: pointer;
+     width: 10px;
+     color: white;
+     font-size: 24px;
+     font-weight: bold;
+ }
 
 .modifyButton {
   background: transparent;
@@ -118,36 +58,8 @@
   font-weight: bold;
 }
 
-@media screen and (max-width:1200px){
-  .clockWrapper{
-  /* margin-left: 40%; */
-  margin: auto;
-    min-width: 30%;
-  }
-}
-
-@media screen and (max-width:1000px){
-  .clockWrapper{
-     /* margin-left: 40%; */
-  margin: auto;
-    min-width: 40%;
-  }
-}
-
-@media screen and (max-width: 700px){
-  .navbar-dark .navbar-nav .nav-link{
-    margin-left: 10px;
-  }
-  .clockWrapper{
-     /* margin-left: 40%; */
-  margin: auto;
-    min-width: 60%;
-  }
-}
-
 .inputC{
   width: 50px;
-  height: 19px;
   background-color: transparent;
   border: none;
   color: white;
@@ -155,3 +67,91 @@
   font-size: 24px;
   font-weight: bold;
 }
+
+ .inputD{
+     margin-left: 10px;
+   width: 40px;
+     text-align: center;
+   background-color: transparent;
+   border: none;
+   color: white;
+   font-size: 24px;
+   font-weight: bold;
+ }
+
+ .inputM{
+     width: 40px;
+     text-align: center;
+     background-color: transparent;
+     border: none;
+     color: white;
+     font-size: 24px;
+     font-weight: bold;
+ }
+
+
+ .inputY{
+     width: 70px;
+     text-align: center;
+     background-color: transparent;
+     border: none;
+     color: white;
+     font-size: 24px;
+     font-weight: bold;
+ }
+
+ .dayName{
+     position: fixed;
+     height: 19px;
+     color: white;
+     font-size: 24px;
+     font-weight: bold;
+ }
+
+ .slash{
+     width: 10px;
+     color: white;
+     font-size: 24px;
+     font-weight: bold;
+     margin-left: 5px;
+     margin-right: 5px;
+ }
+
+ .DateArrow{
+     margin-left: 80px;
+     cursor: pointer;
+     width: 10px;
+     color: white;
+     font-size: 24px;
+     font-weight: bold;
+ }
+
+ .DateArrowRight{
+     margin-left: 6px;
+     margin-right: 20px;
+     cursor: pointer;
+     width: 10px;
+     color: white;
+     font-size: 24px;
+     font-weight: bold;
+ }
+
+ .seconds{
+     height: 19px;
+     color: white;
+     font-size: 24px;
+     font-weight: bold;
+     margin-right: 20px;
+ }
+
+ .flex{
+   display: flex;
+ }
+
+ .center {
+     margin: auto;
+     width: 50%;
+     padding: 10px;
+ }
+
+

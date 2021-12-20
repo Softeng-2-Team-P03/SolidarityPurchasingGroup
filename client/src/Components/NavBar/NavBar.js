@@ -9,6 +9,8 @@ import 'bootstrap-icons/font/bootstrap-icons.css';
 var hourMultiplier = 0;
 var dayMultiplier = 0;
 var minutesMultiplier = 0;
+var monthMultiplier = 0;
+var yearMultiplier = 0;
 window.setInterval(showTime, 1000) // per mostrare il passare dei secondi nell'orologio
 function NavBar(props) {
 
@@ -195,6 +197,8 @@ function ShowClock() {
   const resetTime = () => {
     localStorage.setItem('hourMultiplier', '0');
     localStorage.setItem('dayMultiplier', '0');
+    localStorage.setItem('monthMultiplier', '0');
+    localStorage.setItem('yearMultiplier', '0');
     localStorage.setItem('minutesMultiplier', '0');
   }
 
@@ -222,80 +226,64 @@ function ShowClock() {
     }
   }
 
+  const handleDayChange = (value) => {
+    let str=value.toString()
+
+      let vD = new Date();
+      let day = value - vD.getDate();
+      localStorage.setItem('dayMultiplier', day);
+
+  }
+
+  const handleMonthChange = (value) => {
+    let str=value.toString()
+
+    let vD = new Date();
+    let month = value - vD.getMonth()-1;
+    localStorage.setItem('monthMultiplier', month);
+
+  }
+
+  const handleYearChange = (value) => {
+    let str=value.toString()
+
+    let vD = new Date();
+    let year = value - vD.getFullYear();
+    console.log(vD.getFullYear());
+    localStorage.setItem('yearMultiplier', year);
+
+  }
+
 
   return (
-      <div className="clockWrapper">
-        <Table className ="tableTim"responsive borderless size="sm">
-          <thead>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          </thead>
-          <tbody>
-          <tr>
-            <td>
-            </td>
-            <td>
-              <span id='incrementHour' className="buttonArrow" onClick={setHourPlus}>▲</span>
-            </td>
-            <td></td>
-            <td>
-              <span id='incrementMinutes' className="buttonArrow" onClick={setMinutesPlus}>▲</span>
-            </td>
-            <td></td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <div className="glow">
-                <span id='decrementDay' className="buttonArrow" onClick={setDayMinus}>〈</span>
-                <span className="timer-box">
-                  <span id="dayName" />&nbsp;&nbsp;
-                  <span id="day" />/<span id="month" />/<span id="year" />
-                </span>
-                <span id='incrementDay' className="buttonArrow" onClick={setDayPlus}>〉</span>
-              </div>
-            </td>
-            <td>
-              <input id="hours" className="inputC" onFocus={e => e.target.select()} onChange={e=>handleHoursChange(e.target.value)}/>
-            </td>
-            <td>
-              <span>:</span>
-            </td>
-            <td>
-              <input id="minutes" className="inputC" onFocus={e => e.target.select()} onChange={e=>handleMinutesChange(e.target.value)}/>
-            </td>
-            <td>
-              <span>:</span>
-            </td>
-            <td>
-              <span id="seconds" className="timer-box" />
-            </td>
-            <td>
-              <button id='resetTime' className="modifyButton" onClick={resetTime}>resetTime</button>
-            </td>
-          </tr>
-          <tr>
-            <td>
-            </td>
-            <td>
-              <span id='decrementHour' className="buttonArrow" onClick={setHourMinus}>▼</span>
-            </td>
-            <td></td>
-            <td>
-              <span id='decrementMinutes' className="buttonArrow" onClick={setMinutesMinus}>▼</span>
-            </td>
-            <td></td>
-            <td> </td>
-            <td></td>
-          </tr>
-          </tbody>
-        </Table>
+
+       <div className="center">
+         <span id='incrementHour' className="buttonArrowH" onClick={setHourPlus}>▲</span>
+         <span id='incrementMinutes' className="buttonArrowM" onClick={setMinutesPlus}>▲</span>
+
+         <span className="flex">
+           <span id="dayName" className="dayName"/>&nbsp;
+
+           <span id='decrementDay' className="DateArrow" onClick={setDayMinus}>〈</span>
+           <input id="day" className="inputD" onFocus={e => e.target.select()} onChange={e=>handleDayChange(e.target.value)}/>
+           <span className="slash">/</span>
+           <input id="month" className="inputM" onFocus={e => e.target.select()} onChange={e=>handleMonthChange(e.target.value)}/>
+           <span className="slash">/</span>
+           <input id="year" className="inputY" onFocus={e => e.target.select()} onChange={e=>handleYearChange(e.target.value)}/>
+           <span id='incrementDay' className="DateArrowRight" onClick={setDayPlus}>〉</span>
+
+           <input id="hours" className="inputC" onFocus={e => e.target.select()} onChange={e=>handleHoursChange(e.target.value)}/>
+           <span className="slash">:</span>
+           <input id="minutes" className="inputC" onFocus={e => e.target.select()} onChange={e=>handleMinutesChange(e.target.value)}/>
+           <span className="slash">:</span>
+           <span id="seconds" className="seconds"/>
+
+           <button id='resetTime' className="modifyButton" onClick={resetTime}>resetTime</button>
+         </span>
+
+         <span id='decrementHour' className="buttonArrowH" onClick={setHourMinus}>▼</span>
+         <span id='decrementMinutes' className="buttonArrowM" onClick={setMinutesMinus}>▼</span>
+
       </div>
   );
 }

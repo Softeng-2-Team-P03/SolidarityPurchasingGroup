@@ -3,13 +3,15 @@ function showTime() {
 
 	let virtualDate = new Date();
 	virtualDate.setDate(virtualDate.getDate() + parseInt(localStorage.getItem('dayMultiplier')));
+	virtualDate.setMonth(virtualDate.getMonth() + parseInt(localStorage.getItem('monthMultiplier')));
+	virtualDate.setFullYear(virtualDate.getFullYear() + parseInt(localStorage.getItem('yearMultiplier')));
 	virtualDate.setHours(virtualDate.getHours() + parseInt(localStorage.getItem('hourMultiplier')));
 	virtualDate.setMinutes(virtualDate.getMinutes() + parseInt(localStorage.getItem('minutesMultiplier')));
 
 	document.getElementById("dayName").innerHTML = dayOfWeek(virtualDate);
-	document.getElementById("day").innerHTML = datePadding(virtualDate.getDate());
-	document.getElementById("month").innerHTML = datePadding(virtualDate.getMonth() + 1);
-	document.getElementById("year").innerHTML = datePadding(virtualDate.getFullYear());
+	document.getElementById("day").value = datePadding(virtualDate.getDate());
+	document.getElementById("month").value = datePadding(virtualDate.getMonth() + 1);
+	document.getElementById("year").value = datePadding(virtualDate.getFullYear());
 	document.getElementById("hours").value = datePadding(virtualDate.getHours());
 	document.getElementById("minutes").value = datePadding(virtualDate.getMinutes());
 	document.getElementById("seconds").innerHTML = datePadding(virtualDate.getSeconds());
