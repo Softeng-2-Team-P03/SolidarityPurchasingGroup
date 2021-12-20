@@ -1,5 +1,12 @@
-
 function showTime() {
+	//Check if someone deletes localstorage variables or they are not yet stored. Like the reset funcion
+	if (localStorage.getItem('virtualDate') === null) {
+		localStorage.setItem('hourMultiplier', '0');
+		localStorage.setItem('dayMultiplier', '0');
+		localStorage.setItem('monthMultiplier', '0');
+		localStorage.setItem('yearMultiplier', '0');
+		localStorage.setItem('minutesMultiplier', '0');
+	}
 
 	let virtualDate = new Date();
 	virtualDate.setDate(virtualDate.getDate() + parseInt(localStorage.getItem('dayMultiplier')));
