@@ -10,13 +10,15 @@ function showTime() {
 	document.getElementById("day").innerHTML = datePadding(virtualDate.getDate());
 	document.getElementById("month").innerHTML = datePadding(virtualDate.getMonth() + 1);
 	document.getElementById("year").innerHTML = datePadding(virtualDate.getFullYear());
-	document.getElementById("hours").innerHTML = datePadding(virtualDate.getHours());
-	document.getElementById("minutes").innerHTML = datePadding(virtualDate.getMinutes());
+	document.getElementById("hours").value = datePadding(virtualDate.getHours());
+	document.getElementById("minutes").value = datePadding(virtualDate.getMinutes());
 	document.getElementById("seconds").innerHTML = datePadding(virtualDate.getSeconds());
 
 	localStorage.setItem("virtualDate", virtualDate);
 	localStorage.setItem("virtualDateToStringWithTime", formatDateWithTime(virtualDate));
 	localStorage.setItem("virtualDateToString", formatDate(virtualDate));
+
+	console.log(virtualDate);
 }
 
 function datePadding(value) {

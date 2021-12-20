@@ -31,8 +31,8 @@ function NavBar(props) {
     return <></>;
   }
 
-  return (    
-     
+  return (
+
       <Navbar bg="primary" variant="dark" expand="lg">
         <Col>
           <Navbar.Brand href="/" className="col-md-2">
@@ -68,8 +68,8 @@ function NavBar(props) {
           </Navbar.Collapse>
         </Col>
       </Navbar>
-      
-  
+
+
   );
 }
 
@@ -104,7 +104,7 @@ function ManagerNavbar() {
       <Nav.Link className="navMan"href='/clients'>Clients</Nav.Link>
       <Nav.Link href='/orders'>Orders</Nav.Link>
       <Nav.Link href='/WareHouseHome'>WareHouse</Nav.Link>
-      
+
     </Nav>
   );
 }
@@ -198,10 +198,35 @@ function ShowClock() {
     localStorage.setItem('minutesMultiplier', '0');
   }
 
+  const handleHoursChange = (value) => {
+    let str=value.toString()
+    if(str.length===0)
+      localStorage.setItem('hourMultiplier', '0');
+    else {
+      let vD = new Date();
+      let hours = value - vD.getHours();
+      console.log(hours);
+      localStorage.setItem('hourMultiplier', hours);
+    }
+  }
+
+  const handleMinutesChange = (value) => {
+    let str=value.toString()
+    if(str.length===0)
+      localStorage.setItem('minutesMultiplier', '0');
+    else {
+      let vD = new Date();
+      let minutes = value - vD.getMinutes();
+      console.log(minutes);
+      localStorage.setItem('minutesMultiplier', minutes);
+    }
+  }
+
+
   return (
-    <div className="clockWrapper glow">
-      <Table className ="tableTim"responsive borderless size="sm">
-        <thead>
+      <div className="clockWrapper">
+        <Table className ="tableTim"responsive borderless size="sm">
+          <thead>
           <th></th>
           <th></th>
           <th></th>
@@ -209,8 +234,8 @@ function ShowClock() {
           <th></th>
           <th></th>
           <th></th>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           <tr>
             <td>
             </td>
@@ -237,13 +262,13 @@ function ShowClock() {
               </div>
             </td>
             <td>
-              <span id="hours" className="timer-box" />
+              <input id="hours" className="inputC" onFocus={e => e.target.select()} onChange={e=>handleHoursChange(e.target.value)}/>
             </td>
             <td>
               <span>:</span>
             </td>
             <td>
-              <span id="minutes" className="timer-box" />
+              <input id="minutes" className="inputC" onFocus={e => e.target.select()} onChange={e=>handleMinutesChange(e.target.value)}/>
             </td>
             <td>
               <span>:</span>
@@ -269,9 +294,9 @@ function ShowClock() {
             <td> </td>
             <td></td>
           </tr>
-        </tbody>
-      </Table>
-    </div>
+          </tbody>
+        </Table>
+      </div>
   );
 }
 
