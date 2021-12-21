@@ -193,7 +193,7 @@ function ProductListItem(props) {
                         src={require('../../../public/ProductImages/' + "p" + props.product.Id.toString() + "-1.jpg").default} />
                 </Col>
                 <Col md="2"><h4 className="textP">{props.product.Name}</h4></Col>
-                <Col md="2"><h4 className="textP">QTY:{props.product.Quantity}</h4></Col>
+                <Col md="2"><h4 className="textP">QTY:{props.product.AvailableQuantity}</h4></Col>
                 <Col md="2"><h6 className="toConf" color="red">to confirm</h6></Col>
                 {props.timeAddEdit ?
                     <Col md="2">
