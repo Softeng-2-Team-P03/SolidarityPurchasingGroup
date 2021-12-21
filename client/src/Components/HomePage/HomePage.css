@@ -27,11 +27,12 @@
 .circle-1 {
     width: 100%;
     border-radius: 50%;
-    border: 10px solid #d6d6d6;
+    border: none;
     float: left;
   }
 
   .circle-1 img {
+      margin-top: 30px;
     width: 100%;
     border-radius: 50%;
     cursor:pointer;
@@ -84,8 +85,7 @@
     margin-left: 1%;
     right: 10px;border-radius: 25px;
     overflow: hidden;
-    background: linear-gradient(
-120deg, #FF6071 0%, #FF7E8E 100%);
+    background: #FF6578;
 
     color: #fff;
     padding: 10px 2px;
@@ -183,5 +183,19 @@
     left: 35%;
     width: 30%;
     z-index:9999;
-    border-radius:0px
+    border-radius:0px;
   }
+
+.buttonHome{
+    color : white;
+    background : #FF6578;
+    border : none;
+    font-weight: 600;
+
+}
+
+.buttonHome:hover{
+    background: #9c3b45;
+    color: #afcbd6;
+
+}

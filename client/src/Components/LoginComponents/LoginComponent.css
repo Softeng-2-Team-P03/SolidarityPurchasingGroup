@@ -30,9 +30,9 @@
 
 }
 .login{
-    background: rgb(20,135,64);
-    background-color: #ffffff;
-    background-image: linear-gradient(315deg, #ffffff 0%, #d7e1ec 74%);}
+    background: #FF6071;
+    background-color: #afcbd6;
+    }
 .form-label{
     font-weight: bold;
 }
@@ -56,10 +56,24 @@
 .logo-user{
     width: 100px;
     height: 100px;
-    background-color: #148740;
+    background-color: #FF6071;
 border-radius: 50%;
 padding: 25px;
 margin:auto
 }
+
+.loginButton{
+    background: #FF6578;
+    color: white;
+    font-weight: 600;
+
+}
+
+.loginButton:hover{
+    background: #9c3b45;
+    color: white;
+
+}
+
 .login-form div{text-align: left;font-size: 1.2em;}
 .form-control{font-weight: 1rem;}
