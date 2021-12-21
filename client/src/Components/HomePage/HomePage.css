@@ -183,5 +183,17 @@
     left: 35%;
     width: 30%;
     z-index:9999;
-    border-radius:0px
+    border-radius:0px;
   }
+
+.buttonHome{
+    color : black;
+    background : #FF7E8E;
+    border : none;
+}
+
+.buttonHome:hover{
+    background: #9c3b45;
+    color: black;
+
+}

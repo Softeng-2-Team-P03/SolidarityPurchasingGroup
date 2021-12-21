@@ -40,21 +40,21 @@ function HomePage(prop) {
         }
     }, []);
 
- 
+
   const toggleShowB = () => {setShowB(!showB); let state = { ...history.location.state };
   delete state.showToast;
   history.replace({ ...history.location, state });}
-    
+
     return (
         <>
-        {location.state && location.state.showToast  ? <> 
+        {location.state && location.state.showToast  ? <>
         <Toast className="toast-fixed" onClose={toggleShowB} show={showB} animation={false}>
           <Toast.Header>
             <strong className="me-auto">Registration completed</strong>
           </Toast.Header>
           <Toast.Body>Your account has been successfully created</Toast.Body>
         </Toast> </> : <></>
-   
+
 }
             <SelectionBar />
             <div className="container">
@@ -64,18 +64,18 @@ function HomePage(prop) {
                     <p>Go to your local shop or log in to add products to your basket</p>
                     <Row>
                         <Col>
-                        {prop.loggedIn ? <LogOut userLogoutCallback={prop.userLogoutCallback}/> : <LogIn/>}   
+                        {prop.loggedIn ? <LogOut userLogoutCallback={prop.userLogoutCallback}/> : <LogIn/>}
                         </Col>
                         <Col>
                             <Link to='/products' style={{ whiteSpace: "nowrap" }}>
-                                <Button style={{color : 'black', background : '#FF7E8E', border : 'none'}} size="lg" > Products </Button>
+                                <Button className="buttonHome" size="lg" > Products </Button>
                             </Link>
                         </Col>
                     </Row>
                     {prop.loggedIn ? <> </> : <>
                     <p>Not already registered?</p>
                     <Link to='/addClient'>
-                        <Button size="lg" style={{color : 'black', background : '#FF7E8E', border : 'none'}}>Register</Button>
+                        <Button size="lg" className="buttonHome">Register</Button>
                     </Link> </> }
                 </section>
                 <section className="partSection" id="info">
@@ -83,13 +83,13 @@ function HomePage(prop) {
                     <p>Choose the products to add to your basket in shop or online</p>
                     <p>Pick up your products by person or have them delivered to your home!</p>
                 </section>
-               
+
                 <section className="partSection" id="candidate">
                     <h1>Are you a farmer or a delivery person?</h1>
                     <h2>Want to join our team?</h2>
                     <p>Candidate now!</p>
                     <Link to='/candidate'>
-                        <Button style={{color : 'black',background : '#FF7E8E', border : 'none'}} size="lg">Candidate</Button>
+                        <Button className="buttonHome" size="lg">Candidate</Button>
                     </Link>
                 </section>
 
@@ -137,7 +137,7 @@ function HomePage(prop) {
                 {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#273036" fill-opacity="1" d="M0,64L1440,160L1440,320L0,320Z"></path> */}
                 <br/>
                 <p >@copyright 2021-2022 -Software engineering-   politecnico di torino  By p3</p>
-                
+
                 {/* </svg> */}
                 </div>
                 </section>
@@ -165,7 +165,7 @@ function SelectionBar() {
 function LogIn(){
     return(<>
         <Link to='/login'>
-            <Button size="lg" style={{color : 'black',background : '#FF7E8E', border : 'none'}}>Log In</Button>
+            <Button size="lg" className="buttonHome" >Log In</Button>
         </Link>
     </>);
 }
@@ -173,7 +173,7 @@ function LogIn(){
 function LogOut(prop){
     return(<>
     <Link to="/">
-        <Button size="lg" style={{color : 'black',background : '#FF7E8E', border : 'none'}} onClick={prop.userLogoutCallback}>Log Out</Button>
+        <Button size="lg" className="buttonHome" onClick={prop.userLogoutCallback}>Log Out</Button>
     </Link>
     </>);
 }
