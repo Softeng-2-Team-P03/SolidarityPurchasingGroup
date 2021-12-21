@@ -108,7 +108,7 @@ function Notifications({ name, ...props }) {
                     <Offcanvas.Title>Notification</Offcanvas.Title>
                 </Offcanvas.Header>
 
-                {countNoti !== 0 ||  countNoti !== 1 ?
+                {countNoti !== 0 ?
                     <button type="button" className="btn btn-warning disAll"
                             onClick={() => dismissAll()}>Dismiss All</button>
                     :
