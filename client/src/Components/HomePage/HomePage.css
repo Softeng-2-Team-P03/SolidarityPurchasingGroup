@@ -27,11 +27,12 @@
 .circle-1 {
     width: 100%;
     border-radius: 50%;
-    border: 10px solid #d6d6d6;
+    border: none;
     float: left;
   }
 
   .circle-1 img {
+      margin-top: 30px;
     width: 100%;
     border-radius: 50%;
     cursor:pointer;
