@@ -106,9 +106,14 @@ function Notifications({ name, ...props }) {
             <Offcanvas className="offC" show={show} onHide={handleClose} {...props}>
                 <Offcanvas.Header closeButton>
                     <Offcanvas.Title>Notification</Offcanvas.Title>
-                    <button type="button" className="btn btn-warning" disabled={countNoti === 0}
-                        onClick={() => dismissAll()}>Dismiss All</button>
                 </Offcanvas.Header>
+
+                {countNoti !== 0 ||  countNoti !== 1 ?
+                    <button type="button" className="btn btn-warning disAll"
+                            onClick={() => dismissAll()}>Dismiss All</button>
+                    :
+                    <></>
+                }
 
                 {countNoti !== 0 ?
                     <Offcanvas.Body>
