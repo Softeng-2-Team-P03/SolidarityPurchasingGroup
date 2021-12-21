@@ -84,8 +84,7 @@
     margin-left: 1%;
     right: 10px;border-radius: 25px;
     overflow: hidden;
-    background: linear-gradient(
-120deg, #FF6071 0%, #FF7E8E 100%);
+    background: #FF6578;
 
     color: #fff;
     padding: 10px 2px;
@@ -187,13 +186,15 @@
   }
 
 .buttonHome{
-    color : black;
-    background : #FF7E8E;
+    color : white;
+    background : #FF6578;
     border : none;
+    font-weight: 600;
+
 }
 
 .buttonHome:hover{
     background: #9c3b45;
-    color: black;
+    color: #afcbd6;
 
 }

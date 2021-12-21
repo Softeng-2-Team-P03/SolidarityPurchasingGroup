@@ -63,8 +63,9 @@ margin:auto
 }
 
 .loginButton{
-    background: #FF6071;
+    background: #FF6578;
     color: white;
+    font-weight: 600;
 
 }
 

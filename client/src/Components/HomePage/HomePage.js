@@ -136,7 +136,7 @@ function HomePage(prop) {
                 <div>
                 {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#273036" fill-opacity="1" d="M0,64L1440,160L1440,320L0,320Z"></path> */}
                 <br/>
-                <p >@copyright 2021-2022 -Software engineering-   politecnico di torino  By p3</p>
+                <p >@copyright 2021-2022 - Software engineering 2 - Politecnico di Torino By P3</p>
 
                 {/* </svg> */}
                 </div>
