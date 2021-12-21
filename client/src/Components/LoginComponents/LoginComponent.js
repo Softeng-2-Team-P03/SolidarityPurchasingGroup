@@ -47,7 +47,7 @@ function LoginComponent(props) {
                         <Form.Control required type="password" placeholder="Password" onChange={ev => setPassword(ev.target.value)} />
                     </InputGroup>
                 </Form.Group>
-                <Button variant="success w-50 mt-100 submit-botton" type="submit">
+                <Button className="loginButton" variant=" w-50 mt-100 submit-botton" type="submit">
                     Login
                 </Button>
                 <div><Form.Text className={"mb-3 " + props.message.type}>{props.message.msg}</Form.Text></div>
