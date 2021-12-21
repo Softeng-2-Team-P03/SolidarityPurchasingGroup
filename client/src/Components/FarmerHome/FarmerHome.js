@@ -139,24 +139,39 @@ function FarmerHome() {
 
                 {showSell ? (
 
-                    <ListGroup className="prodL">
+                    <ListGroup>
                         {productsSell.map((x) => (
-                            <Row>
-                                <Col md="2">
+                            <>
+                            <div className="flex">
                                     <img className="ima"
-                                        src={require('../../../public/ProductImages/' + "p" + x.Id.toString() + "-1.jpg").default} />
-                                </Col>
-                                <Col md="2"><h4 className="textP">{x.Name}</h4></Col>
-                                <Col md="2"><h4 className="textP">QTY:{x.AvailableQuantity}</h4></Col>
-                                <Col md="2"><h6 className="Conf">confirmed</h6></Col>
+                                        src={require('../../../public/ProductImages/' + "p" + x.Id.toString() + "-1.jpg").default}
+                                    />
 
-                                <hr className="rowDiv" />
-                            </Row>
+                                <h4 className="nameP">{x.Name}</h4>
+                                <h4 className="qtyP">QTY:{x.AvailableQuantity}</h4>
+                                <h6 className="Conf">confirmed</h6>
+
+
+                                {timeAddEdit ?
+
+                                        <div className="buttonEditConfirm"></div>
+
+                                    :
+                                    <form>
+                                        <div className="buttonEditConfirm"></div>
+                                    </form>
+                                    }
+
+
+
+                            </div>
+                            <hr className="rowDiv" />
+                            </>
 
                         )
                         )}
 
-                        <Button className="closeSell" onClick={() => setShowSell(false)} variant="outline-success">
+                        <Button className="SellP" onClick={() => setShowSell(false)} variant="outline-success">
                             Close Selling products
                         </Button>
 
@@ -166,7 +181,7 @@ function FarmerHome() {
                 ) : (
 
 
-                    <Button className="butSelling" onClick={() => setShowSell(true)} variant="outline-success">
+                    <Button className="SellP" onClick={() => setShowSell(true)} variant="outline-success">
                         See Selling products
                     </Button>
                 )
@@ -174,7 +189,7 @@ function FarmerHome() {
                 }
 
             </Alert>
-            {timeAddEdit ? <Button className="addP" data-testid="addP" variant="primary" onClick={() => setShow(true)}>Add product</Button> : <></>}
+            {timeAddEdit ? <Button className="addP" data-testid="addP" onClick={() => setShow(true)}>+ Add product</Button> : <></>}
         </>
 
     )
@@ -186,18 +201,17 @@ function ProductListItem(props) {
     const [confirmedQuantity, setConfirmedQuantity] = useState("");
 
     return (
-        <ListGroup.Item>
-            <Row>
-                <Col md="2">
+        <ListGroup.Item className="flex">
                     <img className="ima"
-                        src={require('../../../public/ProductImages/' + "p" + props.product.Id.toString() + "-1.jpg").default} />
-                </Col>
-                <Col md="2"><h4 className="textP">{props.product.Name}</h4></Col>
-                <Col md="2"><h4 className="textP">QTY:{props.product.AvailableQuantity}</h4></Col>
-                <Col md="2"><h6 className="toConf" color="red">to confirm</h6></Col>
-                {props.timeAddEdit ?
-                    <Col md="2">
-                        <Button className="buttonEdit" variant="secondary" onClick={() => {
+                        src={require('../../../public/ProductImages/' + "p" + props.product.Id.toString() + "-1.jpg").default}
+                    />
+
+                <h4 className="nameP">{props.product.Name}</h4>
+                <h4 className="qtyP">QTY:{props.product.AvailableQuantity}</h4>
+                <h6 className="toConf" color="red">to confirm</h6>
+
+            {props.timeAddEdit ?
+                        <Button className="buttonEditConfirm" variant="secondary" onClick={() => {
                             props.setEdit(true);
                             props.setProductToEdit(props.product);
                         }
@@ -208,12 +222,11 @@ function ProductListItem(props) {
                                     d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
                             </svg>
                             Edit Product</Button>
-                    </Col> : <></>}
-                {props.timeConfirm ?
-                    <><Col md="2">
+                     : <></>}
 
+            {props.timeConfirm ?
                         <Form>
-                            <InputGroup className='buttonConfirm'>
+                            <InputGroup className='buttonEditConfirm'>
                                 <Form.Control placeholder="Specify quantity" type="number" onChange={(ev) => {
                                     setConfirmedQuantity(ev.target.value)
                                     console.log(ev.target.value)
@@ -226,9 +239,7 @@ function ProductListItem(props) {
                                 }}>Confirm</Button>
                             </InputGroup>
                         </Form>
-                    </Col>
-                    </> : <></>}
-            </Row>
+                    : <></>}
 
         </ListGroup.Item>
     )

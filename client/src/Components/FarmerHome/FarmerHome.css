@@ -1,9 +1,9 @@
-.prodL{
-    width: 100%;
-    margin-top: -1%;
-}
 
 .addP{
+    color : white;
+    background : #FF6578;
+    border : none;
+    font-weight: 600;
     position: fixed;
     right: 0;
     bottom: 0;
@@ -12,7 +12,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 50px;
+    width: 200px;
 }
+
+.addP:hover{
+    border:none;
+    background: #9c3b45;
+    color: #afcbd6;
+}
+
+.addP:focus{
+    border:none;
+    background: #9c3b45;
+    color: #afcbd6;
+}
+
+
 
 .ima{
     width: 125px;
@@ -25,38 +41,73 @@
 }
 
 
-.textP{
-    margin-top: 20%;
+.nameP{
+    margin-left: 20px;
+margin-top: 50px;
+    width: 500px;
+    min-width: 200px;
+    /*border-style: inset;*/
+    padding: 0px 10px;
+
 }
 
-.buttonEdit{
-    margin-top: 20%;
-    margin-left: 40%;
+.qtyP{
+    width: 100px;
+    padding: 0px 10px;
+    margin-top: 50px;
+    margin-left: 12%;
+
 }
 
-.buttonConfirm{
-    margin-top: 20%;
+.buttonEditConfirm{
+    margin-left: 30px;
+    margin-top: 40px;
+    width: 250px;
+    min-width: 150px;
+    height: 50px;
+
 }
 
 .toConf{
     color:red;
-    margin-top: 23%;
+    width: 150px;
+    margin-top: 55px;
+    margin-left: 8%;
+
+
 }
 
 .Conf{
     color:green;
-    margin-top: 23%;
+    width: 150px;
+    margin-top: 55px;
+    margin-left: 8%;
+
 }
 
 .butSelling{
-    margin-left: 45%;
+
 }
 
 .rowDiv{
-    margin-top: 1%;
+
 }
 
-.closeSell{
+.SellP{
     margin-left: 45%;
     width: 15%;
+    min-width: 200px;
+}
+
+.flex{
+    display: flex;
+}
+
+.nameC{
+    margin-left: 18px;
+    margin-top: 50px;
+    width: 34%;
+    min-width: 200px;
+    /*border-style: inset;*/
+    padding: 0px 10px;
 }
