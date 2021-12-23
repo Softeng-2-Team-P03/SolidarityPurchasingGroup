@@ -1466,7 +1466,7 @@ app.post('/api/telegnotification', async (req, res) => {
     await telegrmDao.authenticateTelegramBot(req.body.mobile, req.body.pass);
 });
 
-bot.launch()
+//bot.launch()
 // Enable graceful stop
 process.once('SIGINT', () => bot.stop('SIGINT'))
 process.once('SIGTERM', () => bot.stop('SIGTERM'))
