@@ -251,9 +251,10 @@
     .log{
         margin-left: 7%;
     }
-    .noLoggedMargin{
-        margin-left: 35%;
+    .noLoggedMarginR{
+        margin-left: 50%;
     }
+
 }
 /*Extra Large devices (1050px-1150px) */
 @media only screen and (min-width: 1050px) and (max-width: 1150px) {
@@ -276,6 +277,10 @@
     .noLoggedMargin{
         margin-left: 35%;
     }
+    .noLoggedMarginR{
+        margin-left: 50%;
+    }
+
 }
 
 /*Extra Large devices (1150px-1250px) */
@@ -299,6 +304,10 @@
     .noLoggedMargin{
         margin-left: 35%;
     }
+    .noLoggedMarginR{
+        margin-left: 50%;
+    }
+
 }
 
 /*Extra Large devices (1250px-1400px) */
@@ -322,6 +331,9 @@
     }
     .noLoggedMargin{
         margin-left: 35%;
+    }
+    .noLoggedMarginR{
+        margin-left: 50%;
     }
 
 }
@@ -367,7 +379,6 @@
     .log{
         margin-left: 12%;
     }
-
 }
 
 
