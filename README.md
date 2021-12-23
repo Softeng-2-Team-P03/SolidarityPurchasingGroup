@@ -28,6 +28,7 @@
       16. [Add new product by farmer](#add-new-product-by-farmer)
       17. [Confirm Product Bookings](#confirm-product-bookings)
       18. [Send notifications by emails](#send-notifications-by-emails)
+      19. [Update Booking](#update-booking)
    5. [Database Tables](#database-tables)
       1. [Database Structure](#database-structure)
 
@@ -607,6 +608,17 @@ If the confirmed quantity is not enough it gives all the remaining products to t
 | "UnretrievedQuantity"  INTEGER NOT NULL, | |
 | "ProductType"  INTEGER NOT NULL, | |
 | PRIMARY KEY("Date", "ProductId") | |
+
+
+| Table `Telegram` - contains | |
+| ------ | --- |
+| "ChatId"  TEXT NOT NULL, | |
+| "Mobile"  TEXT NOT NULL, | |
+| "HashedPassword"  TEXT NOT NULL, | |
+| "Username"  TEXT NOT NULL, | |
+| "SuccessLogin"  REAL NOT NULL DEFAULT 0 | |
+| PRIMARY KEY("CatId") | |
+
 
 ### Database Structure
 
