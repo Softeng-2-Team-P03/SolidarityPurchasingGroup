@@ -222,7 +222,7 @@ app.get('/api/clients', isLoggedIn, async (req, res) => {
 });
 
 //**** Get User by UserID  ****//
-app.get('/api/client/:userId', isLoggedIn, [ check('userId').isInt() ], async (req, res) => {
+app.get('/api/client/:userId', isLoggedIn, [check('userId').isInt()], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -247,7 +247,7 @@ app.get('/api/client/:userId', isLoggedIn, [ check('userId').isInt() ], async (r
 
 
 //**** Get Get Wallet Balance ****//
-app.get('/api/clients/:id/getWallet', isLoggedIn, [ check('id').isInt() ], async (req, res) => {
+app.get('/api/clients/:id/getWallet', isLoggedIn, [check('id').isInt()], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -289,7 +289,7 @@ app.get('/api/clients/getRequiredChargeByBookingId', isLoggedIn, async (req, res
 });
 
 //**** Put to update the wallet */
-app.put('/api/topup/:userId/:amount', isLoggedIn, [ check('userId').isInt(), check('amount').isFloat()], async (req, res) => {
+app.put('/api/topup/:userId/:amount', isLoggedIn, [check('userId').isInt(), check('amount').isFloat()], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -330,7 +330,7 @@ app.get('/api/products', async (req, res) => {
 });
 
 /*** Get products By EpiringDate ***/
-app.get('/api/products/:date',  async (req, res) => {
+app.get('/api/products/:date', async (req, res) => {
     try {
 
         let date = req.params.date;
@@ -350,7 +350,7 @@ app.get('/api/products/:date',  async (req, res) => {
 })
 
 //**** Get A Product By Id ****//
-app.get('/api/products/:id', [ check('id').isInt()],async (req, res) => {
+app.get('/api/products/:id', [check('id').isInt()], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -380,7 +380,7 @@ app.get('/api/types', async (req, res) => {
     }
 });
 /*** Get products By TypeId ***/
-app.get('/api/products/type/:typeId/:date', [ check('typeId').isInt()],async (req, res) => {
+app.get('/api/products/type/:typeId/:date', [check('typeId').isInt()], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -403,7 +403,7 @@ app.get('/api/products/type/:typeId/:date', [ check('typeId').isInt()],async (re
 
 
 /*** Get products By State and FarmerId ***/
-app.get('/api/products/:farmerId/:state', isLoggedIn, [ check('farmerId').isInt(), check('state').isInt({min:0, max:2})],async (req, res) => {
+app.get('/api/products/:farmerId/:state', isLoggedIn, [check('farmerId').isInt(), check('state').isInt({ min: 0, max: 2 })], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -461,7 +461,7 @@ app.post('/api/product',
 
 
 app.put('/api/product/:Id', isLoggedIn, [
-    check(['Id']).isInt(), 
+    check(['Id']).isInt(),
     check('Quantity').isInt({ min: 0, max: 10000 }),
     check('PricePerUnit').isFloat({ min: 0, max: 10000 })
 ], async (req, res) => {
@@ -486,7 +486,7 @@ app.put('/api/product/:Id', isLoggedIn, [
 
 
 // PUT /api/product/<State>/<Id>
-app.put('/api/product/:State/:Id', isLoggedIn, [check('State').isInt({min:0, max:2}), check(['Id']).isInt()], async (req, res) => {
+app.put('/api/product/:State/:Id', isLoggedIn, [check('State').isInt({ min: 0, max: 2 }), check(['Id']).isInt()], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -683,7 +683,7 @@ app.put('/api/bookings/:id', [
 
 /*** Delete booking specified by the Id ***/
 
-app.put('/api/deletebooking/:id', isLoggedIn,  [check(['id']).isInt()], async (req, res) => {
+app.put('/api/deletebooking/:id', isLoggedIn, [check(['id']).isInt()], async (req, res) => {
 
     if (![1, 2].includes(req.user.accessType)) { //Manager, Employee
         return res.status(403).json({ error: `Forbidden: User does not have necessary permissions for this resource.` });
@@ -705,7 +705,7 @@ app.put('/api/deletebooking/:id', isLoggedIn,  [check(['id']).isInt()], async (r
 
 });
 
-app.put('/api/product/change-available-date/:Id', isLoggedIn,[check(['Id']).isInt()], async (req, res) => {
+app.put('/api/product/change-available-date/:Id', isLoggedIn, [check(['Id']).isInt()], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -763,7 +763,7 @@ app.delete('/api/deletebooking/:id', isLoggedIn, [check(['id']).isInt()], async 
 //****************************************************** */
 
 // POST /api/image
-app.post('/api/image', isLoggedIn,  [check(['id']).isInt(), check('path').notEmpty()], async (req, res) => {
+app.post('/api/image', isLoggedIn, [check(['id']).isInt(), check('path').notEmpty()], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -786,7 +786,7 @@ app.post('/api/image', isLoggedIn,  [check(['id']).isInt(), check('path').notEmp
 });
 
 
-app.get('/api/users/:id/bookings',  [check(['id']).isInt()],  async (req, res) => {
+app.get('/api/users/:id/bookings', [check(['id']).isInt()], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -803,7 +803,7 @@ app.get('/api/users/:id/bookings',  [check(['id']).isInt()],  async (req, res) =
 
 });
 
-app.get('/api/bookings/:id/products', [check(['id']).isInt()],  async (req, res) => {
+app.get('/api/bookings/:id/products', [check(['id']).isInt()], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -943,7 +943,7 @@ app.get('/api/confirmAllBookings', async (req, res) => {
 /** CRONJOB OF confirmAllBookings **/
 cron.schedule('0 9 * * 1', async () => {
     console.log('Running the confirmAllBookings cronjob on Monday at 09:00 at Europe/Rome timezone');
-    
+
     try {
 
         let userBookings = await orderDao.getIssuedBookingsAndUsers();
@@ -992,7 +992,7 @@ cron.schedule('0 9 * * 1', async () => {
         console.log("The cronjob confirmAllBookings ended with status 500 - Internal server error");
         //res.status(500).end();
     }
-    
+
 }, {
     scheduled: true,
     timezone: "Europe/Rome"
@@ -1101,7 +1101,7 @@ cron.schedule('59 23 * * 1', async () => {
 
             }
         };
-        
+
         console.log("The cronjob confirmAllBookingsPendingCancelation ended with status 200 - OK");
         //res.status(200).end();
     }
@@ -1153,41 +1153,41 @@ app.get('/api/send-mail-notifications', async (req, res) => {
 /** CRONJOB OF send-mail-notifications **/
 cron.schedule('5 9 * * 1', async () => {
     console.log('Running the send-mail-notifications cronjob on Monday at 09:05 at Europe/Rome timezone');
-    try{
-    const notifications = await notificationDao.getNotificationForChangedBooking();
-    var createdMail = [];
-    notifications.forEach(async element => {
-        var filter = createdMail.filter(p => p.UserId == element.UserId);
-        if (filter.length > 0) {
-            filter[0].body = filter[0].body + "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
-                "<h3>" + element.NotificationHeader + "</h3><p>" + element.NotificationBody + "</p></div>";
-        }
-        else
-            createdMail.push({
-                UserId: element.UserId, Email: element.Email, body: "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
-                    "<p><h3>" + element.NotificationHeader + "</h3>" + element.NotificationBody + "</p></div>"
-            })
-        await notificationDao.UpdateNotificaton(element.NotificationId);
-    });
-    console.log(createdMail);
-    createdMail.forEach(async element => {
-        let info = await mailTransporter.sendMail({
-            from: 'SPG P3 ES2<solidaritypurchasinggroup@gmail.com>', // sender address
-            to: element.Email, // list of receivers
-            subject: "Changed Order", // Subject line
-            text: "Dear Client, Youre bookings have changed By", // plain text body
-            html: "<h2>Dear Client, Your bookings have changed by farmers</h2>" + element.body
+    try {
+        const notifications = await notificationDao.getNotificationForChangedBooking();
+        var createdMail = [];
+        notifications.forEach(async element => {
+            var filter = createdMail.filter(p => p.UserId == element.UserId);
+            if (filter.length > 0) {
+                filter[0].body = filter[0].body + "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
+                    "<h3>" + element.NotificationHeader + "</h3><p>" + element.NotificationBody + "</p></div>";
+            }
+            else
+                createdMail.push({
+                    UserId: element.UserId, Email: element.Email, body: "<div style='padding:20px;padding-top:20px;padding-bottm:20px;margin:10px;border:1px solid #e2e2e2;border-radius:10px'>" +
+                        "<p><h3>" + element.NotificationHeader + "</h3>" + element.NotificationBody + "</p></div>"
+                })
+            await notificationDao.UpdateNotificaton(element.NotificationId);
         });
-        console.log("Message sent: %s", info.messageId);
-    });
-    // return;
-    console.log("The cronjob confirmAllBookingsPendingCancelation ended with status 200 - OK");
-    //res.status(200).end();
-}
-catch (err) {
-    console.log("The cronjob confirmAllBookings ended with status 500 - Internal server error");
-    //res.status(500).end();
-}
+        console.log(createdMail);
+        createdMail.forEach(async element => {
+            let info = await mailTransporter.sendMail({
+                from: 'SPG P3 ES2<solidaritypurchasinggroup@gmail.com>', // sender address
+                to: element.Email, // list of receivers
+                subject: "Changed Order", // Subject line
+                text: "Dear Client, Youre bookings have changed By", // plain text body
+                html: "<h2>Dear Client, Your bookings have changed by farmers</h2>" + element.body
+            });
+            console.log("Message sent: %s", info.messageId);
+        });
+        // return;
+        console.log("The cronjob confirmAllBookingsPendingCancelation ended with status 200 - OK");
+        //res.status(200).end();
+    }
+    catch (err) {
+        console.log("The cronjob confirmAllBookings ended with status 500 - Internal server error");
+        //res.status(500).end();
+    }
 }, {
     scheduled: true,
     timezone: "Europe/Rome"
@@ -1259,16 +1259,16 @@ app.put('/api/bookingUpdateByClient/:id', isLoggedIn, [check('id').isInt()], asy
 
 
 // POST /api/image
-app.post('/api/unretrievedfood', check('date').isDate({format: 'YYYY-MM-DD', strictMode: true}), async (req, res) => {
+app.post('/api/unretrievedfood', check('date').isDate({ format: 'YYYY-MM-DD', strictMode: true }), async (req, res) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty()){
-        return res.status(422).json({errors: errors.array()})
-    
-    };    
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() })
+
+    };
     try {
         const result = await orderDao.GetUnretrievedBookings();
         if (result.error)
-        res.status(404).json(result);
+            res.status(404).json(result);
         else {
             result.forEach(async product => {
                 var ProductId = product.ProductId;
@@ -1282,7 +1282,7 @@ app.post('/api/unretrievedfood', check('date').isDate({format: 'YYYY-MM-DD', str
             res.status(201).end();
 
         }
-       
+
     } catch (err) {
         res.status(503).json({ error: `Database error during the creation of unretrieved food.` });
     }
@@ -1366,12 +1366,51 @@ app.get('/api/SendNotificationForUsers', async (req, res) => {
     res.status(200).end();
 });
 
-//API Send All Notification For Availabe Products  For Set in Docker
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+/** CRONJOB to send telegram notification of new products available for purchase on Saturday **/
+cron.schedule('* 9 * * 6', async () => {
+
+    try {
+        const telegramx = new Telegram(process.env.TOKEN);
+        var results = await telegramDao.getAllChatId();
+        for (var x = 0; x < results.length; x++) {
+            await sleep(1000);
+            console.log("Sending notification to: "+ results[x].ChatId);
+            telegramx.sendMessage(
+                results[x].ChatId,
+                "Products are available for purchase on the shop! You sure want to check them out!\n"
+            );
+        }
+        telegramx.close();
+        res.status(200).end();
+
+    }
+    catch (err) {
+        console.log("The cronjob confirmAllBookings ended with status 500 - Internal server error");
+        //res.status(500).end();
+    }
+}, {
+    scheduled: true,
+    timezone: "Europe/Rome"
+});
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+function sleep(ms) {
+    return new Promise(
+        resolve => setTimeout(resolve, ms)
+    );
+}
+
+//API send telegram notification of new products available
 app.get('/api/SNForAvailableProducts', async (req, res) => {
     const telegramx = new Telegram(process.env.TOKEN);
     var results = await telegramDao.getAllChatId();
     console.log(results)
     for (var x = 0; x < results.length; x++) {
+        await sleep(1000);
+        console.log(results[x].ChatId);
         telegramx.sendMessage(
             results[x].ChatId,
             "There are new products that you can see on the site\n"
@@ -1380,6 +1419,7 @@ app.get('/api/SNForAvailableProducts', async (req, res) => {
     telegramx.close();
     res.status(200).end();
 });
+
 //Check And Controll The Other Command Send From Telegram
 bot.on('text', async (ctx) => {
     console.log(ctx.message.text)
