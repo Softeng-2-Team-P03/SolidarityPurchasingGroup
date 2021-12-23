@@ -1428,9 +1428,9 @@ bot.on('text', async (ctx) => {
     console.log(ctx.message.text)
     if (ctx.message.text.length == 10) {
         var x = await telegramDao.updateMobile(ctx.message.text, ctx.message.chat.id)
-        ctx.reply(`Your number is saved, For change it you can send phone number again in the chat`);
-        ctx.replyWithHTML(`Now You can change or send your password for connect to SOlidary,attention: send your password with this template For Example:\n` +
-            `my password: mnbvcxz`);
+        ctx.reply(`Your number is saved, to change it you can repeat this procedure using again the command /start`);
+        ctx.replyWithHTML(`Now send your password to connect to your Solidarity Purchasing Group account, attention: send your password with this template:\n` +
+            `<b>my password: mnbvcxz</b>`);
         return
     }
 
@@ -1445,11 +1445,11 @@ bot.on('text', async (ctx) => {
             return x;
         }
         else {
-            ctx.reply(`📲 Please First send your phone number!`)
+            ctx.reply(`📲 Please send your phone number first!`)
             return
         }
     }
-    ctx.reply(`The Command is worng Please Use The  Command Botton`)
+    ctx.reply(`Wrong input format or command. If you are searching for a command, the command menu is a valid option.`)
 })
 
 //Control user login ws successfull
