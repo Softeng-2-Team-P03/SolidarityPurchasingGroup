@@ -174,3 +174,211 @@
 .log{
     margin-left: 60px;
 }
+
+.noLoggedMarginR{
+    margin-left: 15%;
+}
+.noLoggedMarginL{
+    margin-left: 19%;
+}
+
+.FarmerMargin{
+    margin-left: 10%;
+}
+
+.paddingLFarmer{
+    margin-left: 10%;
+}
+.paddingRFarmer{
+    margin-left: 10%;
+}
+
+.marginDeliverer{
+    visibility: hidden;
+
+}
+
+
+
+
+/* small devices (phones, 768px and down) */
+@media screen and (max-width: 768px) {
+    .center {
+        display: none;
+    }
+    .log{
+
+        margin-left: 0px;
+    }
+
+    .pageLink{
+        text-align: center;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px-992px) */
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .center {
+    display: none;
+}
+    .log{
+
+        margin-left: 0px;
+    }
+
+    .pageLink{
+        text-align: center;
+    }
+}
+
+/* To modify*/
+
+/* Large devices (laptops/desktops, 992px-1050px) */
+@media only screen and (min-width: 992px) and (max-width: 1050px) {
+    .center {
+        display: none;
+    }
+    .noty{
+        margin-left: 0%;
+        margin-right: 15%;
+    }
+    .noNotyDiv{
+        margin-left: 10%;
+    }
+    .pageLink{
+        margin-left: 27%;
+    }
+    .log{
+        margin-left: 7%;
+    }
+    .noLoggedMarginR{
+        margin-left: 50%;
+    }
+
+}
+/*Extra Large devices (1050px-1150px) */
+@media only screen and (min-width: 1050px) and (max-width: 1150px) {
+    .center {
+        display: none;
+    }
+    .noty{
+        margin-left: 0%;
+        margin-right: 15%;
+    }
+    .noNotyDiv{
+        margin-left: 15%;
+    }
+    .pageLink{
+        margin-left: 28%;
+    }
+    .log{
+        margin-left: 7%;
+    }
+    .noLoggedMargin{
+        margin-left: 35%;
+    }
+    .noLoggedMarginR{
+        margin-left: 50%;
+    }
+
+}
+
+/*Extra Large devices (1150px-1250px) */
+@media only screen and (min-width: 1150px) and (max-width: 1250px) {
+    .center {
+        display: none;
+    }
+    .noty{
+        margin-left: 0%;
+        margin-right: 14%;
+    }
+    .noNotyDiv{
+        margin-left: 15%;
+    }
+    .pageLink{
+        margin-left: 35%;
+    }
+    .log{
+        margin-left: 7%;
+    }
+    .noLoggedMargin{
+        margin-left: 35%;
+    }
+    .noLoggedMarginR{
+        margin-left: 50%;
+    }
+
+}
+
+/*Extra Large devices (1250px-1400px) */
+@media only screen and (min-width: 1250px) and (max-width: 1400px) {
+    .center {
+        display: none;
+    }
+
+    .noty{
+        margin-left: 0%;
+        margin-right: 22%;
+    }
+    .noNotyDiv{
+        margin-left: 17%;
+    }
+    .pageLink{
+        margin-left: 38%;
+    }
+    .log{
+        margin-left: 7%;
+    }
+    .noLoggedMargin{
+        margin-left: 35%;
+    }
+    .noLoggedMarginR{
+        margin-left: 50%;
+    }
+
+}
+
+/*Extra Large devices (1400px-1550px) */
+@media only screen and (min-width: 1400px) and (max-width: 1500px) {
+    .center{
+        margin-left: 3%;
+    }
+
+    .noty{
+        margin-left: 4%;
+    }
+    .noNotyDiv{
+        margin-left: 4%;
+    }
+
+    .pageLink{
+        margin-left: 0%;
+    }
+    .log{
+        margin-left: 10%;
+    }
+
+}
+
+/*Extra Large devices (1500px and up) */
+@media only screen and (min-width: 1500px){
+    .center{
+        margin-left: 6%;
+    }
+
+    .noty{
+        margin-left: 6%;
+    }
+    .noNotyDiv{
+        margin-left: 6%;
+    }
+
+    .pageLink{
+        margin-left: 0%;
+    }
+    .log{
+        margin-left: 12%;
+    }
+}
+
+

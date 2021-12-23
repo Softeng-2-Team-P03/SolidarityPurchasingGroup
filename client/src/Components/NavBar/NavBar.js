@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './NavBar.css';
 import spg from '../Icons/spg.png';
-import { Nav, Navbar, Table, Col} from "react-bootstrap";
+import {Nav, Navbar} from "react-bootstrap";
 import { showTime } from './clock.js'
 import Notifications from "../Notifications/Notifications";
 import 'bootstrap-icons/font/bootstrap-icons.css';
@@ -34,46 +34,44 @@ function NavBar(props) {
   }
 
   return (
-
-      <Navbar bg="primary" variant="dark">
-
-
+      <Navbar bg="primary" variant="dark" expand="lg">
           <Navbar.Brand href="/" className="logoName">
             <img
               src={spg}
               alt="SPG"
             /> <h5 className="logoName">SPG</h5>
           </Navbar.Brand>
-
-
-
+        {props.user===undefined ? <div className="noLoggedMarginL"></div> : <></>}
+        {props.loggedIn && props.user !== undefined &&
+        (props.user.accessType===4 || props.user.accessType===2 || props.user.accessType===5) ? <div className="FarmerMargin"></div> : <></>}
           <ShowClock className="me-auto timer" />
-
-
+        {props.user===undefined ? <div className="noLoggedMarginR"></div> : <></>}
+        {props.loggedIn && props.user !== undefined && props.user.accessType===3 ?
+         <div className="noty"><Notifications placement={'end'} ></Notifications></div>
+            :
+            <div className="noNotyDiv"></div>
+        }
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
             {props.loggedIn && props.user !== undefined && chooseNavbar(props.user.accessType)}
-
-            <Nav className="log">
-              {props.loggedIn ?
+          <Nav className="log pageLink">
+            {props.loggedIn ?
                 <Nav.Link onClick={() => { window.location.href = 'http://localhost:3000/'; props.userLogoutCallback() }}>Logout</Nav.Link> :
                 <Nav.Link href='/login'>Login</Nav.Link>
-              }
-            </Nav>
-
-
+            }
+          </Nav>
+        </Navbar.Collapse>
       </Navbar>
-
-
   );
 }
 
 //Wallet could be integrated in account info
 function ClientNavbar() {
   return (
-    <Nav>
+    <Nav className="pageLink">
       <Nav.Link href='/products'>Browse Shop</Nav.Link>
       <Nav.Link href='/myOrders'>My Orders</Nav.Link>
       <Nav.Link>My Wallet</Nav.Link>
-      <Notifications placement={'end'}  ></Notifications>
     </Nav>
   );
 }
@@ -81,7 +79,7 @@ function ClientNavbar() {
 //Separate nav.link for wallet top up or in clients ?
 function EmployeeNavbar() {
   return (
-    <Nav>
+      <Nav className="pageLink">
       <Nav.Link href='/products'>Browse Shop</Nav.Link>
       <Nav.Link href='/clients'>Clients</Nav.Link>
       <Nav.Link href='/orders'>Orders</Nav.Link>
@@ -92,7 +90,7 @@ function EmployeeNavbar() {
 //TO DO:
 function ManagerNavbar() {
   return (
-    <Nav className="navMan">
+    <Nav className="navMan pageLink">
       <Nav.Link href='/products'>Browse Shop</Nav.Link>
       <Nav.Link className="navMan"href='/clients'>Clients</Nav.Link>
       <Nav.Link href='/orders'>Orders</Nav.Link>
@@ -105,10 +103,13 @@ function ManagerNavbar() {
 //TO DO:
 function FarmerNavbar() {
   return (
-    <Nav>
+
+      <Nav className="pageLink">
+        <div className="paddingLFarmer"></div>
       <Nav.Link>Clients</Nav.Link>
       <Nav.Link>Orders</Nav.Link>
       <Nav.Link href='/FarmerHome'>FarmerHome</Nav.Link>
+        <div className="paddingRFarmer"></div>
     </Nav>
   );
 }
@@ -116,9 +117,13 @@ function FarmerNavbar() {
 //TO DO:
 function DelivererNavbar() {
   return (
-    <Nav>
+      <Nav className="pageLink">
+        <Nav.Link className="marginDeliverer">Margin</Nav.Link>
+        <Nav.Link className="marginDeliverer">Margin</Nav.Link>
       <Nav.Link>Clients</Nav.Link>
       <Nav.Link>Orders</Nav.Link>
+
+
     </Nav>
   );
 }
