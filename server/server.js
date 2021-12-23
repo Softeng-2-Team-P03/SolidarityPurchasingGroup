@@ -82,10 +82,13 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(fileUpload());
 // Telegram
+
+/*
 const init = async () => {
     const res = await axios.get(`${TELEGRAM_API}/setWebhook?url=${WEBHOOK_URL}`)
     console.log(res.data)
-}
+}*/
+
 // custom middleware: check if a given request is coming from an authenticated user
 const isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated())
