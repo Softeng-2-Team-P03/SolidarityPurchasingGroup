@@ -155,6 +155,28 @@ function updateBooking(booking) {
   });
 }
 
+function addUnretrievedFood(date) {
+  return new Promise((resolve, reject) => {
+    console.log(JSON.stringify(date));
+    fetch(BASEURL + '/unretrievedfood', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ date: date }),
+    }).then((response) => {
+      if (response.ok) {
+        resolve (response.json());
+      } else {
+        // analyze the cause of error
+        response.json()
+          .then((obj) => { reject (obj) }) // error msg in the response body
+          .catch((err) => { reject ({ errors: [{ param: "Application", msg: "Cannot parse server response" }] }) }); // something else
+      }
+    }).catch((err) => { reject ({ errors: [{ param: "Server", msg: "Cannot communicate" }] }) }); // connection errors
+  })
+}
 
-const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId,deleteBooking, confirmBookingProduct, getProductsFromBooking, updateBooking};
+
+const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId,deleteBooking, confirmBookingProduct, getProductsFromBooking, updateBooking, addUnretrievedFood};
 export default bookingApi;

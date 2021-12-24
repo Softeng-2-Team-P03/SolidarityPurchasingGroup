@@ -21,3 +21,10 @@ GET http://localhost:3001/api/confirmAllBookingsPendingCancelation
 
 ###Send tg notifications of products available for purchase
 GET http://localhost:3001/api/SNForAvailableProducts
+
+
+###postunretrieved food
+POST http://localhost:3001/api/unretrievedfood
+Content-Type: application/json
+
+{"date": "2021-12-10"}
