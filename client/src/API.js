@@ -253,6 +253,15 @@ async function sendMailNotifications() {
     }
 }
 
+async function sendAvailableProductsTGNotification() {
+    const response = await fetch(BASEURL + '/SNForAvailableProducts');
+    if (response.ok) {
+        return null;
+    } else {
+        throw { err: 'GET SNForAvailableProducts (telegram) error' };
+    }
+}
+
 const API = {
     logIn, logOut, getUserInfo, addNewClient, getAllProducts, getProductsByDate, addImage, getAllClients, getProdFarmer, addProduct, updateProductState, updateProductInfo, updateProductQuantity, updateNotificationVisibility,
     confirmAllBookings, confirmAllBookingsPendingCancelation, sendMailNotifications
