@@ -75,5 +75,9 @@ margin:auto
 
 }
 
+.welcomeLogin{
+    text-align: center;
+}
+
 .login-form div{text-align: left;font-size: 1.2em;}
 .form-control{font-weight: 1rem;}

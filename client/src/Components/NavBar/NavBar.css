@@ -338,7 +338,7 @@
 
 }
 
-/*Extra Large devices (1400px-1550px) */
+/*Extra Large devices (1400px-1500px) */
 @media only screen and (min-width: 1400px) and (max-width: 1500px) {
     .center{
         margin-left: 3%;

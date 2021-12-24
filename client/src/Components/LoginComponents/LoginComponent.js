@@ -25,11 +25,11 @@ function LoginComponent(props) {
         <div className="center-block col-md-6 login col-sm-11   col-11" >
             <Form noValidate validated={validated} onSubmit={handleLogin} className=" login-form col-md-4">
 
-                <div class="login-header mb-20 center text-center col-11 col-sm-11">
+                <div class="login-header mb-20 col-11 col-sm-11">
                     <div className="logo-user">
                     <img  src={window.location.origin + '/images/user.png'} width="50"></img>
                     </div>
-                    <h3>Welcome to SPG</h3>
+                    <h3 className="welcomeLogin">Welcome to SPG</h3>
                 </div>
                 <Form.Group className="mb-3 mt-10" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
