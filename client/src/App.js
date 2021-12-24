@@ -115,7 +115,8 @@ function App() {
     //Saturday at 9:00:00
     if (t.getDay() === 6 && t.getHours() === 9 && t.getMinutes() === 0 && t.getSeconds() === 0) {
       console.log("Calling API to send telegram notifications")
-      // to add API
+      API.sendAvailableProductsTGNotification()
+        .catch(err => console.error(err));
       console.log("API to send telegram notifications has been called!")
     }
   }
