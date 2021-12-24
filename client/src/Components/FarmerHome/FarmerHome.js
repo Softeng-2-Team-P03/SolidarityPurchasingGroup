@@ -98,10 +98,7 @@ function FarmerHome() {
 
 
     return (
-
         <>
-
-
             <Modal data-testid="addProductModal" show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>New product</Modal.Title>
@@ -161,37 +158,25 @@ function FarmerHome() {
                                         <div className="buttonEditConfirm"></div>
                                     </form>
                                     }
-
-
-
                             </div>
                             <hr className="rowDiv" />
                             </>
-
                         )
                         )}
-
                         <Button className="SellP" onClick={() => setShowSell(false)} variant="outline-success">
                             Close Selling products
                         </Button>
-
                     </ListGroup>
-
-
                 ) : (
-
-
                     <Button className="SellP" onClick={() => setShowSell(true)} variant="outline-success">
                         See Selling products
                     </Button>
                 )
-
                 }
 
             </Alert>
             {timeAddEdit ? <Button className="addP" data-testid="addP" onClick={() => setShow(true)}>+ Add product</Button> : <></>}
         </>
-
     )
 
 
@@ -374,11 +359,7 @@ function AddProductForm(props) {
                                 Math.round((progressEvent.loaded * 100) / progressEvent.total)
                             )
                         );
-
-
                     }
-
-
                 });
 
                 // Clear percentage

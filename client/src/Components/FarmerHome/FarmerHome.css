@@ -14,18 +14,21 @@
     justify-content: center;
     height: 50px;
     width: 200px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4), 0 6px 20px 0 rgba(0,0,0,0.38);
 }
 
 .addP:hover{
     border:none;
     background: #9c3b45;
     color: #afcbd6;
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
 
 .addP:focus{
     border:none;
     background: #9c3b45;
     color: #afcbd6;
+
 }
 
 
@@ -33,6 +36,8 @@
 .ima{
     width: 125px;
     height: 125px;
+    border-radius: 25px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
 }
 
 .imaEdit{
@@ -85,14 +90,6 @@ margin-top: 50px;
 
 }
 
-.butSelling{
-
-}
-
-.rowDiv{
-
-}
-
 .SellP{
     margin-left: 45%;
     width: 15%;
@@ -111,3 +108,131 @@ margin-top: 50px;
     /*border-style: inset;*/
     padding: 0px 10px;
 }
+
+@media screen and (max-width: 768px){
+
+    .ima{
+        margin-top: 20px;
+        display: block;
+        width: 250px;
+        height: 250px;
+        margin-left: auto;
+        margin-right: auto;
+
+
+    }
+
+    .flex{
+        display: block;
+    }
+
+    .SellP{
+        margin-left: 40%;
+    }
+
+    .nameP{
+        width: 100%;
+        text-align: center;
+        margin-left: 0px;
+        min-width: 0px;
+        /*border-style: inset;*/
+        padding: 0px 0px;
+
+    }
+    .qtyP{
+        width: 100%;
+        text-align: center;
+        margin-left: 0px;
+        min-width: 0px;
+        /*border-style: inset;*/
+        padding: 0px 0px;
+    }
+
+    .toConf{
+        width: 100%;
+        text-align: center;
+        margin-left: 0px;
+        min-width: 0px;
+        /*border-style: inset;*/
+        padding: 0px 0px;
+    }
+
+    .Conf{
+        width: 100%;
+        text-align: center;
+        margin-left: 0px;
+        min-width: 0px;
+        /*border-style: inset;*/
+        padding: 0px 0px;
+    }
+
+    .buttonEditConfirm{
+        width: 100%;
+        text-align: center;
+        margin-left: 0px;
+        min-width: 0px;
+        /*border-style: inset;*/
+        padding: 0px 0px;
+
+    }
+
+    .SellP{
+        width: 100%;
+        text-align: center;
+        margin-left: 0px;
+        /*border-style: inset;*/
+    }
+
+    .addP{
+        width: 100px;
+        height: 100px;
+        border-radius: 25px;
+    }
+
+
+}
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .ima{
+        width: 100px;
+        height: 100px;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.6);
+    }
+
+    .nameP{
+        margin-top: 0;
+        width: 10%;
+        min-width: 50px;
+        /*border-style: inset;*/
+        padding: 0px 0px;
+    }
+
+    .toConf{
+        margin-top: 0;
+        margin-left: 5%;
+    }
+
+    .qtyP{
+        margin-top: 0;
+            margin-left: 10%;
+    }
+
+    .buttonEditConfirm{
+        margin-left: 0;
+        width: 90%;
+        margin-top: 0;
+        min-width: 0px;
+        /*border-style: inset;*/
+        padding: 0px 0px;
+    }
+}
+
+
+@media screen and (min-width: 1200px){
+    .qtyP{
+        margin-left: 20%;
+    }
+}
+
+
