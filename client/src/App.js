@@ -14,6 +14,7 @@ import API from './API';
 import { LoginComponent } from './Components/LoginComponents/LoginComponent';
 import { ClientList } from './Components/ClientList/ClientList';
 import { ClientModal } from './Components/ClientList/AddClient';
+import bookingApi from './api/booking-api';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -106,7 +107,8 @@ function App() {
     //Saturday at 9:00:00
     if (t.getDay() === 6 && t.getHours() === 9 && t.getMinutes() === 0 && t.getSeconds() === 0) {
       console.log("Calling API to send check for unretrieved food")
-      // to add API
+      bookingApi.addUnretrievedFood(localStorage.getItem('virtualDateToString'))
+        .catch(err => console.error(err));
       console.log("API to check for unretrieved food has been called!")
     }
   }
