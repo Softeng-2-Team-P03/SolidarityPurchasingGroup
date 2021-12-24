@@ -264,6 +264,6 @@ async function sendAvailableProductsTGNotification() {
 
 const API = {
     logIn, logOut, getUserInfo, addNewClient, getAllProducts, getProductsByDate, addImage, getAllClients, getProdFarmer, addProduct, updateProductState, updateProductInfo, updateProductQuantity, updateNotificationVisibility,
-    confirmAllBookings, confirmAllBookingsPendingCancelation, sendMailNotifications
+    confirmAllBookings, confirmAllBookingsPendingCancelation, sendMailNotifications, sendAvailableProductsTGNotification
 };
 export default API;
