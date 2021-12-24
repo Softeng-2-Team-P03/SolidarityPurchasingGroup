@@ -27,8 +27,11 @@
       15. [get Orders filter by a special user](#get-orders-filter-by-a-special-user)
       16. [Add new product by farmer](#add-new-product-by-farmer)
       17. [Confirm Product Bookings](#confirm-product-bookings)
-      18. [Send notifications by emails](#send-notifications-by-emails)
-      19. [Update Booking](#update-booking)
+      18. [Confirm All Bookings](#confirm-all-bookings)
+      19. [Confirm All Bookings Pending Cancelation](#confirm-all-bookings-pending-cancelation)
+      20. [Send notifications by emails](#send-notifications-by-emails)
+      21. [Send notification of available products (Telegram bot)](#send-notification-of-available-products-telegram-bot)
+      22. [Update Booking](#update-booking)
    5. [Database Tables](#database-tables)
       1. [Database Structure](#database-structure)
 
@@ -478,13 +481,46 @@ If the confirmed quantity is not enough it gives all the remaining products to t
 - Response body: *none*
 - Error responses: `500 Internal Server Error`
 
+### Confirm All Bookings 
+- HTTP Method: `GET` URL: `/api/confirmAllBookings`
+- Equivalent **cronjob** with schedule string: `0 9 * * 1` (Monday at 9am)
+- Description: Api to receive payments for each booking having state = 0 = issued
+ <br/> if a booking with state 0 = "issued" is linked to a client having a
+ <br/>   wallet with credits > TotalPrice then decreases the wallet value and sets the booking state to 2 = "paid"
+ <br/> else if wallet with credits < "paid" then it sets the booking state to 1 = "pending cancelation"<br/>
+If the confirmed quantity is not enough it gives all the remaining products to the booking in the confirmation process charging the client wallet only for the updated quantity and adds a notification in the notification table to let the user know about it.
+- Reponse: `200 OK` (success) or `404 Not Found`
+- Response body: *none*
+- Error responses: `500 Internal Server Error`
+
+
+### Confirm All Bookings Pending Cancelation
+- HTTP Method: `GET` URL: `/api/confirmAllBookingsPendingCancelation`
+- Equivalent **cronjob** with schedule string: `59 23 * * 1` (Monday at 23:59)
+- Description:  at 23.59 of monday a cronjob calls this api to process each booking having state = 1 = "pending cancelation"
+ <br/> if a booking with state 1 = "pending cancelation" is linked to a client having a
+ <br/>   wallet with credits > TotalPrice then decreases the wallet value and sets the booking state to 2 = "paid"
+ <br/> else if wallet with credits < "paid" then it sets the booking state to 4 = "canceled"
+- Reponse: `200 OK` (success) or `404 Not Found`
+- Response body: *none*
+- Error responses: `500 Internal Server Error`
+
 
 ### Send notifications by emails 
 - HTTP Method: `GET` URL: `/api/send-mail-notifications`
-- Description: When the server cronjob matches monday at 9am this api is called to search all notifications logged in the notification table and send an email to each user having one or more notifications. for each sent notification, sets the status=1 (sent) in the database
+- Equivalent **cronjob** with schedule string: `5 9 * * 1` (Monday at 09:05am)
+- Description: Api to search all notifications logged in the notification table having notificationType=1 (notifications related to bookings) and send an email to each user having one or more notifications. for each sent notification, sets the status=1 (sent) in the database
 - Reponse: `200 OK` (success)
 - Response body: *none*
 - Error responses: *none*
+
+### Send notification of available products (Telegram bot)
+- HTTP Method: `GET` URL: `/api/SNForAvailableProducts`
+- Equivalent **cronjob** with schedule string: `* 9 * * 6` (Saturday at 09:00 am)
+- Description:  Sends a notification to each user of the SPG's telegram bot to remind them thet new products are available for purchase
+- Reponse: `200 OK` (success)
+- Response body: *none*
+- Error responses: `500 Internal Server Error`
 
 ### Update Booking
 - HTTP Method: `PUT` URL: `/api/bookingUpdateByClient/`
