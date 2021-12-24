@@ -557,8 +557,9 @@ If the confirmed quantity is not enough it gives all the remaining products to t
 | "Email"  TEXT NOT NULL, |
 | "PhoneNumber" TEXT NOT NULL, |
 | "AccessType"  INTEGER NOT NULL | 1-MANAGER, 2-EMPLOYEE, 3-CLIENT, 4-FARMER, 5-DELIVERER |
-| "Wallet"  REAL NOT NULL, | default = 0.0 |
+| "Wallet"  REAL NOT NULL, | DEFAULT = 0.0 |
 | "Address"  TEXT NOT NULL |
+| "UnretrievedCount" INTEGER | DEFAULT 0  |
 
 
 | Table `Bookings` - contains | |
