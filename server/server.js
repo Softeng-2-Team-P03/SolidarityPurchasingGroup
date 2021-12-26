@@ -1296,20 +1296,43 @@ app.post('/api/unretrievedfood', check('date').isDate({ format: 'YYYY-MM-DD', st
  * The date should indicate the Saturday of the week we want to select since all unretrieved products are recorded 
  * within the unretrievedFood table with the associated Saturday of the week they were intended to be picked up.
  */
- app.get('/api/unretrievedfood/week', [check('date').isDate({ format: 'YYYY-MM-DD', strictMode: true })], async (req, res) => {
+app.get('/api/unretrievedFoodOfWeek', [check('date').isDate({ format: 'YYYY-MM-DD', strictMode: true })], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
     }
-    
+
     const d = new Date(req.body.date);
-    if (d.getDay() != 6){
+    if (d.getDay() != 6) {
         console.log("The date selected doesn't indicate a saturday, pass the saturday of the selected week in the body of the http call.");
         res.status(403).end();
     }
 
     try {
         const result = await orderDao.getUnretrievedFoodByWeek(req.body.date);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+
+});
+
+
+/**
+ * Gets unretrieved food of a certain month passed to the api through the values monthNum (1= janauary, 12=december) and year (between 1970 and 2999)
+ */
+app.get('/api/unretrievedFoodOfMonth', [check('monthNum').isInt({ min: 1, max: 12 }), check('year').isInt({ min: 1970, max: 2999 })], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+
+
+    try {
+        const result = await orderDao.getUnretrievedFoodByMonth(req.body.monthNum, req.body.year);
         if (result.error)
             res.status(404).json(result);
         else
@@ -1412,7 +1435,7 @@ cron.schedule('* 9 * * 6', async () => {
         var results = await telegramDao.getAllChatId();
         for (var x = 0; x < results.length; x++) {
             await sleep(1000);
-            console.log("Sending notification to: "+ results[x].ChatId);
+            console.log("Sending notification to: " + results[x].ChatId);
             telegramx.sendMessage(
                 results[x].ChatId,
                 "Products are available for purchase on the shop! You sure want to check them out!\n"
