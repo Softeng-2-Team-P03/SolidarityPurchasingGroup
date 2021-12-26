@@ -241,6 +241,25 @@ exports.createUnretrieved = (date, productId, unretrievedQty, typeId) => {
   });
 };
 
+/**
+ * Gets unretrieved food of a certain week
+ * @param {String} saturdayDate iso 8601 date indicating the Saturday of the week we want to select 
+ */
+exports.getUnretrievedFoodByWeek = (saturdayDate) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM UnretrievedFood WHERE Date=?';
+    db.all(sql, [saturdayDate], (err, rows) => {
+      if (err) {
+        reject(err);
+
+      }
+      
+      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType}));
+      resolve(UnretrievedProducts);
+    });
+  });
+};
+
 exports.deleteBooking = (id) => {
   return new Promise((resolve, reject) => {
     const sql = 'DELETE from Bookings WHERE id = ?';
