@@ -332,7 +332,7 @@ app.get('/api/products', async (req, res) => {
     }
 });
 
-/*** Get products By EpiringDate ***/
+/*** Get products By ExpiringDate ***/
 app.get('/api/products/:date', async (req, res) => {
     try {
 

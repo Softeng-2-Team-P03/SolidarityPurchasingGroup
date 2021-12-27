@@ -349,7 +349,7 @@ function Product(props) {
                         <input className="quantity-text" type="number" min={0} onChange={e => modifyQuantityFromInput(!e.target.value ? 0 : e.target.value)}
                             value={Number(quantity).toString()} >
                         </input>
-                        <Button className="button" variant="primary" disabled={quantity === props.product.quantity}
+                        <Button className="button" variant="primary" disabled={(quantity === props.product.quantity || quantity === props.product.AvailableQuantity)}
                             onClick={() => modifyQuantity(+1)}>+</Button>{' '}
                         <br />
                         {quantity === props.product.quantity ?
