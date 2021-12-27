@@ -145,7 +145,7 @@ exports.deleteOrder = (id) => {
             resolve(null);
         })
       });
-      
+
       const sqlDelete = 'UPDATE Bookings SET State = 4 WHERE Id = ?';
       db.run(sqlDelete, [id], (err) => { //NOSONAR
         if (err) {
@@ -206,8 +206,8 @@ exports.GetProductsFromBookingId = (bookingId) => {
         reject(err);
 
       }
-      
-      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name : e.Name, ProductId: e.ProductId, Qty: e.Qty, Quantity: e.EstimatedQuantity, Price: e.Price, State: e.State, ImagePath : e.Path , PricePerUnit: e.PricePerUnit}));
+
+      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name: e.Name, ProductId: e.ProductId, Qty: e.Qty, Quantity: e.EstimatedQuantity, Price: e.Price, State: e.State, ImagePath: e.Path, PricePerUnit: e.PricePerUnit }));
       resolve(Products);
     });
   });
@@ -221,8 +221,8 @@ exports.GetUnretrievedBookings = () => {
         reject(err);
 
       }
-      
-      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name : e.Name, ProductId: e.ProductId, ProductQty: e.ProductQty, Quantity: e.AvailableQuantity, Price: e.Price, State: e.State, TypeId: e.TypeId}));
+
+      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name: e.Name, ProductId: e.ProductId, ProductQty: e.ProductQty, Quantity: e.AvailableQuantity, Price: e.Price, State: e.State, TypeId: e.TypeId }));
       resolve(Products);
     });
   });
@@ -231,13 +231,60 @@ exports.GetUnretrievedBookings = () => {
 exports.createUnretrieved = (date, productId, unretrievedQty, typeId) => {
   return new Promise((resolve, reject) => {
     const sql = 'INSERT INTO UnretrievedFood(Date, ProductId, UnretrievedQuantity, ProductType) VALUES(?,?,?,?)';
-    db.run(sql, [date,productId,unretrievedQty,typeId], function (err) {//NOSONAR
-        if (err) {
-          reject(err);
+    db.run(sql, [date, productId, unretrievedQty, typeId], function (err) {//NOSONAR
+      if (err) {
+        reject(err);
 
-        }
-        resolve(this.lastID);
-      });
+      }
+      resolve(this.lastID);
+    });
+  });
+};
+
+/**
+ * Gets unretrieved food of a certain week
+ * @param {String} saturdayDate iso 8601 date indicating the Saturday of the week we want to select 
+ */
+exports.getUnretrievedFoodByWeek = (saturdayDate) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM UnretrievedFood WHERE Date=?';
+    db.all(sql, [saturdayDate], (err, rows) => {
+      if (err) {
+        reject(err);
+
+      }
+
+      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType }));
+      resolve(UnretrievedProducts);
+    });
+  });
+};
+
+/**
+ * 
+ * @param {integer} monthNum the month we want to select
+ * @param {integer} year the year of the month
+ * @returns array of unretrieved food objects having Date with same month and year as the parameters
+ */
+exports.getUnretrievedFoodByMonth = (monthNum, year) => {
+  return new Promise((resolve, reject) => {
+
+    //necessary cast to string to let strftime() work as intended.
+    monthNum = monthNum+"";
+    year = year+"";
+
+    const sql = `SELECT *
+    FROM UnretrievedFood
+    WHERE strftime('%m',Date)=? AND strftime('%Y',Date)=?`;
+    db.all(sql, [monthNum, year], (err, rows) => {
+      if (err) {
+        reject(err);
+
+      }
+
+      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType }));
+      resolve(UnretrievedProducts);
+    });
   });
 };
 
@@ -311,7 +358,7 @@ exports.UpdateBookingTotalPrice = (diff, BookingId) => {
   });
 }
 
-exports.UpdateBookingByClient = (Id, deliveryTime,pickupTime, totalPrice) => {
+exports.UpdateBookingByClient = (Id, deliveryTime, pickupTime, totalPrice) => {
   return new Promise((resolve, reject) => {
     const sqlUpdateBooking = 'UPDATE Bookings SET DeliveryTime=?, PickupTime=?,  TotalPrice=?   WHERE  Id=?';
     db.run(sqlUpdateBooking, [deliveryTime, pickupTime, totalPrice, Id], function (err) {//NOSONAR
@@ -346,7 +393,7 @@ exports.GetUserById = (userId) => {
         reject(err);
 
       }
-      var User = ({ Id:rows[0].Id, Name: rows[0].Name, Surname: rows[0].Surname, Email: rows[0].Email, PhoneNumber: rows[0].PhoneNumber, AccessType: rows[0].AccessType, Wallet: rows[0].Wallet, Address: rows[0].Address });
+      var User = ({ Id: rows[0].Id, Name: rows[0].Name, Surname: rows[0].Surname, Email: rows[0].Email, PhoneNumber: rows[0].PhoneNumber, AccessType: rows[0].AccessType, Wallet: rows[0].Wallet, Address: rows[0].Address });
       resolve(User);
     });
   });

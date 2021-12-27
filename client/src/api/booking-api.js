@@ -177,6 +177,51 @@ function addUnretrievedFood(date) {
   })
 }
 
+/**
+ * 
+ * @param {string} saturdayDate iso date yyyy-mm-dd indicating the **Saturday** of the week to select 
+ * @returns array of unretrievedFood objects { Date, ProductId, UnretrievedQuantity, ProductType }
+ */
+async function getUnretrievedOfWeek(saturdayDate) {
+  // call: GET /api/orders
+  const response = await fetch(BASEURL + '/unretrievedFoodOfWeek', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ date : saturdayDate }), 
+  });
+  const unretrievedFoodsJson = await response.json();
+  if (response.ok) {
+    return unretrievedFoodsJson;
+  } else {
+    throw unretrievedFoodsJson;  // an object with the error coming from the server
+  }
+}
 
-const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId,deleteBooking, confirmBookingProduct, getProductsFromBooking, updateBooking, addUnretrievedFood};
+/**
+ * 
+ * @param {Integer} monthNum the month we want to query, as a umber from 1 to 12
+ * @param {Integer} year the year as a number from 1970 to 2999
+ * @returns 
+ */
+async function getUnretrievedOfMonth(monthNum, year) {
+  // call: GET /api/orders
+  const response = await fetch(BASEURL + '/unretrievedFoodOfMonth', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ monthNum : monthNum, year: year }), 
+  });
+  const unretrievedFoodsJson = await response.json();
+  if (response.ok) {
+    return unretrievedFoodsJson;
+  } else {
+    throw unretrievedFoodsJson;  // an object with the error coming from the server
+  }
+}
+
+
+const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId,deleteBooking, confirmBookingProduct, getProductsFromBooking, updateBooking, addUnretrievedFood, getUnretrievedOfWeek, getUnretrievedOfMonth};
 export default bookingApi;

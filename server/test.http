@@ -28,3 +28,15 @@ POST http://localhost:3001/api/unretrievedfood
 Content-Type: application/json
 
 {"date": "2021-12-10"}
+
+### get unretrieved food of a week by sending the date of saturday
+GET http://localhost:3001/api/unretrievedFoodOfWeek
+Content-Type: application/json
+
+{"date": "2021-12-25"}
+
+###get unretrieved food of a month by sending month and year
+GET http://localhost:3001/api/unretrievedFoodOfMonth
+Content-Type: application/json
+
+{"monthNum": 12, "year": 2021}
