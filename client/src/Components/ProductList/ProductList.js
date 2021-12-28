@@ -302,18 +302,32 @@ function ProductList(props) {
 function Product(props) {
 
     const [quantity, setQuantity] = useState(0);
+    //state variable to show the effective amount of product present in the werehouse after the farmer confirmation of the product quantity
+    const [residualQuantity, setResidualQuantity] = useState(props.product.AvailableQuantity - props.product.SoldQuantity);
 
     const modifyQuantity = (add) => {
         setQuantity(quantity + add);
     }
+
     const modifyQuantityFromInput = (add) => {
         add = Number.parseInt(add);
-        if (add > props.product.quantity) {
-            setQuantity(props.product.quantity)
+        if (props.product.state === 1 || props.product.state === 2) {
+            if (add > residualQuantity) {
+                setQuantity(residualQuantity);
+            }
+            else {
+                setQuantity(add);
+            }
+        } else {
+            if (add > props.product.quantity) {
+                setQuantity(props.product.quantity)
+            }
+            else {
+                setQuantity(add)
+            }
         }
-        else {
-            setQuantity(add)
-        }
+
+
     }
     const addToBasket = () => {
         props.addProductToCart({ ...props.product, selectedQuantity: quantity });
@@ -337,7 +351,7 @@ function Product(props) {
                     </h4>
                 </Card.Body>
                 <Card.Footer>
-                    <h6>{props.product.quantity} pieces available</h6>
+                    <h6>{(props.product.state === 1 || props.product.state === 2) ? residualQuantity : props.product.quantity} pieces available</h6>
                 </Card.Footer>
                 <Card.Footer>
                     <small className="text-muted">Farmer: {props.product.farmer.name} {props.product.farmer.surname}</small>
@@ -349,11 +363,17 @@ function Product(props) {
                         <input className="quantity-text" type="number" min={0} onChange={e => modifyQuantityFromInput(!e.target.value ? 0 : e.target.value)}
                             value={Number(quantity).toString()} >
                         </input>
-                        <Button className="button" variant="primary" disabled={(quantity === props.product.quantity || quantity === props.product.AvailableQuantity)}
+                        <Button className="button" variant="primary" disabled={(props.product.state === 1 || props.product.state === 2) ? quantity === residualQuantity : quantity === props.product.quantity}
                             onClick={() => modifyQuantity(+1)}>+</Button>{' '}
                         <br />
-                        {quantity === props.product.quantity ?
-                            <small style={{ color: "red" }}>Max quantity reached</small> : <></>}
+                        {
+                        (props.product.state === 1 || props.product.state === 2) ?
+                        (quantity === residualQuantity ?
+                            <small style={{ color: "red" }}>Max quantity reached</small> : <></>)
+                        : 
+                        (quantity === props.product.quantity ?
+                            <small style={{ color: "red" }}>Max quantity reached</small> : <></>)
+                        }
                     </Card.Footer>
                     <Card.Footer>
                         <Button variant="success" onClick={() => addToBasket()} disabled={quantity === 0}>Add to basket</Button>{' '}

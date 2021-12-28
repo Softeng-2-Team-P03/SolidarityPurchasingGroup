@@ -22,7 +22,8 @@ function productsReturned(rows){
             surname: row.Surname,
         },
         ExpiringDate: row.ExpiringDate,
-        AvailableQuantity: row.AvailableQuantity
+        AvailableQuantity: row.AvailableQuantity,
+        SoldQuantity: row.SoldQuantity
     })
     );
 }
