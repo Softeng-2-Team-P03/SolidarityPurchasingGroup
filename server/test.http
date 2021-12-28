@@ -40,3 +40,14 @@ GET http://localhost:3001/api/unretrievedFoodOfMonth
 Content-Type: application/json
 
 {"monthNum": 12, "year": 2021}
+
+###get unretrieved food by productId
+GET http://localhost:3001/api/unretrievedFoodByProductId/1
+Content-Type: application/json
+
+
+
+###get unretrieved food by product type
+GET http://localhost:3001/api/unretrievedFoodByProductType/1
+Content-Type: application/json
+

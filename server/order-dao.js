@@ -288,6 +288,46 @@ exports.getUnretrievedFoodByMonth = (monthNum, year) => {
   });
 };
 
+/**
+ * Gets unretrieved food of a certain prudct
+ * @param {integer} productId iso 8601 date indicating the Saturday of the week we want to select 
+ * @returns array of unretrieved food objects having productId as indicated by the parameter
+ */
+ exports.getUnretrievedFoodByProductId = (productId) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM UnretrievedFood WHERE ProductId = ?';
+    db.all(sql, [productId], (err, rows) => {
+      if (err) {
+        reject(err);
+
+      }
+
+      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType }));
+      resolve(UnretrievedProducts);
+    });
+  });
+};
+
+/**
+ * Gets unretrieved food of a certain prudct type
+ * @param {integer} ProductType iso 8601 date indicating the Saturday of the week we want to select 
+ * @returns array of unretrieved food objects having produc type as indicated by the parameter
+ */
+ exports.getUnretrievedFoodByProductType = (productType) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'SELECT * FROM UnretrievedFood WHERE ProductType = ?';
+    db.all(sql, [productType], (err, rows) => {
+      if (err) {
+        reject(err);
+
+      }
+
+      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType }));
+      resolve(UnretrievedProducts);
+    });
+  });
+};
+
 exports.deleteBooking = (id) => {
   return new Promise((resolve, reject) => {
     const sql = 'DELETE from Bookings WHERE id = ?';

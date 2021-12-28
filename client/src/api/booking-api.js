@@ -222,6 +222,48 @@ async function getUnretrievedOfMonth(monthNum, year) {
   }
 }
 
+/**
+ * 
+ * @param {Integer} productId the productId we want to query
+ * @returns 
+ */
+ async function getUnretrievedByProductId(productId) {
+  // call: GET /api/orders
+  const response = await fetch(BASEURL + '/unretrievedFoodByProductId/' + productId , {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const unretrievedFoodsJson = await response.json();
+  if (response.ok) {
+    return unretrievedFoodsJson;
+  } else {
+    throw unretrievedFoodsJson;  // an object with the error coming from the server
+  }
+}
 
-const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId,deleteBooking, confirmBookingProduct, getProductsFromBooking, updateBooking, addUnretrievedFood, getUnretrievedOfWeek, getUnretrievedOfMonth};
+/**
+ * 
+ * @param {Integer} productType the productId we want to query
+ * @returns 
+ */
+ async function getUnretrievedByProductType(productType) {
+  // call: GET /api/orders
+  const response = await fetch(BASEURL + '/unretrievedFoodByProductType/' + productType , {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  const unretrievedFoodsJson = await response.json();
+  if (response.ok) {
+    return unretrievedFoodsJson;
+  } else {
+    throw unretrievedFoodsJson;  // an object with the error coming from the server
+  }
+}
+
+
+const bookingApi = { addBooking, updateBookingState, getOrders ,getWalletBalance,getOrdersByUserId,deleteBooking, confirmBookingProduct, getProductsFromBooking, updateBooking, addUnretrievedFood, getUnretrievedOfWeek, getUnretrievedOfMonth, getUnretrievedByProductId, getUnretrievedByProductType};
 export default bookingApi;

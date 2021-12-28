@@ -1350,7 +1350,48 @@ app.get('/api/unretrievedFoodOfMonth', [check('monthNum').isInt({ min: 1, max: 1
 
 });
 
+/**
+ * Gets unretrieved food of a certain product whose productId is passed to the api
+ */
+ app.get('/api/unretrievedFoodByProductId/:id', [check('id').isInt()], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
 
+
+    try {
+        const result = await orderDao.getUnretrievedFoodByProductId(req.params.id);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+
+});
+
+/**
+ * Gets unretrieved food of a certain product type specified in the api
+ */
+ app.get('/api/unretrievedFoodByProductType/:type', [check('type').isInt()], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+
+    try {
+        const result = await orderDao.getUnretrievedFoodByProductType(req.params.type);
+        if (result.error)
+            res.status(404).json(result);
+        else
+            res.json(result);
+    } catch (err) {
+        res.status(500).end();
+    }
+
+});
 
 
 
