@@ -248,3 +248,17 @@ exports.updateProductQuantity = (Quantity, Id) => {
         });
     });
 };
+
+exports.updateProductSoldQuantity = (Quantity, Id) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'UPDATE Products SET SoldQuantity=? WHERE Id =? ';
+        db.run(sql, [Quantity, Id], function (err) { //NOSONAR
+            if (err) {
+                reject(err);
+                return;
+            }
+
+            resolve();
+        });
+    });
+};

@@ -40,8 +40,8 @@ exports.createBookingAndProduct = (bookingProduct, userId) => {
 
 exports.updateProductQuantity = (quantity, id) => {
   return new Promise((resolve, reject) => {
-    const sql = 'UPDATE Products SET EstimatedQuantity=EstimatedQuantity - ?   WHERE  Id=?';
-    db.run(sql, [quantity, id], function (err) {//NOSONAR
+    const sql = 'UPDATE Products SET EstimatedQuantity=EstimatedQuantity - ?, SoldQuantity=SoldQuantity + ?   WHERE  Id=?';
+    db.run(sql, [quantity, quantity, id], function (err) {//NOSONAR
       if (err) {
         reject(err);
 
@@ -171,13 +171,13 @@ For This Function, After Change And Update Product Available By Farmer We Use th
 */
 exports.GetProductInfoForConfirmation = (productId) => {
   return new Promise((resolve, reject) => {
-    const sqlProduct = 'SELECT Name, AvailableQuantity , FarmerId,PricePerUnit FROM Products WHERE Id=? ';
+    const sqlProduct = 'SELECT Name, AvailableQuantity, SoldQuantity, FarmerId, PricePerUnit FROM Products WHERE Id=? ';
     db.all(sqlProduct, [productId], (err, rows) => { //NOSONAR
       if (err) {
         reject(err);
 
       }
-      var Product = ({ ProductName: rows[0].Name, Quantity: rows[0].AvailableQuantity, FarmerId: rows[0].FarmerId, PricePerUnit: rows[0].PricePerUnit });
+      var Product = ({ ProductName: rows[0].Name, Quantity: rows[0].AvailableQuantity, SoldQuantity: rows[0].SoldQuantity, FarmerId: rows[0].FarmerId, PricePerUnit: rows[0].PricePerUnit });
       resolve(Product);
     });
   });

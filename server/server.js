@@ -838,6 +838,7 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
     var farmerId = 0;
     var bookingId = 0;
     var quantity = 0;
+    var soldQuantity = 0;
     var pricePerUnit = 0;
     var userId = 0;
     var productName = "Title";
@@ -851,11 +852,17 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
         productName = product.ProductName;
         pricePerUnit = product.PricePerUnit;
         quantity = product.Quantity;
+        soldQuantity = product.SoldQuantity;
+      
+        //updating SoldQuantity if it is greater than the quantity confirmed by the farmer
+        if(soldQuantity > quantity) {
+            productDao.updateProductSoldQuantity(quantity, productId);
+        }
+
         const bookingAndProducts = await orderDao.GetBookingProductsByProduct(productId);
         if (bookingAndProducts.length > 0) {
             //bookingAndProducts.forEach(async element => {
             for (const element of bookingAndProducts) {
-                console.log(element)
                 userId = element.UserId;
                 bookingId = element.BookingId;
                 if (element.Quantity <= quantity) {
