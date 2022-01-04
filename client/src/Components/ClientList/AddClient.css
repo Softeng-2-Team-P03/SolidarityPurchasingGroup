@@ -11,7 +11,17 @@
   align-items: center;
   justify-content: center;
 }
-
+#add-client-modal{
+  font-size: larger;
+  width: 75%;
+  max-width: 75%;
+}
+#add-client-modal-header{
+  font-size: 150%;
+}
+#add-client-modal-body{
+  margin-top: 2%;
+}
 h6{
   margin-top: -1%;
   margin-bottom : 1%;
