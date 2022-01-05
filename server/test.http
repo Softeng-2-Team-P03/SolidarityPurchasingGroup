@@ -51,3 +51,6 @@ Content-Type: application/json
 GET http://localhost:3001/api/unretrievedFoodByProductType/1
 Content-Type: application/json
 
+###get send all telegram notifications saturday morning at 9am
+GET http://localhost:3001/api/SNForAvailableProducts
+Content-Type: application/json

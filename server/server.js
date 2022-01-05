@@ -27,11 +27,14 @@ require('dotenv').config()
 const telegramDao = require('./telegram/dao.js');
 const axios = require('axios')
 const { Telegraf, Markup, Telegram } = require('telegraf');
+const { telegrafThrottler } = require('telegraf-throttler');
 const { TOKEN, SERVER_URL } = process.env
 const TELEGRAM_API = `https://api.telegram.org/bot${TOKEN}`
 const URI = `/webhook/${TOKEN}`
 const WEBHOOK_URL = SERVER_URL + URI
 const bot = new Telegraf(TOKEN);
+const throttler = telegrafThrottler();
+bot.use(throttler);
 const bcrypt = require('bcrypt');
 // const telegram = require('./telegram/index');
 
@@ -853,9 +856,9 @@ app.get('/api/confirmBookingProduct/:id', async (req, res) => {
         pricePerUnit = product.PricePerUnit;
         quantity = product.Quantity;
         soldQuantity = product.SoldQuantity;
-      
+
         //updating SoldQuantity if it is greater than the quantity confirmed by the farmer
-        if(soldQuantity > quantity) {
+        if (soldQuantity > quantity) {
             productDao.updateProductSoldQuantity(quantity, productId);
         }
 
@@ -1353,7 +1356,7 @@ app.get('/api/unretrievedFoodOfMonth', [check('monthNum').isInt({ min: 1, max: 1
 /**
  * Gets unretrieved food of a certain product whose productId is passed to the api
  */
- app.get('/api/unretrievedFoodByProductId/:id', [check('id').isInt()], async (req, res) => {
+app.get('/api/unretrievedFoodByProductId/:id', [check('id').isInt()], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -1375,7 +1378,7 @@ app.get('/api/unretrievedFoodOfMonth', [check('monthNum').isInt({ min: 1, max: 1
 /**
  * Gets unretrieved food of a certain product type specified in the api
  */
- app.get('/api/unretrievedFoodByProductType/:type', [check('type').isInt()], async (req, res) => {
+app.get('/api/unretrievedFoodByProductType/:type', [check('type').isInt()], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).json({ errors: errors.array() });
@@ -1440,9 +1443,11 @@ bot.command('wallet', async (ctx) => {
 // Send All Notification With Command: /notifications 
 bot.command('notifications', async (ctx) => {
     if (checkAuthBot(ctx.message.chat.id)) {
+        console.log("Notification command execution");
         var mobile = await telegramDao.getMobile(ctx.message.chat.id);
         if (mobile != null) {
             var results = await telegramDao.listOfNotifications(mobile);
+            console.log(results);
             if (results.length > 0) {
                 for (var x = 0; x < results.length; x++) {
                     ctx.reply(results[x].NotificationBody);
@@ -1512,19 +1517,27 @@ function sleep(ms) {
 
 //API send telegram notification of new products available
 app.get('/api/SNForAvailableProducts', async (req, res) => {
-    const telegramx = new Telegram(process.env.TOKEN);
-    var results = await telegramDao.getAllChatId();
-    console.log(results)
-    for (var x = 0; x < results.length; x++) {
-        await sleep(1000);
-        console.log(results[x].ChatId);
-        telegramx.sendMessage(
-            results[x].ChatId,
-            "There are new products that you can see on the site\n"
-        );
+
+    try {
+        const telegramx = new Telegram(process.env.TOKEN);
+        var results = await telegramDao.getAllChatId();
+        console.log(results);
+        for (var x = 0; x < results.length; x++) {
+            await sleep(2000);
+            console.log(results[x].ChatId);
+            telegramx.sendMessage(
+                results[x].ChatId,
+                "There are new products that you can see on the site\n"
+            );
+        }
+        telegramx.close();
+        res.status(200).end();
     }
-    telegramx.close();
-    res.status(200).end();
+    catch (err) {
+        console.log("The API SNForAvailableProducts ended with status 500 - Internal server error");
+        console.log(err);
+        //res.status(500).end();
+    }
 });
 
 //Check And Controll The Other Command Send From Telegram

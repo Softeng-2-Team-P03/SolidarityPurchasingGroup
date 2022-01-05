@@ -25,7 +25,8 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "sqlite3": "^5.0.2",
-    "telegraf": "^4.5.2"
+    "telegraf": "^4.5.2",
+    "telegraf-throttler": "^0.6.0"
   },
   "devDependencies": {
     "jest": "^27.3.1",
