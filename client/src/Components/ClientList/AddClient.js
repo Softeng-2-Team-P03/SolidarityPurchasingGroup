@@ -37,7 +37,7 @@ function ClientModal(props) {
                     <Modal.Title id="add-client-modal-header">New client</Modal.Title>
                 </Modal.Header>
                 <Modal.Body id="add-client-modal-body">
-                    <AddClientForm addClient={props.addClient} />
+                    <AddClientForm addClient={props.addClient} userLoginCallback={props.userLoginCallback} user={props.user} />
                 </Modal.Body>
             </Modal>
         );
@@ -103,6 +103,8 @@ function AddClientForm(props) {
         }  
         if (valid) {
             props.addClient(new Client(name, surname, email, password, phoneNumber, address));
+            if(props.user===undefined)
+                setTimeout( ()=>{props.userLoginCallback(email, password) } , 100) 
             formReset();
             setSubmitted(true);
         }

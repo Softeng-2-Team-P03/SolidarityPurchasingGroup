@@ -36,6 +36,7 @@ function App() {
 
   const userLoginCallback = async (email, password) => {
     // Make POST request to authentication server
+    console.log(email+"  "+password);
     try {
       const userInfo = await API.logIn({ username: email, password: password });
       setUser(userInfo);
@@ -135,7 +136,7 @@ function App() {
           } />
           <Route path="/addClient" render={() => (
             <><HomePage />
-              <ClientModal addClient={addClient}></ClientModal></>
+              <ClientModal addClient={addClient}  userLoginCallback={userLoginCallback} user={user}></ClientModal></>
           )} />
           <Route path="/products" render={() =>
             <ProductList loggedIn={loggedIn} user={user} />
