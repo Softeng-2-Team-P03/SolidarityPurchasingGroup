@@ -192,7 +192,7 @@ function ProductListItem(props) {
                     />
 
                 <h4 className="nameP">{props.product.Name}</h4>
-                <h4 className="qtyP">QTY:{props.product.AvailableQuantity}</h4>
+                <h4 className="qtyP">QTY:{props.product.Quantity}</h4>
                 <h6 className="toConf" color="red">to confirm</h6>
 
             {props.timeAddEdit ?
