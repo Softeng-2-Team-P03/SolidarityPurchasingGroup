@@ -1279,18 +1279,38 @@ app.post('/api/unretrievedfood', check('date').isDate({ format: 'YYYY-MM-DD', st
 
     };
     try {
-        const result = await orderDao.GetUnretrievedBookings();
+        const count = await orderDao.GetCountUnretrievedBookingsByUser();
+        if (count.error)
+            res.status(404).json(result);
+        else{
+            var header = "Frequent missed pickups";
+            var body = "You will be suspended at the 5th cumulative missed pickup";
+            count.forEach(async user => {   
+                var UserId = user.UserId;         
+                await notificationDao.InsertNotification(UserId, header, body, 2);
+            })            
+        }
+       
+        const result = await orderDao.GetUnretrievedBookings(); 
+
+      
         if (result.error)
             res.status(404).json(result);
         else {
-            result.forEach(async product => {
+                result.forEach(async product => {          
+              
                 var ProductId = product.ProductId;
                 var ProductQty = product.ProductQty;
                 var TypeId = product.TypeId;
                 await orderDao.createUnretrieved(req.body.date, ProductId, ProductQty, TypeId);
+                console.log("ciAo");
 
 
             })
+           
+           
+
+           
 
             res.status(201).end();
 
@@ -1300,6 +1320,9 @@ app.post('/api/unretrievedfood', check('date').isDate({ format: 'YYYY-MM-DD', st
         res.status(503).json({ error: `Database error during the creation of unretrieved food.` });
     }
 });
+
+
+
 
 /**
  * Gets unretrieved food of a certain week passed to the api through an iso date yyyy-mm-dd in the body of the call

@@ -222,8 +222,22 @@ exports.GetUnretrievedBookings = () => {
 
       }
 
-      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name: e.Name, ProductId: e.ProductId, ProductQty: e.ProductQty, Quantity: e.AvailableQuantity, Price: e.Price, State: e.State, TypeId: e.TypeId }));
+      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name: e.Name, ProductId: e.ProductId, ProductQty: e.ProductQty, Quantity: e.AvailableQuantity, Price: e.Price, State: e.State, TypeId: e.TypeId}));
       resolve(Products);
+    });
+  });
+}
+
+exports.GetCountUnretrievedBookingsByUser = () => {
+  return new Promise((resolve, reject) => { //NOSONAR
+    const sqlUnretrievedBookingsByUser = "SELECT count(Id), UserId FROM Bookings WHERE Bookings.State=5 GROUP BY UserId HAVING COUNT(*) > 2";
+    db.all(sqlUnretrievedBookingsByUser, [], (err, UnretrievedBookingsByUser) => {
+      if (err) {
+        reject(err);
+
+      }
+      const count = UnretrievedBookingsByUser.map((e) => ({UserId:e.UserId }));
+      resolve(count);
     });
   });
 }
