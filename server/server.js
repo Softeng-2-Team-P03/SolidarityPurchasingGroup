@@ -461,6 +461,7 @@ app.post('/api/product',
         await productDao.createProduct(product);
         res.status(201).end();
     } catch (err) {
+        console.log(err);
         res.status(503).json({ error: `Database error during the creation of product.` });
     }
 });

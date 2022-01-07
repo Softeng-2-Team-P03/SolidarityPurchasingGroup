@@ -173,7 +173,7 @@ exports.listFarmerProd = (farmerId, state) => {
 
 exports.createProduct = (product) => {
     return new Promise((resolve, reject) => {
-        const sql = 'INSERT INTO Products(FarmerId, Name, Description, EstimatedQuantity, State, TypeId, PricePerUnit, ExpiringDate, AvailableQuantity) VALUES(?,?,?,?,?,?,?,?)';
+        const sql = 'INSERT INTO Products(FarmerId, Name, Description, EstimatedQuantity, State, TypeId, PricePerUnit, ExpiringDate, AvailableQuantity) VALUES(?,?,?,?,?,?,?,?,?)';
         db.run(sql, [product.FarmerId, product.Name, product.Description,product.Quantity,product.State,product.TypeId,product.PricePerUnit,product.ExpiringDate, product.Quantity], function (err) {
             if (err) {
                 reject(err);
