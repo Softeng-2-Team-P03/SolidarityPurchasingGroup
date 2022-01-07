@@ -346,7 +346,7 @@ function UpdateBooking(props) {
           Update Booking
         </Button>
 
-        <Modal data-testid="cartModal" show={show} onHide={close} scrollable>
+        <Modal centered data-testid="cartModal" show={show} onHide={close} scrollable>
             <Modal.Header style={{ backgroundColor: "#afcbd6" }}>
                 <Col style={{ textAlign: "center" }}>
                     <Row>

@@ -4,6 +4,7 @@ function ModalError(props) {
     return (
       <>
         <Modal
+          centered
           show={props.show}
           backdrop="static"
           onHide={props.handleClose}

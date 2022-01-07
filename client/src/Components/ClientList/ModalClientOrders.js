@@ -46,6 +46,7 @@ const [show, setShow] = useState(false);
         Show Orders
       </Button>
       <Modal
+        centered
         show={show}
         onHide={handleClose}
         backdrop="static"

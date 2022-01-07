@@ -138,7 +138,7 @@ function WalletTopUpModal(props) {
             </span>
 
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal centered show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title> Wallet info </Modal.Title>
                 </Modal.Header>
