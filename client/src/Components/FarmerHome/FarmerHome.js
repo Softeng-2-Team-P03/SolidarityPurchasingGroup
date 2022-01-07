@@ -99,7 +99,7 @@ function FarmerHome() {
 
     return (
         <>
-            <Modal data-testid="addProductModal" show={show} onHide={handleClose} centered>
+            <Modal centered data-testid="addProductModal" show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>New product</Modal.Title>
                 </Modal.Header>
@@ -110,7 +110,7 @@ function FarmerHome() {
             </Modal>
 
 
-            <Modal show={edit} onHide={handleCloseEdit} centered>
+            <Modal centered show={edit} onHide={handleCloseEdit} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit product</Modal.Title>
                 </Modal.Header>

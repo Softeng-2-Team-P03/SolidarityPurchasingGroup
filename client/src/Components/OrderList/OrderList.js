@@ -179,7 +179,7 @@ function ContactUser(props) {
             </span>
 
 
-            <Modal show={show} onHide={handleClose}>
+            <Modal centered show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title> User info </Modal.Title>
                 </Modal.Header>

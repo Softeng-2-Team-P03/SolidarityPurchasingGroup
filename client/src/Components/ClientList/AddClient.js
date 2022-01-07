@@ -32,7 +32,7 @@ function ClientModal(props) {
 
     if (show) {
         return (
-            <Modal id="add-client-modal" show={show} onHide={handleClose}  >
+            <Modal centered id="add-client-modal" show={show} onHide={handleClose}  >
                 <Modal.Header closeButton  >
                     <Modal.Title id="add-client-modal-header">New client</Modal.Title>
                 </Modal.Header>
