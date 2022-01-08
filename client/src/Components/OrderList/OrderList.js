@@ -59,7 +59,7 @@ function Order(props) {
                 <td>{props.order.BookingStartDate}</td>
                 <td>{props.order.State}</td>
                 {props.order.PickupTime ? <td> {props.order.PickupTime} </td> : <td> {props.order.DeliveryTime} </td>}
-                <td>{props.order.TotalPrice}</td>
+                <td>{props.order.TotalPrice.toFixed(2)}</td>
 
                 {timeEnabled ? <td ><Form.Check
                     type="switch"
@@ -188,7 +188,7 @@ function ContactUser(props) {
                     <h6><b>Name : {props.order.UserName} {props.order.UserSurname} </b></h6><br></br>
                     <h6><b>Phone number : {props.order.PhoneNumber}</b></h6><br></br>
                     <h6><b>Email : {props.order.Email}</b></h6><br></br>
-                    <h6><b>Total price for this order : {props.order.TotalPrice} - Actual wallet : {props.order.Wallet}  </b></h6><br></br>
+                    <h6><b>Total price for this order : {props.order.TotalPrice.toFixed(2)} - Actual wallet : {props.order.Wallet.toFixed(2)}  </b></h6><br></br>
 
                 </Modal.Body>
 

@@ -119,7 +119,7 @@ function WalletTopUpModal(props) {
     const handleShow = () => setShow(true);
 
     const handleSubmit = () => {
-        let newWallet = props.client.wallet + parseInt(amountTopUp);
+        let newWallet = props.client.wallet.toFixed(2) + parseInt(amountTopUp);
         userApi.chargeWallet(props.client.id, newWallet ).then((orderId) => {
             props.setConfirmationMessage('wallet succesfully updated');
         }).catch(err => {
@@ -144,7 +144,7 @@ function WalletTopUpModal(props) {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <h6><b>{props.client.name} {props.client.surname}'s Credit: </b>{props.client.wallet}</h6><br></br>
+                    <h6><b>{props.client.name} {props.client.surname}'s Credit: </b>{props.client.wallet.toFixed(2)}</h6><br></br>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Amount of money to Top up in the user wallet :</Form.Label>
