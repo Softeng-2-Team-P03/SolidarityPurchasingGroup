@@ -88,29 +88,7 @@ export const dataLinearWeek = {
     ],
 };
 
-export const dataLinearMonth = {
-    labels:[1,4,6,4,2,8,9],
-    datasets: [
-        {
-            label: 'Unretrieved by Month',
-            data: [{
-                x: 1,
-                y: 5
-            }, {
-                x: 4,
-                y: 8
-            }, {
-                x: 5,
-                y: 1
-            }, {
-                x: 7,
-                y: 1
-            }],
-            borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        },
-    ],
-};
+
 
 
 
@@ -130,8 +108,59 @@ function UnretrievedFood() {
     //const [maxProd,setMaxProd] = useState(0);
     const [countB,setCountB] = useState([]);
     const [prodsName,setProdsName] = useState([]);
+    let now = new Date(localStorage.getItem('virtualDate'));
+    let MonthDates = [];
+    const [saturdMonth,setSaturdMonth] = useState([]);
 
 
+    function getNextSaturday(date) {
+        // Code to check that date and dayOfWeek are valid left as an exercise ;)
+
+        var resultDate = new Date(date.getTime());
+
+        resultDate.setDate(date.getDate() + (7 + 6 - date.getDay()) % 7);
+
+        return resultDate;
+    }
+
+    function getMonthDays(date){
+        let i;
+        let index=0;
+        let days=[];
+        let daysTime=[];
+        let nextWeekDate = new Date();
+       // console.log(date);
+        let month=date.getMonth()+1;
+        date.setDate(1);
+
+        date.setDate(getNextSaturday(date).getDate());
+
+        nextWeekDate.setTime(date.getTime());
+
+        for(i=0;i<4;i++)
+        {
+            if(nextWeekDate.getMonth()+1===month) {
+                daysTime[index]=nextWeekDate.getFullYear() + "-" + (nextWeekDate.getMonth()+1) + "-" + nextWeekDate.getDate().toString().padStart(2, "0");
+                days[index]=nextWeekDate.getDate().toString().padStart(2, "0") + " " + (nextWeekDate.getMonth()+1) + " " + nextWeekDate.getFullYear();
+
+                index++;
+            }
+            nextWeekDate.setTime(nextWeekDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+        }
+
+        MonthDates=daysTime;
+       // console.log(MonthDates);
+        setSaturdMonth(days);
+    }
+
+
+    useEffect(() => {
+
+        getMonthDays(now);
+       // console.log(MonthDates);
+
+    }, []);
 
 
 
@@ -151,14 +180,19 @@ function UnretrievedFood() {
         let productsName=[];
         let index=0;
         let prods;
+        let str = '';
+
+
+
+
         const getUnretrieved = async () => {
-            //foodW = await API.getUnretrievedOfWeek('2021-11-21')
-           // foodM = await API.getUnretrievedOfMonth(11,2021);
+
 
              prods= await api.getAllProducts();
              maxP=prods.length;
 
              for(i=0;i<maxP;i++) {
+           // for(i=0;i<10;i++) { debug only
                  unProdId[i] = await API.getUnretrievedByProductId(i + 1);
                  if(unProdId[i].length!==0) {
                      productsName[index]=prods[i].name;
@@ -166,12 +200,12 @@ function UnretrievedFood() {
                      unProdId[i].forEach(x => {
                          countsBar[index] = countsBar[index] + x.UnretrievedQuantity
                      });
-                     console.log(countsBar[index]);
+
                      index++;
                  }
 
              }
-            console.log(productsName);
+
 
              for(i=0;i<6;i++) {
                  unProdType[i] = await API.getUnretrievedByProductType(i + 1);
@@ -182,6 +216,15 @@ function UnretrievedFood() {
              orders = await API.getOrders();
 
 
+            foodW = await API.getUnretrievedOfWeek('2021-12-04');
+            for (i=0;i<MonthDates.length;i++) {
+            foodW = await API.getUnretrievedOfWeek(MonthDates[i]);
+            //console.log(foodW);
+            monthFood.push(foodW.length);
+            }
+
+
+
 
         };
         getUnretrieved().then(data => {
@@ -190,18 +233,23 @@ function UnretrievedFood() {
                 setMonthFood(foodM);*/
                 setUnrProdId(unProdId);
                 setUnrProdType(unProdType);
-
                 pickupO=orders.filter(x => x.PickupTime!==null);
-
                 setPickupOrders(pickupO);
-
                 setCountProdType(counts);
-
                 setCountB(countsBar);
                 setProdsName(productsName);
 
+
+                //getMonthDays(now);
                 //console.log("countsBar");
-                //console.log(countsBar);
+
+               // console.log(MonthDates);
+                //console.log(typeof MonthDates[0]);
+                console.log(monthFood);
+               // console.log(MonthDates.length);
+
+
+
 
             }
         })
@@ -226,6 +274,18 @@ function UnretrievedFood() {
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
+            },
+        ],
+    };
+
+    const dataLinearMonth = {
+        labels:saturdMonth,
+        datasets: [
+            {
+                label: 'Unretrieved by Month',
+                data: monthFood,
+                borderColor: 'rgb(53, 162, 235)',
+                backgroundColor: 'rgba(53, 162, 235, 0.5)',
             },
         ],
     };
