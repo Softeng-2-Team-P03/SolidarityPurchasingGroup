@@ -1307,7 +1307,8 @@ app.post('/api/unretrievedfood', check('date').isDate({ format: 'YYYY-MM-DD', st
                 var ProductId = product.ProductId;
                 var ProductQty = product.ProductQty;
                 var TypeId = product.TypeId;
-                await orderDao.createUnretrieved(req.body.date, ProductId, ProductQty, TypeId);
+                var PickupTime = product.PickupTime
+                await orderDao.createUnretrieved(req.body.date, ProductId, ProductQty, TypeId, PickupTime);
                 console.log("ciAo");
 
 

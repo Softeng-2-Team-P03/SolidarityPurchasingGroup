@@ -30,16 +30,12 @@ Content-Type: application/json
 {"date": "2021-12-10"}
 
 ### get unretrieved food of a week by sending the date of saturday
-GET http://localhost:3001/api/unretrievedFoodOfWeek
+GET http://localhost:3001/api/unretrievedFoodOfWeek?date=2021-12-04
 Content-Type: application/json
-
-{"date": "2021-12-25"}
 
 ###get unretrieved food of a month by sending month and year
-GET http://localhost:3001/api/unretrievedFoodOfMonth
+GET http://localhost:3001/api/unretrievedFoodOfMonth?monthNum=12&year=2021
 Content-Type: application/json
-
-{"monthNum": 12, "year": 2021}
 
 ###get unretrieved food by productId
 GET http://localhost:3001/api/unretrievedFoodByProductId/1

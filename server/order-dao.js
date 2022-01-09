@@ -222,7 +222,7 @@ exports.GetUnretrievedBookings = () => {
 
       }
 
-      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name: e.Name, ProductId: e.ProductId, ProductQty: e.ProductQty, Quantity: e.AvailableQuantity, Price: e.Price, State: e.State, TypeId: e.TypeId }));
+      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name: e.Name, ProductId: e.ProductId, ProductQty: e.ProductQty, Quantity: e.AvailableQuantity, Price: e.Price, State: e.State, TypeId: e.TypeId, PickupTime: e.PickupTime.split(' ')[0] }));
       resolve(Products);
     });
   });
@@ -242,10 +242,10 @@ exports.GetCountUnretrievedBookingsByUser = () => {
   });
 }
 
-exports.createUnretrieved = (date, productId, unretrievedQty, typeId) => {
+exports.createUnretrieved = (date, productId, unretrievedQty, typeId, pickupTime) => {
   return new Promise((resolve, reject) => {
-    const sql = 'INSERT INTO UnretrievedFood(Date, ProductId, UnretrievedQuantity, ProductType) VALUES(?,?,?,?)';
-    db.run(sql, [date, productId, unretrievedQty, typeId], function (err) {//NOSONAR
+    const sql = 'INSERT INTO UnretrievedFood(Date, ProductId, UnretrievedQuantity, ProductType, PickupTime) VALUES(?,?,?,?,?)';
+    db.run(sql, [date, productId, unretrievedQty, typeId, pickupTime], function (err) {//NOSONAR
       if (err) {
         reject(err);
 
@@ -268,7 +268,7 @@ exports.getUnretrievedFoodByWeek = (saturdayDate) => {
 
       }
 
-      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType }));
+      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType, PickupTime: e.PickupTime }));
       resolve(UnretrievedProducts);
     });
   });
@@ -296,7 +296,7 @@ exports.getUnretrievedFoodByMonth = (monthNum, year) => {
 
       }
 
-      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType }));
+      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType, PickupTime: e.PickupTime }));
       resolve(UnretrievedProducts);
     });
   });
@@ -316,7 +316,7 @@ exports.getUnretrievedFoodByProductId = (productId) => {
 
       }
 
-      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType }));
+      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType, PickupTime: e.PickupTime }));
       resolve(UnretrievedProducts);
     });
   });
@@ -336,7 +336,7 @@ exports.getUnretrievedFoodByProductType = (productType) => {
 
       }
 
-      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType }));
+      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType, PickupTime: e.PickupTime }));
       resolve(UnretrievedProducts);
     });
   });
