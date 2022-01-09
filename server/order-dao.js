@@ -222,7 +222,7 @@ exports.GetUnretrievedBookings = () => {
 
       }
 
-      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name: e.Name, ProductId: e.ProductId, ProductQty: e.ProductQty, Quantity: e.AvailableQuantity, Price: e.Price, State: e.State, TypeId: e.TypeId}));
+      const Products = ProductsFromBooking.map((e) => ({ BookingId: e.BookingId, Name: e.Name, ProductId: e.ProductId, ProductQty: e.ProductQty, Quantity: e.AvailableQuantity, Price: e.Price, State: e.State, TypeId: e.TypeId }));
       resolve(Products);
     });
   });
@@ -236,7 +236,7 @@ exports.GetCountUnretrievedBookingsByUser = () => {
         reject(err);
 
       }
-      const count = UnretrievedBookingsByUser.map((e) => ({UserId:e.UserId }));
+      const count = UnretrievedBookingsByUser.map((e) => ({ UserId: e.UserId }));
       resolve(count);
     });
   });
@@ -284,8 +284,8 @@ exports.getUnretrievedFoodByMonth = (monthNum, year) => {
   return new Promise((resolve, reject) => {
 
     //necessary cast to string to let strftime() work as intended.
-    monthNum = monthNum+"";
-    year = year+"";
+    monthNum = monthNum + "";
+    year = year + "";
 
     const sql = `SELECT *
     FROM UnretrievedFood
@@ -307,7 +307,7 @@ exports.getUnretrievedFoodByMonth = (monthNum, year) => {
  * @param {integer} productId iso 8601 date indicating the Saturday of the week we want to select 
  * @returns array of unretrieved food objects having productId as indicated by the parameter
  */
- exports.getUnretrievedFoodByProductId = (productId) => {
+exports.getUnretrievedFoodByProductId = (productId) => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT * FROM UnretrievedFood WHERE ProductId = ?';
     db.all(sql, [productId], (err, rows) => {
@@ -327,7 +327,7 @@ exports.getUnretrievedFoodByMonth = (monthNum, year) => {
  * @param {integer} ProductType iso 8601 date indicating the Saturday of the week we want to select 
  * @returns array of unretrieved food objects having produc type as indicated by the parameter
  */
- exports.getUnretrievedFoodByProductType = (productType) => {
+exports.getUnretrievedFoodByProductType = (productType) => {
   return new Promise((resolve, reject) => {
     const sql = 'SELECT * FROM UnretrievedFood WHERE ProductType = ?';
     db.all(sql, [productType], (err, rows) => {
@@ -465,4 +465,37 @@ exports.GetBookingById = (bookingId) => {
       resolve(Booking);
     });
   });
+}
+
+/**
+ * Sets bookings of a certain week to unretrieved
+ * @param {string} date iso 8601 date indicating the Saturday of the week we want to put bookings unretrieved 
+ */
+exports.setBookingUnretrieved = (date) => {
+  return new Promise((resolve, reject) => {
+    const startDate = new Date(date); //startDate is monday and date is saturday
+    startDate.setDate(startDate.getDate() - 5);
+    const startDateString = formatDate(startDate);
+    const sql = `UPDATE Bookings
+                 SET State = 5
+                 WHERE State = 2 AND PickupTime BETWEEN ? AND ?`;
+    db.run(sql, [startDateString + " 09:00", date + " 09:00"], function (err) {//NOSONAR
+      if (err) {
+        console.log(err)
+        reject(err);
+      }
+      resolve(this.changes);
+    });
+  });
+}
+
+function datePadding(value) {
+  var format = String(value);
+  return format.length < 2 ? '0' + format : format;
+}
+
+function formatDate(date) {
+  var datePart = [date.getFullYear(), date.getMonth() + 1, date.getDate()].map(datePadding);
+
+  return datePart.join('-');
 }

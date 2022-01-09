@@ -1280,6 +1280,10 @@ app.post('/api/unretrievedfood', check('date').isDate({ format: 'YYYY-MM-DD', st
 
     };
     try {
+        const numBookings = await orderDao.setBookingUnretrieved(req.body.date);
+        if(numBookings === 0){
+            res.status(204).end();
+        }
         const count = await orderDao.GetCountUnretrievedBookingsByUser();
         if (count.error)
             res.status(404).json(result);
