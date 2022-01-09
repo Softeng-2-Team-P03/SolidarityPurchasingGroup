@@ -15,6 +15,7 @@ import { LoginComponent } from './Components/LoginComponents/LoginComponent';
 import { ClientList } from './Components/ClientList/ClientList';
 import { ClientModal } from './Components/ClientList/AddClient';
 import bookingApi from './api/booking-api';
+import UnretrievedFood from "./Components/UnretrievedFood/UnretrievedFood";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -158,6 +159,9 @@ function App() {
           } />
           <Route path='/WareHouseHome' render={() =>
             <WareHouseHome></WareHouseHome>
+          } />
+          <Route path='/unretrievedFood' render={() =>
+              <UnretrievedFood></UnretrievedFood>
           } />
           <Route render={() =>
             <Redirect to='/' />

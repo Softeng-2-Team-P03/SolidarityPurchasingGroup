@@ -94,7 +94,8 @@ function ManagerNavbar() {
       <Nav.Link href='/products'>Browse Shop</Nav.Link>
       <Nav.Link className="navMan"href='/clients'>Clients</Nav.Link>
       <Nav.Link href='/orders'>Orders</Nav.Link>
-      <Nav.Link href='/WareHouseHome'>WareHouse</Nav.Link>
+      <Nav.Link href='/WareHouseHome'>Ware House</Nav.Link>
+      <Nav.Link href='/unretrievedFood'>Unretrieved</Nav.Link>
 
     </Nav>
   );
