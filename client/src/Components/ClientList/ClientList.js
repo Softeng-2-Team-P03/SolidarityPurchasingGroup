@@ -119,7 +119,7 @@ function WalletTopUpModal(props) {
     const handleShow = () => setShow(true);
 
     const handleSubmit = () => {
-        let newWallet = props.client.wallet.toFixed(2) + parseInt(amountTopUp);
+        let newWallet = props.client.wallet.toFixed(2)*1 + parseInt(amountTopUp);
         userApi.chargeWallet(props.client.id, newWallet ).then((orderId) => {
             props.setConfirmationMessage('wallet succesfully updated');
         }).catch(err => {
