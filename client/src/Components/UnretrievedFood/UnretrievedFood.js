@@ -111,18 +111,7 @@ export const dataLinearMonth = {
     ],
 };
 
-export const dataRadar = {
-    labels: ['Fruits & Vegetables', 'Dairy', 'Meat & Salumi', 'Sea Products', 'Bakery & Sweets', 'Baverages'],
-    datasets: [
-        {
-            label: 'Unretrieved by category',
-            data: [0,5,6,3,5,3],
-            backgroundColor: 'rgba(255, 99, 132, 0.2)',
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1,
-        },
-    ],
-};
+
 
 export const dataBar = {
     labels:[5,2,3,5,6,4,],
@@ -146,6 +135,9 @@ function UnretrievedFood() {
     const [unrProdType,setUnrProdType] = useState([]);
     const [pickupOrders,setPickupOrders] = useState([]);
   //  const [sumPickO,setSumPickO] = useState([]);
+    const [countProdType,setCountProdType] = useState([]);
+
+
 
 
 
@@ -154,14 +146,21 @@ function UnretrievedFood() {
         let foodW;
         let foodM;
         let unProdId;
-        let unProdType;
+        let unProdType=[];
         let pickupO;
         let orders;
+        let i=0;
+        let counts=[];
+        let cnt=[];
         const getUnretrieved = async () => {
             //foodW = await API.getUnretrievedOfWeek('2021-11-21')
            // foodM = await API.getUnretrievedOfMonth(11,2021);
-            //unProdId=await API.getUnretrievedByProductId(2);
-            //unProdType=await API.getUnretrievedByProductType(7);
+             unProdId=await API.getUnretrievedByProductId(7);
+
+             for(i=0;i<6;i++) {
+                 unProdType[i] = await API.getUnretrievedByProductType(i + 1);
+                 counts[i]=unProdType[i].length;
+             }
 
              orders = await API.getOrders();
 
@@ -171,14 +170,25 @@ function UnretrievedFood() {
         getUnretrieved().then(data => {
             if (mounted) {
                /*setWeekFood(foodW);
-                setMonthFood(foodM);
+                setMonthFood(foodM);*/
                 setUnrProdId(unProdId);
-                setUnrProdType(unProdType);*/
+                setUnrProdType(unProdType);
+
                 pickupO=orders.filter(x => x.PickupTime!==null);
 
                 setPickupOrders(pickupO);
 
-                 //console.log(pickupO);
+
+                console.log(unProdType);
+
+
+                setCountProdType(counts);
+
+                console.log(counts);
+
+                //console.log(counts);
+                //console.log(unProdId);
+                //console.log(unProdType);
 
             }
         })
@@ -191,6 +201,21 @@ function UnretrievedFood() {
 
 
     }, []);
+
+
+
+    const dataRadar = {
+        labels: ['Fruits & Vegetables', 'Dairy', 'Meat & Salumi', 'Sea Products', 'Bakery & Sweets', 'Baverages'],
+        datasets: [
+            {
+                label: 'Unretrieved by category',
+                data: countProdType,
+                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                borderColor: 'rgba(255, 99, 132, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
 
 
     return (
