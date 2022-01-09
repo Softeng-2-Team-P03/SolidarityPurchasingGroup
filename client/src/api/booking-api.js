@@ -184,12 +184,11 @@ function addUnretrievedFood(date) {
  */
 async function getUnretrievedOfWeek(saturdayDate) {
   // call: GET /api/orders
-  const response = await fetch(BASEURL + '/unretrievedFoodOfWeek', {
+  const response = await fetch(BASEURL + '/unretrievedFoodOfWeek?date=' + saturdayDate, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ date : saturdayDate }), 
   });
   const unretrievedFoodsJson = await response.json();
   if (response.ok) {
@@ -207,12 +206,11 @@ async function getUnretrievedOfWeek(saturdayDate) {
  */
 async function getUnretrievedOfMonth(monthNum, year) {
   // call: GET /api/orders
-  const response = await fetch(BASEURL + '/unretrievedFoodOfMonth', {
+  const response = await fetch(BASEURL + '/unretrievedFoodOfMonth?monthNum=' + monthNum + "&year=" + year, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ monthNum : monthNum, year: year }), 
   });
   const unretrievedFoodsJson = await response.json();
   if (response.ok) {

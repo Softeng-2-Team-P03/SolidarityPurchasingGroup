@@ -1333,6 +1333,7 @@ app.post('/api/unretrievedfood', check('date').isDate({ format: 'YYYY-MM-DD', st
  * Gets unretrieved food of a certain week passed to the api through an iso date yyyy-mm-dd in the body of the call
  * The date should indicate the Saturday of the week we want to select since all unretrieved products are recorded 
  * within the unretrievedFood table with the associated Saturday of the week they were intended to be picked up.
+ * CALL: /api/unretrievedFoodOfWeek?date=YYYY-MM-DD
  */
 app.get('/api/unretrievedFoodOfWeek', [check('date').isDate({ format: 'YYYY-MM-DD', strictMode: true })], async (req, res) => {
     const errors = validationResult(req);
@@ -1340,14 +1341,14 @@ app.get('/api/unretrievedFoodOfWeek', [check('date').isDate({ format: 'YYYY-MM-D
         return res.status(422).json({ errors: errors.array() });
     }
 
-    const d = new Date(req.body.date);
+    const d = new Date(req.query.date);
     if (d.getDay() != 6) {
         console.log("The date selected doesn't indicate a saturday, pass the saturday of the selected week in the body of the http call.");
         res.status(403).end();
     }
 
     try {
-        const result = await orderDao.getUnretrievedFoodByWeek(req.body.date);
+        const result = await orderDao.getUnretrievedFoodByWeek(req.query.date);
         if (result.error)
             res.status(404).json(result);
         else
@@ -1361,6 +1362,7 @@ app.get('/api/unretrievedFoodOfWeek', [check('date').isDate({ format: 'YYYY-MM-D
 
 /**
  * Gets unretrieved food of a certain month passed to the api through the values monthNum (1= janauary, 12=december) and year (between 1970 and 2999)
+ * CALL: /api/unretrievedFoodOfMonth?monthNum=11&year=2021
  */
 app.get('/api/unretrievedFoodOfMonth', [check('monthNum').isInt({ min: 1, max: 12 }), check('year').isInt({ min: 1970, max: 2999 })], async (req, res) => {
     const errors = validationResult(req);
@@ -1370,7 +1372,7 @@ app.get('/api/unretrievedFoodOfMonth', [check('monthNum').isInt({ min: 1, max: 1
 
 
     try {
-        const result = await orderDao.getUnretrievedFoodByMonth(req.body.monthNum, req.body.year);
+        const result = await orderDao.getUnretrievedFoodByMonth(req.query.monthNum, req.query.year);
         if (result.error)
             res.status(404).json(result);
         else
