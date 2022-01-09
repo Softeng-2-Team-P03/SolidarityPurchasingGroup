@@ -199,3 +199,16 @@ exports.decreaseWallet = (userId, amount) => {
     });
   });
 };
+
+exports.setMissedPickup = (userId, num) => {
+  return new Promise((resolve, reject) => {
+    const sql = 'UPDATE Users SET UnretrievedCount = ? WHERE Id = ?';
+    db.run(sql, [num, userId], function (err) {//NOSONAR
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve(this.lastID);
+    });
+  });
+}

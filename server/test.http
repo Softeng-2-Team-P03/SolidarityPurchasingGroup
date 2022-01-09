@@ -30,7 +30,7 @@ Content-Type: application/json
 {"date": "2021-12-10"}
 
 ### get unretrieved food of a week by sending the date of saturday
-GET http://localhost:3001/api/unretrievedFoodOfWeek?date=2021-12-04
+GET http://localhost:3001/api/unretrievedFoodOfWeek?date=2021-12-03
 Content-Type: application/json
 
 ###get unretrieved food of a month by sending month and year
@@ -38,13 +38,13 @@ GET http://localhost:3001/api/unretrievedFoodOfMonth?monthNum=12&year=2021
 Content-Type: application/json
 
 ###get unretrieved food by productId
-GET http://localhost:3001/api/unretrievedFoodByProductId/1
+GET http://localhost:3001/api/unretrievedFoodByProductId/15
 Content-Type: application/json
 
 
 
 ###get unretrieved food by product type
-GET http://localhost:3001/api/unretrievedFoodByProductType/1
+GET http://localhost:3001/api/unretrievedFoodByProductType/4
 Content-Type: application/json
 
 ###get send all telegram notifications saturday morning at 9am

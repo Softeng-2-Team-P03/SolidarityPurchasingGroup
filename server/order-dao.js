@@ -213,10 +213,13 @@ exports.GetProductsFromBookingId = (bookingId) => {
   });
 }
 
-exports.GetUnretrievedBookings = () => {
+exports.GetUnretrievedBookings = (date) => {
   return new Promise((resolve, reject) => { //NOSONAR
-    const sqlUnretrievedBookings = "SELECT *,  BookingAndProducts.Quantity as ProductQty  FROM Bookings JOIN BookingAndProducts ON BookingAndProducts.BookingId = Bookings.Id JOIN Products  ON Products.Id = BookingAndProducts.ProductId  WHERE Bookings.State=5";
-    db.all(sqlUnretrievedBookings, [], (err, ProductsFromBooking) => {
+    const startDate = new Date(date); //startDate is monday and date is saturday
+    startDate.setDate(startDate.getDate() - 5);
+    const startDateString = formatDate(startDate);
+    const sqlUnretrievedBookings = "SELECT *,  BookingAndProducts.Quantity as ProductQty  FROM Bookings JOIN BookingAndProducts ON BookingAndProducts.BookingId = Bookings.Id JOIN Products  ON Products.Id = BookingAndProducts.ProductId  WHERE Bookings.State=5 AND PickupTime BETWEEN ? AND ?";
+    db.all(sqlUnretrievedBookings, [startDateString, date], (err, ProductsFromBooking) => {
       if (err) {
         reject(err);
 
@@ -230,13 +233,13 @@ exports.GetUnretrievedBookings = () => {
 
 exports.GetCountUnretrievedBookingsByUser = () => {
   return new Promise((resolve, reject) => { //NOSONAR
-    const sqlUnretrievedBookingsByUser = "SELECT count(Id), UserId FROM Bookings WHERE Bookings.State=5 GROUP BY UserId HAVING COUNT(*) > 2";
+    const sqlUnretrievedBookingsByUser = "SELECT count(Id) as NumPickup, UserId FROM Bookings WHERE Bookings.State=5 GROUP BY UserId HAVING COUNT(*) > 2";
     db.all(sqlUnretrievedBookingsByUser, [], (err, UnretrievedBookingsByUser) => {
       if (err) {
         reject(err);
 
       }
-      const count = UnretrievedBookingsByUser.map((e) => ({ UserId: e.UserId }));
+      const count = UnretrievedBookingsByUser.map((e) => ({ UserId: e.UserId, NumPickup: e.NumPickup }));
       resolve(count);
     });
   });

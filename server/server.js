@@ -1289,14 +1289,15 @@ app.post('/api/unretrievedfood', check('date').isDate({ format: 'YYYY-MM-DD', st
             res.status(404).json(result);
         else{
             var header = "Frequent missed pickups";
-            var body = "You will be suspended at the 5th cumulative missed pickup";
             count.forEach(async user => {   
-                var UserId = user.UserId;         
+                var UserId = user.UserId;
+                var body = `You are at ${user.NumPickup} missed pickups. You will be suspended at the 5th cumulative missed pickup`;         
                 await notificationDao.InsertNotification(UserId, header, body, 2);
+                await userDao.setMissedPickup(user.UserId, user.NumPickup);
             })            
         }
        
-        const result = await orderDao.GetUnretrievedBookings(); 
+        const result = await orderDao.GetUnretrievedBookings(req.body.date); 
 
       
         if (result.error)
