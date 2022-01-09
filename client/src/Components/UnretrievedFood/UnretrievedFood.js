@@ -17,6 +17,7 @@ import {
 import React, {useEffect, useState} from "react";
 import {Button, Card, Form, Table} from "react-bootstrap";
 import API from "../../api/booking-api";
+import api from "../../API";
 
 ChartJS.register(
     CategoryScale,
@@ -113,17 +114,7 @@ export const dataLinearMonth = {
 
 
 
-export const dataBar = {
-    labels:[5,2,3,5,6,4,],
-    datasets: [
-        {
-            label: 'Unretrieved by different product',
-            data: [0,5,6,3,5,3],
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        },
 
-    ],
-};
 
 function UnretrievedFood() {
 
@@ -136,6 +127,9 @@ function UnretrievedFood() {
     const [pickupOrders,setPickupOrders] = useState([]);
   //  const [sumPickO,setSumPickO] = useState([]);
     const [countProdType,setCountProdType] = useState([]);
+    //const [maxProd,setMaxProd] = useState(0);
+    const [countB,setCountB] = useState([]);
+    const [prodsName,setProdsName] = useState([]);
 
 
 
@@ -145,21 +139,44 @@ function UnretrievedFood() {
         let mounted = true;
         let foodW;
         let foodM;
-        let unProdId;
+        let unProdId=[];
         let unProdType=[];
         let pickupO;
         let orders;
         let i=0;
         let counts=[];
         let cnt=[];
+        let maxP;
+        let countsBar=[];
+        let productsName=[];
+        let index=0;
+        let prods;
         const getUnretrieved = async () => {
             //foodW = await API.getUnretrievedOfWeek('2021-11-21')
            // foodM = await API.getUnretrievedOfMonth(11,2021);
-             unProdId=await API.getUnretrievedByProductId(7);
+
+             prods= await api.getAllProducts();
+             maxP=prods.length;
+
+             for(i=0;i<maxP;i++) {
+                 unProdId[i] = await API.getUnretrievedByProductId(i + 1);
+                 if(unProdId[i].length!==0) {
+                     productsName[index]=prods[i].name;
+                     countsBar[index]=0;
+                     unProdId[i].forEach(x => {
+                         countsBar[index] = countsBar[index] + x.UnretrievedQuantity
+                     });
+                     console.log(countsBar[index]);
+                     index++;
+                 }
+
+             }
+            console.log(productsName);
 
              for(i=0;i<6;i++) {
                  unProdType[i] = await API.getUnretrievedByProductType(i + 1);
-                 counts[i]=unProdType[i].length;
+                  //numero di diversi prodotti per categoria
+                    counts[i]=unProdType[i].length;
              }
 
              orders = await API.getOrders();
@@ -178,17 +195,13 @@ function UnretrievedFood() {
 
                 setPickupOrders(pickupO);
 
-
-                console.log(unProdType);
-
-
                 setCountProdType(counts);
 
-                console.log(counts);
+                setCountB(countsBar);
+                setProdsName(productsName);
 
-                //console.log(counts);
-                //console.log(unProdId);
-                //console.log(unProdType);
+                //console.log("countsBar");
+                //console.log(countsBar);
 
             }
         })
@@ -214,6 +227,18 @@ function UnretrievedFood() {
                 borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
             },
+        ],
+    };
+
+    const dataBar = {
+        labels:prodsName,
+        datasets: [
+            {
+                label: 'Unretrieved by different product',
+                data: countB,
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            },
+
         ],
     };
 
