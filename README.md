@@ -644,6 +644,7 @@ If the confirmed quantity is not enough it gives all the remaining products to t
 | "ProductId"  INTEGER NOT NULL, | |
 | "UnretrievedQuantity"  INTEGER NOT NULL, | |
 | "ProductType"  INTEGER NOT NULL, | |
+| "PickupTime" TEXT NOT NULL, | |
 | PRIMARY KEY("Date", "ProductId") | |
 
 
