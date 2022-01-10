@@ -345,11 +345,44 @@ function UnretrievedFood() {
 
 
 
-            {/*<h4 className="cardTitle">Graphics for undelivered products</h4>*/}
+            <Card className="cardChart2">
+                <Card.Body>
+
+                    <div className="flex-container">
+                        <h5 className="cardFilterText">filter by</h5>
+
+                        {flagWM ?
+                            <Button className="buttonWM" variant="primary" onClick={() => setFlagWM(0)}>Week</Button>
+                            :
+                            <Button className="buttonWM" variant="danger" onClick={() => setFlagWM(1)}>Month</Button>
+                        }
+                    </div>
+
+                    {flagWM ?
+                        <div className="containerLinearChart">
+                            <Line options={options} data={dataLinearWeek} />
+                        </div>
+                        :
+                        <div className="containerLinearChart">
+                            <Line options={options} data={dataLinearMonth} />
+                        </div>
+                    }
+
+                </Card.Body>
+            </Card>
+
 
 
 
             <div className="flex-container">
+
+
+                <Card className="cardChart3">
+                    <Card.Body>
+                        <Bar options={options} data={dataBar} />
+                    </Card.Body>
+                </Card>
+
 
                 <Card className="cardChart1">
                     <Card.Body>
@@ -360,42 +393,14 @@ function UnretrievedFood() {
                 </Card>
 
 
-                <Card className="cardChart2">
-                    <Card.Body>
 
-                        <div className="flex-container">
-                            <h5 className="cardFilterText">filter by</h5>
-
-                            {flagWM ?
-                                <Button className="buttonWM" variant="primary" onClick={() => setFlagWM(0)}>Week</Button>
-                                :
-                                <Button className="buttonWM" variant="danger" onClick={() => setFlagWM(1)}>Month</Button>
-                            }
-                        </div>
-
-                {flagWM ?
-                    <div className="containerLinearChart">
-                        <Line options={options} data={dataLinearWeek} />
-                    </div>
-                    :
-                    <div className="containerLinearChart">
-                        <Line options={options} data={dataLinearMonth} />
-                    </div>
-                }
-
-                    </Card.Body>
-                </Card>
 
 
 
             </div>
 
 
-            <Card className="cardChart3">
-                <Card.Body>
-                    <Bar options={options} data={dataBar} />
-                </Card.Body>
-            </Card>
+
 
         </div>
     );
