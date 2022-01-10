@@ -244,7 +244,7 @@ function UnretrievedFood() {
         labels: ['Fruits & Vegetables', 'Dairy', 'Meat & Salumi', 'Sea Products', 'Bakery & Sweets', 'Baverages'],
         datasets: [
             {
-                label: 'Unretrieved by category',
+                label: 'Unretrieved products of the category',
                 data: countProdType,
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                 borderColor: 'rgba(255, 99, 132, 1)',
@@ -257,7 +257,7 @@ function UnretrievedFood() {
         labels:saturdMonth,
         datasets: [
             {
-                label: 'Unretrieved by Week',
+                label: 'Unretrieved products of Week',
                 data: monthFood,
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
@@ -271,7 +271,7 @@ function UnretrievedFood() {
         'December'],
         datasets: [
             {
-                label: 'Unretrieved by Month',
+                label: 'Unretrieved producs of Month',
                 data: yearFood,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
@@ -283,7 +283,7 @@ function UnretrievedFood() {
         labels:prodsName,
         datasets: [
             {
-                label: 'Unretrieved by different product',
+                label: 'Unretrieved quantity of product',
                 data: countB,
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
