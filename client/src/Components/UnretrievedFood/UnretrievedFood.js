@@ -66,12 +66,6 @@ export const options = {
 
 
 
-
-
-
-
-
-
 function UnretrievedFood() {
 
     //flag Week/Month
@@ -82,6 +76,7 @@ function UnretrievedFood() {
     const [unrProdId,setUnrProdId] = useState([]);
     const [unrProdType,setUnrProdType] = useState([]);
     const [pickupOrders,setPickupOrders] = useState([]);
+    const [pickupUnretrieved,setPickupUnretrieved] = useState([]);
   //  const [sumPickO,setSumPickO] = useState([]);
     const [countProdType,setCountProdType] = useState([]);
     //const [maxProd,setMaxProd] = useState(0);
@@ -90,6 +85,8 @@ function UnretrievedFood() {
     let now = new Date(localStorage.getItem('virtualDate'));
     let MonthDates = [];
     const [saturdMonth,setSaturdMonth] = useState([]);
+    const [countDiffProd,setCountDiffProd] = useState(0);
+    const [countQntTot,setCountQntTot] = useState(0);
 
 
     function getNextSaturday(date) {
@@ -150,6 +147,7 @@ function UnretrievedFood() {
         let unProdId=[];
         let unProdType=[];
         let pickupO;
+        let pickupU;
         let orders;
         let i=0;
         let counts=[];
@@ -159,7 +157,7 @@ function UnretrievedFood() {
         let productsName=[];
         let index=0;
         let prods;
-        let str = '';
+        let qnt=0;
 
 
 
@@ -178,12 +176,16 @@ function UnretrievedFood() {
                      countsBar[index]=0;
                      unProdId[i].forEach(x => {
                          countsBar[index] = countsBar[index] + x.UnretrievedQuantity
+                         qnt+=x.UnretrievedQuantity;
                      });
 
                      index++;
+                     setCountDiffProd(index);
                  }
 
              }
+
+             setCountQntTot(qnt);
 
 
              for(i=0;i<6;i++) {
@@ -218,24 +220,12 @@ function UnretrievedFood() {
                 setUnrProdId(unProdId);
                 setUnrProdType(unProdType);
                 pickupO=orders.filter(x => x.PickupTime!==null);
+                pickupU=orders.filter(x => x.State===5);
                 setPickupOrders(pickupO);
+                setPickupUnretrieved(pickupU);
                 setCountProdType(counts);
                 setCountB(countsBar);
                 setProdsName(productsName);
-
-
-                //getMonthDays(now);
-                //console.log("countsBar");
-
-               // console.log(MonthDates);
-                //console.log(typeof MonthDates[0]);
-                console.log(yearFood);
-
-               // console.log(MonthDates.length);
-
-
-
-
             }
         })
             .catch(err => {
@@ -324,7 +314,7 @@ function UnretrievedFood() {
                                 <h6 className="m-b-20">Orders With Unretrived Food</h6>
                                 <h2 className="text-right"><i className="fa fa-cart-plus f-left"></i><span></span>
                                 </h2>
-                                <p className="m-b-0"><h2 className="f-right">351</h2></p>
+                                <p className="m-b-0"><h2 className="f-right">{pickupUnretrieved.length}</h2></p>
                             </div>
                         </div>
                     </div>
@@ -334,7 +324,7 @@ function UnretrievedFood() {
                             <div className="card-block">
                                 <h6 className="m-b-20">Different Unretrieved Product</h6>
                                 <h2 className="text-right"><i className="fa fa-rocket f-left"></i><span></span></h2>
-                                <p className="m-b-0"><h2 className="f-right">351</h2></p>
+                                <p className="m-b-0"><h2 className="f-right">{countDiffProd}</h2></p>
                             </div>
                         </div>
                     </div>
@@ -344,7 +334,7 @@ function UnretrievedFood() {
                             <div className="card-block">
                                 <h6 className="m-b-20">Total Unretrieved Product Quantity</h6>
                                 <h2 className="text-right"><i className="fa fa-refresh f-left"></i><span></span></h2>
-                                <p className="m-b-0"><h2 className="f-right">351</h2></p>
+                                <p className="m-b-0"><h2 className="f-right">{countQntTot}</h2></p>
                             </div>
                         </div>
                     </div>
