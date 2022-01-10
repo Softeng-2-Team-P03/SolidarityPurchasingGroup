@@ -1770,3 +1770,23 @@ describe('PUT /api/bookingUpdateByClient/', () => {
     })
     
 })
+
+describe('bot api tests', () => {
+    it('SNForAvailableProducts', function (done) {
+        server
+            .get('/api/SNForAvailableProducts')
+            .send()
+            .expect(200)
+            .then(() => done())
+            .catch(err => done(err))
+    });
+    
+    it('SendNotificationForUsers', function (done) {
+        server
+            .get('/api/SendNotificationForUsers')
+            .send()
+            .expect(200)
+            .then(() => done())
+            .catch(err => done(err))
+    });
+    })
