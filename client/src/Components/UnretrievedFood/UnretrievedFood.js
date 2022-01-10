@@ -64,29 +64,7 @@ export const options = {
     },
 };
 
-export const dataLinearWeek = {
-    labels:[1,2,3,4,5,6,7,8,9],
-    datasets: [
-        {
-            label: 'Unretrieved by Week',
-            data: [{
-                x: 1,
-                y: 2
-            }, {
-                x: 3,
-                y: 4
-            }, {
-                x: 5,
-                y: 1
-            }, {
-                x: 7,
-                y: 9
-            }],
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        },
-    ],
-};
+
 
 
 
@@ -100,6 +78,7 @@ function UnretrievedFood() {
     const [flagWM,setFlagWM] = useState(0);
     const [weekFood,setWeekFood] = useState([]);
     const [monthFood,setMonthFood] = useState([]);
+    const [yearFood,setYearFood] = useState([]);
     const [unrProdId,setUnrProdId] = useState([]);
     const [unrProdType,setUnrProdType] = useState([]);
     const [pickupOrders,setPickupOrders] = useState([]);
@@ -216,13 +195,18 @@ function UnretrievedFood() {
              orders = await API.getOrders();
 
 
-            foodW = await API.getUnretrievedOfWeek('2021-12-04');
+            //per settimana
             for (i=0;i<MonthDates.length;i++) {
             foodW = await API.getUnretrievedOfWeek(MonthDates[i]);
             //console.log(foodW);
             monthFood.push(foodW.length);
             }
 
+            //per mese
+            for (i=0;i<12;i++) {
+                foodM = await API.getUnretrievedOfMonth(i+1,2021);
+                yearFood.push(foodM.length);
+            }
 
 
 
@@ -245,7 +229,8 @@ function UnretrievedFood() {
 
                // console.log(MonthDates);
                 //console.log(typeof MonthDates[0]);
-                console.log(monthFood);
+                console.log(yearFood);
+
                // console.log(MonthDates.length);
 
 
@@ -282,10 +267,24 @@ function UnretrievedFood() {
         labels:saturdMonth,
         datasets: [
             {
-                label: 'Unretrieved by Month',
+                label: 'Unretrieved by Week',
                 data: monthFood,
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
+            },
+        ],
+    };
+
+    const dataLinearWeek = {
+        labels:['January','February','March','April','May',
+        'June','July','August','September','October','November',
+        'December'],
+        datasets: [
+            {
+                label: 'Unretrieved by Month',
+                data: yearFood,
+                borderColor: 'rgb(255, 99, 132)',
+                backgroundColor: 'rgba(255, 99, 132, 0.5)',
             },
         ],
     };
@@ -378,19 +377,19 @@ function UnretrievedFood() {
                             <h5 className="cardFilterText">filter by</h5>
 
                             {flagWM ?
-                                <Button className="buttonWM" variant="danger" onClick={() => setFlagWM(0)}>Week</Button>
+                                <Button className="buttonWM" variant="primary" onClick={() => setFlagWM(0)}>Week</Button>
                                 :
-                                <Button className="buttonWM" variant="primary" onClick={() => setFlagWM(1)}>Month</Button>
+                                <Button className="buttonWM" variant="danger" onClick={() => setFlagWM(1)}>Month</Button>
                             }
                         </div>
 
                 {flagWM ?
                     <div className="containerLinearChart">
-                        <Line options={options} data={dataLinearMonth} />
+                        <Line options={options} data={dataLinearWeek} />
                     </div>
                     :
                     <div className="containerLinearChart">
-                        <Line options={options} data={dataLinearWeek} />
+                        <Line options={options} data={dataLinearMonth} />
                     </div>
                 }
 
