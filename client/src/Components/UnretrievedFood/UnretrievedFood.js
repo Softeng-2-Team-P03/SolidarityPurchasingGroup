@@ -356,6 +356,11 @@ function UnretrievedFood() {
 
         <Card className="cardChart2">
             <Card.Body>
+                {flagWM ?
+                    <h4>Number of unretrieved products filtered by month</h4>
+                    :
+                    <h4>Number of unretrieved products filtered by week</h4>
+                }
 
                 <div className="flex-container">
                     <h5 className="cardFilterText">
@@ -386,6 +391,7 @@ function UnretrievedFood() {
 
 
             <Card className="cardChart3">
+                <h4 className="barText">Quantity unretrieved by product</h4>
                 <Card.Body>
                     <Bar options={options} data={dataBar}/>
                 </Card.Body>
@@ -393,6 +399,7 @@ function UnretrievedFood() {
 
 
             <Card className="cardChart1">
+                <h4 className="radarText">Number of unretrieved products filtered by category</h4>
                 <Card.Body>
                     <div className="containerRadarChart">
                         <Radar data={dataRadar}/>

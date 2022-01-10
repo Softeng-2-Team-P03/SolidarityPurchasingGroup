@@ -91,7 +91,7 @@
     margin-right: 10px;
     margin-left: 10px;
     width: 40%;
-    height: 600px;
+    height: 700px;
 }
 
 .cardChart2{
@@ -107,7 +107,7 @@
     margin-right: 10px;
     margin-left: 10px;
     width: 65%;
-    height: 600px;
+    height: 700px;
 }
 
 .cardTitle{
@@ -130,4 +130,16 @@ margin-bottom: 20px;
 .textWait{
     text-align: center;
     margin-top: 10%;
+}
+
+.barText{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 55px;
+}
+
+.radarText{
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
