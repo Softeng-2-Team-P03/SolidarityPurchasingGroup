@@ -15,7 +15,7 @@ import {
     Legend,
 } from 'chart.js';
 import React, {useEffect, useState} from "react";
-import {Button, Card, Form, Table} from "react-bootstrap";
+import {Button, Card, Form, Spinner, Table} from "react-bootstrap";
 import API from "../../api/booking-api";
 import api from "../../API";
 
@@ -68,6 +68,7 @@ export const options = {
 
 function UnretrievedFood() {
 
+    const [loading,setLoading] = useState(1);
     //flag Week/Month
     const [flagWM,setFlagWM] = useState(0);
     const [weekFood,setWeekFood] = useState([]);
@@ -226,6 +227,7 @@ function UnretrievedFood() {
                 setCountProdType(counts);
                 setCountB(countsBar);
                 setProdsName(productsName);
+                setLoading(0);
             }
         })
             .catch(err => {
@@ -293,116 +295,120 @@ function UnretrievedFood() {
 
 
     return (
-        <div className="body">
-               <div className="containerCard">
-                <div className="row">
 
-                    <div className="col-md-4 col-xl-3">
-                        <div className="card bg-c-green order-card">
-                            <div className="card-block">
-                                <h6 className="m-b-20">Pickup Orders Received</h6>
-                                <h2 className="text-right"><i className="fa fa-credit-card f-left"></i><span></span>
-                                </h2>
-                                <p className="m-b-0"><h2 className="f-right">{pickupOrders.length}</h2></p>
-                            </div>
+        <>
+        {loading?
+           <>
+               <h3 className="textWait">Please wait while we process the data</h3>
+               <Spinner className="spinner" animation="border" variant="danger" />
+           </>
+            :
+    <div className="body">
+        <div className="containerCard">
+            <div className="row">
+
+                <div className="col-md-4 col-xl-3">
+                    <div className="card bg-c-green order-card">
+                        <div className="card-block">
+                            <h6 className="m-b-20">Pickup Orders Received</h6>
+                            <h2 className="text-right"><i className="fa fa-credit-card f-left"></i><span></span>
+                            </h2>
+                            <p className="m-b-0"><h2 className="f-right">{pickupOrders.length}</h2></p>
                         </div>
                     </div>
-
-                    <div className="col-md-4 col-xl-3">
-                        <div className="card bg-c-blue order-card">
-                            <div className="card-block">
-                                <h6 className="m-b-20">Orders With Unretrived Food</h6>
-                                <h2 className="text-right"><i className="fa fa-cart-plus f-left"></i><span></span>
-                                </h2>
-                                <p className="m-b-0"><h2 className="f-right">{pickupUnretrieved.length}</h2></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-md-4 col-xl-3">
-                        <div className="card bg-c-yellow order-card">
-                            <div className="card-block">
-                                <h6 className="m-b-20">Different Unretrieved Product</h6>
-                                <h2 className="text-right"><i className="fa fa-rocket f-left"></i><span></span></h2>
-                                <p className="m-b-0"><h2 className="f-right">{countDiffProd}</h2></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="col-md-4 col-xl-3">
-                        <div className="card bg-c-pink order-card">
-                            <div className="card-block">
-                                <h6 className="m-b-20">Total Unretrieved Product Quantity</h6>
-                                <h2 className="text-right"><i className="fa fa-refresh f-left"></i><span></span></h2>
-                                <p className="m-b-0"><h2 className="f-right">{countQntTot}</h2></p>
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
-               </div>
 
-
-
-            <Card className="cardChart2">
-                <Card.Body>
-
-                    <div className="flex-container">
-                        <h5 className="cardFilterText">filter by</h5>
-
-                        {flagWM ?
-                            <Button className="buttonWM" variant="primary" onClick={() => setFlagWM(0)}>Week</Button>
-                            :
-                            <Button className="buttonWM" variant="danger" onClick={() => setFlagWM(1)}>Month</Button>
-                        }
+                <div className="col-md-4 col-xl-3">
+                    <div className="card bg-c-blue order-card">
+                        <div className="card-block">
+                            <h6 className="m-b-20">Orders With Unretrived Food</h6>
+                            <h2 className="text-right"><i className="fa fa-cart-plus f-left"></i><span></span>
+                            </h2>
+                            <p className="m-b-0"><h2 className="f-right">{pickupUnretrieved.length}</h2></p>
+                        </div>
                     </div>
+                </div>
+
+                <div className="col-md-4 col-xl-3">
+                    <div className="card bg-c-yellow order-card">
+                        <div className="card-block">
+                            <h6 className="m-b-20">Different Unretrieved Product</h6>
+                            <h2 className="text-right"><i className="fa fa-rocket f-left"></i><span></span></h2>
+                            <p className="m-b-0"><h2 className="f-right">{countDiffProd}</h2></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="col-md-4 col-xl-3">
+                    <div className="card bg-c-pink order-card">
+                        <div className="card-block">
+                            <h6 className="m-b-20">Total Unretrieved Product Quantity</h6>
+                            <h2 className="text-right"><i className="fa fa-refresh f-left"></i><span></span></h2>
+                            <p className="m-b-0"><h2 className="f-right">{countQntTot}</h2></p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <Card className="cardChart2">
+            <Card.Body>
+
+                <div className="flex-container">
+                    <h5 className="cardFilterText">
+                        click to filter by</h5>
 
                     {flagWM ?
-                        <div className="containerLinearChart">
-                            <Line options={options} data={dataLinearWeek} />
-                        </div>
+                        <Button className="buttonWM" variant="primary" onClick={() => setFlagWM(0)}>Week</Button>
                         :
-                        <div className="containerLinearChart">
-                            <Line options={options} data={dataLinearMonth} />
-                        </div>
+                        <Button className="buttonWM" variant="danger" onClick={() => setFlagWM(1)}>Month</Button>
                     }
+                </div>
 
+                {flagWM ?
+                    <div className="containerLinearChart">
+                        <Line options={options} data={dataLinearWeek}/>
+                    </div>
+                    :
+                    <div className="containerLinearChart">
+                        <Line options={options} data={dataLinearMonth}/>
+                    </div>
+                }
+
+            </Card.Body>
+        </Card>
+
+
+        <div className="flex-container">
+
+
+            <Card className="cardChart3">
+                <Card.Body>
+                    <Bar options={options} data={dataBar}/>
                 </Card.Body>
             </Card>
 
 
-
-
-            <div className="flex-container">
-
-
-                <Card className="cardChart3">
-                    <Card.Body>
-                        <Bar options={options} data={dataBar} />
-                    </Card.Body>
-                </Card>
-
-
-                <Card className="cardChart1">
-                    <Card.Body>
-                <div className="containerRadarChart">
-                    <Radar data={dataRadar} />
-                </div>
-                    </Card.Body>
-                </Card>
-
-
-
-
-
-
-            </div>
-
-
+            <Card className="cardChart1">
+                <Card.Body>
+                    <div className="containerRadarChart">
+                        <Radar data={dataRadar}/>
+                    </div>
+                </Card.Body>
+            </Card>
 
 
         </div>
+
+
+    </div>
+
+}
+
+        </>
     );
 };
 

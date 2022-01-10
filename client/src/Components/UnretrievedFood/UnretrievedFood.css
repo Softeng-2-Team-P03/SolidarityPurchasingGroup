@@ -117,6 +117,17 @@ margin-bottom: 20px;
 
 .cardFilterText{
     margin-top: 15px;
-    margin-left: 80%;
+    margin-left: 70%;
     margin-right: 10px;
+}
+
+.spinner {
+    margin-right: 50%;
+    margin-left: 50%;
+    margin-top: 5%;
+}
+
+.textWait{
+    text-align: center;
+    margin-top: 10%;
 }
