@@ -47,7 +47,7 @@ function NavBar(props) {
           <ShowClock className="me-auto timer" />
         {props.user===undefined ? <div className="noLoggedMarginR"></div> : <></>}
         {props.loggedIn && props.user !== undefined && props.user.accessType===3 ?
-         <div className="noty"><Notifications placement={'end'} ></Notifications></div>
+         <div className="noty"><Notifications placement={'end'} data-testid="NotificationsIcon"></Notifications></div>
             :
             <div className="noNotyDiv"></div>
         }
