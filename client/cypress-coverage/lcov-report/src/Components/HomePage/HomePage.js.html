@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">55.56% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>15/27</span>
+                <span class='fraction'>18/24</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>8/12</span>
+                <span class='fraction'>9/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">70% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/10</span>
+                <span class='fraction'>7/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">60% </span>
+                <span class="strong">81.82% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/25</span>
+                <span class='fraction'>18/22</span>
             </div>
         
             
@@ -242,7 +242,8 @@
 <a name='L177'></a><a href='#L177'>177</a>
 <a name='L178'></a><a href='#L178'>178</a>
 <a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -261,23 +262,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -400,6 +401,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -409,13 +418,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -443,41 +445,41 @@ function HomePage(prop) {
         var required = 0;
         if (prop.loggedIn) {
             userApi.getRequiredCharge()
-                .then(<span class="fstat-no" title="function not covered" >(r</span>eqiuired) =&gt; {
-<span class="cstat-no" title="statement not covered" >                    required = reqiuired["TotalPrice"];</span>
-<span class="cstat-no" title="statement not covered" >                    userApi.getWalletBalance()</span>
-                        .then(<span class="fstat-no" title="function not covered" >(w</span>allet) =&gt; {
-<span class="cstat-no" title="statement not covered" >                            console.log("ddddddddddddd");</span>
-<span class="cstat-no" title="statement not covered" >                            console.log(wallet["Wallet"])</span>
-<span class="cstat-no" title="statement not covered" >                            console.log("required"+required)</span>
+                .then((reqiuired) =&gt; {
+                    required = reqiuired["TotalPrice"];
+                    userApi.getWalletBalance(prop.user.id)
+                        .then((wallet) =&gt; {
+                            //console.log("ddddddddddddd");
+                            //console.log(wallet["Wallet"])
+                            //console.log("required"+required)
 &nbsp;
-<span class="cstat-no" title="statement not covered" >                            if (wallet["Wallet"] &lt; required) {</span>
-<span class="cstat-no" title="statement not covered" >                                setShowModal(true);</span>
+                            <span class="missing-if-branch" title="else path not taken" >E</span>if (wallet &lt; required) {
+                                setShowModal(true);
                             }
                         })
-                }).catch(err =&gt; {
-                    console.error(err);
+                }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+<span class="cstat-no" title="statement not covered" >                    console.error(err);</span>
                 });
 &nbsp;
 &nbsp;
         }
     }, []);
 &nbsp;
- 
+&nbsp;
   const toggleShowB = <span class="fstat-no" title="function not covered" >()</span> =&gt; {<span class="cstat-no" title="statement not covered" >setShowB(!showB); </span>let state = <span class="cstat-no" title="statement not covered" >{ ...history.location.state };</span>
 <span class="cstat-no" title="statement not covered" >  delete state.showToast;</span>
 <span class="cstat-no" title="statement not covered" >  history.replace({ ...history.location, state });}</span>
-    
+&nbsp;
     return (
         &lt;&gt;
-        {location.state &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >location.state.showToast </span> ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;&gt; </span>
+        {location.state &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >location.state.showToast </span> ? <span class="branch-0 cbranch-no" title="branch not covered" >&lt;&gt;</span>
         &lt;Toast className="toast-fixed" onClose={toggleShowB} show={showB} animation={false}&gt;
           &lt;Toast.Header&gt;
             &lt;strong className="me-auto"&gt;Registration completed&lt;/strong&gt;
           &lt;/Toast.Header&gt;
           &lt;Toast.Body&gt;Your account has been successfully created&lt;/Toast.Body&gt;
         &lt;/Toast&gt; &lt;/&gt; : &lt;&gt;&lt;/&gt;
-   
+&nbsp;
 }
             &lt;SelectionBar /&gt;
             &lt;div className="container"&gt;
@@ -487,18 +489,18 @@ function HomePage(prop) {
                     &lt;p&gt;Go to your local shop or log in to add products to your basket&lt;/p&gt;
                     &lt;Row&gt;
                         &lt;Col&gt;
-                        {prop.loggedIn ? &lt;LogOut userLogoutCallback={prop.userLogoutCallback}/&gt; : &lt;LogIn/&gt;}   
+                        {prop.loggedIn ? &lt;LogOut userLogoutCallback={prop.userLogoutCallback}/&gt; : &lt;LogIn/&gt;}
                         &lt;/Col&gt;
                         &lt;Col&gt;
                             &lt;Link to='/products' style={{ whiteSpace: "nowrap" }}&gt;
-                                &lt;Button style={{color : 'black', background : '#FF7E8E', border : 'none'}} size="lg" &gt; Products &lt;/Button&gt;
+                                &lt;Button className="buttonHome" size="lg" &gt; Products &lt;/Button&gt;
                             &lt;/Link&gt;
                         &lt;/Col&gt;
                     &lt;/Row&gt;
                     {prop.loggedIn ? &lt;&gt; &lt;/&gt; : &lt;&gt;
                     &lt;p&gt;Not already registered?&lt;/p&gt;
                     &lt;Link to='/addClient'&gt;
-                        &lt;Button size="lg" style={{color : 'black', background : '#FF7E8E', border : 'none'}}&gt;Register&lt;/Button&gt;
+                        &lt;Button size="lg" className="buttonHome"&gt;Register&lt;/Button&gt;
                     &lt;/Link&gt; &lt;/&gt; }
                 &lt;/section&gt;
                 &lt;section className="partSection" id="info"&gt;
@@ -506,13 +508,13 @@ function HomePage(prop) {
                     &lt;p&gt;Choose the products to add to your basket in shop or online&lt;/p&gt;
                     &lt;p&gt;Pick up your products by person or have them delivered to your home!&lt;/p&gt;
                 &lt;/section&gt;
-               
+&nbsp;
                 &lt;section className="partSection" id="candidate"&gt;
                     &lt;h1&gt;Are you a farmer or a delivery person?&lt;/h1&gt;
                     &lt;h2&gt;Want to join our team?&lt;/h2&gt;
                     &lt;p&gt;Candidate now!&lt;/p&gt;
                     &lt;Link to='/candidate'&gt;
-                        &lt;Button style={{color : 'black',background : '#FF7E8E', border : 'none'}} size="lg"&gt;Candidate&lt;/Button&gt;
+                        &lt;Button className="buttonHome" size="lg"&gt;Candidate&lt;/Button&gt;
                     &lt;/Link&gt;
                 &lt;/section&gt;
 &nbsp;
@@ -559,8 +561,8 @@ function HomePage(prop) {
                 &lt;div&gt;
                 {/* &lt;svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"&gt;&lt;path fill="#273036" fill-opacity="1" d="M0,64L1440,160L1440,320L0,320Z"&gt;&lt;/path&gt; */}
                 &lt;br/&gt;
-                &lt;p &gt;@copyright 2021-2022 -Software engineering-   politecnico di torino  By p3&lt;/p&gt;
-                
+                &lt;p &gt;@copyright 2021-2022 - Software engineering 2 - Politecnico di Torino By P3&lt;/p&gt;
+&nbsp;
                 {/* &lt;/svg&gt; */}
                 &lt;/div&gt;
                 &lt;/section&gt;
@@ -588,7 +590,7 @@ function SelectionBar() {
 function LogIn(){
     return(&lt;&gt;
         &lt;Link to='/login'&gt;
-            &lt;Button size="lg" style={{color : 'black',background : '#FF7E8E', border : 'none'}}&gt;Log In&lt;/Button&gt;
+            &lt;Button size="lg" className="buttonHome" &gt;Log In&lt;/Button&gt;
         &lt;/Link&gt;
     &lt;/&gt;);
 }
@@ -596,18 +598,19 @@ function LogIn(){
 function LogOut(prop){
     return(&lt;&gt;
     &lt;Link to="/"&gt;
-        &lt;Button size="lg" style={{color : 'black',background : '#FF7E8E', border : 'none'}} onClick={prop.userLogoutCallback}&gt;Log Out&lt;/Button&gt;
+        &lt;Button size="lg" className="buttonHome" onClick={prop.userLogoutCallback}&gt;Log Out&lt;/Button&gt;
     &lt;/Link&gt;
     &lt;/&gt;);
 }
-export default HomePage;</pre></td></tr></table></pre>
+export default HomePage;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
-                at Sun Dec 12 2021 18:11:38 GMT+0100 (Ora standard dell’Europa centrale)
+                at Tue Jan 11 2022 09:08:37 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
