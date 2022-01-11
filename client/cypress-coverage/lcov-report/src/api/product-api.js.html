@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10.53% </span>
+                <span class="strong">57.89% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/19</span>
+                <span class='fraction'>11/19</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">37.5% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/8</span>
+                <span class='fraction'>3/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/3</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">10.53% </span>
+                <span class="strong">57.89% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/19</span>
+                <span class='fraction'>11/19</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -117,29 +117,18 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,6 +138,17 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -160,18 +160,18 @@
  */
 const BASEURL = '/api';
 &nbsp;
-async function <span class="fstat-no" title="function not covered" >getProductsByType(</span>category, date) {
+async function getProductsByType(category, date) {
     // call: GET /api/products/day/month/year
     let response;
-<span class="cstat-no" title="statement not covered" >    if (category !== 0) {</span>
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (category !== 0) {
 <span class="cstat-no" title="statement not covered" >        response = await fetch(BASEURL + '/products/type/' + category + '/' + date);</span>
     }
     else {
-<span class="cstat-no" title="statement not covered" >        response = await fetch(BASEURL + '/products/' + date);</span>
+        response = await fetch(BASEURL + '/products/' + date);
     }
-    const productsJson = <span class="cstat-no" title="statement not covered" >await response.json();</span>
-<span class="cstat-no" title="statement not covered" >    if (response.ok) {</span>
-<span class="cstat-no" title="statement not covered" >        return productsJson;</span>
+    const productsJson = await response.json();
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (response.ok) {
+        return productsJson;
     } else {
 <span class="cstat-no" title="statement not covered" >        throw productsJson; </span> // an object with the error coming from the server
     }
@@ -189,12 +189,12 @@ async function <span class="fstat-no" title="function not covered" >getProducts(
     }
 }
 &nbsp;
-async function <span class="fstat-no" title="function not covered" >getProductTypes(</span>) {
+async function getProductTypes() {
     // call: GET /api/types
-    const response = <span class="cstat-no" title="statement not covered" >await fetch(BASEURL + '/types');</span>
-    const typesJson = <span class="cstat-no" title="statement not covered" >await response.json();</span>
-<span class="cstat-no" title="statement not covered" >    if (response.ok) {</span>
-<span class="cstat-no" title="statement not covered" >        return typesJson;</span>
+    const response = await fetch(BASEURL + '/types');
+    const typesJson = await response.json();
+    <span class="missing-if-branch" title="else path not taken" >E</span>if (response.ok) {
+        return typesJson;
     } else {
 <span class="cstat-no" title="statement not covered" >        throw typesJson; </span> // an object with the error coming from the server
     }
@@ -208,7 +208,7 @@ export default API;</pre></td></tr></table></pre>
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
-                at Tue Jan 11 2022 13:13:36 GMT+0100 (Ora standard dell’Europa centrale)
+                at Tue Jan 11 2022 13:38:59 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../prettify.js"></script>
