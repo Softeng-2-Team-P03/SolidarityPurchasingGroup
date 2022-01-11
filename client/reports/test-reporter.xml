@@ -1,192 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\HomePage\__test__\HomePage.test.js">
-        <testCase name="renders the HomePage " duration="982"/>
-        <testCase name="The icons on the sections sidebar hooks to different sections of the homepage when clicked" duration="189"/>
-        <testCase name="The Products button redirects you to the /products path" duration="273"/>
-        <testCase name="The Log In button redirects you to the /login path" duration="281"/>
-        <testCase name="The Register button redirects you to the /addClient path" duration="224"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\ClientList\__test__\AddClient.test.js">
-        <testCase name="renders the AddClient component with all it&apos;s input fields " duration="517"/>
-        <testCase name="All input fields work as ecxpected and are linked to their label and register button redirects you to root path" duration="1044"/>
-        <testCase name="Error messages pops up when input is missing or wrong" duration="199"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\SuccessPage\__test__\OrderSuccess.test.js">
-        <testCase name="checks if works with delivery date" duration="2114"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\ClientList\__test__\ClientList.test.js">
-        <testCase name="the client table renders as expected " duration="809"/>
-        <testCase name="the top up wallet modal renders as expected " duration="492"/>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\__test__\Cart.test.js">
+        <testCase name="renders the cart button" duration="63"/>
+        <testCase name="clicking on cart button renders the cart modal as expected" duration="226"/>
+        <testCase name="the cart modal renders products as expected" duration="73"/>
     </file>
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\OrderList\__test__\OrderList.test.js">
-        <testCase name="renders the OrderList" duration="386"/>
-        <testCase name="renders an order with state issued" duration="501"/>
-        <testCase name="renders an order with state pending for cancelation" duration="501"/>
-        <testCase name="renders an order with state paid" duration="316"/>
-        <testCase name="renders an order with state handed out" duration="313"/>
-        <testCase name="renders an order with state handed out" duration="314"/>
-        <testCase name="renders an order with state canceled" duration="311"/>
-        <testCase name="renders an order with state created" duration="270"/>
-        <testCase name="clicks on button contact user" duration="149"/>
-        <testCase name="clicks on delete order button" duration="145"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\__test__\Cart.test.js">
-        <testCase name="renders the cart button" duration="74"/>
-        <testCase name="clicking on cart button renders the cart modal as expected" duration="341">
-            <failure message="TypeError: props.setFee is not a function"><![CDATA[TypeError: props.setFee is not a function
-    at updateChoice (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\Cart.js:62:15)
-    at open (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\Cart.js:32:9)
-    at HTMLUnknownElement.callCallback (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:3945:14)
-    at HTMLUnknownElement.callTheUserObjectsOperation (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
-    at innerInvokeEventListeners (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:338:25)
-    at invokeEventListeners (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:274:3)
-    at HTMLUnknownElementImpl._dispatch (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:221:9)
-    at HTMLUnknownElementImpl.dispatchEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:94:17)
-    at HTMLUnknownElement.dispatchEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\generated\EventTarget.js:231:34)
-    at Object.invokeGuardedCallbackDev (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:3994:16)
-    at invokeGuardedCallback (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:4056:31)
-    at invokeGuardedCallbackAndCatchFirstError (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:4070:25)
-    at executeDispatch (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:8243:3)
-    at processDispatchQueueItemsInOrder (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:8275:7)
-    at processDispatchQueue (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:8288:5)
-    at dispatchEventsForPlugins (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:8299:3)
-    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:8508:12
-    at batchedEventUpdates$1 (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:22396:12)
-    at batchedEventUpdates (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:3745:12)
-    at dispatchEventForPluginEventSystem (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:8507:3)
-    at attemptToDispatchEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:6005:3)
-    at dispatchEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:5924:19)
-    at unstable_runWithPriority (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\scheduler\cjs\scheduler.development.js:468:12)
-    at runWithPriority$1 (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:11276:10)
-    at discreteUpdates$1 (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:22413:14)
-    at discreteUpdates (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:3756:12)
-    at dispatchDiscreteEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:5889:3)
-    at HTMLDivElement.callTheUserObjectsOperation (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
-    at innerInvokeEventListeners (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:338:25)
-    at invokeEventListeners (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:274:3)
-    at HTMLButtonElementImpl._dispatch (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:221:9)
-    at HTMLButtonElementImpl.dispatchEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:94:17)
-    at HTMLButtonElement.dispatchEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\generated\EventTarget.js:231:34)
-    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\events.js:25:20
-    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\@testing-library\react\dist\pure.js:66:16
-    at batchedUpdates$1 (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:22380:12)
-    at act (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom-test-utils.development.js:1042:14)
-    at Object.eventWrapper (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\@testing-library\react\dist\pure.js:65:28)
-    at fireEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\events.js:16:35)
-    at Function.fireEvent.<computed> [as click] (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\events.js:125:36)
-    at Function.click (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\@testing-library\react\dist\fire-event.js:18:52)
-    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\__test__\Cart.test.js:75:15)
-    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:276:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:216:10)
-    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:212:40)
-    at processTicksAndRejections (node:internal/process/task_queues:96:5)
-    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:149:3)
-    at _runTestsForDescribeBlock (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:63:9)
-    at run (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:176:21)
-    at jestAdapter (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:109:19)
-    at runTestInternal (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:380:16)
-    at runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:472:34)
-    at Object.worker (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-        </testCase>
-        <testCase name="the cart modal renders products as expected" duration="105">
-            <failure message="TypeError: props.setFee is not a function"><![CDATA[TypeError: props.setFee is not a function
-    at updateChoice (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\Cart.js:62:15)
-    at open (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\Cart.js:32:9)
-    at HTMLUnknownElement.callCallback (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:3945:14)
-    at HTMLUnknownElement.callTheUserObjectsOperation (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
-    at innerInvokeEventListeners (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:338:25)
-    at invokeEventListeners (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:274:3)
-    at HTMLUnknownElementImpl._dispatch (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:221:9)
-    at HTMLUnknownElementImpl.dispatchEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:94:17)
-    at HTMLUnknownElement.dispatchEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\generated\EventTarget.js:231:34)
-    at Object.invokeGuardedCallbackDev (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:3994:16)
-    at invokeGuardedCallback (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:4056:31)
-    at invokeGuardedCallbackAndCatchFirstError (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:4070:25)
-    at executeDispatch (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:8243:3)
-    at processDispatchQueueItemsInOrder (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:8275:7)
-    at processDispatchQueue (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:8288:5)
-    at dispatchEventsForPlugins (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:8299:3)
-    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:8508:12
-    at batchedEventUpdates$1 (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:22396:12)
-    at batchedEventUpdates (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:3745:12)
-    at dispatchEventForPluginEventSystem (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:8507:3)
-    at attemptToDispatchEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:6005:3)
-    at dispatchEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:5924:19)
-    at unstable_runWithPriority (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\scheduler\cjs\scheduler.development.js:468:12)
-    at runWithPriority$1 (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:11276:10)
-    at discreteUpdates$1 (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:22413:14)
-    at discreteUpdates (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:3756:12)
-    at dispatchDiscreteEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:5889:3)
-    at HTMLDivElement.callTheUserObjectsOperation (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\generated\EventListener.js:26:30)
-    at innerInvokeEventListeners (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:338:25)
-    at invokeEventListeners (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:274:3)
-    at HTMLButtonElementImpl._dispatch (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:221:9)
-    at HTMLButtonElementImpl.dispatchEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\events\EventTarget-impl.js:94:17)
-    at HTMLButtonElement.dispatchEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jsdom\lib\jsdom\living\generated\EventTarget.js:231:34)
-    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\events.js:25:20
-    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\@testing-library\react\dist\pure.js:66:16
-    at batchedUpdates$1 (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom.development.js:22380:12)
-    at act (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\react-dom\cjs\react-dom-test-utils.development.js:1042:14)
-    at Object.eventWrapper (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\@testing-library\react\dist\pure.js:65:28)
-    at fireEvent (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\events.js:16:35)
-    at Function.fireEvent.<computed> [as click] (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\@testing-library\react\node_modules\@testing-library\dom\dist\events.js:125:36)
-    at Function.click (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\@testing-library\react\dist\fire-event.js:18:52)
-    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Cart\__test__\Cart.test.js:100:15)
-    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:276:28)
-    at new Promise (<anonymous>)
-    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\utils.js:216:10)
-    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:212:40)
-    at processTicksAndRejections (node:internal/process/task_queues:96:5)
-    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:149:3)
-    at _runTestsForDescribeBlock (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:63:9)
-    at run (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\run.js:25:3)
-    at runAndTransformResultsToJestFormat (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:176:21)
-    at jestAdapter (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:109:19)
-    at runTestInternal (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:380:16)
-    at runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\runTest.js:472:34)
-    at Object.worker (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\node_modules\jest-runner\build\testWorker.js:133:12)]]></failure>
-        </testCase>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\LoginComponents\__test__\LoginComponent.test.js">
-        <testCase name="renders the Login form as intended " duration="106"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\SideBar\__test__\SideBar.test.js">
-        <testCase name="renders the loading sidebar" duration="55"/>
-        <testCase name="renders the sidebar with types" duration="361"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\ProductList\__test__\ProductList.test.js">
-        <testCase name="renders the product list without products" duration="344"/>
-        <testCase name="renders a shoppable test product" duration="85"/>
-        <testCase name="renders a non-shoppable test product" duration="78"/>
+        <testCase name="renders the OrderList" duration="200"/>
+        <testCase name="renders an order with state issued" duration="332"/>
+        <testCase name="renders an order with state pending for cancelation" duration="256"/>
+        <testCase name="renders an order with state paid" duration="184"/>
+        <testCase name="renders an order with state handed out" duration="188"/>
+        <testCase name="renders an order with state handed out" duration="176"/>
+        <testCase name="renders an order with state canceled" duration="199"/>
+        <testCase name="renders an order with state created" duration="161"/>
+        <testCase name="clicks on button contact user" duration="131"/>
+        <testCase name="clicks on delete order button" duration="121"/>
     </file>
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\OrderList\__test__\MyOrderList.test.js">
-        <testCase name="renders MyOrderList table" duration="580"/>
-        <testCase name="renders an order row with pickup time and update option" duration="364"/>
-        <testCase name="renders an order row with delivery time and update option" duration="300"/>
-        <testCase name="renders an order row with pickup time without update option" duration="226"/>
-        <testCase name="renders the modal to update an order with delivery" duration="289"/>
-        <testCase name="renders the modal to update an order without delivery" duration="118"/>
-        <testCase name="renders a product in the modal to update it" duration="133"/>
+        <testCase name="renders MyOrderList table" duration="368"/>
+        <testCase name="renders an order row with pickup time and update option" duration="657"/>
+        <testCase name="renders an order row with delivery time and update option" duration="452"/>
+        <testCase name="renders an order row with pickup time without update option" duration="302"/>
+        <testCase name="renders the modal to update an order with delivery" duration="362"/>
+        <testCase name="renders the modal to update an order without delivery" duration="191"/>
+        <testCase name="renders a product in the modal to update it" duration="213"/>
     </file>
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\NavBar\__test__\NavBar.test.js">
-        <testCase name="renders the NavBar when not logged in" duration="350"/>
-        <testCase name="renders the NavBar when logged in as manager" duration="298"/>
-        <testCase name="renders the NavBar when logged in as employee" duration="254"/>
-        <testCase name="renders the NavBar when logged in as client" duration="440"/>
-        <testCase name="renders the NavBar when logged in as farmer" duration="198"/>
-        <testCase name="renders the NavBar when logged in as deliverer" duration="150"/>
-    </file>
-    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\FarmerHome\__test__\FarmerHome.test.js">
-        <testCase name="renders the HomePage " duration="316"/>
-        <testCase name="clicking on add product button renders the modal as expected" duration="852"/>
-        <testCase name="renders the row of a product to edit" duration="93"/>
-        <testCase name="renders the modal of a product to edit" duration="147"/>
-        <testCase name="renders the row of a product to confirm" duration="99"/>
+        <testCase name="renders the NavBar when not logged in" duration="327"/>
+        <testCase name="renders the NavBar when logged in as manager" duration="285"/>
+        <testCase name="renders the NavBar when logged in as employee" duration="249"/>
+        <testCase name="renders the NavBar when logged in as client" duration="446"/>
+        <testCase name="renders the NavBar when logged in as farmer" duration="131"/>
+        <testCase name="renders the NavBar when logged in as deliverer" duration="154"/>
     </file>
     <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\App.test.js">
-        <testCase name="renders learn react link" duration="268"/>
+        <testCase name="renders learn react link" duration="204"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\SuccessPage\__test__\OrderSuccess.test.js">
+        <testCase name="checks if works with delivery date" duration="1208"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\FarmerHome\__test__\FarmerHome.test.js">
+        <testCase name="renders the HomePage " duration="382"/>
+        <testCase name="clicking on add product button renders the modal as expected" duration="1182"/>
+        <testCase name="renders the row of a product to edit" duration="112"/>
+        <testCase name="renders the modal of a product to edit" duration="262"/>
+        <testCase name="renders the row of a product to confirm" duration="94"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\Notifications\__test__\Notifications.test.js">
+        <testCase name="renders the notification button" duration="180"/>
+        <testCase name="opens the off canvas" duration="115"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\ClientList\__test__\ClientList.test.js">
+        <testCase name="the client table renders as expected " duration="222"/>
+        <testCase name="the top up wallet modal renders as expected " duration="231"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\ProductList\__test__\ProductList.test.js">
+        <testCase name="renders the product list without products" duration="416"/>
+        <testCase name="renders a shoppable test product" duration="186"/>
+        <testCase name="renders a non-shoppable test product" duration="102"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\WareHouseHome\__test__\WareHouseHome.test.js">
+        <testCase name="renders the search product box" duration="164"/>
+        <testCase name="renders the table" duration="143"/>
+        <testCase name="renders a row of the table with product non in warehouse" duration="347"/>
+        <testCase name="renders a row of the table with product in warehouse" duration="145"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\ClientList\__test__\AddClient.test.js">
+        <testCase name="renders the AddClient component with all it&apos;s input fields " duration="279"/>
+        <testCase name="All input fields work as ecxpected and are linked to their label and register button redirects you to root path" duration="902"/>
+        <testCase name="Error messages pops up when input is missing or wrong" duration="135"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\HomePage\__test__\HomePage.test.js">
+        <testCase name="renders the HomePage " duration="637"/>
+        <testCase name="The icons on the sections sidebar hooks to different sections of the homepage when clicked" duration="122"/>
+        <testCase name="The Products button redirects you to the /products path" duration="167"/>
+        <testCase name="The Log In button redirects you to the /login path" duration="135"/>
+        <testCase name="The Register button redirects you to the /addClient path" duration="104"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\SideBar\__test__\SideBar.test.js">
+        <testCase name="renders the loading sidebar" duration="29"/>
+        <testCase name="renders the sidebar with types" duration="252"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\UnretrievedFood\__test__\UnretrievedFood.test.js">
+        <testCase name="renders the loading unretrieved food page" duration="49"/>
+    </file>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\client\src\Components\LoginComponents\__test__\LoginComponent.test.js">
+        <testCase name="renders the Login form as intended " duration="51"/>
     </file>
 </testExecutions>

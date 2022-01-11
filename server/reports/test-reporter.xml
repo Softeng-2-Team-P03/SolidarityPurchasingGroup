@@ -1,142 +1,498 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-    <file path="C:\Users\luca_\Desktop\polito\softeng2\SolidarityPurchasingGroup\server\__test__\server.test.js">
-        <testCase name="Testing to see if Jest works" duration="2"/>
-        <testCase name="Logins and Logout login as manager" duration="74"/>
-        <testCase name="Logins and Logout check if manager still logged in" duration="6"/>
-        <testCase name="Logins and Logout login as employee" duration="61"/>
-        <testCase name="Logins and Logout check if employee still logged in" duration="5"/>
-        <testCase name="Logins and Logout login as client" duration="59"/>
-        <testCase name="Logins and Logout check if client still logged in" duration="4"/>
-        <testCase name="Logins and Logout login as farmer" duration="59"/>
-        <testCase name="Logins and Logout check if farmer still logged in" duration="5"/>
-        <testCase name="Logins and Logout login as deliverer" duration="57"/>
-        <testCase name="Logins and Logout check if deliverer still logged in" duration="4"/>
-        <testCase name="Logins and Logout logout" duration="4"/>
-        <testCase name="Logins and Logout check if user is not logged in" duration="3"/>
-        <testCase name="Logins and Logout wrong username" duration="3"/>
-        <testCase name="Logins and Logout wrong password" duration="56"/>
-        <testCase name="Logins and Logout wrong username and password" duration="4"/>
-        <testCase name="Retrieving products and categories GET /api/products" duration="6"/>
-        <testCase name="Retrieving products and categories GET /api/products/2021-11-29" duration="6"/>
-        <testCase name="Retrieving products and categories GET /api/products/NotADate NoDate check" duration="4"/>
-        <testCase name="Retrieving products and categories GET /api/types" duration="6"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/1/2021-12-01" duration="7"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/2/2021-11-25" duration="5"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/3/2021-12-01" duration="4"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/4/2021-11-28" duration="5"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/5/2021-11-28" duration="7"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/6/2021-12-04" duration="3"/>
-        <testCase name="Retrieving products and categories GET /api/products/type/6/NotADate NoDate check" duration="3"/>
-        <testCase name="GET /api/bookings bookings should NOT be visible if not loggedIn" duration="4"/>
-        <testCase name="GET /api/bookings login as manager then show bookings" duration="63"/>
-        <testCase name="GET /api/bookings login as employee then show bookings" duration="64"/>
-        <testCase name="GET /api/bookings login as client then do NOT show booking" duration="60"/>
-        <testCase name="GET /api/bookings login as farmer then show bookings" duration="62"/>
-        <testCase name="GET /api/bookings login as deliverer then show bookings" duration="62"/>
-        <testCase name="PUT /api/bookings/:id booking should NOT be updated if not loggedIn" duration="6"/>
-        <testCase name="PUT /api/bookings/:id login as client then do NOT update booking" duration="63"/>
-        <testCase name="PUT /api/bookings/:id login as deliverer then do NOT update booking" duration="61"/>
-        <testCase name="PUT /api/bookings/:id login as manager then update booking" duration="66"/>
-        <testCase name="PUT /api/bookings/:id login as employee then update booking" duration="61"/>
-        <testCase name="PUT /api/bookings/:id login as farmer then update booking" duration="67"/>
-        <testCase name="PUT /api/bookings/:id check error if state &lt; 0" duration="62"/>
-        <testCase name="PUT /api/bookings/:id check error if state &gt; 3" duration="61"/>
-        <testCase name="POST /api/new_client name empty in parameters" duration="5"/>
-        <testCase name="POST /api/new_client surname empty in parameters" duration="5"/>
-        <testCase name="POST /api/new_client email empty in parameters" duration="4"/>
-        <testCase name="POST /api/new_client password empty in parameters" duration="5"/>
-        <testCase name="POST /api/new_client password shorter than 8 in parameters" duration="6"/>
-        <testCase name="POST /api/new_client password longer than 30 in parameters" duration="4"/>
-        <testCase name="POST /api/new_client phoneNumber shorter than 10 in parameters" duration="5"/>
-        <testCase name="POST /api/new_client phoneNumber greater than 10 in parameters" duration="4"/>
-        <testCase name="POST /api/new_client accessType empty in parameters" duration="4"/>
-        <testCase name="POST /api/new_client address empty in parameters" duration="4"/>
-        <testCase name="POST /api/new_client all parameters wrong" duration="5"/>
-        <testCase name="POST /api/new_client create new user" duration="62"/>
-        <testCase name="GET /api/clients should NOT see clients as not logged in" duration="3"/>
-        <testCase name="GET /api/clients login as client then do NOT show clients" duration="61"/>
-        <testCase name="GET /api/clients login as farmer then do NOT show clients" duration="60"/>
-        <testCase name="GET /api/clients login as deliverer then do NOT show clients" duration="60"/>
-        <testCase name="GET /api/clients login as manager then show clients" duration="61"/>
-        <testCase name="GET /api/clients login as employee then show clients" duration="61"/>
-        <testCase name="GET /api/products/:farmerId/:state should not be able to see those products as NOT logged in" duration="4"/>
-        <testCase name="GET /api/products/:farmerId/:state login as employee then do NOT show products" duration="61"/>
-        <testCase name="GET /api/products/:farmerId/:state login as client then do NOT show products" duration="60"/>
-        <testCase name="GET /api/products/:farmerId/:state login as deliverer then do NOT show products" duration="61"/>
-        <testCase name="GET /api/products/:farmerId/:state login as manager then show products in state 1" duration="62"/>
-        <testCase name="GET /api/products/:farmerId/:state login as farmer then show products in state 0" duration="65"/>
-        <testCase name="POST /api/product should not be able to create a product if not logged in" duration="3"/>
-        <testCase name="POST /api/product login as employee then do NOT create product" duration="63"/>
-        <testCase name="POST /api/product login as client then do NOT create product" duration="62"/>
-        <testCase name="POST /api/product login as deliverer then do NOT create product" duration="61"/>
-        <testCase name="POST /api/product login as farmer then create product" duration="66"/>
-        <testCase name="POST /api/product login as manager then create product" duration="65"/>
-        <testCase name="POST /api/product FarmerId empty in parameters" duration="5"/>
-        <testCase name="POST /api/product Name empty in parameters" duration="5"/>
-        <testCase name="POST /api/product Description empty in parameters" duration="5"/>
-        <testCase name="POST /api/product Quantity empty in parameters" duration="5"/>
-        <testCase name="POST /api/product State empty in parameters" duration="4"/>
-        <testCase name="POST /api/product TypeId empty in parameters" duration="4"/>
-        <testCase name="POST /api/product PricePerUnit empty in parameters" duration="4"/>
-        <testCase name="PUT /api/product/:State/:Id cannot update product state as not logged in" duration="4"/>
-        <testCase name="PUT /api/product/:State/:Id cannot update product state as employee" duration="60"/>
-        <testCase name="PUT /api/product/:State/:Id cannot update product state as client" duration="60"/>
-        <testCase name="PUT /api/product/:State/:Id cannot update product state as deliverer" duration="62"/>
-        <testCase name="PUT /api/product/:State/:Id update product state as manager" duration="67"/>
-        <testCase name="PUT /api/product/:State/:Id update product state as farmer" duration="66"/>
-        <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as not logged in" duration="4"/>
-        <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as client" duration="61"/>
-        <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as deliverer" duration="63"/>
-        <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as farmer" duration="60"/>
-        <testCase name="PUT /api/topup/:userId/:amount update wallet state as employee" duration="67"/>
-        <testCase name="PUT /api/topup/:userId/:amount update wallet state as manager" duration="61"/>
-        <testCase name="POST /api/image should not be able to post a image if not logged in" duration="5"/>
-        <testCase name="POST /api/image login as employee then do NOT add image" duration="62"/>
-        <testCase name="POST /api/image login as client then do NOT add image" duration="61"/>
-        <testCase name="POST /api/image login as deliverer then do NOT add image" duration="61"/>
-        <testCase name="POST /api/image login as farmer then add image" duration="66"/>
-        <testCase name="POST /api/image login as manager then add image" duration="65"/>
-        <testCase name="POST /api/image Id empty in parameters" duration="4"/>
-        <testCase name="POST /api/image Path empty in parameters" duration="5"/>
-        <testCase name="GET /api/confirmBookingProduct/:id should NOT work without parameter" duration="5"/>
-        <testCase name="GET /api/confirmBookingProduct/:id should NOT work if id is not a number" duration="4"/>
-        <testCase name="GET /api/confirmBookingProduct/:id confirm booking product id 1" duration="127"/>
-        <testCase name="GET /api/confirmAllBookings working /api/confirmAllBookings" duration="466"/>
-        <testCase name="GET /api/confirmAllBookingsPendingCancelation working /api/confirmAllBookingsPendingCancelation" duration="725"/>
-        <testCase name="GET /api/send-mail-notifications working /api/send-mail-notifications" duration="28"/>
-        <testCase name="POST /api/notification userId empty in parameters" duration="4"/>
-        <testCase name="POST /api/notification header empty in parameters" duration="4"/>
-        <testCase name="POST /api/notification body empty in parameters" duration="3"/>
-        <testCase name="POST /api/notification type empty in parameters" duration="3"/>
-        <testCase name="POST /api/notification type not a number in parameters" duration="4"/>
-        <testCase name="POST /api/notification userId not a number in parameters" duration="4"/>
-        <testCase name="GET /api/notifications not logged in should generate error" duration="4"/>
-        <testCase name="PUT /api/notification/:Visibility/:Id parameters not valid should fail" duration="4"/>
-        <testCase name="PUT /api/notification/:Visibility/:Id correct form" duration="3"/>
-        <testCase name="PUT /api/deletebooking/:id cannot delete booking as not logged in" duration="3"/>
-        <testCase name="PUT /api/deletebooking/:id cannot delete booking as client" duration="62">
-            <failure message="Error: self signed certificate in certificate chain"><![CDATA[Error: self signed certificate in certificate chain
-    at TLSSocket.onConnectSecure (_tls_wrap.js:1497:34)
-    at TLSSocket.emit (events.js:315:20)
-    at TLSSocket._finishInit (_tls_wrap.js:932:8)
-    at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:706:12)]]></failure>
-            <failure message="Error: self signed certificate in certificate chain"><![CDATA[Error: self signed certificate in certificate chain
-    at TLSSocket.onConnectSecure (_tls_wrap.js:1497:34)
-    at TLSSocket.emit (events.js:315:20)
-    at TLSSocket._finishInit (_tls_wrap.js:932:8)
-    at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:706:12)]]></failure>
-            <failure message="Error: self signed certificate in certificate chain"><![CDATA[Error: self signed certificate in certificate chain
-    at TLSSocket.onConnectSecure (_tls_wrap.js:1497:34)
-    at TLSSocket.emit (events.js:315:20)
-    at TLSSocket._finishInit (_tls_wrap.js:932:8)
-    at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:706:12)]]></failure>
+    <file path="C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js">
+        <testCase name="Testing to see if Jest works" duration="3"/>
+        <testCase name="Logins and Logout login as manager" duration="175"/>
+        <testCase name="Logins and Logout check if manager still logged in" duration="18"/>
+        <testCase name="Logins and Logout login as employee" duration="108"/>
+        <testCase name="Logins and Logout check if employee still logged in" duration="11"/>
+        <testCase name="Logins and Logout login as client" duration="104">
+            <failure message="Error: expected 200 &quot;OK&quot;, got 401 &quot;Unauthorized&quot;"><![CDATA[Error: expected 200 "OK", got 401 "Unauthorized"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:36:14
+    at new Promise (<anonymous>)
+    at loginUser (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:32:12)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:108:9)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
         </testCase>
-        <testCase name="PUT /api/deletebooking/:id cannot delete booking as deliverer" duration="61"/>
-        <testCase name="PUT /api/deletebooking/:id cannot delete booking as farmer" duration="61"/>
-        <testCase name="PUT /api/deletebooking/:id delete booking as employee" duration="80"/>
-        <testCase name="PUT /api/deletebooking/:id delete booking as manager" duration="77"/>
-        <testCase name="PUT /api/bookingUpdateByClient/ update booking without login will fail" duration="4"/>
-        <testCase name="PUT /api/bookingUpdateByClient/ update booking" duration="67"/>
+        <testCase name="Logins and Logout check if client still logged in" duration="16">
+            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 3
+Received: 11
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:124:38
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="Logins and Logout login as farmer" duration="99"/>
+        <testCase name="Logins and Logout check if farmer still logged in" duration="13"/>
+        <testCase name="Logins and Logout login as deliverer" duration="93"/>
+        <testCase name="Logins and Logout check if deliverer still logged in" duration="13"/>
+        <testCase name="Logins and Logout logout" duration="8"/>
+        <testCase name="Logins and Logout check if user is not logged in" duration="9"/>
+        <testCase name="Logins and Logout wrong username" duration="12"/>
+        <testCase name="Logins and Logout wrong password" duration="87"/>
+        <testCase name="Logins and Logout wrong username and password" duration="10"/>
+        <testCase name="Retrieving products and categories GET /api/products" duration="12">
+            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 1
+Received: 0
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:246:48
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="Retrieving products and categories GET /api/products/2021-11-29" duration="20">
+            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 10
+Received: 13
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:273:51
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="Retrieving products and categories GET /api/products/NotADate NoDate check" duration="13"/>
+        <testCase name="Retrieving products and categories GET /api/types" duration="15"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/1/2021-12-01" duration="18">
+            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 1
+Received: 0
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:334:48
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="Retrieving products and categories GET /api/products/type/2/2021-11-25" duration="10"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/3/2021-12-01" duration="9"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/4/2021-11-28" duration="10">
+            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 23
+Received: 18
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:385:51
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="Retrieving products and categories GET /api/products/type/5/2021-11-28" duration="10"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/6/2021-12-04" duration="9"/>
+        <testCase name="Retrieving products and categories GET /api/products/type/6/NotADate NoDate check" duration="9"/>
+        <testCase name="GET /api/bookings bookings should NOT be visible if not loggedIn" duration="7"/>
+        <testCase name="GET /api/bookings login as manager then show bookings" duration="92">
+            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "2021-11-12"
+Received: "2021-11-27 18:47:49"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:501:59
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="GET /api/bookings login as employee then show bookings" duration="83">
+            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "2021-11-12"
+Received: "2021-11-27 18:47:49"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:501:59
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="GET /api/bookings login as client then do NOT show booking" duration="72">
+            <failure message="Error: expected 200 &quot;OK&quot;, got 401 &quot;Unauthorized&quot;"><![CDATA[Error: expected 200 "OK", got 401 "Unauthorized"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:36:14
+    at new Promise (<anonymous>)
+    at loginUser (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:32:12)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:463:9)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="GET /api/bookings login as farmer then show bookings" duration="84">
+            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "2021-11-12"
+Received: "2021-11-27 18:47:49"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:501:59
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="GET /api/bookings login as deliverer then show bookings" duration="89">
+            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "2021-11-12"
+Received: "2021-11-27 18:47:49"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:501:59
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="PUT /api/bookings/:id booking should NOT be updated if not loggedIn" duration="9"/>
+        <testCase name="PUT /api/bookings/:id login as client then do NOT update booking" duration="73">
+            <failure message="Error: expected 200 &quot;OK&quot;, got 401 &quot;Unauthorized&quot;"><![CDATA[Error: expected 200 "OK", got 401 "Unauthorized"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:36:14
+    at new Promise (<anonymous>)
+    at loginUser (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:32:12)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:526:9)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="PUT /api/bookings/:id login as deliverer then do NOT update booking" duration="83"/>
+        <testCase name="PUT /api/bookings/:id login as manager then update booking" duration="98"/>
+        <testCase name="PUT /api/bookings/:id login as employee then update booking" duration="83"/>
+        <testCase name="PUT /api/bookings/:id login as farmer then update booking" duration="94"/>
+        <testCase name="PUT /api/bookings/:id check error if state &lt; 0" duration="84"/>
+        <testCase name="PUT /api/bookings/:id check error if state &gt; 3" duration="83"/>
+        <testCase name="POST /api/new_client name empty in parameters" duration="11"/>
+        <testCase name="POST /api/new_client surname empty in parameters" duration="8"/>
+        <testCase name="POST /api/new_client email empty in parameters" duration="9"/>
+        <testCase name="POST /api/new_client password empty in parameters" duration="8"/>
+        <testCase name="POST /api/new_client password shorter than 8 in parameters" duration="10"/>
+        <testCase name="POST /api/new_client password longer than 30 in parameters" duration="10"/>
+        <testCase name="POST /api/new_client phoneNumber shorter than 10 in parameters" duration="9"/>
+        <testCase name="POST /api/new_client phoneNumber greater than 10 in parameters" duration="8"/>
+        <testCase name="POST /api/new_client accessType empty in parameters" duration="8"/>
+        <testCase name="POST /api/new_client address empty in parameters" duration="10"/>
+        <testCase name="POST /api/new_client all parameters wrong" duration="10"/>
+        <testCase name="POST /api/new_client create new user" duration="93"/>
+        <testCase name="GET /api/clients should NOT see clients as not logged in" duration="6"/>
+        <testCase name="GET /api/clients login as client then do NOT show clients" duration="72">
+            <failure message="Error: expected 200 &quot;OK&quot;, got 401 &quot;Unauthorized&quot;"><![CDATA[Error: expected 200 "OK", got 401 "Unauthorized"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:36:14
+    at new Promise (<anonymous>)
+    at loginUser (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:32:12)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:829:9)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="GET /api/clients login as farmer then do NOT show clients" duration="78"/>
+        <testCase name="GET /api/clients login as deliverer then do NOT show clients" duration="87"/>
+        <testCase name="GET /api/clients login as manager then show clients" duration="89">
+            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "federico@spg.com"
+Received: "federico.clientespg@gmail.com"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:873:56
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="GET /api/clients login as employee then show clients" duration="82">
+            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: "federico@spg.com"
+Received: "federico.clientespg@gmail.com"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:896:56
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="GET /api/products/:farmerId/:state should not be able to see those products as NOT logged in" duration="10"/>
+        <testCase name="GET /api/products/:farmerId/:state login as employee then do NOT show products" duration="91"/>
+        <testCase name="GET /api/products/:farmerId/:state login as client then do NOT show products" duration="71">
+            <failure message="Error: expected 200 &quot;OK&quot;, got 401 &quot;Unauthorized&quot;"><![CDATA[Error: expected 200 "OK", got 401 "Unauthorized"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:36:14
+    at new Promise (<anonymous>)
+    at loginUser (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:32:12)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:932:9)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="GET /api/products/:farmerId/:state login as deliverer then do NOT show products" duration="80"/>
+        <testCase name="GET /api/products/:farmerId/:state login as manager then show products in state 1" duration="88">
+            <failure message="TypeError: Cannot read properties of undefined (reading &apos;Id&apos;)"><![CDATA[TypeError: Cannot read properties of undefined (reading 'Id')
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:966:49
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="GET /api/products/:farmerId/:state login as farmer then show products in state 0" duration="85">
+            <failure message="Error: expect(received).toBe(expected) // Object.is equality"><![CDATA[Error: expect(received).toBe(expected) // Object.is equality
+
+Expected: 34
+Received: 1
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:994:53
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)]]></failure>
+        </testCase>
+        <testCase name="POST /api/product should not be able to create a product if not logged in" duration="8"/>
+        <testCase name="POST /api/product login as employee then do NOT create product" duration="84"/>
+        <testCase name="POST /api/product login as client then do NOT create product" duration="75">
+            <failure message="Error: expected 200 &quot;OK&quot;, got 401 &quot;Unauthorized&quot;"><![CDATA[Error: expected 200 "OK", got 401 "Unauthorized"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:36:14
+    at new Promise (<anonymous>)
+    at loginUser (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:32:12)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1041:9)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="POST /api/product login as deliverer then do NOT create product" duration="88"/>
+        <testCase name="POST /api/product login as farmer then create product" duration="99"/>
+        <testCase name="POST /api/product login as manager then create product" duration="102"/>
+        <testCase name="POST /api/product FarmerId empty in parameters" duration="25"/>
+        <testCase name="POST /api/product Name empty in parameters" duration="16"/>
+        <testCase name="POST /api/product Description empty in parameters" duration="13"/>
+        <testCase name="POST /api/product Quantity empty in parameters" duration="11"/>
+        <testCase name="POST /api/product State empty in parameters" duration="12"/>
+        <testCase name="POST /api/product TypeId empty in parameters" duration="12"/>
+        <testCase name="POST /api/product PricePerUnit empty in parameters" duration="15"/>
+        <testCase name="PUT /api/product/:State/:Id cannot update product state as not logged in" duration="8"/>
+        <testCase name="PUT /api/product/:State/:Id cannot update product state as employee" duration="82"/>
+        <testCase name="PUT /api/product/:State/:Id cannot update product state as client" duration="73">
+            <failure message="Error: expected 200 &quot;OK&quot;, got 401 &quot;Unauthorized&quot;"><![CDATA[Error: expected 200 "OK", got 401 "Unauthorized"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:36:14
+    at new Promise (<anonymous>)
+    at loginUser (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:32:12)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1232:9)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="PUT /api/product/:State/:Id cannot update product state as deliverer" duration="78"/>
+        <testCase name="PUT /api/product/:State/:Id update product state as manager" duration="86"/>
+        <testCase name="PUT /api/product/:State/:Id update product state as farmer" duration="98"/>
+        <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as not logged in" duration="7"/>
+        <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as client" duration="74">
+            <failure message="Error: expected 200 &quot;OK&quot;, got 401 &quot;Unauthorized&quot;"><![CDATA[Error: expected 200 "OK", got 401 "Unauthorized"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:36:14
+    at new Promise (<anonymous>)
+    at loginUser (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:32:12)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1301:9)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as deliverer" duration="79"/>
+        <testCase name="PUT /api/topup/:userId/:amount cannot update wallet state as farmer" duration="78"/>
+        <testCase name="PUT /api/topup/:userId/:amount update wallet state as employee" duration="100"/>
+        <testCase name="PUT /api/topup/:userId/:amount update wallet state as manager" duration="94"/>
+        <testCase name="POST /api/image should not be able to post a image if not logged in" duration="8"/>
+        <testCase name="POST /api/image login as employee then do NOT add image" duration="82"/>
+        <testCase name="POST /api/image login as client then do NOT add image" duration="72">
+            <failure message="Error: expected 200 &quot;OK&quot;, got 401 &quot;Unauthorized&quot;"><![CDATA[Error: expected 200 "OK", got 401 "Unauthorized"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:36:14
+    at new Promise (<anonymous>)
+    at loginUser (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:32:12)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1393:9)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="POST /api/image login as deliverer then do NOT add image" duration="81"/>
+        <testCase name="POST /api/image login as farmer then add image" duration="89"/>
+        <testCase name="POST /api/image login as manager then add image" duration="95"/>
+        <testCase name="POST /api/image Id empty in parameters" duration="8">
+            <failure message="Error: expected 503 &quot;Service Unavailable&quot;, got 422 &quot;Unprocessable Entity&quot;"><![CDATA[Error: expected 503 "Service Unavailable", got 422 "Unprocessable Entity"
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1454:14)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="POST /api/image Path empty in parameters" duration="9">
+            <failure message="Error: expected 503 &quot;Service Unavailable&quot;, got 422 &quot;Unprocessable Entity&quot;"><![CDATA[Error: expected 503 "Service Unavailable", got 422 "Unprocessable Entity"
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1466:14)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="GET /api/confirmBookingProduct/:id should NOT work without parameter" duration="12"/>
+        <testCase name="GET /api/confirmBookingProduct/:id should NOT work if id is not a number" duration="14"/>
+        <testCase name="GET /api/confirmBookingProduct/:id confirm booking product id 1" duration="45"/>
+        <testCase name="GET /api/confirmAllBookings working /api/confirmAllBookings" duration="91"/>
+        <testCase name="GET /api/confirmAllBookingsPendingCancelation working /api/confirmAllBookingsPendingCancelation" duration="44"/>
+        <testCase name="GET /api/send-mail-notifications working /api/send-mail-notifications" duration="27"/>
+        <testCase name="POST /api/notification userId empty in parameters" duration="9"/>
+        <testCase name="POST /api/notification header empty in parameters" duration="9"/>
+        <testCase name="POST /api/notification body empty in parameters" duration="13"/>
+        <testCase name="POST /api/notification type empty in parameters" duration="10"/>
+        <testCase name="POST /api/notification type not a number in parameters" duration="8"/>
+        <testCase name="POST /api/notification userId not a number in parameters" duration="16"/>
+        <testCase name="GET /api/notifications not logged in should generate error" duration="9"/>
+        <testCase name="PUT /api/notification/:Visibility/:Id parameters not valid should fail" duration="9"/>
+        <testCase name="PUT /api/notification/:Visibility/:Id correct form" duration="20"/>
+        <testCase name="PUT /api/deletebooking/:id cannot delete booking as not logged in" duration="7"/>
+        <testCase name="PUT /api/deletebooking/:id cannot delete booking as client" duration="77">
+            <failure message="Error: expected 200 &quot;OK&quot;, got 401 &quot;Unauthorized&quot;"><![CDATA[Error: expected 200 "OK", got 401 "Unauthorized"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:36:14
+    at new Promise (<anonymous>)
+    at loginUser (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:32:12)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1662:9)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="PUT /api/deletebooking/:id cannot delete booking as deliverer" duration="81"/>
+        <testCase name="PUT /api/deletebooking/:id cannot delete booking as farmer" duration="87"/>
+        <testCase name="PUT /api/deletebooking/:id delete booking as employee" duration="86"/>
+        <testCase name="PUT /api/deletebooking/:id delete booking as manager" duration="84"/>
+        <testCase name="PUT /api/bookingUpdateByClient/ update booking without login will fail" duration="6">
+            <failure message="Error: expected 401 &quot;Unauthorized&quot;, got 404 &quot;Not Found&quot;"><![CDATA[Error: expected 401 "Unauthorized", got 404 "Not Found"
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1741:22)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+    at runMicrotasks (<anonymous>)
+    at processTicksAndRejections (node:internal/process/task_queues:96:5)
+    at _runTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:155:3)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="PUT /api/bookingUpdateByClient/ update booking" duration="79">
+            <failure message="Error: expected 200 &quot;OK&quot;, got 401 &quot;Unauthorized&quot;"><![CDATA[Error: expected 200 "OK", got 401 "Unauthorized"
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:36:14
+    at new Promise (<anonymous>)
+    at loginUser (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:32:12)
+    at Object.<anonymous> (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\__test__\server.test.js:1747:9)
+    at Promise.then.completed (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:380:26)
+    at new Promise (<anonymous>)
+    at callAsyncCircusFn (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\utils.js:315:10)
+    at _callCircusTest (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\jest-circus\build\run.js:218:40)
+----
+    at Test.Object.<anonymous>.Test._assertStatus (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:304:12)
+    at C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:80:15
+    at Test.Object.<anonymous>.Test._assertFunction (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:338:11)
+    at Test.Object.<anonymous>.Test.assert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:209:21)
+    at Server.localAssert (C:\Users\aless\Desktop\SE2-Projects\SPG-Project\SolidarityPurchasingGroup\server\node_modules\supertest\lib\test.js:167:12)
+    at Object.onceWrapper (node:events:509:28)
+    at Server.emit (node:events:390:28)
+    at emitCloseNT (node:net:1681:8)
+    at processTicksAndRejections (node:internal/process/task_queues:82:21)]]></failure>
+        </testCase>
+        <testCase name="bot api tests SNForAvailableProducts" duration="4038"/>
+        <testCase name="bot api tests SendNotificationForUsers" duration="61"/>
     </file>
 </testExecutions>
