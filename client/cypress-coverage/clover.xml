@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1641891374461" clover="3.2.0">
-  <project timestamp="1641891374461" name="All files">
-    <metrics statements="1511" coveredstatements="372" conditionals="649" coveredconditionals="146" methods="499" coveredmethods="102" elements="2659" coveredelements="620" complexity="0" loc="1511" ncloc="1511" packages="17" files="29" classes="29"/>
+<coverage generated="1641892596575" clover="3.2.0">
+  <project timestamp="1641892596575" name="All files">
+    <metrics statements="1511" coveredstatements="369" conditionals="649" coveredconditionals="148" methods="499" coveredmethods="101" elements="2659" coveredelements="618" complexity="0" loc="1511" ncloc="1511" packages="17" files="29" classes="29"/>
     <package name="src">
-      <metrics statements="193" coveredstatements="59" conditionals="70" coveredconditionals="17" methods="82" coveredmethods="17"/>
+      <metrics statements="193" coveredstatements="59" conditionals="70" coveredconditionals="20" methods="82" coveredmethods="17"/>
       <file name="API.js" path="C:\Users\Maria Letizia\SolidarityPurchasingGroup\client\src\API.js">
         <metrics statements="103" coveredstatements="10" conditionals="34" coveredconditionals="3" methods="48" coveredmethods="2"/>
         <line num="4" count="3" type="stmt"/>
@@ -111,7 +111,7 @@
         <line num="265" count="3" type="stmt"/>
       </file>
       <file name="App.js" path="C:\Users\Maria Letizia\SolidarityPurchasingGroup\client\src\App.js">
-        <metrics statements="80" coveredstatements="45" conditionals="32" coveredconditionals="12" methods="32" coveredmethods="14"/>
+        <metrics statements="80" coveredstatements="45" conditionals="32" coveredconditionals="15" methods="32" coveredmethods="14"/>
         <line num="21" count="19" type="stmt"/>
         <line num="22" count="16" type="stmt"/>
         <line num="23" count="16" type="stmt"/>
@@ -143,38 +143,38 @@
         <line num="65" count="3" type="stmt"/>
         <line num="66" count="3" type="stmt"/>
         <line num="69" count="16" type="stmt"/>
-        <line num="70" count="8" type="stmt"/>
-        <line num="71" count="8" type="stmt"/>
-        <line num="72" count="8" type="stmt"/>
-        <line num="73" count="8" type="stmt"/>
-        <line num="74" count="8" type="stmt"/>
-        <line num="75" count="8" type="stmt"/>
+        <line num="70" count="9" type="stmt"/>
+        <line num="71" count="9" type="stmt"/>
+        <line num="72" count="9" type="stmt"/>
+        <line num="73" count="9" type="stmt"/>
+        <line num="74" count="9" type="stmt"/>
+        <line num="75" count="9" type="stmt"/>
         <line num="78" count="16" type="stmt"/>
-        <line num="80" count="8" type="cond" truecount="2" falsecount="4"/>
+        <line num="80" count="9" type="cond" truecount="3" falsecount="3"/>
         <line num="81" count="0" type="stmt"/>
         <line num="82" count="0" type="stmt"/>
         <line num="83" count="0" type="stmt"/>
         <line num="84" count="0" type="stmt"/>
         <line num="88" count="16" type="stmt"/>
-        <line num="90" count="8" type="cond" truecount="2" falsecount="4"/>
+        <line num="90" count="9" type="cond" truecount="3" falsecount="3"/>
         <line num="91" count="0" type="stmt"/>
         <line num="92" count="0" type="stmt"/>
         <line num="93" count="0" type="stmt"/>
         <line num="94" count="0" type="stmt"/>
         <line num="98" count="16" type="stmt"/>
-        <line num="100" count="8" type="cond" truecount="2" falsecount="4"/>
+        <line num="100" count="9" type="cond" truecount="3" falsecount="3"/>
         <line num="101" count="0" type="stmt"/>
         <line num="102" count="0" type="stmt"/>
         <line num="103" count="0" type="stmt"/>
         <line num="104" count="0" type="stmt"/>
         <line num="108" count="16" type="stmt"/>
-        <line num="110" count="8" type="cond" truecount="2" falsecount="4"/>
+        <line num="110" count="9" type="cond" truecount="2" falsecount="4"/>
         <line num="111" count="0" type="stmt"/>
         <line num="112" count="0" type="stmt"/>
         <line num="113" count="0" type="stmt"/>
         <line num="114" count="0" type="stmt"/>
         <line num="118" count="16" type="stmt"/>
-        <line num="120" count="8" type="cond" truecount="2" falsecount="4"/>
+        <line num="120" count="9" type="cond" truecount="2" falsecount="4"/>
         <line num="121" count="0" type="stmt"/>
         <line num="122" count="0" type="stmt"/>
         <line num="123" count="0" type="stmt"/>
@@ -228,9 +228,9 @@
       </file>
     </package>
     <package name="src.Components.Cart">
-      <metrics statements="50" coveredstatements="38" conditionals="33" coveredconditionals="22" methods="16" coveredmethods="10"/>
+      <metrics statements="50" coveredstatements="37" conditionals="33" coveredconditionals="22" methods="16" coveredmethods="10"/>
       <file name="Cart.js" path="C:\Users\Maria Letizia\SolidarityPurchasingGroup\client\src\Components\Cart\Cart.js">
-        <metrics statements="50" coveredstatements="38" conditionals="33" coveredconditionals="22" methods="16" coveredmethods="10"/>
+        <metrics statements="50" coveredstatements="37" conditionals="33" coveredconditionals="22" methods="16" coveredmethods="10"/>
         <line num="16" count="27" type="stmt"/>
         <line num="17" count="26" type="stmt"/>
         <line num="18" count="26" type="stmt"/>
@@ -268,9 +268,9 @@
         <line num="99" count="14" type="stmt"/>
         <line num="103" count="1" type="stmt"/>
         <line num="104" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="105" count="1" type="stmt"/>
-        <line num="106" count="1" type="stmt"/>
-        <line num="109" count="0" type="stmt"/>
+        <line num="105" count="0" type="stmt"/>
+        <line num="106" count="0" type="stmt"/>
+        <line num="109" count="1" type="stmt"/>
         <line num="111" count="1" type="stmt"/>
         <line num="112" count="1" type="stmt"/>
         <line num="131" count="1" type="stmt"/>
@@ -833,40 +833,40 @@
       </file>
       <file name="clock.js" path="C:\Users\Maria Letizia\SolidarityPurchasingGroup\client\src\Components\NavBar\clock.js">
         <metrics statements="42" coveredstatements="30" conditionals="6" coveredconditionals="5" methods="8" coveredmethods="7"/>
-        <line num="3" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="3" count="6" type="cond" truecount="1" falsecount="1"/>
         <line num="4" count="0" type="stmt"/>
         <line num="5" count="0" type="stmt"/>
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
-        <line num="11" count="5" type="stmt"/>
-        <line num="12" count="5" type="stmt"/>
-        <line num="13" count="5" type="stmt"/>
-        <line num="14" count="5" type="stmt"/>
-        <line num="15" count="5" type="stmt"/>
-        <line num="16" count="5" type="stmt"/>
-        <line num="18" count="5" type="stmt"/>
-        <line num="19" count="5" type="stmt"/>
-        <line num="20" count="5" type="stmt"/>
-        <line num="21" count="5" type="stmt"/>
-        <line num="22" count="5" type="stmt"/>
-        <line num="23" count="5" type="stmt"/>
-        <line num="24" count="5" type="stmt"/>
-        <line num="26" count="5" type="stmt"/>
-        <line num="27" count="5" type="stmt"/>
-        <line num="28" count="5" type="stmt"/>
-        <line num="32" count="80" type="stmt"/>
-        <line num="33" count="80" type="cond" truecount="2" falsecount="0"/>
-        <line num="37" count="5" type="stmt"/>
-        <line num="38" count="5" type="stmt"/>
-        <line num="40" count="5" type="stmt"/>
+        <line num="11" count="6" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
+        <line num="21" count="6" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
+        <line num="23" count="6" type="stmt"/>
+        <line num="24" count="6" type="stmt"/>
+        <line num="26" count="6" type="stmt"/>
+        <line num="27" count="6" type="stmt"/>
+        <line num="28" count="6" type="stmt"/>
+        <line num="32" count="95" type="stmt"/>
+        <line num="33" count="95" type="cond" truecount="2" falsecount="0"/>
+        <line num="37" count="6" type="stmt"/>
+        <line num="38" count="6" type="stmt"/>
+        <line num="40" count="6" type="stmt"/>
         <line num="44" count="1" type="stmt"/>
         <line num="45" count="1" type="stmt"/>
         <line num="47" count="1" type="stmt"/>
-        <line num="51" count="5" type="stmt"/>
-        <line num="53" count="5" type="stmt"/>
-        <line num="57" count="5" type="stmt"/>
-        <line num="58" count="5" type="stmt"/>
+        <line num="51" count="6" type="stmt"/>
+        <line num="53" count="6" type="stmt"/>
+        <line num="57" count="6" type="stmt"/>
+        <line num="58" count="6" type="stmt"/>
         <line num="63" count="0" type="stmt"/>
         <line num="64" count="0" type="stmt"/>
         <line num="65" count="0" type="stmt"/>
@@ -874,7 +874,7 @@
         <line num="67" count="0" type="stmt"/>
         <line num="68" count="0" type="stmt"/>
         <line num="69" count="0" type="stmt"/>
-        <line num="73" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="73" count="6" type="cond" truecount="2" falsecount="0"/>
       </file>
     </package>
     <package name="src.Components.Notifications">
@@ -1176,28 +1176,28 @@
       <metrics statements="151" coveredstatements="97" conditionals="112" coveredconditionals="51" methods="55" coveredmethods="26"/>
       <file name="ProductList.js" path="C:\Users\Maria Letizia\SolidarityPurchasingGroup\client\src\Components\ProductList\ProductList.js">
         <metrics statements="151" coveredstatements="97" conditionals="112" coveredconditionals="51" methods="55" coveredmethods="26"/>
-        <line num="14" count="51" type="stmt"/>
-        <line num="15" count="50" type="stmt"/>
-        <line num="17" count="50" type="stmt"/>
-        <line num="18" count="50" type="stmt"/>
-        <line num="19" count="50" type="stmt"/>
-        <line num="20" count="50" type="stmt"/>
-        <line num="21" count="50" type="stmt"/>
-        <line num="22" count="50" type="stmt"/>
-        <line num="23" count="50" type="stmt"/>
-        <line num="24" count="50" type="stmt"/>
-        <line num="25" count="50" type="stmt"/>
-        <line num="26" count="50" type="stmt"/>
-        <line num="27" count="50" type="stmt"/>
-        <line num="28" count="50" type="stmt"/>
-        <line num="29" count="50" type="stmt"/>
-        <line num="30" count="50" type="stmt"/>
-        <line num="31" count="50" type="stmt"/>
+        <line num="14" count="49" type="stmt"/>
+        <line num="15" count="48" type="stmt"/>
+        <line num="17" count="48" type="stmt"/>
+        <line num="18" count="48" type="stmt"/>
+        <line num="19" count="48" type="stmt"/>
+        <line num="20" count="48" type="stmt"/>
+        <line num="21" count="48" type="stmt"/>
+        <line num="22" count="48" type="stmt"/>
+        <line num="23" count="48" type="stmt"/>
+        <line num="24" count="48" type="stmt"/>
+        <line num="25" count="48" type="stmt"/>
+        <line num="26" count="48" type="stmt"/>
+        <line num="27" count="48" type="stmt"/>
+        <line num="28" count="48" type="stmt"/>
+        <line num="29" count="48" type="stmt"/>
+        <line num="30" count="48" type="stmt"/>
+        <line num="31" count="48" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
         <line num="36" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="39" count="0" type="stmt"/>
-        <line num="42" count="50" type="stmt"/>
+        <line num="42" count="48" type="stmt"/>
         <line num="43" count="4" type="stmt"/>
         <line num="44" count="4" type="stmt"/>
         <line num="45" count="4" type="stmt"/>
@@ -1208,13 +1208,13 @@
         <line num="52" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="53" count="1" type="stmt"/>
         <line num="54" count="1" type="stmt"/>
-        <line num="60" count="50" type="stmt"/>
+        <line num="60" count="48" type="stmt"/>
         <line num="61" count="3" type="cond" truecount="4" falsecount="0"/>
         <line num="62" count="1" type="cond" truecount="2" falsecount="2"/>
         <line num="63" count="0" type="stmt"/>
         <line num="66" count="1" type="stmt"/>
         <line num="70" count="2" type="stmt"/>
-        <line num="74" count="50" type="stmt"/>
+        <line num="74" count="48" type="stmt"/>
         <line num="75" count="1" type="stmt"/>
         <line num="76" count="1" type="stmt"/>
         <line num="77" count="1" type="stmt"/>
@@ -1222,7 +1222,7 @@
         <line num="82" count="37" type="stmt"/>
         <line num="83" count="2" type="stmt"/>
         <line num="84" count="2" type="stmt"/>
-        <line num="87" count="50" type="stmt"/>
+        <line num="87" count="48" type="stmt"/>
         <line num="92" count="2" type="stmt"/>
         <line num="93" count="2" type="stmt"/>
         <line num="94" count="2" type="stmt"/>
@@ -1235,7 +1235,7 @@
         <line num="102" count="0" type="stmt"/>
         <line num="107" count="0" type="stmt"/>
         <line num="108" count="0" type="stmt"/>
-        <line num="113" count="50" type="stmt"/>
+        <line num="113" count="48" type="stmt"/>
         <line num="114" count="7" type="cond" truecount="2" falsecount="0"/>
         <line num="115" count="3" type="stmt"/>
         <line num="116" count="3" type="stmt"/>
@@ -1245,7 +1245,7 @@
         <line num="121" count="3" type="stmt"/>
         <line num="125" count="3" type="stmt"/>
         <line num="126" count="3" type="stmt"/>
-        <line num="130" count="50" type="stmt"/>
+        <line num="130" count="48" type="stmt"/>
         <line num="132" count="1" type="stmt"/>
         <line num="140" count="1" type="stmt"/>
         <line num="147" count="1" type="cond" truecount="1" falsecount="1"/>
@@ -1276,10 +1276,10 @@
         <line num="200" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="208" count="1" type="stmt"/>
         <line num="211" count="1" type="stmt"/>
-        <line num="214" count="50" type="stmt"/>
+        <line num="214" count="48" type="stmt"/>
         <line num="215" count="0" type="stmt"/>
         <line num="216" count="0" type="stmt"/>
-        <line num="219" count="50" type="stmt"/>
+        <line num="219" count="48" type="stmt"/>
         <line num="220" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="221" count="0" type="stmt"/>
         <line num="222" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -1290,18 +1290,18 @@
         <line num="232" count="0" type="stmt"/>
         <line num="235" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="239" count="0" type="stmt"/>
-        <line num="242" count="50" type="stmt"/>
+        <line num="242" count="48" type="stmt"/>
         <line num="243" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="244" count="0" type="stmt"/>
         <line num="247" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="252" count="50" type="stmt"/>
+        <line num="252" count="48" type="stmt"/>
         <line num="253" count="0" type="stmt"/>
-        <line num="256" count="50" type="stmt"/>
+        <line num="256" count="48" type="stmt"/>
         <line num="257" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="258" count="0" type="stmt"/>
         <line num="261" count="2" type="stmt"/>
         <line num="263" count="2" type="stmt"/>
-        <line num="266" count="50" type="stmt"/>
+        <line num="266" count="48" type="stmt"/>
         <line num="270" count="0" type="stmt"/>
         <line num="282" count="666" type="cond" truecount="2" falsecount="0"/>
         <line num="284" count="518" type="cond" truecount="2" falsecount="0"/>
@@ -1333,7 +1333,7 @@
       <metrics statements="3" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="2"/>
       <file name="SideBar.js" path="C:\Users\Maria Letizia\SolidarityPurchasingGroup\client\src\Components\SideBar\SideBar.js">
         <metrics statements="3" coveredstatements="2" conditionals="2" coveredconditionals="2" methods="4" coveredmethods="2"/>
-        <line num="7" count="44" type="stmt"/>
+        <line num="7" count="42" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
         <line num="22" count="156" type="stmt"/>
       </file>
@@ -1485,9 +1485,9 @@
       </file>
     </package>
     <package name="src.api">
-      <metrics statements="155" coveredstatements="38" conditionals="50" coveredconditionals="8" methods="59" coveredmethods="9"/>
+      <metrics statements="155" coveredstatements="36" conditionals="50" coveredconditionals="7" methods="59" coveredmethods="8"/>
       <file name="booking-api.js" path="C:\Users\Maria Letizia\SolidarityPurchasingGroup\client\src\api\booking-api.js">
-        <metrics statements="91" coveredstatements="13" conditionals="28" coveredconditionals="2" methods="39" coveredmethods="4"/>
+        <metrics statements="91" coveredstatements="11" conditionals="28" coveredconditionals="1" methods="39" coveredmethods="3"/>
         <line num="5" count="3" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
@@ -1498,8 +1498,8 @@
         <line num="20" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
         <line num="30" count="1" type="stmt"/>
-        <line num="37" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="38" count="1" type="stmt"/>
+        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="38" count="0" type="stmt"/>
         <line num="41" count="0" type="stmt"/>
         <line num="42" count="0" type="stmt"/>
         <line num="43" count="0" type="stmt"/>

@@ -18,15 +18,16 @@ describe('Booking Delete', () => {
             .should('have.value', '26gKpQK9')
         cy.get('.btn').click()
         cy.get('[href="/myOrders"]').click()
-        cy.get('#resetTime').click()
-        cy.get(':nth-child(1) > :nth-child(6) > .btn').click()
+        cy.get(':nth-child(1) > :nth-child(6) > .btn').click({force: true})
     })
 })
 
 
 describe('Booking Update Quantity', () => {
     it('successfully loads', () => {
+        cy.viewport(1920, 1080)
         cy.visit('http://localhost:3000') // change URL to match your dev URL
+        cy.get('#resetTime').click() 
         cy.contains('Login').click()
         cy.get('#formBasicEmail')
             .type('federico.clientespg@gmail.com')
@@ -35,15 +36,13 @@ describe('Booking Update Quantity', () => {
             .type('26gKpQK9')
             .should('have.value', '26gKpQK9')
         cy.get('.btn').click()
+        cy.get('#day').type('{selectall}28').should('have.value', '28')
+        cy.get('#month').type('{selectall}11').should('have.value', '11')
+        cy.get('#year').type('{selectall}2021' ).should('have.value', '2021') 
         cy.get('[href="/myOrders"]').click()
-        cy.get('#resetTime').click()
-        cy.get('#decrementDay').click()
-        cy.get('#decrementDay').click()
-        cy.get(':nth-child(3) > :nth-child(7) > [data-testid="cartButton"]').click()
-        cy.get('.form-select').select('Pick-up date')
-        cy.get('#mui-3')
-            .type('16/12/2021 13:00')
-            .should('have.value', '16/12/2021 13:00')
+        cy.get('[data-testid="cartButton"]').click()
+        cy.get(':nth-child(3) > .cartButtons').click()
+        
         cy.get(':nth-child(3) > .cartButtons').click()
         cy.get('.butn > .btn').click()
        
@@ -53,7 +52,9 @@ describe('Booking Update Quantity', () => {
 
 describe('Booking Remove Product', () => {
     it('successfully loads', () => {
+        cy.viewport(1920, 1080)
         cy.visit('http://localhost:3000') // change URL to match your dev URL
+        cy.get('#resetTime').click() 
         cy.contains('Login').click()
         cy.get('#formBasicEmail')
             .type('federico.clientespg@gmail.com')
@@ -62,15 +63,12 @@ describe('Booking Remove Product', () => {
             .type('26gKpQK9')
             .should('have.value', '26gKpQK9')
         cy.get('.btn').click()
+        cy.get('#day').type('{selectall}4').should('have.value', '4')
+        cy.get('#month').type('{selectall}12').should('have.value', '12')
+        cy.get('#year').type('{selectall}2021' ).should('have.value', '2021') 
         cy.get('[href="/myOrders"]').click()
-        cy.get('#resetTime').click()
-        cy.get('#decrementDay').click()
-        cy.get('#decrementDay').click()
-        cy.get(':nth-child(1) > :nth-child(7) > [data-testid="cartButton"]').click()
-        cy.get('.form-select').select('Pick-up date')
-        cy.get('#mui-3')
-            .type('16/12/2021 13:00')
-            .should('have.value', '16/12/2021 13:00')
+        cy.get('[data-testid="cartButton"]').click()
+        cy.get('.row > :nth-child(1) > .cartButtons')       
         cy.get(':nth-child(1) > .delete').click()
         cy.get('.butn > .btn').click()
        

@@ -30,9 +30,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.5% </span>
+                <span class="strong">46.88% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/32</span>
+                <span class='fraction'>15/32</span>
             </div>
         
             
@@ -308,27 +308,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">16x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -338,7 +328,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -348,7 +338,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -358,7 +348,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -494,7 +494,7 @@ function App() {
 &nbsp;
   const checkConfirmBookings = (t) =&gt; {
     //Monday at 9:00:00
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (t.getDay() === 1 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >t.getHours() === 9 </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >t.getMinutes() === 0 </span>&amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >t.getSeconds() === 0)</span> {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (t.getDay() === 1 &amp;&amp; t.getHours() === 9 &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >t.getMinutes() === 0 </span>&amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >t.getSeconds() === 0)</span> {
 <span class="cstat-no" title="statement not covered" >      console.log("Calling API to confirm bookings!")</span>
 <span class="cstat-no" title="statement not covered" >      API.confirmAllBookings()</span>
         .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; <span class="cstat-no" title="statement not covered" >console.error(err))</span>;
@@ -504,7 +504,7 @@ function App() {
 &nbsp;
   const sendMails = (t) =&gt; {
     //Monday at 9:00:05
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (t.getDay() === 1 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >t.getHours() === 9 </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >t.getMinutes() === 0 </span>&amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >t.getSeconds() === 5)</span> {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (t.getDay() === 1 &amp;&amp; t.getHours() === 9 &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >t.getMinutes() === 0 </span>&amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >t.getSeconds() === 5)</span> {
 <span class="cstat-no" title="statement not covered" >      console.log("Calling API to send emails")</span>
 <span class="cstat-no" title="statement not covered" >      API.sendMailNotifications()</span>
         .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; <span class="cstat-no" title="statement not covered" >console.error(err))</span>;
@@ -514,7 +514,7 @@ function App() {
 &nbsp;
   const checkConfirmBookingsPending = (t) =&gt; {
     //Monday at 23:59:00
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (t.getDay() === 1 &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >t.getHours() === 23 </span>&amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >t.getMinutes() === 59 </span>&amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >t.getSeconds() === 0)</span> {
+    <span class="missing-if-branch" title="if path not taken" >I</span>if (t.getDay() === 1 &amp;&amp; t.getHours() === 23 &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >t.getMinutes() === 59 </span>&amp;&amp; <span class="branch-3 cbranch-no" title="branch not covered" >t.getSeconds() === 0)</span> {
 <span class="cstat-no" title="statement not covered" >      console.log("Calling API to check bookings in pending cancelation!")</span>
 <span class="cstat-no" title="statement not covered" >      API.confirmAllBookingsPendingCancelation()</span>
         .catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; <span class="cstat-no" title="statement not covered" >console.error(err))</span>;
@@ -598,7 +598,7 @@ export default App;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
-                at Tue Jan 11 2022 09:56:14 GMT+0100 (Ora standard dell’Europa centrale)
+                at Tue Jan 11 2022 10:16:36 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../prettify.js"></script>
