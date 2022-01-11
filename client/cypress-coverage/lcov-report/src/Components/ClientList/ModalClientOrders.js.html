@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/31</span>
+                <span class='fraction'>0/28</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/28</span>
+                <span class='fraction'>0/25</span>
             </div>
         
             
@@ -157,9 +157,7 @@
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
 <a name='L94'></a><a href='#L94'>94</a>
-<a name='L95'></a><a href='#L95'>95</a>
-<a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L95'></a><a href='#L95'>95</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,9 +189,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -238,6 +233,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -256,12 +252,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import bookingApi from '../../api/booking-api';
-import { Button, Table ,Modal} from "react-bootstrap";
+import { Button, Table, Modal } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 import Order from '../OrderList/Order';
 &nbsp;
 function <span class="fstat-no" title="function not covered" >ModalClientOrders(</span>props) {
-const [show, setShow] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+  const [show, setShow] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
   const handleClose = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShow(false);</span></span>
   const handleShow = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >setShow(true);</span></span>
   const [orders, setOrders] = <span class="cstat-no" title="statement not covered" >useState([]);</span>
@@ -272,31 +268,28 @@ const [show, setShow] = <span class="cstat-no" title="statement not covered" >us
 <span class="cstat-no" title="statement not covered" >      orders.forEach(<span class="fstat-no" title="function not covered" >(o</span>rder) =&gt; {</span>
         // modify numeric status with relative description
 <span class="cstat-no" title="statement not covered" >        switch (order.State) {</span>
-            case 0: <span class="cstat-no" title="statement not covered" >order.State = "Issued";</span>
-<span class="cstat-no" title="statement not covered" >                break;</span>
-            case 1: <span class="cstat-no" title="statement not covered" >order.State = "Pending for cancelation";</span>
-<span class="cstat-no" title="statement not covered" >                break;</span>
-            case 2: <span class="cstat-no" title="statement not covered" >order.State = "Paid";</span>
-<span class="cstat-no" title="statement not covered" >                break;</span>
-            case 3: <span class="cstat-no" title="statement not covered" >order.State = "Handed out";</span>
-<span class="cstat-no" title="statement not covered" >                break;</span>
-            case 4: <span class="cstat-no" title="statement not covered" >order.State = 'Canceled';</span>
-<span class="cstat-no" title="statement not covered" >                break;</span>
-            case 5: <span class="cstat-no" title="statement not covered" >order.State = 'Unretrieved';</span>
-<span class="cstat-no" title="statement not covered" >                break;</span>
-            default: <span class="cstat-no" title="statement not covered" >order.State = "Created";</span>
+          case 0: <span class="cstat-no" title="statement not covered" >order.State = "Issued";</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+          case 1: <span class="cstat-no" title="statement not covered" >order.State = "Pending for cancelation";</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+          case 2: <span class="cstat-no" title="statement not covered" >order.State = "Paid";</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+          case 3: <span class="cstat-no" title="statement not covered" >order.State = "Handed out";</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+          case 4: <span class="cstat-no" title="statement not covered" >order.State = 'Canceled';</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+          case 5: <span class="cstat-no" title="statement not covered" >order.State = 'Unretrieved';</span>
+<span class="cstat-no" title="statement not covered" >            break;</span>
+          default: <span class="cstat-no" title="statement not covered" >order.State = "Created";</span>
 &nbsp;
         }
-<span class="cstat-no" title="statement not covered" >              console.log("orders:");</span>
-<span class="cstat-no" title="statement not covered" >              console.log(orders);</span>
-<span class="cstat-no" title="statement not covered" >              console.log(".............");</span>
-<span class="cstat-no" title="statement not covered" >                setOrders(orders.map(<span class="fstat-no" title="function not covered" >or</span>der =&gt; (<span class="cstat-no" title="statement not covered" >{ ...order})</span>));</span>
-              })
-               
-            }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
-<span class="cstat-no" title="statement not covered" >                console.error(err);</span>
-            });
-        }, []);
+<span class="cstat-no" title="statement not covered" >        setOrders(orders.map(<span class="fstat-no" title="function not covered" >or</span>der =&gt; (<span class="cstat-no" title="statement not covered" >{ ...order })</span>));</span>
+      })
+&nbsp;
+    }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+<span class="cstat-no" title="statement not covered" >      console.error(err);</span>
+    });
+  }, []);
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;&gt;
       &lt;Button variant="primary" onClick={handleShow}&gt;
@@ -312,33 +305,34 @@ const [show, setShow] = <span class="cstat-no" title="statement not covered" >us
         keyboard={false}
       &gt;
         &lt;Modal.Header closeButton&gt;
-          &lt;Modal.Title&gt;The Order List Of {props.client.name + " " +props.client.surname }&lt;/Modal.Title&gt;
+          &lt;Modal.Title&gt;The Order List Of {props.client.name + " " + props.client.surname}&lt;/Modal.Title&gt;
         &lt;/Modal.Header&gt;
         &lt;Modal.Body&gt;
-        &lt;Modal.Body&gt;
-          &lt;Table responsive striped bordered hover className="ordersTable"&gt;
-                &lt;thead&gt;
-                    &lt;tr&gt;
-                        &lt;th&gt;OrderID&lt;/th&gt;
-                        &lt;th&gt;UserId&lt;/th&gt;
-                        &lt;th&gt;Name And Surname&lt;/th&gt;
-                        &lt;th&gt;Booking Issue Date &lt;/th&gt;
-                        &lt;th&gt;State&lt;/th&gt;
-                        &lt;th&gt;Scheduled Date&lt;/th&gt;
-                        &lt;th&gt;Total price&lt;/th&gt;
-                        &lt;th&gt;Handed out&lt;/th&gt;
-                        &lt;th width="13%"&gt;&lt;/th&gt;
-                    &lt;/tr&gt;
-                &lt;/thead&gt;
-                &lt;tbody&gt; {
-                    orders.map(<span class="fstat-no" title="function not covered" >(o</span>r) =&gt;{
-                      
-<span class="cstat-no" title="statement not covered" >                      return (</span>
-                        &lt;Order key={or.BookingID}
-                            order={or}
-                        /&gt;)})
-                }
-                &lt;/tbody&gt;
+          &lt;Modal.Body&gt;
+            &lt;Table responsive striped bordered hover className="ordersTable"&gt;
+              &lt;thead&gt;
+                &lt;tr&gt;
+                  &lt;th&gt;OrderID&lt;/th&gt;
+                  &lt;th&gt;UserId&lt;/th&gt;
+                  &lt;th&gt;Name And Surname&lt;/th&gt;
+                  &lt;th&gt;Booking Issue Date &lt;/th&gt;
+                  &lt;th&gt;State&lt;/th&gt;
+                  &lt;th&gt;Scheduled Date&lt;/th&gt;
+                  &lt;th&gt;Total price&lt;/th&gt;
+                  &lt;th&gt;Handed out&lt;/th&gt;
+                  &lt;th width="13%"&gt;&lt;/th&gt;
+                &lt;/tr&gt;
+              &lt;/thead&gt;
+              &lt;tbody&gt; {
+                orders.map(<span class="fstat-no" title="function not covered" >(o</span>r) =&gt; {
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                  return (</span>
+                    &lt;Order key={or.BookingId}
+                      order={or}
+                    /&gt;)
+                })
+              }
+              &lt;/tbody&gt;
             &lt;/Table&gt;
           &lt;/Modal.Body&gt;
         &lt;/Modal.Body&gt;
@@ -351,14 +345,14 @@ const [show, setShow] = <span class="cstat-no" title="statement not covered" >us
     &lt;/&gt;
   );
 }
-  export default ModalClientOrders; </pre></td></tr></table></pre>
+export default ModalClientOrders; </pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
-                at Tue Jan 11 2022 13:06:28 GMT+0100 (Ora standard dell’Europa centrale)
+                at Tue Jan 11 2022 13:13:36 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
