@@ -7,6 +7,9 @@ const loadingConfirm = false;
 const errorConfirm = '';
 const testProdOne = {id:1, imagePath:`testImage.jpg`, name:`testProduct`, farmer:{name:`testFarmerName`, surname:`testFarmerSurname`}, pricePerUnit:10, selectedQuantity:1}
 
+const setFee = () => {
+  return;
+}
 const deleteProductFromCart = (removeId) => {
   setCart(oldCart => oldCart.filter(product => product.id !== removeId));
   setDirtyInfo(true);
@@ -54,7 +57,7 @@ const confirmOrder = () => {
 it("renders the cart button", ()=>{
 
     // Render a react component to the DOM.
-    const { getByText, getByTestId } = render(<Cart cart={[]} cartInfo={{numItems: 0, totalPrice: 0 }} deleteProductFromCart={deleteProductFromCart}
+    const { getByText, getByTestId } = render(<Cart cart={[]} setFee={setFee} cartInfo={{numItems: 0, totalPrice: 0 }} deleteProductFromCart={deleteProductFromCart}
       modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={false}
       errorConfirm={""} userName={location.state && location.state.userName} />);
     
@@ -67,7 +70,7 @@ it("renders the cart button", ()=>{
 
   it("clicking on cart button renders the cart modal as expected", ()=>{
     // Render a react component to the DOM.
-    const { getByText, getByTestId } = render(<Cart cart={[]} cartInfo={{numItems: 0, totalPrice: 0 }} deleteProductFromCart={deleteProductFromCart}
+    const { getByText, getByTestId } = render(<Cart cart={[]} setFee={setFee} cartInfo={{numItems: 0, totalPrice: 0 }} deleteProductFromCart={deleteProductFromCart}
       modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
       errorConfirm={errorConfirm} userName={location.state && location.state.userName} />);
 
@@ -92,7 +95,7 @@ it("renders the cart button", ()=>{
 
   it("the cart modal renders products as expected", ()=>{
     // Render a react component to the DOM.
-    const { getByText, getByTestId } = render(<Cart cart={[testProdOne]} cartInfo={{numItems: 1, totalPrice: 10 }} deleteProductFromCart={deleteProductFromCart}
+    const { getByText, getByTestId } = render(<Cart cart={[testProdOne]} setFee={setFee} cartInfo={{numItems: 1, totalPrice: 10 }} deleteProductFromCart={deleteProductFromCart}
       modifyProductInCart={modifyProductInCart} confirmOrder={confirmOrder} loadingConfirm={loadingConfirm}
       errorConfirm={errorConfirm} userName={location.state && location.state.userName} />);
 
