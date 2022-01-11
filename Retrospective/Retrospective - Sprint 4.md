@@ -52,8 +52,8 @@ Please, notice that the total sum of the hours estimated and spent are different
 - Unit Testing:
   - Total hours estimated: 6h
   - Total hours spent: 6h
-  - Nr of automated unit test cases: 
-  - Coverage (if available): 51.6% ( not complete because of a problem with coverage computation from part of our e2e tests, we're planning to fix it in the next sprint )
+  - Nr of automated unit test cases: 179
+  - Coverage (if available): 40.6% ( not complete because of a problem with coverage computation from part of our e2e tests, we're planning to fix it in the next sprint )
 - E2E testing:
   - Total hours estimated: 5h
   - Total hours spent: 3h 30m
@@ -61,11 +61,11 @@ Please, notice that the total sum of the hours estimated and spent are different
   - Total hours estimated: 3h 30m
   - Total hours spent: 3h
 - Technical Debt management:
-  - Total hours estimated: 7h
-  - Total hours spent: 6h 30m
-  - Hours estimated for remediation by SonarQube: 8h
-  - Hours estimated for remediation by SonarQube only for the selected and planned issues: 8h 
-  - Hours spent on remediation: 6h 30m 
+  - Total hours estimated: 8h 30m
+  - Total hours spent: 10h 30m
+  - Hours estimated for remediation by SonarQube: 8h 30m
+  - Hours estimated for remediation by SonarQube only for the selected and planned issues: 8h 30m 
+  - Hours spent on remediation: 7h
   - debt ratio (as reported by SonarQube under "Measures-Maintainability"): 0.5%
   - rating for each quality characteristic reported in SonarQube under "Measures" (namely reliability, security, maintainability ): A, A, A
   
