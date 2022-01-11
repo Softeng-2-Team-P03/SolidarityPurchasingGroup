@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">79.31% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>23/29</span>
+                <span class='fraction'>0/29</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>3/3</span>
+                <span class='fraction'>0/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>6/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -153,13 +153,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -191,7 +189,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -213,7 +213,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -233,20 +233,20 @@ import { formatDateEuropean } from '../NavBar/clock';
 &nbsp;
 &nbsp;
 &nbsp;
-function OrderSuccess() {
-    const location = useLocation();
-    console.log(location.state);
-    const allOk = (location.state &amp;&amp; location.state.orderId &amp;&amp; location.state.booking &amp;&amp; location.state.booking.products);
+function <span class="fstat-no" title="function not covered" >OrderSuccess(</span>) {
+    const location = <span class="cstat-no" title="statement not covered" >useLocation();</span>
+<span class="cstat-no" title="statement not covered" >    console.log(location.state);</span>
+    const allOk = (<span class="cstat-no" title="statement not covered" >location.state &amp;&amp; location.state.orderId &amp;&amp; location.state.booking &amp;&amp; location.state.booking.products)</span>;
 &nbsp;
-    return (
+<span class="cstat-no" title="statement not covered" >    return (</span>
         &lt;&gt;
-            {!allOk &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >&lt;Redirect to='/' /&gt;}</span>
+            {!allOk &amp;&amp; &lt;Redirect to='/' /&gt;}
             &lt;div className="containerSuccess"&gt;
                 &lt;section className="confirmation"&gt;
                     &lt;h1&gt;Booking #{allOk &amp;&amp; location.state.orderId} {(allOk &amp;&amp; location.state.booking.userName) ?
-                        `for ${location.state.booking.userName}` : <span class="branch-1 cbranch-no" title="branch not covered" >&lt;&gt;&lt;/&gt;}</span> has been received&lt;/h1&gt;
+                        `for ${location.state.booking.userName}` : &lt;&gt;&lt;/&gt;} has been received&lt;/h1&gt;
                     {location.state.errorWallet.length &gt; 0 ?
-<span class="branch-0 cbranch-no" title="branch not covered" >                        &lt;Alert key={2233} variant="danger"  &gt;</span>
+                        &lt;Alert key={2233} variant="danger"  &gt;
                             {location.state.errorWallet}
                         &lt;/Alert&gt;
                         : ""
@@ -254,7 +254,7 @@ function OrderSuccess() {
                     &lt;br /&gt;
                     &lt;h4&gt;
                         {allOk &amp;&amp; location.state.booking.pickupTime !== undefined &amp;&amp; &lt;&gt;Pick-up info: {formatDateEuropean(location.state.booking.pickupTime)}&lt;/&gt;}
-                        {allOk &amp;&amp; location.state.booking.deliveryTime !== undefined &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >&lt;&gt;Delivery info: {formatDateEuropean(location.state.booking.deliveryTime)}&lt;/&gt;}</span>
+                        {allOk &amp;&amp; location.state.booking.deliveryTime !== undefined &amp;&amp; &lt;&gt;Delivery info: {formatDateEuropean(location.state.booking.deliveryTime)}&lt;/&gt;}
                     &lt;/h4&gt;
                     &lt;br /&gt;
                     &lt;Link to='/' &gt;
@@ -271,11 +271,11 @@ function OrderSuccess() {
                         &lt;/thead&gt;
                         &lt;tbody&gt;
                             {
-                                allOk ? location.state.booking.products.map((product) =&gt;
-                                    &lt;Product key={product.productId} product={product} /&gt;)
-                                    : <span class="branch-1 cbranch-no" title="branch not covered" >&lt;&gt;&lt;/&gt;</span>
+                                allOk ? location.state.booking.products.map(<span class="fstat-no" title="function not covered" >(p</span>roduct) =&gt;
+<span class="cstat-no" title="statement not covered" >                                    &lt;Product key={product.productId} product={product} /&gt;)</span>
+                                    : &lt;&gt;&lt;/&gt;
                             }
-                            {allOk &amp;&amp; location.state.booking.deliveryTime !== undefined &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >&lt;&gt;</span>
+                            {allOk &amp;&amp; location.state.booking.deliveryTime !== undefined &amp;&amp; &lt;&gt;
                                 &lt;tr&gt;
                                     &lt;td&gt;Delivery&lt;/td&gt;
                                     &lt;td&gt;1&lt;/td&gt;
@@ -293,8 +293,8 @@ function OrderSuccess() {
     );
 }
 &nbsp;
-function Product(props) {
-    return (
+function <span class="fstat-no" title="function not covered" >Product(</span>props) {
+<span class="cstat-no" title="statement not covered" >    return (</span>
         &lt;&gt;
             &lt;tr&gt;
                 &lt;td&gt;&lt;Image src={require('../../../public/ProductImages/' + props.product.imagePath).default} thumbnail /&gt; {props.product.name} &lt;/td&gt;
@@ -313,7 +313,7 @@ export default OrderSuccess;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
-                at Tue Jan 11 2022 09:08:37 GMT+0100 (Ora standard dell’Europa centrale)
+                at Tue Jan 11 2022 09:29:51 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../../prettify.js"></script>
