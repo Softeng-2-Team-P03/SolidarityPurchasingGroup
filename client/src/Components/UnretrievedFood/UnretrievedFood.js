@@ -15,7 +15,7 @@ import {
     Legend,
 } from 'chart.js';
 import React, {useEffect, useState} from "react";
-import {Button, Card, Form, Spinner, Table} from "react-bootstrap";
+import {Button, Card, Spinner} from "react-bootstrap";
 import API from "../../api/booking-api";
 import api from "../../API";
 
@@ -152,7 +152,6 @@ function UnretrievedFood() {
         let orders;
         let i=0;
         let counts=[];
-        let cnt=[];
         let maxP;
         let countsBar=[];
         let productsName=[];
@@ -207,7 +206,7 @@ function UnretrievedFood() {
 
             //per mese
             for (i=0;i<12;i++) {
-                foodM = await API.getUnretrievedOfMonth(i+1,2021);
+                foodM = await API.getUnretrievedOfMonth(i+1,now.getFullYear());
                 yearFood.push(foodM.length);
             }
 

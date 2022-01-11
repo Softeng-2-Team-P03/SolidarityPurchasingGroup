@@ -25,14 +25,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/161</span>
+                <span class='fraction'>0/160</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/83</span>
+                <span class='fraction'>0/85</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/145</span>
+                <span class='fraction'>0/144</span>
             </div>
         
             
@@ -525,7 +525,8 @@
 <a name='L460'></a><a href='#L460'>460</a>
 <a name='L461'></a><a href='#L461'>461</a>
 <a name='L462'></a><a href='#L462'>462</a>
-<a name='L463'></a><a href='#L463'>463</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L463'></a><a href='#L463'>463</a>
+<a name='L464'></a><a href='#L464'>464</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -717,6 +718,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -729,6 +731,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -752,7 +755,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -990,7 +992,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import 'bootstrap/dist/css/bootstrap.min.css';
 import './MyOrderList.css';
 import bookingApi from '../../api/booking-api';
-import { Button, Table, Col, Row, Image, Modal, Form, Stack, CloseButton} from "react-bootstrap";
+import { Button, Table, Col, Row, Image, Modal, Form, Stack, CloseButton } from "react-bootstrap";
 import React, { useEffect, useState } from 'react';
 import itLocale from 'date-fns/locale/it';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -1008,59 +1010,59 @@ function <span class="fstat-no" title="function not covered" >MyOrderList(</span
     const [dirty, setDirty] = <span class="cstat-no" title="statement not covered" >useState(true);</span>
     const [timeEnabled, setTimeEnabled] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
 &nbsp;
-    let state=<span class="cstat-no" title="statement not covered" >null;</span>
-   
-   
-    function <span class="fstat-no" title="function not covered" >updateBooking(</span>booking, totalPrice, products, value, choice){
+    let state = <span class="cstat-no" title="statement not covered" >null;</span>
+&nbsp;
+&nbsp;
+    function <span class="fstat-no" title="function not covered" >updateBooking(</span>booking, totalPrice, products, value, choice) {
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        console.log(products);</span>
 &nbsp;
-    
+&nbsp;
 <span class="cstat-no" title="statement not covered" >        booking = {</span>
             userId: props.user.id,
-            BookingId : booking.BookingId,
+            BookingId: booking.BookingId,
             totalPrice: totalPrice,
             PickupTime: undefined,
             DeliveryTime: undefined,
             state: 0,
             products: products.map(<span class="fstat-no" title="function not covered" >pr</span>oduct =&gt; (<span class="cstat-no" title="statement not covered" >{</span>
-               
+&nbsp;
                 productId: product.ProductId, quantity: product.Qty,
             }))
         }
-        
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        console.log("Choice" +choice);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if(choice==="1") {</span>
-<span class="cstat-no" title="statement not covered" >            booking.PickupTime=value;</span>
+<span class="cstat-no" title="statement not covered" >        console.log("Choice" + choice);</span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >        if (choice === "1") {</span>
+<span class="cstat-no" title="statement not covered" >            booking.PickupTime = value;</span>
 &nbsp;
         } else {
-<span class="cstat-no" title="statement not covered" >            booking.DeliveryTime=value;</span>
+<span class="cstat-no" title="statement not covered" >            booking.DeliveryTime = value;</span>
         }
 &nbsp;
 <span class="cstat-no" title="statement not covered" >        bookingApi.updateBooking(booking)</span>
-        .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >            setDirty(true);</span>
-            
+            .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >                setDirty(true);</span>
 &nbsp;
-        }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
-           
-<span class="cstat-no" title="statement not covered" >            console.error(err);</span>
-        });
+&nbsp;
+            }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                console.error(err);</span>
+            });
 &nbsp;
     }
-    
-    function <span class="fstat-no" title="function not covered" >deleteBooking(</span>bookingId){
-<span class="cstat-no" title="statement not covered" >        bookingApi.deleteBooking(bookingId)</span>
-        .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >            setDirty(true);</span>
-            
 &nbsp;
-        }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
-           
-<span class="cstat-no" title="statement not covered" >            console.error(err);</span>
-        });
+    function <span class="fstat-no" title="function not covered" >deleteBooking(</span>bookingId) {
+<span class="cstat-no" title="statement not covered" >        bookingApi.deleteBooking(bookingId)</span>
+            .then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {
+<span class="cstat-no" title="statement not covered" >                setDirty(true);</span>
+&nbsp;
+&nbsp;
+            }).catch(<span class="fstat-no" title="function not covered" >er</span>r =&gt; {
+&nbsp;
+<span class="cstat-no" title="statement not covered" >                console.error(err);</span>
+            });
     }
 &nbsp;
     const checkDate = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
@@ -1072,7 +1074,7 @@ function <span class="fstat-no" title="function not covered" >MyOrderList(</span
         }
         else {
 <span class="cstat-no" title="statement not covered" >            setTimeEnabled(false);</span>
-           
+&nbsp;
         }
     }
 &nbsp;
@@ -1081,18 +1083,18 @@ function <span class="fstat-no" title="function not covered" >MyOrderList(</span
 <span class="cstat-no" title="statement not covered" >        checkDate();</span>
 <span class="cstat-no" title="statement not covered" >        return <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >clearInterval(id);</span></span>
     }, [])
-    
-     
-<span class="cstat-no" title="statement not covered" >    useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {          </span>
+&nbsp;
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 &nbsp;
 &nbsp;
         const getOrdersByUserId = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >            if(props.loggedIn &amp;&amp; dirty) {                </span>
-            const myOrders = <span class="cstat-no" title="statement not covered" >await bookingApi.getOrdersByUserId(props.user.id);</span>  //NOSONAR         
-<span class="cstat-no" title="statement not covered" >            setMyOrders(myOrders);</span>
-<span class="cstat-no" title="statement not covered" >            console.log(myOrders);</span>
-            }           
-           
+<span class="cstat-no" title="statement not covered" >            if (props.loggedIn &amp;&amp; dirty) {</span>
+                const myOrders = <span class="cstat-no" title="statement not covered" >await bookingApi.getOrdersByUserId(props.user.id);</span>  //NOSONAR         
+<span class="cstat-no" title="statement not covered" >                setMyOrders(myOrders);</span>
+<span class="cstat-no" title="statement not covered" >                console.log(myOrders);</span>
+            }
+&nbsp;
         };
 <span class="cstat-no" title="statement not covered" >        getOrdersByUserId().then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >            if (dirty &amp;&amp; props.loggedIn) {</span>
@@ -1106,10 +1108,10 @@ function <span class="fstat-no" title="function not covered" >MyOrderList(</span
 &nbsp;
     }, [dirty, props.loggedIn]);
 &nbsp;
-       
+&nbsp;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
-        &lt;&gt;          
+        &lt;&gt;
             &lt;Table responsive striped bordered hover className="ordersTable"&gt;
                 &lt;thead&gt;
                     &lt;tr&gt;
@@ -1118,72 +1120,74 @@ function <span class="fstat-no" title="function not covered" >MyOrderList(</span
                         &lt;th&gt;State&lt;/th&gt;
                         &lt;th&gt;Scheduled Date&lt;/th&gt;
                         &lt;th&gt;Total price&lt;/th&gt;
-                        &lt;th&gt;&lt;/th&gt; 
-                        &lt;th&gt;&lt;/th&gt;                    
+                        &lt;th&gt;&lt;/th&gt;
+                        &lt;th&gt;&lt;/th&gt;
                     &lt;/tr&gt;
                 &lt;/thead&gt;
-                &lt;tbody&gt; {                    
-                    myOrders.slice(0).reverse().map(<span class="fstat-no" title="function not covered" >(o</span>r, index) =&gt; {                      
+                &lt;tbody&gt;{
+                    myOrders.slice(0).reverse().map(<span class="fstat-no" title="function not covered" >(o</span>r, index) =&gt; {
 <span class="cstat-no" title="statement not covered" >                        switch (or.State) {</span>
-                        case 0 :
-<span class="cstat-no" title="statement not covered" >                          state = 'Issued';</span>
-<span class="cstat-no" title="statement not covered" >                          break;</span>
-                        case 1:
-<span class="cstat-no" title="statement not covered" >                           state = 'Pending for cancelation';</span>
-<span class="cstat-no" title="statement not covered" >                          break;</span>
-                        case 2:
-<span class="cstat-no" title="statement not covered" >                           state = 'Paid';</span>
-<span class="cstat-no" title="statement not covered" >                          break;</span>
-                          case 3:
-<span class="cstat-no" title="statement not covered" >                            state = 'Handed out';</span>
-<span class="cstat-no" title="statement not covered" >                           break;</span>
-                        case 4:
-<span class="cstat-no" title="statement not covered" >                            state = 'Canceled';</span>
-<span class="cstat-no" title="statement not covered" >                           break;</span>
-                        case 5:
-<span class="cstat-no" title="statement not covered" >                            state = 'Unretrieved';</span>
-<span class="cstat-no" title="statement not covered" >                           break;</span>
-                        default:
-<span class="cstat-no" title="statement not covered" >                            state = '';</span>
-<span class="cstat-no" title="statement not covered" >                          break;</span>
-                      }
-<span class="cstat-no" title="statement not covered" >                      return (</span>
-                        &lt;MyOrder key={index}
-                            order={or}
-                            state={state}
-                            deleteBooking={deleteBooking}
-                            updateBooking={updateBooking}
-                            timeEnabled={timeEnabled}
+                            case 0:
+<span class="cstat-no" title="statement not covered" >                                state = 'Issued';</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+                            case 1:
+<span class="cstat-no" title="statement not covered" >                                state = 'Pending for cancelation';</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+                            case 2:
+<span class="cstat-no" title="statement not covered" >                                state = 'Paid';</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+                            case 3:
+<span class="cstat-no" title="statement not covered" >                                state = 'Handed out';</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+                            case 4:
+<span class="cstat-no" title="statement not covered" >                                state = 'Canceled';</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+                            case 5:
+<span class="cstat-no" title="statement not covered" >                                state = 'Unretrieved';</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+                            default:
+<span class="cstat-no" title="statement not covered" >                                state = '';</span>
+<span class="cstat-no" title="statement not covered" >                                break;</span>
+                        }
+<span class="cstat-no" title="statement not covered" >                        return (</span>
+                            &lt;MyOrder key={index}
+                                order={or}
+                                state={state}
+                                deleteBooking={deleteBooking}
+                                updateBooking={updateBooking}
+                                timeEnabled={timeEnabled}
 &nbsp;
-                        /&gt;);
+                            /&gt;);
                     })
-                    }
-                        
-                
+                }
+&nbsp;
+&nbsp;
                 &lt;/tbody&gt;
             &lt;/Table&gt;
         &lt;/&gt;
     );
 }
 &nbsp;
-function <span class="fstat-no" title="function not covered" >MyOrder(</span>props){
-    
-    
+function <span class="fstat-no" title="function not covered" >MyOrder(</span>props) {
+&nbsp;
+&nbsp;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (</span>
-        &lt;&gt;       
-        
+        &lt;&gt;
+&nbsp;
             &lt;tr&gt;
                 &lt;td&gt;{props.order.BookingId}&lt;/td&gt;
                 &lt;td&gt;{props.order.BookingStartDate}&lt;/td&gt;
                 &lt;td&gt;{props.state}&lt;/td&gt;
                 {props.order.PickupTime ? &lt;td&gt; PickupTime:  {props.order.PickupTime}  &lt;/td&gt; : &lt;td&gt; DeliveryTime:{props.order.DeliveryTime} &lt;/td&gt;}
                 &lt;td&gt;{props.order.TotalPrice} €&lt;/td&gt;
-                &lt;td&gt;&lt;Button onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.deleteBooking(props.order.BookingId)}</span> &gt;Delete Booking&lt;/Button&gt;&lt;/td&gt;
-               {(props.timeEnabled &amp;&amp; props.state === 'Issued') ? 
-                &lt;td&gt;&lt;UpdateBooking order={props.order} updateBooking={props.updateBooking} &gt;Update Booking&lt;/UpdateBooking&gt;&lt;/td&gt; :&lt;td&gt;&lt;/td&gt;
-}
-               &lt;/tr&gt;
+                {props.state === 'Issued' ?
+                    &lt;td&gt;&lt;Button onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.deleteBooking(props.order.BookingId)}</span> &gt;Delete Booking&lt;/Button&gt;&lt;/td&gt; : &lt;td&gt;&lt;/td&gt;
+                }
+                {(props.timeEnabled &amp;&amp; props.state === 'Issued') ?
+                    &lt;td&gt;&lt;UpdateBooking order={props.order} updateBooking={props.updateBooking} &gt;Update Booking&lt;/UpdateBooking&gt;&lt;/td&gt; : &lt;td&gt;&lt;/td&gt;
+                }
+            &lt;/tr&gt;
         &lt;/&gt;
     );
 &nbsp;
@@ -1195,32 +1199,31 @@ function <span class="fstat-no" title="function not covered" >UpdateBooking(</sp
     const [dateMin, setDateMin] = <span class="cstat-no" title="statement not covered" >useState('');</span>
     const [dateMax, setDateMax] = <span class="cstat-no" title="statement not covered" >useState('');</span>
     const [choiceSelect, setChoiceSelect] = <span class="cstat-no" title="statement not covered" >useState(props.order.PickupTime ? '1' : '2');</span>
-    const [dirtyInfo,setDirtyInfo] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
-    const [mounted,setMounted] = <span class="cstat-no" title="statement not covered" >useState(true);</span>
+    const [dirtyInfo, setDirtyInfo] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
+    const [mounted, setMounted] = <span class="cstat-no" title="statement not covered" >useState(true);</span>
     const [show, setShow] = <span class="cstat-no" title="statement not covered" >useState(false);</span>
     const [products, setProducts] = <span class="cstat-no" title="statement not covered" >useState([]);</span>
-    
+&nbsp;
     const [dataSelect, setDataSelect] = <span class="cstat-no" title="statement not covered" >useState(0);</span>
-    
-    const [cartTotalPrice, setCartTotalPrice] = <span class="cstat-no" title="statement not covered" >useState({TotalPrice : props.order.TotalPrice, fee : props.order.PickupTime ? 0 :  3 });</span>
-    const close = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {<span class="cstat-no" title="statement not covered" >setShow(false); <span class="cstat-no" title="statement not covered" ></span>setProducts([]); <span class="cstat-no" title="statement not covered" ></span>setCartTotalPrice({TotalPrice : props.order.TotalPrice, fee : props.order.PickupTime ? 0 :  3 })}</span></span>
-    const open = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; {<span class="cstat-no" title="statement not covered" >setShow(true); <span class="cstat-no" title="statement not covered" ></span>setMounted(true); <span class="cstat-no" title="statement not covered" ></span>setCartTotalPrice({TotalPrice : props.order.TotalPrice, fee : props.order.PickupTime ? 0 :  3 })}</span>;</span>
+&nbsp;
+    const [cartTotalPrice, setCartTotalPrice] = <span class="cstat-no" title="statement not covered" >useState({ TotalPrice: props.order.TotalPrice, fee: props.order.PickupTime ? 0 : 3 });</span>
+    const close = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >setShow(false); <span class="cstat-no" title="statement not covered" ></span>setProducts([]); <span class="cstat-no" title="statement not covered" ></span>setCartTotalPrice({ TotalPrice: props.order.TotalPrice, fee: props.order.PickupTime ? 0 : 3 }) </span>}</span>
+    const open = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >setShow(true); <span class="cstat-no" title="statement not covered" ></span>setMounted(true); <span class="cstat-no" title="statement not covered" ></span>setCartTotalPrice({ TotalPrice: props.order.TotalPrice, fee: props.order.PickupTime ? 0 : 3 }) </span>};</span>
 &nbsp;
     const updateChoice = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(c</span>hoice) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        setChoiceSelect(choice);</span>
 <span class="cstat-no" title="statement not covered" >        setFee(choice);</span>
     }
- 
-<span class="cstat-no" title="statement not covered" >    useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {      </span>
+&nbsp;
+<span class="cstat-no" title="statement not covered" >    useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 &nbsp;
 &nbsp;
         const getProductsFromBooking = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >as</span>ync () =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >            if(mounted) {                </span>
-            const productsFromBooking = <span class="cstat-no" title="statement not covered" >await bookingApi.getProductsFromBooking(props.order.BookingId);</span>  //NOSONAR         
-<span class="cstat-no" title="statement not covered" >            setProducts(productsFromBooking);</span>
-<span class="cstat-no" title="statement not covered" >            console.log(productsFromBooking);</span>
-            }           
-           
+<span class="cstat-no" title="statement not covered" >            if (mounted) {</span>
+                const productsFromBooking = <span class="cstat-no" title="statement not covered" >await bookingApi.getProductsFromBooking(props.order.BookingId);</span>  //NOSONAR         
+<span class="cstat-no" title="statement not covered" >                setProducts(productsFromBooking);</span>
+            }
+&nbsp;
         };
 <span class="cstat-no" title="statement not covered" >        getProductsFromBooking().then(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >            if (mounted) {</span>
@@ -1234,7 +1237,7 @@ function <span class="fstat-no" title="function not covered" >UpdateBooking(</sp
 &nbsp;
     }, [mounted]);
 &nbsp;
-   
+&nbsp;
     const setFee = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(c</span>hoice) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        if (choice === '2') {</span>
 <span class="cstat-no" title="statement not covered" >            setCartTotalPrice({ ...cartTotalPrice, fee: 3 });</span>
@@ -1254,14 +1257,14 @@ function <span class="fstat-no" title="function not covered" >UpdateBooking(</sp
     const modifyProductInCart = <span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >(m</span>odifyId, addQuantity, type) =&gt; {</span>
 <span class="cstat-no" title="statement not covered" >        if (type === 1) { //+1 or -1</span>
             const newQuantity = <span class="cstat-no" title="statement not covered" >products.filter(<span class="fstat-no" title="function not covered" >pr</span>oduct =&gt; <span class="cstat-no" title="statement not covered" >product.ProductId === modifyId)</span>[0].Qty + addQuantity;</span>
-            
+&nbsp;
 <span class="cstat-no" title="statement not covered" >            console.log(modifyId)</span>
 <span class="cstat-no" title="statement not covered" >            console.log(products.map(<span class="fstat-no" title="function not covered" >pr</span>oduct =&gt; <span class="cstat-no" title="statement not covered" >product.ProductId === modifyId)</span>)</span>
 <span class="cstat-no" title="statement not covered" >            if (newQuantity === 0) {</span>
 <span class="cstat-no" title="statement not covered" >                deleteProductFromCart(modifyId);</span>
             }
             else {
-<span class="cstat-no" title="statement not covered" >                console.log("Neq qty " +newQuantity);</span>
+<span class="cstat-no" title="statement not covered" >                console.log("Neq qty " + newQuantity);</span>
 <span class="cstat-no" title="statement not covered" >                setProducts(<span class="fstat-no" title="function not covered" >pr</span>oducts =&gt; <span class="cstat-no" title="statement not covered" >products.map(<span class="fstat-no" title="function not covered" >pr</span>oduct =&gt; <span class="cstat-no" title="statement not covered" >product.ProductId === modifyId ? { ...product, Qty: newQuantity } : product)</span>)</span>;</span>
 <span class="cstat-no" title="statement not covered" >                console.log(products);</span>
             }
@@ -1279,29 +1282,29 @@ function <span class="fstat-no" title="function not covered" >UpdateBooking(</sp
 <span class="cstat-no" title="statement not covered" >        setDirtyInfo(true);</span>
     }
 &nbsp;
-    
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        if (dirtyInfo === true) {           </span>
+<span class="cstat-no" title="statement not covered" >        if (dirtyInfo === true) {</span>
             let price = <span class="cstat-no" title="statement not covered" >0;</span>
 &nbsp;
 <span class="cstat-no" title="statement not covered" >            if (products.length !== 0) {</span>
 <span class="cstat-no" title="statement not covered" >                for (const product of products) {</span>
 <span class="cstat-no" title="statement not covered" >                    console.log(product);</span>
 <span class="cstat-no" title="statement not covered" >                    price += product.Qty * product.PricePerUnit;</span>
-                    
+&nbsp;
                 }
             }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >           console.log(price);</span>
+<span class="cstat-no" title="statement not covered" >            console.log(price);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            setCartTotalPrice({...cartTotalPrice, TotalPrice: (price + cartTotalPrice.fee).toFixed(2)});</span>
-           
+<span class="cstat-no" title="statement not covered" >            setCartTotalPrice({ ...cartTotalPrice, TotalPrice: (price + cartTotalPrice.fee).toFixed(2) });</span>
+&nbsp;
 <span class="cstat-no" title="statement not covered" >            setDirtyInfo(false);</span>
         }
     }, [dirtyInfo])
 &nbsp;
 &nbsp;
-    
+&nbsp;
 <span class="cstat-no" title="statement not covered" >    useEffect(<span class="fstat-no" title="function not covered" >()</span> =&gt; {</span>
         let t = <span class="cstat-no" title="statement not covered" >new Date(localStorage.getItem('virtualDate'));</span>
 &nbsp;
@@ -1331,8 +1334,8 @@ function <span class="fstat-no" title="function not covered" >UpdateBooking(</sp
 &nbsp;
 &nbsp;
 <span class="cstat-no" title="statement not covered" >    return (&lt;&gt;</span>
-         &lt;Button data-testid="cartButton" className="buttonUpdate" onClick={open}&gt;
-          Update Booking
+        &lt;Button data-testid="cartButton" className="buttonUpdate" onClick={open}&gt;
+            Update Booking
         &lt;/Button&gt;
 &nbsp;
         &lt;Modal centered data-testid="cartModal" show={show} onHide={close} scrollable&gt;
@@ -1341,7 +1344,7 @@ function <span class="fstat-no" title="function not covered" >UpdateBooking(</sp
                     &lt;Row&gt;
                         &lt;Col xs={15} md={11}&gt;
                             &lt;h3&gt;
-                               
+&nbsp;
                                 &lt;b&gt;Subtotal: € {cartTotalPrice.TotalPrice}&lt;/b&gt;
                             &lt;/h3&gt;
                             {cartTotalPrice.fee !== 0 &amp;&amp; "Delivery fees included"}
@@ -1351,9 +1354,9 @@ function <span class="fstat-no" title="function not covered" >UpdateBooking(</sp
                         &lt;/Col&gt;
                     &lt;/Row&gt;
                     &lt;br /&gt;
-                    &lt;Form.Select disabled={props.order.Qty === 0 } onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >updateChoice(e.target.value)}</span>&gt;                        
-                        &lt;option value='1' selected = {props.order.PickupTime}&gt;Pick-up date&lt;/option&gt;
-                        &lt;option value='2' selected = {props.order.DeliveryTime}&gt;Delivery at home (€ 3.00)&lt;/option&gt;
+                    &lt;Form.Select disabled={props.order.Qty === 0} onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >updateChoice(e.target.value)}</span>&gt;
+                        &lt;option value='1' selected={props.order.PickupTime}&gt;Pick-up date&lt;/option&gt;
+                        &lt;option value='2' selected={props.order.DeliveryTime}&gt;Delivery at home (€ 3.00)&lt;/option&gt;
                     &lt;/Form.Select&gt;
                     &lt;br /&gt;
 &nbsp;
@@ -1366,7 +1369,7 @@ function <span class="fstat-no" title="function not covered" >UpdateBooking(</sp
                                     label="Select date and time"
                                     value={value}
                                     onChange={<span class="fstat-no" title="function not covered" >(n</span>ewValue) =&gt; {
-<span class="cstat-no" title="statement not covered" >                                        if(newValue.getMinutes() &gt; 30){</span>
+<span class="cstat-no" title="statement not covered" >                                        if (newValue.getMinutes() &gt; 30) {</span>
 <span class="cstat-no" title="statement not covered" >                                            newValue.setHours(newValue.getHours());</span>
 <span class="cstat-no" title="statement not covered" >                                            newValue.setMinutes(30);</span>
 &nbsp;
@@ -1385,7 +1388,7 @@ function <span class="fstat-no" title="function not covered" >UpdateBooking(</sp
                                     minTime={new Date(0, 0, 0, 9)}
                                     maxTime={new Date(0, 0, 0, 23, 1)}
 &nbsp;
-                                   // minutesStep={30}
+                                // minutesStep={30}
                                 /&gt;
                             &lt;/Stack&gt;
                         &lt;/LocalizationProvider&gt;
@@ -1393,19 +1396,19 @@ function <span class="fstat-no" title="function not covered" >UpdateBooking(</sp
                         &lt;&gt;&lt;/&gt;
                     }
                     &lt;div className="butn"&gt;
-                        &lt;Button variant="success" disabled={props.order.Qty === 0 || choiceSelect === '0' }
-                            onClick={ <span class="fstat-no" title="function not covered" >()</span> =&gt; {<span class="cstat-no" title="statement not covered" >props.updateBooking(props.order, cartTotalPrice.TotalPrice, products,formatDateWithoutSeconds(value), choiceSelect); <span class="cstat-no" title="statement not covered" ></span>close()}</span>}&gt; Update
+                        &lt;Button variant="success" disabled={props.order.Qty === 0 || choiceSelect === '0'}
+                            onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; { <span class="cstat-no" title="statement not covered" >props.updateBooking(props.order, cartTotalPrice.TotalPrice, products, formatDateWithoutSeconds(value), choiceSelect); <span class="cstat-no" title="statement not covered" ></span>close() </span>}}&gt; Update
                         &lt;/Button&gt;
                     &lt;/div&gt;
                     &lt;small&gt;Remember to choose a delivery option&lt;/small&gt;
                     &lt;br /&gt;
-                   
-                      &lt;/Col&gt;
+&nbsp;
+                &lt;/Col&gt;
             &lt;/Modal.Header&gt;
             &lt;Modal.Body&gt;
                 {props.order.Qty === 0 ? &lt;h2 style={{ textAlign: 'center' }}&gt;Cart is empty&lt;/h2&gt;
                     : products.map(<span class="fstat-no" title="function not covered" >pr</span>oduct =&gt;
-<span class="cstat-no" title="statement not covered" >                        &lt;ProductUpdate key={product.Id} product={product}</span>
+<span class="cstat-no" title="statement not covered" >                        &lt;ProductUpdate key={product.ProductId} product={product}</span>
                             modifyProductInCart={modifyProductInCart} deleteProductFromCart={deleteProductFromCart} /&gt;)}
             &lt;/Modal.Body&gt;
         &lt;/Modal&gt;
@@ -1413,13 +1416,13 @@ function <span class="fstat-no" title="function not covered" >UpdateBooking(</sp
 }
 &nbsp;
 function <span class="fstat-no" title="function not covered" >ProductUpdate(</span>props) {
-<span class="cstat-no" title="statement not covered" >    return ( &lt;&gt;</span>
-        {props.product.Qty != 0 ?&lt;Row style={{ borderBottom: "2px solid black", paddingTop: "5%", paddingBottom: "5%" }}&gt;
+<span class="cstat-no" title="statement not covered" >    return (&lt;&gt;</span>
+        {props.product.Qty != 0 ? &lt;Row style={{ borderBottom: "2px solid black", paddingTop: "5%", paddingBottom: "5%" }}&gt;
             &lt;Button className="cartButtons delete" variant="danger" onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >props.deleteProductFromCart(props.product.ProductId)}</span>&gt;X&lt;/Button&gt;
             &lt;Col&gt;
                 &lt;Image src={require('../../../public/ProductImages/' + props.product.ImagePath).default} fluid thumbnail /&gt;
                 &lt;div style={{ textAlign: "center", fontWeight: "bold", fontSize: "25px" }}&gt;{props.product.Name} &lt;/div&gt;
-              &lt;/Col&gt;
+            &lt;/Col&gt;
             &lt;Col style={{ textAlign: "center" }}&gt;
                 &lt;br /&gt;
                 &lt;br /&gt;
@@ -1432,7 +1435,7 @@ function <span class="fstat-no" title="function not covered" >ProductUpdate(</sp
                     &lt;/Col&gt;
                     &lt;Col&gt;
                         &lt;input className="quantity-text " type="number" min={0} onChange={<span class="fstat-no" title="function not covered" >e </span>=&gt; <span class="cstat-no" title="statement not covered" >props.modifyProductInCart(props.product.ProductId, !e.target.value ? 0 : e.target.value, 2)}</span>
-                            value={Number(props.product.Qty).toString()} &gt; 
+                            value={Number(props.product.Qty).toString()} &gt;
                         &lt;/input&gt;
                     &lt;/Col&gt;
                     &lt;Col style={{ padding: "0px" }}&gt;
@@ -1449,14 +1452,14 @@ function <span class="fstat-no" title="function not covered" >ProductUpdate(</sp
     );
 }
 &nbsp;
-export {MyOrderList, MyOrder, UpdateBooking, ProductUpdate};</pre></td></tr></table></pre>
+export { MyOrderList, MyOrder, UpdateBooking, ProductUpdate };</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener">istanbul</a>
-                at Tue Jan 11 2022 10:28:36 GMT+0100 (Ora standard dell’Europa centrale)
+                at Tue Jan 11 2022 13:38:59 GMT+0100 (Ora standard dell’Europa centrale)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

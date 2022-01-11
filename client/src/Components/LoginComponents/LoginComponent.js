@@ -25,7 +25,7 @@ function LoginComponent(props) {
         <div className="center-block col-md-6 login col-sm-11   col-11" >
             <Form noValidate validated={validated} onSubmit={handleLogin} className=" login-form col-md-4">
 
-                <div class="login-header mb-20 col-11 col-sm-11">
+                <div className="login-header mb-20 col-11 col-sm-11">
                     <div className="logo-user">
                     <img  src={window.location.origin + '/images/user.png'} width="50"></img>
                     </div>

@@ -25,9 +25,6 @@ function Client(props) {
                     </Link>
                 </td>
                 <td>
-
-                </td>
-                <td>
                     <ModalClientOrderes client={props.client} ></ModalClientOrderes>
                 </td>
             </tr>
@@ -54,7 +51,6 @@ function ClientList(props) {
             if (mounted) {
                 setResultC(clients);
                 setSearchClients(clients);
-                console.log(clients);
 
             }
         })
@@ -87,7 +83,7 @@ function ClientList(props) {
 
 
             <Form.Control type="text" className="searchB" placeholder="Search client" onChange={x => changeSearchText(x.target.value)} />
-            <Table responsive striped bordered hover className="clientsTable">
+            <Table responsive striped bordered hover className="clientsTable" style={{textAlign: "center"}}>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -97,13 +93,10 @@ function ClientList(props) {
                         <th width="13%"></th>
                     </tr>
                 </thead>
-                <tbody> {
-                    searchClients.map((cl) =>
-                        <Client key={cl.userId}
+                <tbody>{searchClients.map((cl) =>
+                        <Client key={cl.id}
                             client={cl} setConfirmationMessage={setConfirmationMessage}
-                        />)
-
-                }
+                        />)}
                 </tbody>
             </Table>
             <Link to="/addClient"><AddClientBtn /></Link>

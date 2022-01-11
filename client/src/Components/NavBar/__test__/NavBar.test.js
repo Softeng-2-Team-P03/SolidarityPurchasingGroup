@@ -43,7 +43,7 @@ test("renders the NavBar when logged in as manager", () => {
     expect(getByRole('button', { name: /resettime/i })).not.toBeNull();
 
     //Manager Navbar
-    expect(getByRole('link', { name: /browse shop/i })).not.toBeNull();
+    expect(getByRole('link', { name: /shop/i })).not.toBeNull();
     expect(getByRole('link', { name: /clients/i })).not.toBeNull();
     expect(getByRole('link', { name: /orders/i })).not.toBeNull();
 
