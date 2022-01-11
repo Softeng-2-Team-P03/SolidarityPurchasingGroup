@@ -15,7 +15,7 @@ import {
     Legend,
 } from 'chart.js';
 import React, {useEffect, useState} from "react";
-import {Button, Card, Form, Spinner, Table} from "react-bootstrap";
+import {Button, Card, Spinner} from "react-bootstrap";
 import API from "../../api/booking-api";
 import api from "../../API";
 
@@ -152,7 +152,6 @@ function UnretrievedFood() {
         let orders;
         let i=0;
         let counts=[];
-        let cnt=[];
         let maxP;
         let countsBar=[];
         let productsName=[];

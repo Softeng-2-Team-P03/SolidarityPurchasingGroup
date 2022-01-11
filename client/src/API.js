@@ -231,7 +231,7 @@ async function confirmAllBookings() {
     if (response.ok) {
         return null;
     } else {
-        throw { err: 'GET confirmAllBookings error' };  // an object with the error coming from the server
+        throw new Error({ err: 'GET confirmAllBookings error' });  // an object with the error coming from the server
     }
 }
 
@@ -240,7 +240,7 @@ async function confirmAllBookingsPendingCancelation() {
     if (response.ok) {
         return null;
     } else {
-        throw { err: 'GET confirmAllBookingsPendingCancelation error' };  // an object with the error coming from the server
+        throw new Error({ err: 'GET confirmAllBookingsPendingCancelation error' });  // an object with the error coming from the server
     }
 }
 
@@ -249,7 +249,7 @@ async function sendMailNotifications() {
     if (response.ok) {
         return null;
     } else {
-        throw { err: 'GET send-mail-notification error' };
+        throw new Error({ err: 'GET send-mail-notification error' });
     }
 }
 
@@ -258,7 +258,7 @@ async function sendAvailableProductsTGNotification() {
     if (response.ok) {
         return null;
     } else {
-        throw { err: 'GET SNForAvailableProducts (telegram) error' };
+        throw new Error({ err: 'GET SNForAvailableProducts (telegram) error' });
     }
 }
 

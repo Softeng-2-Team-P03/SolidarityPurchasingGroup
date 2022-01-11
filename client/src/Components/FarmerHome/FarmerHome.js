@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
-import { ListGroup, Button, Row, Col, Modal, Form, Alert, InputGroup } from "react-bootstrap";
+import { ListGroup, Button, Modal, Form, Alert, InputGroup } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import './FarmerHome.css'
 import API from "../../API";
@@ -30,7 +30,6 @@ function FarmerHome() {
     const [productsSell, setProductsSell] = useState([]);
     let user;
     const [farmer, setFarmer] = useState([]);
-    const [timeToString, setTimeToString] = useState(localStorage.getItem('virtualDateToString'));
     const [timeAddEdit, setTimeAddEdit] = useState(false);
     const [timeConfirm, setTimeConfirm] = useState(false);
 
@@ -71,7 +70,6 @@ function FarmerHome() {
 
     const checkDate = () => {
         let time = new Date(localStorage.getItem('virtualDate'));
-        setTimeToString(localStorage.getItem('virtualDateToString'));
         const day = time.getDay();
         const hour = time.getHours();
         if (((day === 1 && hour >= 9) || (day >= 2 && day <= 5) || (day === 6 && hour < 9))) {
@@ -99,7 +97,7 @@ function FarmerHome() {
 
     return (
         <>
-            <Modal centered data-testid="addProductModal" show={show} onHide={handleClose} centered>
+            <Modal centered data-testid="addProductModal" show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>New product</Modal.Title>
                 </Modal.Header>
@@ -110,7 +108,7 @@ function FarmerHome() {
             </Modal>
 
 
-            <Modal centered show={edit} onHide={handleCloseEdit} centered>
+            <Modal centered show={edit} onHide={handleCloseEdit}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit product</Modal.Title>
                 </Modal.Header>
@@ -127,7 +125,7 @@ function FarmerHome() {
             <ListGroup className="prodL">
                 {products.map((x) =>
 
-                    <ProductListItem product={x} timeAddEdit={timeAddEdit} timeConfirm={timeConfirm} setConfirm={setConfirm} setEdit={setEdit} setProductToEdit={setProductToEdit} />
+                    <ProductListItem key={x.Id} product={x} timeAddEdit={timeAddEdit} timeConfirm={timeConfirm} setConfirm={setConfirm} setEdit={setEdit} setProductToEdit={setProductToEdit} />
                 )}
             </ListGroup>
 
@@ -139,27 +137,27 @@ function FarmerHome() {
                     <ListGroup>
                         {productsSell.map((x) => (
                             <>
-                            <div className="flex">
-                                    <img className="ima"
-                                        src={require('../../../public/ProductImages/' + "p" + x.Id.toString() + "-1.jpg").default}
+                                <div className="flex">
+                                    <img className="ima" alt="product"
+                                        src={require('../../../public/ProductImages/p' + x.Id.toString() + "-1.jpg").default}
                                     />
 
-                                <h4 className="nameP">{x.Name}</h4>
-                                <h4 className="qtyP">QTY:{x.AvailableQuantity}</h4>
-                                <h6 className="Conf">confirmed</h6>
+                                    <h4 className="nameP">{x.Name}</h4>
+                                    <h4 className="qtyP">QTY:{x.AvailableQuantity}</h4>
+                                    <h6 className="Conf">confirmed</h6>
 
 
-                                {timeAddEdit ?
+                                    {timeAddEdit ?
 
                                         <div className="buttonEditConfirm"></div>
 
-                                    :
-                                    <form>
-                                        <div className="buttonEditConfirm"></div>
-                                    </form>
+                                        :
+                                        <form>
+                                            <div className="buttonEditConfirm"></div>
+                                        </form>
                                     }
-                            </div>
-                            <hr className="rowDiv" />
+                                </div>
+                                <hr className="rowDiv" />
                             </>
                         )
                         )}
@@ -187,44 +185,44 @@ function ProductListItem(props) {
 
     return (
         <ListGroup.Item className="flex">
-                    <img className="ima"
-                        src={require('../../../public/ProductImages/' + "p" + props.product.Id.toString() + "-1.jpg").default}
-                    />
+            <img className="ima" alt="uploaded"
+                src={require('../../../public/ProductImages/p' + props.product.Id.toString() + "-1.jpg").default}
+            />
 
-                <h4 className="nameP">{props.product.Name}</h4>
-                <h4 className="qtyP">QTY:{props.product.Quantity}</h4>
-                <h6 className="toConf" color="red">to confirm</h6>
+            <h4 className="nameP">{props.product.Name}</h4>
+            <h4 className="qtyP">QTY:{props.product.Quantity}</h4>
+            <h6 className="toConf" color="red">to confirm</h6>
 
             {props.timeAddEdit ?
-                        <Button className="buttonEditConfirm" variant="secondary" onClick={() => {
-                            props.setEdit(true);
-                            props.setProductToEdit(props.product);
-                        }
-                        }>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                className="bi bi-pencil" viewBox="0 0 16 16">
-                                <path
-                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
-                            </svg>
-                            Edit Product</Button>
-                     : <></>}
+                <Button className="buttonEditConfirm" variant="secondary" onClick={() => {
+                    props.setEdit(true);
+                    props.setProductToEdit(props.product);
+                }
+                }>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        className="bi bi-pencil" viewBox="0 0 16 16">
+                        <path
+                            d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                    </svg>
+                    Edit Product</Button>
+                : <></>}
 
             {props.timeConfirm ?
-                        <Form>
-                            <InputGroup className='buttonEditConfirm'>
-                                <Form.Control placeholder="Specify quantity" type="number" onChange={(ev) => {
-                                    setConfirmedQuantity(ev.target.value)
-                                    console.log(ev.target.value)
-                                }} />
-                                <Button type="submit" variant="success" onClick={() => {
-                                    API.updateProductQuantity(confirmedQuantity, props.product.Id).then(
-                                        API.updateProductState(1, props.product.Id).catch(err => console.log(err)).then(
-                                            bookingApi.confirmBookingProduct(props.product.Id).catch(err => console.log(err))));
-                                    props.setConfirm(false);
-                                }}>Confirm</Button>
-                            </InputGroup>
-                        </Form>
-                    : <></>}
+                <Form>
+                    <InputGroup className='buttonEditConfirm'>
+                        <Form.Control placeholder="Specify quantity" type="number" onChange={(ev) => {
+                            setConfirmedQuantity(ev.target.value)
+                            console.log(ev.target.value)
+                        }} />
+                        <Button type="submit" variant="success" onClick={() => {
+                            API.updateProductQuantity(confirmedQuantity, props.product.Id).then(
+                                API.updateProductState(1, props.product.Id).catch(err => console.log(err)).then(
+                                    bookingApi.confirmBookingProduct(props.product.Id).catch(err => console.log(err))));
+                            props.setConfirm(false);
+                        }}>Confirm</Button>
+                    </InputGroup>
+                </Form>
+                : <></>}
 
         </ListGroup.Item>
     )
@@ -247,7 +245,6 @@ function AddProductForm(props) {
     const [uploadedFile, setUploadedFile] = useState({});
     const [message, setMessage] = useState('');
     const [uploadPercentage, setUploadPercentage] = useState(0);
-    const [timeToString, setTimeToString] = useState(localStorage.getItem('virtualDateToString'));
     const [expireD, setExpireD] = useState(new Date(localStorage.getItem('virtualDate')));
 
 
@@ -271,12 +268,6 @@ function AddProductForm(props) {
             mounted = false
         };
     }, [numProd]);
-
-
-
-    const handleChange = (newValue) => {
-        setExpireD(newValue);
-    };
 
     function isInt(n) {
         return n % 1 === 0;
@@ -343,7 +334,7 @@ function AddProductForm(props) {
 
             e.preventDefault();
             const formData = new FormData();
-            if (filename != 'Choose File')
+            if (filename !== 'Choose File')
                 formData.append('file', file, nameImg);
             else
                 formData.append('file', file);
@@ -410,7 +401,7 @@ function AddProductForm(props) {
 
             {uploadedFile ? (
                 <div className='col-md-6 m-auto'>
-                    <img style={{ width: '100%' }} src={uploadedFile.filePath} />
+                    <img style={{ width: '100%' }} src={uploadedFile.filePath} alt="product" />
                 </div>
             ) : null}
 
@@ -579,7 +570,7 @@ function EditProductForm(props) {
     } else {
         return (<>
             <Form>
-                <img className="imaEdit" src={require('../../../public/ProductImages/' + "p" + props.productToEdit.Id.toString() + "-1.jpg").default} />
+                <img className="imaEdit" alt="product" src={require('../../../public/ProductImages/p' + props.productToEdit.Id.toString() + "-1.jpg").default} />
                 <Form.Group controlId="formName">
                     <Form.Label>Name</Form.Label>
                     <Form.Control required type='text' defaultValue={props.productToEdit.Name} onChange={ev => setName(ev.target.value)} />

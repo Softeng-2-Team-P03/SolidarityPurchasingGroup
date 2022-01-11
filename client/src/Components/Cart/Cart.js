@@ -17,7 +17,6 @@ function Cart(props) {
     const [value, setValue] = useState(localStorage.getItem('virtualDate'));
     const [dateMin, setDateMin] = useState('');
     const [dateMax, setDateMax] = useState('');
-    let currentDate = localStorage.getItem('virtualDate')
     const [choiceSelect, setChoiceSelect] = useState('0');
     const [dataSelect, setDataSelect] = useState(0);
 

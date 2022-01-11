@@ -99,34 +99,34 @@ function HomePage(prop) {
                     <p>Choose the category and see the fresh products</p>
                     <Row className="items col-md-11">
                         <Col md={2} xs={4} className="box-item ">
-                            <div class="circle-1">
+                            <div className="circle-1">
                                 <img src={window.location.origin + '/images/category/fruit.jpg'} alt="Skanderbeg Square Albania" />
                             </div>
                         </Col>
                         <Col md={2} xs={4} className="box-item ">
 
-                            <div class="circle-1">
+                            <div className="circle-1">
                                 <img src={window.location.origin + '/images/category/dairy.jpg'} alt="Skanderbeg Square Albania" />
                             </div>
 
                         </Col>
                         <Col md={2} xs={4} className="box-item ">
-                            <div class="circle-1">
+                            <div className="circle-1">
                                 <img src={window.location.origin + '/images/category/meat.jpg'} alt="Skanderbeg Square Albania" />
                             </div>
                         </Col>
                         <Col md={2} xs={4} className="box-item ">
-                            <div class="circle-1">
+                            <div className="circle-1">
                                 <img src={window.location.origin + '/images/category/sea.jpg'} alt="Skanderbeg Square Albania" />
                             </div>
                         </Col>
                         <Col md={2} xs={4} className="box-item ">
-                            <div class="circle-1">
+                            <div className="circle-1">
                                 <img src={window.location.origin + '/images/category/bakery.jpg'} alt="Skanderbeg Square Albania" />
                             </div>
                         </Col>
                         <Col md={2} xs={4} className="box-item ">
-                            <div class="circle-1">
+                            <div className="circle-1">
                                 <img src={window.location.origin + '/images/category/beverages.jpg'} alt="Skanderbeg Square Albania" />
                             </div>
                         </Col>
@@ -153,10 +153,10 @@ function SelectionBar() {
     return (
         <div className="selection">
                 <ul>
-                    <li data-testid="shopHook"><a href="#shop"><img src={window.location.origin + '/images/home.png'}></img></a></li>
-                    <li><a href="#info"><img data-testid="infoHook" src={window.location.origin + '/images/information.png'}></img></a></li>
-                    <li data-testid="candidateHook"><a href="#candidate"><img src={window.location.origin + '/images/group.png'}></img></a></li>
-                    <li data-testid="categoryHook"><a href="#category"><img src={window.location.origin + '/images/categories.png'}></img></a></li>
+                    <li data-testid="shopHook"><a href="#shop"><img src={window.location.origin + '/images/home.png'} alt="shop"></img></a></li>
+                    <li><a href="#info"><img data-testid="infoHook" src={window.location.origin + '/images/information.png'} alt="info"></img></a></li>
+                    <li data-testid="candidateHook"><a href="#candidate"><img src={window.location.origin + '/images/group.png'} alt="candidate"></img></a></li>
+                    <li data-testid="categoryHook"><a href="#category"><img src={window.location.origin + '/images/categories.png'} alt="category"></img></a></li>
                 </ul>
         </div>
     );

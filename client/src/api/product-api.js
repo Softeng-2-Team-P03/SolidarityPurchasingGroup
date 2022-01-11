@@ -1,7 +1,6 @@
 /**
  * All the API For Product
  */
-import React from "react";
 const BASEURL = '/api';
 
 async function getProductsByType(category, date) {

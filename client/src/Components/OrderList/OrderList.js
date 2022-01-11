@@ -152,9 +152,9 @@ function OrderList(props) {
                         <th> Actions </th>
                     </tr>
                 </thead>
-                <tbody> {
+                <tbody>{
                     searchOrders.map((or) =>
-                        <Order key={or.BookingID}
+                        <Order key={or.BookingId}
                             order={or} setConfirmationMessage={setConfirmationMessage} setMessage={setShow}
                         />)
                 }

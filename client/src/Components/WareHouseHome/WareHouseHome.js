@@ -73,9 +73,9 @@ function WareHouseHome() {
                         <th width="20%"></th>
                     </tr>
                 </thead>
-                <tbody> {
+                <tbody>{
                     searchProducts.map((pr) =>
-                        <RowData key={pr.Id}
+                        <RowData key={pr.id}
                             product={pr}
                             updateProductState ={updateProductState}
                             
@@ -91,7 +91,6 @@ function WareHouseHome() {
 }
 
 function RowData(props) {
-    console.log("STATUS" +props.product.state);
     return (
         <>
             <tr>
@@ -102,8 +101,8 @@ function RowData(props) {
                         type="switch"
                         id="custom-switch"
                         label="Delivered"    
-                        checked={props.product.state == 2}                    
-                        onClick={() => props.updateProductState(props.product.id)}
+                        checked={props.product.state === 2}                    
+                        onChange={() => props.updateProductState(props.product.id)}
                     />
 
                 </Form></td>
