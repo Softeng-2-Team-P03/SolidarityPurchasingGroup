@@ -22,6 +22,10 @@ describe('Report availability', () => {
         cy.get('[href="/FarmerHome"]').click()
         cy.get('#resetTime').click()
         cy.get('.addP').click()
+        cy.uploadFile('./' + 'testImage', 'jpg', '#customFile');
+        cy.get('#customFile').trigger('change', { force: true })
+       
+        
         cy.get('#formName')
             .type('Apple')
             .should('have.value', 'Apple')
@@ -35,5 +39,5 @@ describe('Report availability', () => {
         cy.get('#formPricePerUnit')
             .type('3')
             .should('have.value', '3')
-        cy.get(':nth-child(4) > .btn').click()
+            cy.get('.modal-body > :nth-child(4) > .btn').click()
     })})
