@@ -26,7 +26,7 @@ it("renders an order with state issued", () => {
             PickupTime: '2021-11-14', DeliveryTime: null, TotalPrice: 22.5
         }} />)
 
-    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 Issued 2021\-11\-14 22\.5 click to hand it out delete order/i });
+    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 Issued 2021\-11\-14 22\.50 click to hand it out delete order/i });
     expect(row).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /22\.5/i })).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /click to hand it out/i })).not.toBeNull();
@@ -38,10 +38,10 @@ it("renders an order with state pending for cancelation", () => {
     const { getByRole } = render(
         <Order order={{
             BookingId: 1, UserName: 'Luca', UserSurname: 'Abruzzi', BookingStartDate: '2021-11-12 09:35', State: 'Pending for cancelation',
-            PickupTime: '2021-11-14', DeliveryTime: null, TotalPrice: 22.5
+            PickupTime: '2021-11-14', DeliveryTime: null, TotalPrice: 22.5, Wallet: 20
         }} />)
 
-    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 pending for cancelation 2021\-11\-14 22\.5 click to hand it out contact user delete order/i });
+    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 pending for cancelation 2021\-11\-14 22\.50 click to hand it out contact user delete order/i });
     expect(row).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /22\.5/i })).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /click to hand it out/i })).not.toBeNull();
@@ -56,7 +56,7 @@ it("renders an order with state paid", () => {
             PickupTime: null, DeliveryTime: '2021-11-14 21:00', TotalPrice: 25.5
         }} />)
 
-    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 paid 2021\-11\-14 21:00 25\.5 click to hand it out delete order/i });
+    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 paid 2021\-11\-14 21:00 25\.50 click to hand it out delete order/i });
     expect(row).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /25\.5/i })).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /click to hand it out/i })).not.toBeNull();
@@ -71,7 +71,7 @@ it("renders an order with state handed out", () => {
             PickupTime: null, DeliveryTime: '2021-11-14 21:00', TotalPrice: 27.5
         }} />)
 
-    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 handed out 2021\-11\-14 21:00 27\.5 click to hand it out delete order/i });
+    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 handed out 2021\-11\-14 21:00 27\.50 click to hand it out delete order/i });
     expect(row).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /27\.5/i })).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /click to hand it out/i })).not.toBeNull();
@@ -86,7 +86,7 @@ it("renders an order with state handed out", () => {
             PickupTime: null, DeliveryTime: '2021-11-14 21:00', TotalPrice: 27.5
         }} />)
 
-    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 handed out 2021\-11\-14 21:00 27\.5 click to hand it out delete order/i });
+    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 handed out 2021\-11\-14 21:00 27\.50 click to hand it out delete order/i });
     expect(row).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /27\.5/i })).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /click to hand it out/i })).not.toBeNull();
@@ -101,7 +101,7 @@ it("renders an order with state canceled", () => {
             PickupTime: null, DeliveryTime: '2021-11-14 21:00', TotalPrice: 27.5
         }} />)
 
-    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 canceled 2021\-11\-14 21:00 27\.5 click to hand it out delete order/i });
+    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 canceled 2021\-11\-14 21:00 27\.50 click to hand it out delete order/i });
     expect(row).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /27\.5/i })).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /click to hand it out/i })).not.toBeNull();
@@ -116,7 +116,7 @@ it("renders an order with state created", () => {
             PickupTime: null, DeliveryTime: '2021-11-14 21:00', TotalPrice: 27.5
         }} />)
 
-    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 created 2021\-11\-14 21:00 27\.5 click to hand it out delete order/i });
+    const row = getByRole('row', { name: /1 Luca Abruzzi 2021\-11\-12 09:35 created 2021\-11\-14 21:00 27\.50 click to hand it out delete order/i });
     expect(row).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /27\.5/i })).not.toBeNull();
     expect(within(row).getByRole('cell', { name: /click to hand it out/i })).not.toBeNull();
@@ -143,7 +143,7 @@ it("clicks on button contact user", () => {
     expect(getByText(/name : luca abruzzi/i)).not.toBeNull();
     expect(getByText(/phone number : 03609493647/i)).not.toBeNull();
     expect(getByText(/email : luca@spg\.com/i)).not.toBeNull();
-    expect(getByText(/total price for this order : 22\.5 \- actual wallet : 1/i)).not.toBeNull();
+    expect(getByText(/total price for this order : 22\.50 \- actual wallet : 1/i)).not.toBeNull();
 })
 
 it("clicks on delete order button", () => {
