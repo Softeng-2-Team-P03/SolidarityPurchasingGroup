@@ -115,4 +115,4 @@ function RowData(props) {
 
 
 
-export { WareHouseHome };
+export { WareHouseHome, RowData };
