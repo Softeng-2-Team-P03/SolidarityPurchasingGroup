@@ -18,7 +18,6 @@ describe('Check Orders Pending Cancelation', () => {
             .should('have.value', 'Mnbvcxz1234')
         cy.get('.btn').click()
         cy.get('[href="/orders"]').click()
-        cy.get(':nth-child(1) > :nth-child(8) > .row > .col-4 > span > .d-none').click()
 
     })
 })
