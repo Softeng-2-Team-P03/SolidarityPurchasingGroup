@@ -207,7 +207,7 @@ function UnretrievedFood() {
 
             //per mese
             for (i=0;i<12;i++) {
-                foodM = await API.getUnretrievedOfMonth(i+1,2021);
+                foodM = await API.getUnretrievedOfMonth(i+1,now.getFullYear());
                 yearFood.push(foodM.length);
             }
 
