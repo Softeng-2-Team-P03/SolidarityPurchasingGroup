@@ -271,7 +271,7 @@ exports.getUnretrievedFoodByWeek = (saturdayDate) => {
 
       }
 
-      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType, PickupTime: e.PickupTime }));
+      const UnretrievedProducts = rows.map((e) => ({ Id: e.Id, Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType, PickupTime: e.PickupTime }));
       resolve(UnretrievedProducts);
     });
   });
@@ -299,7 +299,7 @@ exports.getUnretrievedFoodByMonth = (monthNum, year) => {
 
       }
 
-      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType, PickupTime: e.PickupTime }));
+      const UnretrievedProducts = rows.map((e) => ({ Id: e.Id, Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType, PickupTime: e.PickupTime }));
       resolve(UnretrievedProducts);
     });
   });
@@ -319,7 +319,7 @@ exports.getUnretrievedFoodByProductId = (productId) => {
 
       }
 
-      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType, PickupTime: e.PickupTime }));
+      const UnretrievedProducts = rows.map((e) => ({ Id: e.Id, Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType, PickupTime: e.PickupTime }));
       resolve(UnretrievedProducts);
     });
   });
@@ -339,7 +339,7 @@ exports.getUnretrievedFoodByProductType = (productType) => {
 
       }
 
-      const UnretrievedProducts = rows.map((e) => ({ Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType, PickupTime: e.PickupTime }));
+      const UnretrievedProducts = rows.map((e) => ({ Id: e.Id, Date: e.Date, ProductId: e.ProductId, UnretrievedQuantity: e.UnretrievedQuantity, ProductType: e.ProductType, PickupTime: e.PickupTime }));
       resolve(UnretrievedProducts);
     });
   });
